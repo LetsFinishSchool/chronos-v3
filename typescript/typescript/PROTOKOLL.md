@@ -37,3 +37,5 @@ Beginn 2026-11-20T20:53Z, Ende ca. 20:59Z. Berührt: **eine** Datei (`src/domain
 Zusatzänderung (kein N-1-Aufwand): K5-Korrektur oben (`worker.ts`, `db.ts`).
 
 PHASE-2-FERTIG 2026-11-20T20:59:14Z
+
+FERTIG 2026-11-20T20:59:17Z
