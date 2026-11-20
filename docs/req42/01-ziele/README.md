@@ -5,14 +5,17 @@ status: entwurf
 
 # Ziele
 
-Produktziele von Chronos in der Form PAM (Purpose, Advantage, Metric). `verknuepft` nennt die Stakeholder, deren Ziel es ist. Die Metriken nennen Messgröße und Datenquelle aus dem Code; Zielwerte und Zeiträume legt der Product Owner fest ([RA-013](../12-risiken-annahmen/RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md)). Produktvision: [docs/vision/product-vision.md](../../vision/product-vision.md).
+Produktziele in der Form PAM (Purpose, Advantage, Metric). Zielwerte mit **(?)** legt der Product Owner fest ([RA-008](../12-risiken-annahmen/RA-008-offene-fragen.md)). Die Alt-Ziele aus chronos-root wurden bewusst nicht übernommen (Neuanfang); sie stehen in der Git-Historie.
 
-| ID | Titel | Datei |
-|---|---|---|
-| Z-001 | Termine gemeinsam planen und Teilnahme nachverfolgen | [Z-001-termine-gemeinsam-planen-und-teilnahme-nachverfolgen.md](Z-001-termine-gemeinsam-planen-und-teilnahme-nachverfolgen.md) |
-| Z-002 | Rückmeldungen ohne Nachfragen erhalten | [Z-002-rueckmeldungen-ohne-nachfragen-erhalten.md](Z-002-rueckmeldungen-ohne-nachfragen-erhalten.md) |
-| Z-003 | Gruppen und Freundeskreise abbilden | [Z-003-gruppen-und-freundeskreise-abbilden.md](Z-003-gruppen-und-freundeskreise-abbilden.md) |
-| Z-004 | Sicherer und datenschutzkonformer Betrieb | [Z-004-sicherer-und-datenschutzkonformer-betrieb.md](Z-004-sicherer-und-datenschutzkonformer-betrieb.md) |
-| Z-006 | Nutzungserkenntnisse für die Produktentwicklung gewinnen | [Z-006-nutzungserkenntnisse-fuer-die-produktentwicklung-gewinnen.md](Z-006-nutzungserkenntnisse-fuer-die-produktentwicklung-gewinnen.md) |
-
-Entfallene IDs (nicht wiederverwenden): Z-005 (entfallen).
+| ID | Titel | Status | Datei |
+|---|---|---|---|
+| Z-001 | Termine abstimmen und Teilnahme nachverfolgen | entwurf | [Z-001-termine-abstimmen-und-teilnahme-nachverfolgen.md](Z-001-termine-abstimmen-und-teilnahme-nachverfolgen.md) |
+| Z-002 | Zuverlässig und nachvollziehbar benachrichtigen | entwurf | [Z-002-zuverlaessig-und-nachvollziehbar-benachrichtigen.md](Z-002-zuverlaessig-und-nachvollziehbar-benachrichtigen.md) |
+| Z-003 | Leitungsarbeit in Team-Strukturen abbilden | entwurf | [Z-003-leitungsarbeit-in-team-strukturen-abbilden.md](Z-003-leitungsarbeit-in-team-strukturen-abbilden.md) |
+| Z-004 | Zugang ohne Hürde | entwurf | [Z-004-zugang-ohne-huerde.md](Z-004-zugang-ohne-huerde.md) |
+| Z-005 | Schlank betreiben und leicht weiterentwickeln | entwurf | [Z-005-schlank-betreiben-und-leicht-weiterentwickeln.md](Z-005-schlank-betreiben-und-leicht-weiterentwickeln.md) |
+| Z-006 | Bestandsdaten verlustfrei übernehmen | entwurf | [Z-006-bestandsdaten-verlustfrei-uebernehmen.md](Z-006-bestandsdaten-verlustfrei-uebernehmen.md) |
+| Z-007 | Datensparsam und datenschutzkonform betreiben | entwurf | [Z-007-datensparsam-und-datenschutzkonform-betreiben.md](Z-007-datensparsam-und-datenschutzkonform-betreiben.md) |
+| Z-008 | Komplexe Aufgaben mühelos erledigen | entwurf | [Z-008-komplexe-aufgaben-muehelos-erledigen.md](Z-008-komplexe-aufgaben-muehelos-erledigen.md) |
+| Z-009 | Benachrichtigungen sparsam halten | entwurf | [Z-009-benachrichtigungen-sparsam-halten.md](Z-009-benachrichtigungen-sparsam-halten.md) |
+| Z-010 | Rückmeldungen automatisch einholen | entwurf | [Z-010-rueckmeldungen-automatisch-einholen.md](Z-010-rueckmeldungen-automatisch-einholen.md) |

@@ -3,32 +3,28 @@ id: SC-002
 title: Im und nicht im Scope
 status: entwurf
 typ: scope
-quellen: [docs/vision/product-vision.md, frontend/app/pages/, backend/src/main/java/de/chronos_live/chronos_date_api/presentation/]
-verknuepft: []
+quellen: [Gespräch mit dem Product Owner 2026-11-20]
+verknuepft: [SH-001]
 ---
 
 # SC-002: Im und nicht im Scope
 
-Die Grenze des Produkts verläuft zwischen dem System und den Nachbarn aus [SC-001](SC-001-systemkontext-akteure-und-nachbarsysteme.md). Der Product Owner bestätigt die Abgrenzung ([RA-013](../12-risiken-annahmen/RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md)).
+**Im Scope:**
+- Teams und beliebig tiefe Unter-Teams, Mitglieder, Einladungslinks ([F-001](../04-product-backlog/features/F-001-teams-und-unter-teams.md), [F-002](../04-product-backlog/features/F-002-mitglieder-und-einladungslink.md)).
+- Interne Termine (Treffen mit Rückmeldung, Fristen und Marken) und Veranstaltungen als Klammer ([F-003](../04-product-backlog/features/F-003-termine.md), [F-004](../04-product-backlog/features/F-004-veranstaltungen.md)).
+- Rückmeldung Zusage/Absage/Zeitweise, Terminfindung per Abstimmung ([F-005](../04-product-backlog/features/F-005-rueckmeldung.md), [F-006](../04-product-backlog/features/F-006-terminfindung.md)).
+- Labels für Rollen und Aufgaben ([F-007](../04-product-backlog/features/F-007-labels.md)).
+- Benachrichtigung über Web Push und E-Mail, Kalender-Feed, Terminnachrichten ([F-008](../04-product-backlog/features/F-008-benachrichtigungen.md) bis [F-010](../04-product-backlog/features/F-010-terminnachrichten.md)).
+- Serientermine mit vollen RRULE-Regeln und Schulferien-Ausnahmen ([F-014](../04-product-backlog/features/F-014-serientermine.md)).
+- KI-Assistent für komplexe Operationen und Bulk-Aktionen, dauerhafte Zeitraumsregeln ([F-015](../04-product-backlog/features/F-015-ki-assistent.md), [F-016](../04-product-backlog/features/F-016-zeitraumsregeln.md)).
+- Rückgängig machen aller Änderungen, Kostenerfassung je Benutzer/Team ([F-017](../04-product-backlog/features/F-017-rueckgaengig-machen.md), [F-018](../04-product-backlog/features/F-018-kostenerfassung.md)).
+- Mehrsprachigkeit Deutsch/Englisch ([RB-001](../07-randbedingungen/RB-001-mehrsprachigkeit.md)).
+- Anmeldung, Datenübernahme, rechtliche Seiten ([F-011](../04-product-backlog/features/F-011-anmeldung-und-konto.md) bis [F-013](../04-product-backlog/features/F-013-rechtliche-seiten.md)).
 
-**Im Scope** (Features: [04-product-backlog/features](../04-product-backlog/features/README.md)):
-- Termine anlegen, ändern, verschieben, absagen und suchen (F-001, F-002, F-003).
-- Personen und Gruppen zu Terminen einladen und Rollen vergeben (F-004, F-007), Zu- und Absage (F-005).
-- Freundschaften und Gruppen verwalten (F-006, F-008).
-- Nachrichten im Kontext eines Termins (F-009).
-- Push-Benachrichtigungen, Erinnerungen und deren Einstellungen (F-010 bis F-012).
-- Anmeldung über Keycloak, Profilpflege, Administration (F-013 bis F-015).
-- Nutzerumfrage, PWA-Installation, Impressum und Datenschutzerklärung, Teilen und Neuigkeiten (F-016 bis F-020).
+**Nicht im Scope (bewusst):**
+- **Kinder und Eltern** als Nutzer. Chronos verwaltet keine Teilnehmer von Veranstaltungen, keine Anmeldungen und keine öffentliche Veranstaltungsseite; eine Veranstaltung ist nur interne Klammer und Planungsobjekt der Leitung.
+- Freundschaften und persönliche Netzwerke (entfallen gegenüber chronos-root).
+- Allgemeiner Kalender, Chat-Ersatz außerhalb von Terminen.
+- Eigene Benutzer- und Passwortverwaltung (liegt bei Keycloak).
 
-**Bewusst ausgeschlossen** (laut [Produktvision](../../vision/product-vision.md), noch nicht freigegeben):
-- Chronos ist kein allgemeiner Kalender.
-- Chronos ist kein Chat-Ersatz; Nachrichten gibt es nur im Kontext eines Termins.
-
-**Im Code nicht vorhanden** (keine Absicht erkennbar):
-- Benachrichtigung per E-Mail; es gibt nur Web Push ([RB-006](../07-randbedingungen/RB-006-benachrichtigung-nur-ueber-web-push.md)).
-- Eigene Benutzer- und Passwortverwaltung; sie liegt bei Keycloak ([RB-002](../07-randbedingungen/RB-002-identitaetsprovider-ist-keycloak.md)).
-- Löschen des eigenen Kontos in der App; der Löschaufruf wird mit `405` abgelehnt, nur Administratoren löschen Benutzer ([FA-014](../04-product-backlog/anforderungen/FA-014-profil-und-konto-verwalten.md)).
-- Mehrsprachigkeit ([RB-001](../07-randbedingungen/RB-001-alle-ui-texte-sind-deutsch.md)).
-- Fehlerberichte an Sentry ([SC-001](SC-001-systemkontext-akteure-und-nachbarsysteme.md)).
-
-**Geplant, aber noch nicht umgesetzt:** Teams statt Freunde, Einladungslinks, Termin-Typen, Terminfindung, Kalender-Feed, externe Teilnehmer, Rückmeldeoption „Zeitweise“ (siehe [Roadmap](../11-roadmaps/README.md)).
+**Optional / später:** Messenger-Kanäle (Telegram, WhatsApp), Übernahme der Push-Geräteabos aus chronos-root.

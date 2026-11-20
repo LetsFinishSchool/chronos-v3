@@ -5,7 +5,7 @@ status: entwurf
 
 # Ticket-Typen: Epic, Feature, User-Story, Task
 
-Definition der Granularitätsstufen des Product Backlogs. Der Ist-Zustand steht in [Features](features/README.md) (`F-nnn`) und [Anforderungen](anforderungen/README.md) (`FA-nnn`); neue Arbeit entsteht als GitHub-Ticket des jeweiligen Typs (Label `epic`, `feature`, `story`, `task`). Rang und Priorität legt der Product Owner fest ([RA-013](../12-risiken-annahmen/RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md)). Rollen und Ablauf: [TS-001](../10-teamstruktur/TS-001-rollen-und-zusammenarbeit.md).
+Definition der Granularitätsstufen des Product Backlogs. Der Stand steht in [Features](features/README.md) (`F-nnn`) und [Anforderungen](anforderungen/README.md) (`FA-nnn`); neue Arbeit entsteht als GitHub-Ticket des jeweiligen Typs (Label `epic`, `feature`, `story`, `task`). Rang und Priorität legt der Product Owner fest ([RA-008](../12-risiken-annahmen/RA-008-offene-fragen.md)). Rollen und Ablauf: [TS-001](../10-teamstruktur/TS-001-rollen-und-zusammenarbeit.md).
 
 ## 1. Überblick und Abgrenzung
 
@@ -112,10 +112,10 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 
 **Task – DoD**
 - Umsetzung entspricht „Fertig, wenn“ und dem Ziel; nichts außerhalb des Umfangs geändert.
-- Tests geschrieben bzw. angepasst; Qualitätsprüfungen des Bereichs grün ([RB-008](../07-randbedingungen/RB-008-qualitaetspruefungen-vor-dem-merge.md)).
+- Tests geschrieben bzw. angepasst; Qualitätsprüfungen des Bereichs grün (Prüfungen werden in der Entwicklung festgelegt).
 - PR `Resolve #<Ticket>: <Titel>`, Body beginnt mit `Closes #<Ticket>`, gegen `main`/`develop`; CI grün.
-- Review erfolgt, Konflikte gelöst, PR gemergt (Mensch, [RB-005](../07-randbedingungen/RB-005-aenderungen-an-main-nur-per-pull-request.md)).
-- Keine Geheimnisse im Diff ([RB-011](../07-randbedingungen/RB-011-keine-geheimnisse-und-lokale-agent-einstellungen-im-repository.md)); Datenbankmigrationen nur vorwärts; Oberflächentexte deutsch ([RB-001](../07-randbedingungen/RB-001-alle-ui-texte-sind-deutsch.md)).
+- Review erfolgt, Konflikte gelöst, PR gemergt (Mensch).
+- Keine Geheimnisse im Diff ([RB-011](../07-randbedingungen/RB-008-keine-geheimnisse-im-repository.md)); Datenbankmigrationen nur vorwärts; Oberflächentexte übersetzbar, Deutsch und Englisch ([RB-001](../07-randbedingungen/RB-001-mehrsprachigkeit.md)).
 - `docs/` nicht verändert; Erkenntnisse im Wiki festgehalten (`wiki/log.md`), Widersprüche als Vorschlag in `wiki/proposals/`.
 
 **User-Story – DoD**
@@ -135,7 +135,7 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 **Epic – DoD**
 - Alle Features erledigt oder bewusst gestrichen (jeweils begründet im Epic).
 - Erfolgskriterien geprüft und Ergebnis im Epic festgehalten; Ziel (Z-nnn) erreicht oder Abweichung benannt.
-- Produktiv ausgerollt ([RB-010](../07-randbedingungen/RB-010-zwei-umgebungen-produktion-und-staging.md)), Bestandsdaten migriert, Altlasten entfernt.
+- Produktiv ausgerollt ([RB-010](../07-randbedingungen/RB-005-betrieb-auf-geteiltem-k3s-cluster.md)), Bestandsdaten migriert, Altlasten entfernt.
 - Roadmap-Eintrag (`RM-nnn`) aktualisiert, offene `needs-po`/`follow-up`-Tickets abgearbeitet oder verschoben, Rückblick (was gelernt?) im Wiki.
 - Product Owner schließt das Epic.
 

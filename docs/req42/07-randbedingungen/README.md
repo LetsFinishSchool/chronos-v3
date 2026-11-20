@@ -5,29 +5,18 @@ status: entwurf
 
 # Randbedingungen
 
-Vorgaben, die die Lösung einschränken. Architekturentscheidungen stehen in arc42 ([Kapitel 9](../../arc42/09-entscheidungen/00-kapitelbeschreibung.md)), zusätzliche technische Randbedingungen in [Kapitel 2](../../arc42/02-randbedingungen/00-kapitelbeschreibung.md); beide nach dem Neuanfang noch zu erstellen.
+Einschränkungen für Lösungen. Alt-Randbedingungen aus chronos-root (Web-Push-only, Zwei-Umgebungen-Helm) wurden überprüft: Web-Push-only ist durch die neuen Kanäle ersetzt.
 
-## Organisatorische Randbedingungen
-
-| ID | Titel | Datei |
-|---|---|---|
-| RB-001 | Alle UI-Texte sind deutsch | [RB-001-alle-ui-texte-sind-deutsch.md](RB-001-alle-ui-texte-sind-deutsch.md) |
-| RB-005 | Änderungen an main nur per Pull Request | [RB-005-aenderungen-an-main-nur-per-pull-request.md](RB-005-aenderungen-an-main-nur-per-pull-request.md) |
-| RB-008 | Qualitätsprüfungen vor dem Merge | [RB-008-qualitaetspruefungen-vor-dem-merge.md](RB-008-qualitaetspruefungen-vor-dem-merge.md) |
-| RB-010 | Zwei Umgebungen: Produktion und Staging | [RB-010-zwei-umgebungen-produktion-und-staging.md](RB-010-zwei-umgebungen-produktion-und-staging.md) |
-| RB-011 | Keine Geheimnisse und lokale Agent-Einstellungen im Repository | [RB-011-keine-geheimnisse-und-lokale-agent-einstellungen-im-repository.md](RB-011-keine-geheimnisse-und-lokale-agent-einstellungen-im-repository.md) |
-
-## Technische Randbedingungen
-
-| ID | Titel | Datei |
-|---|---|---|
-| RB-002 | Identitätsprovider ist Keycloak | [RB-002-identitaetsprovider-ist-keycloak.md](RB-002-identitaetsprovider-ist-keycloak.md) |
-| RB-006 | Benachrichtigung nur über Web Push | [RB-006-benachrichtigung-nur-ueber-web-push.md](RB-006-benachrichtigung-nur-ueber-web-push.md) |
-
-## Rechtliche Randbedingungen
-
-| ID | Titel | Datei |
-|---|---|---|
-| RB-014 | Datenschutz nach DSGVO und Impressumspflicht | [RB-014-datenschutz-nach-dsgvo-und-impressumspflicht.md](RB-014-datenschutz-nach-dsgvo-und-impressumspflicht.md) |
-
-Entfallene IDs (nicht wiederverwenden): RB-003 (Flyway nur vorwärts), RB-004 (Frontend nur über Server-Routen), RB-007 (SPA ohne SSR), RB-013 (Technologiebasis): Architekturentscheidungen bzw. Konzepte, stehen in arc42. RB-009 (Tests) ging in RB-008 auf. RB-012 (geleakter Schlüssel) ist ein Risiko (früher arc42 R-001, siehe Git-Historie).
+| ID | Titel | Status | Datei |
+|---|---|---|---|
+| RB-001 | Mehrsprachigkeit (Deutsch und Englisch) | entwurf | [RB-001-mehrsprachigkeit.md](RB-001-mehrsprachigkeit.md) |
+| RB-002 | Identitätsdienst Keycloak | entwurf | [RB-002-identitaetsdienst-keycloak.md](RB-002-identitaetsdienst-keycloak.md) |
+| RB-003 | Ressourcenbudget | entwurf | [RB-003-ressourcenbudget.md](RB-003-ressourcenbudget.md) |
+| RB-004 | Datenübernahme aus chronos-root | entwurf | [RB-004-datenuebernahme-aus-chronos-root.md](RB-004-datenuebernahme-aus-chronos-root.md) |
+| RB-005 | Betrieb auf geteiltem k3s-Cluster | entwurf | [RB-005-betrieb-auf-geteiltem-k3s-cluster.md](RB-005-betrieb-auf-geteiltem-k3s-cluster.md) |
+| RB-006 | Datenschutz und Impressum | entwurf | [RB-006-datenschutz-und-impressum.md](RB-006-datenschutz-und-impressum.md) |
+| RB-007 | Entwicklungsprozess und Qualitätsprüfungen (keine Randbedingung) | entfallen | [RB-007-aenderungen-nur-per-pull-request.md](RB-007-aenderungen-nur-per-pull-request.md) |
+| RB-008 | Keine Geheimnisse im Repository | entwurf | [RB-008-keine-geheimnisse-im-repository.md](RB-008-keine-geheimnisse-im-repository.md) |
+| RB-009 | Wissen im Wiki, kein Agenten-Gedächtnis | entwurf | [RB-009-wissen-im-wiki.md](RB-009-wissen-im-wiki.md) |
+| RB-010 | Kostenzuordnung je Benutzer oder Team | entwurf | [RB-010-kostenzuordnung.md](RB-010-kostenzuordnung.md) |
+| RB-011 | Einfache Weboberfläche, vollständige Funktionen über den Assistenten | entwurf | [RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md](RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
