@@ -16,7 +16,7 @@ Anforderungen nach [req42](https://www.req42.de/) mit den 12 Artefakten. Jede En
 | 5 | [05-modelle/](05-modelle/README.md) | Modelle | `M-nnn` |
 | 6 | [06-qualitaet/](06-qualitaet/README.md) | Qualitätsanforderungen | `QA-nnn` |
 | 7 | [07-randbedingungen/](07-randbedingungen/README.md) | Randbedingungen | `RB-nnn` |
-| 8 | [08-terminologie/](08-terminologie/README.md) | Verweis auf das Glossar in arc42 | – |
+| 8 | [08-terminologie/](08-terminologie/README.md) | Glossar (neu aufzubauen) | – |
 | 9 | [09-betriebsmittel-personal/](09-betriebsmittel-personal/README.md) | Betriebsmittel und Personal | `BM-nnn` |
 | 10 | [10-teamstruktur/](10-teamstruktur/README.md) | Teamstruktur | `TS-nnn` |
 | 11 | [11-roadmaps/](11-roadmaps/README.md) | Roadmap | `RM-nnn` |
@@ -26,4 +26,4 @@ Anforderungen nach [req42](https://www.req42.de/) mit den 12 Artefakten. Jede En
 
 **IDs sind stabil.** Einträge werden nie umnummeriert und IDs entfallener Einträge nie wiederverwendet; ersetzte Einträge erhalten `status: ersetzt` mit Verweis. Entfallene IDs stehen in den Ordner-READMEs. Tickets, Tests und das Wiki verweisen auf diese IDs.
 
-**Abgrenzung:** Dokumentiert ist, was Chronos in Betrieb leistet. Technische Lösung, Konzepte und Entscheidungen stehen in [arc42](../arc42/README.md), das Glossar dort in Kapitel 12.
+**Abgrenzung:** Dokumentiert ist, was Chronos in Betrieb leistet. Technische Lösung, Konzepte und Entscheidungen stehen in [arc42](../arc42/README.md), das Glossar dort in Kapitel 12 (nach dem Neuanfang noch leer).

@@ -36,4 +36,4 @@ flowchart LR
 
 Sentry ist kein Nachbar: Das Deployment kennt Zugangsdaten (`NUXT_PUBLIC_SENTRY_DSN`, `SENTRY_AUTH_TOKEN`) und die Konfiguration einen DSN-Eintrag; weder Frontend noch Backend enthalten eine Anbindung, es werden keine Fehlerberichte übertragen.
 
-Technische Schnittstellen, Protokolle und Ports stehen im arc42-Kapitel [03 Kontext und Abgrenzung](../../arc42/03-kontext/README.md); Begriffe im [Glossar](../../arc42/12-glossar/README.md).
+Technische Schnittstellen, Protokolle und Ports stehen im arc42-Kapitel [03 Kontext und Abgrenzung](../../arc42/03-kontext/00-kapitelbeschreibung.md); Begriffe im [Glossar](../../arc42/12-glossar/00-kapitelbeschreibung.md) (beide nach dem Neuanfang noch zu erstellen).

@@ -15,7 +15,7 @@ Dieser Bereich enthält die **verbindlichen** Dokumente zu Chronos. Er gehört M
    *vorschlagen* (PR oder Datei in `wiki/proposals/`), aber nie selbst freigeben oder automatisch mergen.
 2. **Nur Verbindliches.** Was hier steht, gilt. Beobachtungen, Vermutungen und Gelerntes stehen im [wiki/](../wiki/README.md).
 3. **Änderungen sind Entscheidungen.** Jeder PR nennt Anlass (Ticket/Gespräch) und Wirkung. Ändert sich eine
-   Architekturentscheidung, wird sie in `arc42/09-entscheidungen.md` ersetzt, nicht stillschweigend überschrieben.
+   Architekturentscheidung, wird sie in `arc42/09-entscheidungen/` ersetzt, nicht stillschweigend überschrieben.
 4. **Sprache.** Deutsch, wie die Oberfläche. Code-Namen bleiben englisch (Zuordnung: Glossar).
 5. **Status im Frontmatter.** `status: entwurf | freigegeben`, `freigegeben-am`, `freigegeben-von`. Entwürfe gelten noch nicht.
 6. **Eine Datei, ein Thema.** Kurz halten; Details gehören in Code, Tests oder das Wiki, nicht hierher.

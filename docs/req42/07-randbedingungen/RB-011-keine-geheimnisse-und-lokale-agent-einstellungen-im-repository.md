@@ -10,4 +10,4 @@ verknuepft: []
 
 # RB-011: Keine Geheimnisse und lokale Agent-Einstellungen im Repository
 
-Das Repository ist öffentlich. Geheimnisse (Schlüssel, Tokens, Passwörter) und `.claude/settings.local.json` gelangen nie hinein; die CI prüft das (Hygiene-Workflow bei jedem Push und Pull Request, Geheimnissuche im Frontend-Workflow). Die Historie wird bewusst nicht umgeschrieben; offener Befund: [arc42 R-001](../../arc42/11-risiken/README.md).
+Das Repository ist öffentlich. Geheimnisse (Schlüssel, Tokens, Passwörter) und `.claude/settings.local.json` gelangen nie hinein; die CI prüft das (Hygiene-Workflow bei jedem Push und Pull Request, Geheimnissuche im Frontend-Workflow). Die Historie wird bewusst nicht umgeschrieben; offener Befund: geleakter Schlüssel in der Git-Historie (arc42-Risiko R-001 entfiel beim Neuanfang, siehe Git-Historie).

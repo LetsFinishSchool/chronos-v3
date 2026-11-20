@@ -5,7 +5,7 @@ status: entwurf
 
 # Randbedingungen
 
-Vorgaben, die die Lösung einschränken. Architekturentscheidungen stehen in arc42 ([Kapitel 9](../../arc42/09-entscheidungen/README.md)), zusätzliche technische Randbedingungen in [Kapitel 2](../../arc42/02-randbedingungen/README.md).
+Vorgaben, die die Lösung einschränken. Architekturentscheidungen stehen in arc42 ([Kapitel 9](../../arc42/09-entscheidungen/00-kapitelbeschreibung.md)), zusätzliche technische Randbedingungen in [Kapitel 2](../../arc42/02-randbedingungen/00-kapitelbeschreibung.md); beide nach dem Neuanfang noch zu erstellen.
 
 ## Organisatorische Randbedingungen
 
@@ -30,4 +30,4 @@ Vorgaben, die die Lösung einschränken. Architekturentscheidungen stehen in arc
 |---|---|---|
 | RB-014 | Datenschutz nach DSGVO und Impressumspflicht | [RB-014-datenschutz-nach-dsgvo-und-impressumspflicht.md](RB-014-datenschutz-nach-dsgvo-und-impressumspflicht.md) |
 
-Entfallene IDs (nicht wiederverwenden): RB-003 (Flyway nur vorwärts), RB-004 (Frontend nur über Server-Routen), RB-007 (SPA ohne SSR), RB-013 (Technologiebasis): Architekturentscheidungen bzw. Konzepte, stehen in arc42. RB-009 (Tests) ging in RB-008 auf. RB-012 (geleakter Schlüssel) ist ein Risiko, siehe arc42 R-001.
+Entfallene IDs (nicht wiederverwenden): RB-003 (Flyway nur vorwärts), RB-004 (Frontend nur über Server-Routen), RB-007 (SPA ohne SSR), RB-013 (Technologiebasis): Architekturentscheidungen bzw. Konzepte, stehen in arc42. RB-009 (Tests) ging in RB-008 auf. RB-012 (geleakter Schlüssel) ist ein Risiko (früher arc42 R-001, siehe Git-Historie).

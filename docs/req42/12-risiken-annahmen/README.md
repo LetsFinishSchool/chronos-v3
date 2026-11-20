@@ -5,7 +5,7 @@ status: entwurf
 
 # Risiken und Annahmen
 
-Produktrisiken und -annahmen. Wahrscheinlichkeit und Schadenshöhe sind Einschätzungen aus dem Code; mit **(?)** markierte Angaben bestätigt der Product Owner (Detail in der jeweiligen Datei). Alle Festlegungen, die nur ein Mensch treffen kann (Zielwerte, Zeitplan, Budget, Priorität usw.), stehen gebündelt in [RA-013](RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md); nur dort, hier in Kapitel 12 und in der [Roadmap](../11-roadmaps/README.md) darf **(?)** stehen. Technische Risiken und Schulden stehen in arc42 [Kapitel 11](../../arc42/11-risiken/README.md) (u. a. geleakter Schlüssel in der Historie, Keycloak als Single Point of Failure, Abhängigkeit vom Service Worker, nicht erzwungene Freigabe von `docs/`).
+Produktrisiken und -annahmen. Wahrscheinlichkeit und Schadenshöhe sind Einschätzungen aus dem Code; mit **(?)** markierte Angaben bestätigt der Product Owner (Detail in der jeweiligen Datei). Alle Festlegungen, die nur ein Mensch treffen kann (Zielwerte, Zeitplan, Budget, Priorität usw.), stehen gebündelt in [RA-013](RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md); nur dort, hier in Kapitel 12 und in der [Roadmap](../11-roadmaps/README.md) darf **(?)** stehen. Technische Risiken und Schulden stehen in arc42 [Kapitel 11](../../arc42/11-risiken/00-kapitelbeschreibung.md) (nach dem Neuanfang noch zu erstellen) (u. a. geleakter Schlüssel in der Historie, Keycloak als Single Point of Failure, Abhängigkeit vom Service Worker, nicht erzwungene Freigabe von `docs/`).
 
 ## Risiken
 

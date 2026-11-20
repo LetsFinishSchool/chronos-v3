@@ -37,4 +37,4 @@ erDiagram
 | Push-Protokoll | Zustellversuch mit Person, Ereignistyp, Ergebnis (Erfolg, HTTP-Status), Fehlertext und Zeitpunkt ([FA-004](../04-product-backlog/anforderungen/FA-004-push-benachrichtigungen.md)) |
 | Einstellungen | Benachrichtigungsstufen je Ereignisart ([M-007](M-007-benachrichtigungsmatrix.md)) |
 
-Begriffe: [Glossar](../../arc42/12-glossar/README.md). Technische Umsetzung: arc42, [Kapitel 8](../../arc42/08-konzepte/README.md).
+Begriffe: [Glossar](../../arc42/12-glossar/00-kapitelbeschreibung.md) (nach dem Neuanfang noch zu erstellen). Technische Umsetzung: arc42, [Kapitel 8](../../arc42/08-konzepte/00-kapitelbeschreibung.md) (noch zu erstellen).
