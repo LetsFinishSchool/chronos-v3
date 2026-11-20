@@ -1,6 +1,7 @@
 // S-10: erzeugt bridge/generated/operations.ts aus GET $BASE_URL/api/v1/operations.
 // Typen entstehen mit der Bibliothek json-schema-to-typescript; hier steht nur der Leim.
 import { compile } from "json-schema-to-typescript";
+import http from "node:http";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,9 +9,14 @@ import { fileURLToPath } from "node:url";
 const baseUrl = process.env.BASE_URL ?? "http://localhost:10080";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "bridge", "generated");
 
-const res = await fetch(`${baseUrl}/api/v1/operations`);
-if (!res.ok) throw new Error(`GET /api/v1/operations: ${res.status}`);
-const { operations } = await res.json();
+// node:http statt fetch: undici sperrt einige Ports (u. a. 10080)
+const { operations } = await new Promise((resolve, reject) => {
+  http.get(`${baseUrl}/api/v1/operations`, (res) => {
+    let body = "";
+    res.on("data", (c) => (body += c));
+    res.on("end", () => (res.statusCode === 200 ? resolve(JSON.parse(body)) : reject(new Error(`GET /api/v1/operations: ${res.statusCode}`))));
+  }).on("error", reject);
+});
 
 const pascal = (n) => n.split(/[._]/).map((p) => p[0].toUpperCase() + p.slice(1)).join("");
 const opts = { bannerComment: "", additionalProperties: false, format: false, strictIndexSignatures: true };

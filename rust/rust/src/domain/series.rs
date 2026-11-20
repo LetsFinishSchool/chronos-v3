@@ -68,8 +68,39 @@ fn parse_local(s: &str, what: &str) -> ApiResult<NaiveDateTime> {
     NaiveDateTime::parse_from_str(s, LOCAL_FMT).map_err(|_| ApiError::validation(format!("{what}: Ortszeit im Format YYYY-MM-DDTHH:MM:SS erwartet")))
 }
 
+// EIGENBAU:BEGIN Zusätzliche RFC-5545-Prüfungen: die Bibliothek `rrule` (0.14) akzeptiert COUNT+UNTIL, INTERVAL=0 und BYMONTHDAY=0 stillschweigend.
+fn precheck(rule: &str) -> ApiResult<()> {
+    let bad = |m: &str| Err(ApiError::invalid_rrule(m.to_string()));
+    let mut has = std::collections::HashSet::new();
+    for part in rule.split(';') {
+        let Some((k, v)) = part.split_once('=') else { return bad("Teil ohne '='") };
+        let k = k.to_ascii_uppercase();
+        has.insert(k.clone());
+        let nums = |lo: i64, hi: i64, zero: bool| -> bool {
+            v.split(',').all(|x| x.parse::<i64>().map(|n| (zero || n != 0) && n.abs() >= lo && n.abs() <= hi).unwrap_or(false))
+        };
+        let ok = match k.as_str() {
+            "INTERVAL" | "COUNT" => v.parse::<i64>().map(|n| n >= 1).unwrap_or(false),
+            "BYMONTHDAY" => nums(0, 31, false),
+            "BYYEARDAY" => nums(0, 366, false),
+            "BYWEEKNO" => nums(0, 53, false),
+            "BYSETPOS" => nums(0, 366, false),
+            _ => true,
+        };
+        if !ok {
+            return bad(&format!("Ungültiger Wert für {k}"));
+        }
+    }
+    if has.contains("COUNT") && has.contains("UNTIL") {
+        return bad("COUNT und UNTIL dürfen nicht zusammen auftreten");
+    }
+    Ok(())
+}
+// EIGENBAU:END
+
 /// Dehnt die Regel mit Wanduhrsemantik aus (Bibliothek `rrule`); Ausgabe in UTC, höchstens 1000 Vorkommen.
 fn expand(rule: &str, dtstart: &str, tz: &str, exdates: &[String], from: DateTime<Utc>, to: DateTime<Utc>) -> ApiResult<Vec<DateTime<Utc>>> {
+    precheck(rule)?;
     let zone: chrono_tz::Tz = tz.parse().map_err(|_| ApiError::validation(format!("Unbekannte Zeitzone '{tz}'")))?;
     let compact = |s: &str| -> ApiResult<String> { Ok(parse_local(s, "Ortszeit")?.format("%Y%m%dT%H%M%S").to_string()) };
     let mut text = format!("DTSTART;TZID={tz}:{}\nRRULE:{rule}", compact(dtstart)?);
@@ -181,3 +212,35 @@ impl Operation for SeriesOccurrences {
     }
 }
 register!(SeriesOccurrences);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn utc(s: &str) -> DateTime<Utc> {
+        DateTime::parse_from_rfc3339(s).unwrap().with_timezone(&Utc)
+    }
+
+    #[test]
+    fn weekly_keeps_wall_clock_over_dst() {
+        let occ = expand("FREQ=WEEKLY;BYDAY=MO;COUNT=8", "2026-03-02T18:00:00", "Europe/Berlin", &[], utc("2026-01-01T00:00:00Z"), utc("2027-01-01T00:00:00Z")).unwrap();
+        let s: Vec<String> = occ.into_iter().map(fmt).collect();
+        assert_eq!(s[3], "2026-03-23T17:00:00Z");
+        assert_eq!(s[4], "2026-03-30T16:00:00Z");
+    }
+
+    #[test]
+    fn invalid_rules_are_rejected() {
+        for r in ["FREQ=FOO", "FREQ=DAILY;INTERVAL=0", "FREQ=WEEKLY;COUNT=3;UNTIL=20270101T000000Z", "FREQ=MONTHLY;BYMONTHDAY=0", "COUNT=2"] {
+            let e = expand(r, "2026-03-02T18:00:00", "Europe/Berlin", &[], utc("2026-01-01T00:00:00Z"), utc("2027-01-01T00:00:00Z")).unwrap_err();
+            assert_eq!(e.code, "invalid_rrule", "{r}");
+        }
+    }
+
+    #[test]
+    fn exdates_and_limit() {
+        let occ = expand("FREQ=DAILY", "2026-01-01T08:00:00", "Europe/Berlin", &["2026-01-02T08:00:00".into()], utc("2026-01-01T00:00:00Z"), utc("2031-01-01T00:00:00Z")).unwrap();
+        assert_eq!(occ.len(), 1000);
+        assert_eq!(fmt(occ[1]), "2026-01-03T07:00:00Z");
+    }
+}

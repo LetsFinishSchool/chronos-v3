@@ -239,3 +239,44 @@ fn normalize_children(v: &mut Value, defs: &HashMap<String, Value>, params: bool
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_operation_is_described_once_and_consistently() {
+        let all = all();
+        assert!(all.len() >= 18, "erwartet mindestens 18 Operationen, gefunden {}", all.len());
+        let mut names: Vec<&str> = all.iter().map(|o| o.name).collect();
+        names.dedup();
+        assert_eq!(names.len(), all.len(), "doppelte Operationsnamen");
+        for o in all {
+            let d = o.descriptor();
+            assert_eq!(d.params_schema["type"], "object", "{}", o.name);
+            assert_eq!(d.params_schema["additionalProperties"], false, "{}", o.name);
+            assert_eq!(d.result_schema["type"], "object", "{}", o.name);
+            assert!(!o.description.is_empty(), "{}", o.name);
+        }
+    }
+
+    #[test]
+    fn ai_tools_follow_operations() {
+        let tools = crate::ai::tools();
+        assert_eq!(tools.len(), all().len());
+        for t in tools {
+            let name = t["name"].as_str().unwrap();
+            let op = find_by_tool_name(name).expect("Werkzeug ohne Operation");
+            assert_eq!(t["input_schema"], op.descriptor().params_schema);
+        }
+    }
+
+    #[test]
+    fn validation_rejects_unknown_and_missing_fields() {
+        let d = find("team.create").unwrap().descriptor();
+        assert!(d.validator.is_valid(&json!({"name": "x"})));
+        assert!(!d.validator.is_valid(&json!({})));
+        assert!(!d.validator.is_valid(&json!({"name": "x", "extra": 1})));
+        assert!(!d.validator.is_valid(&json!({"name": ""})));
+    }
+}

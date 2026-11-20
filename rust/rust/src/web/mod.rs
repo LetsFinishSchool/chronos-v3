@@ -8,7 +8,7 @@ use axum::body::Bytes;
 use axum::extract::{Path, Query, Request, State};
 use axum::http::{header, HeaderMap, HeaderName, HeaderValue, StatusCode};
 use axum::middleware::{self, Next};
-use axum::response::{IntoResponse, Redirect, Response};
+use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Extension, Json, Router};
 use serde::Deserialize;
@@ -133,8 +133,12 @@ async fn call_operation(
 
 // ---------------------------------------------------------------- Anmeldung
 
-async fn login(State(s): State<AppState>) -> ApiResult<Redirect> {
-    Ok(Redirect::to(&s.auth.login_url(&s.pool).await?))
+fn found(location: &str) -> Response {
+    (StatusCode::FOUND, [(header::LOCATION, location.to_string())]).into_response()
+}
+
+async fn login(State(s): State<AppState>) -> ApiResult<Response> {
+    Ok(found(&s.auth.login_url(&s.pool).await?))
 }
 
 #[derive(Deserialize)]
@@ -148,7 +152,7 @@ async fn callback(State(s): State<AppState>, Query(q): Query<CallbackQuery>) -> 
         return Err(ApiError::bad_request("code und state erforderlich"));
     };
     let token = s.auth.callback(&s.pool, &code, &state).await?;
-    let mut resp = Redirect::to("/").into_response();
+    let mut resp = found("/");
     resp.headers_mut().insert(header::SET_COOKIE, HeaderValue::from_str(&format!("{}={token}; HttpOnly; SameSite=Lax; Path=/", auth::COOKIE)).expect("Cookie"));
     Ok(resp)
 }
