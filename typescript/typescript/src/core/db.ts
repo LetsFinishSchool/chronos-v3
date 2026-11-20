@@ -47,6 +47,11 @@ const migrations: Record<string, Migration> = {
       for (const stmt of INIT_SQL) await sql.raw(stmt).execute(db);
     },
   },
+  "002_locked_by": {
+    async up(db) {
+      await sql.raw("alter table event_recipient add column locked_by text").execute(db);
+    },
+  },
 };
 const provider: MigrationProvider = { getMigrations: async () => migrations };
 const LAST_MIGRATION = Object.keys(migrations).at(-1)!;

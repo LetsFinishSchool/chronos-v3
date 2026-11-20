@@ -1,4 +1,5 @@
 import { createServer } from "node:http";
+import { hostname } from "node:os";
 import { sql, type Kysely } from "kysely";
 import { channels } from "../channels/index.js";
 import type { ChannelName } from "../core/channels.js";
@@ -8,12 +9,14 @@ import { rootLog } from "../core/logger.js";
 
 const MAX_ATTEMPTS = 3;
 const LEASE_SECONDS = 15;
+/** Stabile Kennung dieses Workers: ein neu gestarteter Worker gibt Sperren seines Vorgängers sofort frei. */
+const WORKER_ID = process.env.WORKER_ID ?? hostname();
 
 interface Task { id: string; event_id: string; recipient: string; channels: string[]; channel_idx: number; attempt: number }
 
 async function claim(db: Kysely<Database>, n: number): Promise<Task[]> {
   const r = await sql<Task>`
-    update event_recipient set locked_until = now() + make_interval(secs => ${LEASE_SECONDS})
+    update event_recipient set locked_by = ${WORKER_ID}, locked_until = now() + make_interval(secs => ${LEASE_SECONDS})
     where id in (select id from event_recipient where status = 'pending' and next_attempt_at <= now() and (locked_until is null or locked_until < now())
                  order by next_attempt_at, id limit ${n} for update skip locked)
     returning id, event_id, recipient, channels, channel_idx, attempt`.execute(db);
@@ -77,6 +80,7 @@ async function handleTask(db: Kysely<Database>, t: Task): Promise<void> {
 export async function startWorker(): Promise<void> {
   const db = createDb(config.workerConcurrency + 4);
   await waitForSchema(db);
+  await sql`update event_recipient set locked_until = null, locked_by = null where status = 'pending' and locked_by = ${WORKER_ID}`.execute(db);
 
   const health = createServer((req, res) => {
     if (req.url !== "/healthz") { res.writeHead(404).end(); return; }

@@ -25,6 +25,15 @@ KI-Proxy: kein 429; nur wenige Aufrufe (K6 einmal pro Lauf).
 1. Übersetzer: Kysely-Migrationstypen müssen aus `kysely/migration` kommen; `Generated<Ts>` doppelt verschachtelt (Typfehler).
 2. Laufzeit im Container: ESM-Importfehler bei `rrule` (CommonJS, Default-Import) und `web-push` (nur benannte Exporte) – unter tsx/vitest nicht aufgefallen.
 
-Summe: 2 Korrekturschleifen (Abnahmesuite beim ersten vollständigen Lauf ohne Fehler).
+3. Phase 2, Test (K5 im vollen Phase-1-Lauf): Nach `SIGKILL` blieben laufende Zustellungen bis zum Ablauf der 15-s-Lease gesperrt, das Zustellprotokoll hatte noch keine Erfolgszeile. Behoben: Sperren tragen eine Worker-Kennung (`locked_by`, Hostname/`WORKER_ID`); ein neu gestarteter Worker gibt eigene Sperren sofort frei (Migration 002). Der Fehler war schon in Phase 1 latent (K5 bestand dort nur zufällig bei einzelnem Lauf).
+
+Summe: 3 Korrekturschleifen.
 
 PHASE-1-FERTIG 2026-11-20T20:42Z
+
+## Phase 2 (N-1 `appointment.reschedule`)
+
+Beginn 2026-11-20T20:53Z, Ende ca. 20:59Z. Berührt: **eine** Datei (`src/domain/ops/appointment.ts`, ~20 Zeilen, eine `defineOperation`-Beschreibung). Ohne weitere Handarbeit erscheint die Operation in `/api/v1/operations`, `/api/v1/ai/tools` (N1 2/2) und – nach `make bridge` – in `bridge/generated/operations.ts` (19 Operationen); Rückgängig funktioniert über die generische Wiederherstellung. Lücke in der Operationsbeschreibung aus Phase 1: keine. Phase 1 danach erneut vollständig grün (zweimal).
+Zusatzänderung (kein N-1-Aufwand): K5-Korrektur oben (`worker.ts`, `db.ts`).
+
+PHASE-2-FERTIG 2026-11-20T20:59:14Z

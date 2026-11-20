@@ -83,3 +83,23 @@ defineOperation({
     return {};
   },
 });
+
+defineOperation({
+  name: "appointment.reschedule",
+  description: "Verschiebt einen geplanten Termin auf neue Zeiten. Die übrigen Teammitglieder werden benachrichtigt.",
+  mutating: true,
+  params: z.strictObject({ appointment_id: uuid, starts_at: utcTime, ends_at: utcTime })
+    .refine(times, { message: "ends_at muss nach starts_at liegen", path: ["ends_at"] }),
+  result: z.object({}),
+  async run(ctx, p) {
+    const before = await visible(ctx, p.appointment_id);
+    if (before.status !== "geplant") throw new AppError("conflict", `Termin ist ${before.status}`);
+    await ctx.db.updateTable("appointment").set({ starts_at: p.starts_at, ends_at: p.ends_at }).where("id", "=", before.id).execute();
+    await recordChange(ctx, {
+      action: "appointment.reschedule", objectType: "appointment", objectId: before.id, teamId: before.team_id,
+      before, after: { ...before, starts_at: p.starts_at, ends_at: p.ends_at }, change: `Termin „${before.title}“ wird verschoben`,
+      event: { type: "appointment.rescheduled", recipients: await teamRecipients(ctx, before.team_id) },
+    });
+    return {};
+  },
+});

@@ -36,7 +36,7 @@ Vorschau = Ausführung in der Transaktion mit anschließendem Rollback (keine zw
 - Das Anmelde-`state` wird serverseitig in der Datenbank (`oidc_state`, einmalig verwendbar, 10 min) gehalten, nicht in einem Cookie. Sitzungen: Tabelle `session`, Cookie `chronos_session` (HttpOnly, SameSite=Lax, Path=/; `Secure` nur bei https-Redirect-URL). Operationen akzeptieren Bearer-Token oder Sitzungscookie.
 - Verlauf: `actor` ist die `sub` als Zeichenkette. `history.undo` eines Rückgängig-Eintrags setzt zusätzlich `undone=false` am ursprünglichen Eintrag, damit er erneut rückgängig gemacht werden kann. Serien haben ein Statusfeld (`aktiv`/`gelöscht`), damit auch ihre Anlage rückgängig zu machen ist.
 - Ereignisse ohne Empfänger (Aufrufer allein im Team) werden trotzdem als Ereignis gespeichert. Die Kanalliste eines Empfängers wird beim Schreiben des Ereignisses festgehalten.
-- Zustellung: Wartezeit nach Versuch n = `RETRY_BASE_MS·2^(n-1)`; nach dem 3. Fehlversuch sofort der nächste Kanal. Lease 15 s; nach `SIGKILL` werden unfertige Zustellungen nach Ablauf der Lease erneut versucht (gleicher Idempotenzschlüssel). Fehlende E-Mail-Adresse → `skipped`.
+- Zustellung: Wartezeit nach Versuch n = `RETRY_BASE_MS·2^(n-1)`; nach dem 3. Fehlversuch sofort der nächste Kanal. Lease 15 s; nach `SIGKILL` gibt der neu gestartete Worker seine eigenen Sperren (Kennung = Hostname oder `WORKER_ID`) sofort frei und versucht unfertige Zustellungen erneut (gleicher Idempotenzschlüssel); Sperren fremder Worker verfallen mit der Lease. Fehlende E-Mail-Adresse → `skipped`.
 - `notification.list`: älteste zuerst mit `limit` (Standard 100); `cost.list`: neueste zuerst (Standard 100, Höchstwert 500 – im Vertrag nicht festgelegt).
 - Kostenposten KI: `ceil((in·Preis_in + out·Preis_out) / 1 000 000)` Mikro-Euro, Verursacher = Aufrufer.
 - `make bridge`/`make arch-check`/`make test` brauchen lokal `npm ci` (läuft automatisch). `bridge/generated/` ist erzeugt, aber eingecheckt.
@@ -51,3 +51,7 @@ Abnahmesuite: S1 7/7, S2 6/6, S3 6/6 (1 manuell übersprungen), K2 29/29, K4 4/4
 - ESM-Interop: `rrule` (CJS) und `web-push` (ESM mit benannten Exporten) liefen unter `tsx`/`vitest` und scheiterten erst im Container (`node dist/main.js`) – einzige Korrekturschleife außer dem Erstlauf. Test im gebauten Image statt nur unter `tsx` lohnt sich.
 - Zod 4 erzeugt JSON Schema mit `$schema`; es wird entfernt, damit `input_schema` und `params_schema` identisch und für die Anthropic-API unauffällig sind.
 - Nicht erreichte Aufgaben: keine in Phase 1 (K3 manuell).
+
+## Phase 2
+
+`appointment.reschedule` ergänzt: eine Datei berührt (`src/domain/ops/appointment.ts`); Operationsliste, KI-Werkzeuge und Brückentypen (nach `make bridge`) entstehen ohne weitere Änderung. N1 2/2, Phase 1 weiterhin vollständig grün.

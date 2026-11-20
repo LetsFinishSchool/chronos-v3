@@ -118,6 +118,23 @@ timezone: string
 status: ("geplant" | "abgesagt" | "gelöscht")
 }[]
 }
+export interface AppointmentRescheduleParams {
+/**
+ * UUID
+ */
+appointment_id: string
+/**
+ * UTC, ISO 8601 mit Z
+ */
+starts_at: string
+/**
+ * UTC, ISO 8601 mit Z
+ */
+ends_at: string
+}
+export interface AppointmentRescheduleResult {
+
+}
 export interface CostListParams {
 limit?: number
 }
@@ -353,6 +370,7 @@ export interface Operations {
   "appointment.create": { params: AppointmentCreateParams; result: AppointmentCreateResult };
   "appointment.get": { params: AppointmentGetParams; result: AppointmentGetResult };
   "appointment.list": { params: AppointmentListParams; result: AppointmentListResult };
+  "appointment.reschedule": { params: AppointmentRescheduleParams; result: AppointmentRescheduleResult };
   "cost.list": { params: CostListParams; result: CostListResult };
   "history.list": { params: HistoryListParams; result: HistoryListResult };
   "history.undo": { params: HistoryUndoParams; result: HistoryUndoResult };
