@@ -1,0 +1,4 @@
+target
+.git
+bridge/node_modules
+bridge/generated
