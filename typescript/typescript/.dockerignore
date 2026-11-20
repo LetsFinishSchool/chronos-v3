@@ -1,0 +1,6 @@
+node_modules
+dist
+.stack
+bridge/generated
+*.env
+.git
