@@ -77,3 +77,7 @@ Nichts aus Phase 1. K3 (Web Push) ist manuell und wurde nicht ausgeführt; `/sta
 - Docker-Build ohne BuildKit in dieser Umgebung (`--mount` nicht möglich); Modul-Download beim Bauen braucht Netz (Erstbau ca. 90 s).
 - K5: beim Abbruch waren 24 von 200 Zustellungen wirksam, danach kamen alle an; 6–8 Duplikat-Versuche wurden vom Mock abgefangen.
 - Lastlauf S-8 (`loadcheck.py`, 16 Threads, 30 s, Mischung aus Lesen und Terminanlage, 1 CPU): ca. 59 Anfragen/s, keine Fehler, p95 475 ms; Web ca. 10 MiB, Worker ca. 7 MiB Speicher im Ruhezustand.
+
+## Phase 2 (N-1)
+
+`appointment.reschedule` kostete eine Dateiänderung (`internal/domain/appointment.go`, ca. 40 Zeilen). Annahme: Nur geplante Termine lassen sich verschieben (sonst 409 `conflict`); Prüfung von `ends_at > starts_at` vor dem Laden des Termins (422).

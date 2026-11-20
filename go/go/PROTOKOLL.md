@@ -35,3 +35,14 @@ Danach liefen alle Abnahmetests ohne weitere Korrekturen (Gesamtlauf 20:48 UTC: 
 - Kein KI-Budgetproblem (kein 429).
 
 PHASE-1-FERTIG: 2026-11-20T20:49:40Z
+
+## Phase 2 (N-1 appointment.reschedule)
+
+| Aufgabe | Beginn (UTC) | Ende (UTC) | Anmerkung |
+|---|---|---|---|
+| N-1 | 2026-11-20T20:53Z | 2026-11-20T20:56:23Z | 1 Datei geändert (go/internal/domain/appointment.go, +42 Zeilen: Parametertyp und eine op.Register-Gruppe). Phase 2: N1 2/2; Phase 1 danach unverändert grün (65 Tests, 1 manuell übersprungen). |
+
+Korrekturschleifen Phase 2: 0. Lücke der Operationsbeschreibung: keine. Die Operation erschien ohne Handarbeit in /api/v1/operations, /api/v1/ai/tools und (nach make bridge) in bridge/generated/operations.ts; Rückgängig funktioniert über das generische history.undo.
+
+PHASE-2-FERTIG: 2026-11-20T20:56:23Z
+FERTIG: 2026-11-20T20:56:23Z

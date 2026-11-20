@@ -77,6 +77,7 @@ func loadVisible(c *op.Ctx, idStr string) (sqlc.Appointment, error) {
 }
 
 func registerAppointments(r *op.Registry) {
+	registerReschedule(r)
 	op.Register(r, op.Op{Name: "appointment.create", Mutating: true,
 		Description: "Legt einen Termin im Team an (Status geplant). Die übrigen Teammitglieder werden benachrichtigt."},
 		func(c *op.Ctx, p AppointmentCreateParams) (AppointmentCreateResult, error) {
@@ -162,6 +163,47 @@ func registerAppointments(r *op.Registry) {
 				return op.Empty{}, err
 			}
 			c.Affect("appointment", a.ID, "Status geplant → abgesagt")
+			return op.Empty{}, nil
+		})
+}
+
+type AppointmentRescheduleParams struct {
+	AppointmentID string `json:"appointment_id" format:"uuid"`
+	StartsAt      string `json:"starts_at" format:"date-time" doc:"Neuer Beginn, UTC"`
+	EndsAt        string `json:"ends_at" format:"date-time" doc:"Neues Ende, UTC, nach dem Beginn"`
+}
+
+func registerReschedule(r *op.Registry) {
+	op.Register(r, op.Op{Name: "appointment.reschedule", Mutating: true,
+		Description: "Verschiebt einen geplanten Termin auf einen neuen Zeitraum. Die übrigen Teammitglieder werden benachrichtigt."},
+		func(c *op.Ctx, p AppointmentRescheduleParams) (op.Empty, error) {
+			starts, err := parseTS(p.StartsAt, "starts_at")
+			if err != nil {
+				return op.Empty{}, err
+			}
+			ends, err := parseTS(p.EndsAt, "ends_at")
+			if err != nil {
+				return op.Empty{}, err
+			}
+			if !ends.After(starts) {
+				return op.Empty{}, op.Validation("ends_at muss nach starts_at liegen")
+			}
+			a, err := loadVisible(c, p.AppointmentID)
+			if err != nil {
+				return op.Empty{}, err
+			}
+			if a.Status != statusPlanned {
+				return op.Empty{}, op.Conflict("Termin ist nicht geplant")
+			}
+			before := viewOf(a)
+			a.StartsAt, a.EndsAt = starts, ends
+			if err := store(c, a); err != nil {
+				return op.Empty{}, err
+			}
+			if err := recordAndEmit(c, "appointment.reschedule", "appointment.rescheduled", a.TeamID, a.ID, before, viewOf(a)); err != nil {
+				return op.Empty{}, err
+			}
+			c.Affect("appointment", a.ID, "Zeitraum "+before.StartsAt+" → "+p.StartsAt)
 			return op.Empty{}, nil
 		})
 }
