@@ -53,6 +53,7 @@ Regeln für Inhalte: kurz, verlinkt (`[[concepts/appointment]]`-artig als relati
 
 ## Grenzen
 
+- **Kein Agenten-Gedächtnis.** Projektwissen steht ausschließlich im Wiki, nie im maschinengebundenen Gedächtnis eines Agenten ([Begründung](lessons/wissen-nur-im-wiki.md)).
 - Keine Geheimnisse, Tokens, personenbezogenen Daten oder Session-Rohverläufe ins Wiki.
 - Keine Kopien von Code oder `docs/`; verlinken und zusammenfassen.
 - Löschen nur mit Eintrag in `log.md`; veraltete Seiten erhalten `status: veraltet` statt stillem Verschwinden.

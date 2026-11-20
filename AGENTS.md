@@ -17,6 +17,7 @@ Ablauf in jeder Session:
 2. **Nach der Aufgabe:** Gelerntes im Wiki festhalten (Seite mit `sources`, `confidence`, `last-verified`), `wiki/index.md` ergänzen, Eintrag an `wiki/log.md` anhängen. Gibt es nichts zu lernen, Log-Eintrag „kein Wiki-Bedarf“.
 3. **Widerspruch zu `docs/`** oder neue verbindliche Erkenntnis: Vorschlag nach `wiki/proposals/` (Vorlage `_vorlage.md`), `docs/` nicht ändern.
 4. Keine Geheimnisse, Tokens oder personenbezogenen Daten ins Wiki.
+5. **Kein Agenten-Gedächtnis.** Das maschinengebundene Gedächtnis (z. B. `~/.claude/projects/.../memory/`) wird in diesem Projekt nicht verwendet. Alles Wissen gehört ins `wiki/`, damit es am Projekt hängt und nicht an einer Maschine. Siehe `wiki/lessons/wissen-nur-im-wiki.md`.
 
 Werkzeuge: Skill `chronos-wiki` (Claude Code und opencode), Befehle `/wiki-ingest`, `/wiki-lint`, `/wiki-query`.
 Erzwingung: Claude Code über `.claude/settings.json` (Hooks), opencode über `opencode.json` und `.opencode/plugin/chronos-wiki.js`.
