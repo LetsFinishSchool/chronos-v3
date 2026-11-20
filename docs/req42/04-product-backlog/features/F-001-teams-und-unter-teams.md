@@ -18,6 +18,6 @@ verknuepft: [Z-003, SH-002]
 
 **Entscheidung:** Mitgliedschaft wird **nach oben vererbt**: Wer Mitglied eines Unter-Teams ist, ist auch Mitglied aller übergeordneten Teams. Ausnahme: Gäste über Einladungslink sind nur Mitglied des konkreten Teams, für das sie eingeladen wurden.
 
-**Entscheidung:** Löschen eines Teams löscht Unter-Teams und Termine mit (Kaskade); alles ist über „Rückgängig“ wiederherstellbar ([F-017](F-017-rueckgaengig-machen.md)).
+**Entscheidung:** Löschen eines Teams löscht Unter-Teams und Termine mit (Kaskade); gelöschte Teams und Termine sind 30 Tage wiederherstellbar ([F-017](F-017-rueckgaengig-machen.md)).
 
 **Anforderung mit Akzeptanzkriterien:** [FA-001](../anforderungen/FA-001-teams-und-unter-teams.md)

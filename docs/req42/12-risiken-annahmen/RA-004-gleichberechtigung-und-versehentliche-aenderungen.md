@@ -9,6 +9,6 @@ verknuepft: []
 
 # RA-004: Gleichberechtigung und versehentliche Änderungen
 
-Risiko: Weil alle Mitglieder alles dürfen ([M-002](../05-modelle/M-002-berechtigungen.md)), können Mitglieder versehentlich oder böswillig Termine absagen oder Mitglieder entfernen. **Anforderung:** Alle Änderungen müssen sich rückgängig machen lassen, sofern fachlich möglich. Das gilt ausdrücklich auch für das Löschen von Teams und Terminen (Wiederherstellung samt Inhalten) ([F-017](../04-product-backlog/features/F-017-rueckgaengig-machen.md)). Nicht rückgängig machbar sind bereits versandte Benachrichtigungen; für sie gibt es eine Korrekturmeldung (?).
+Risiko: Weil alle Mitglieder alles dürfen ([M-002](../05-modelle/M-002-berechtigungen.md)), können Mitglieder versehentlich oder böswillig Termine absagen oder Mitglieder entfernen. **Anforderung:** Gelöschtes muss wiederherstellbar sein (Wiederherstellung samt Inhalten, 30 Tage); Änderungen sind im Änderungsverlauf nachvollziehbar und Betroffene werden benachrichtigt ([F-017](../04-product-backlog/features/F-017-rueckgaengig-machen.md)). Bereits versandte Benachrichtigungen sind nicht zurücknehmbar; für sie gibt es eine Korrekturmeldung.
 
 Maßnahme (entschieden): Änderungsverlauf mit Akteur und Benachrichtigung der Betroffenen bei Entfernen und Absagen.

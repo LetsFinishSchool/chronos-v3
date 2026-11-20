@@ -15,7 +15,7 @@ Maßgebliche Liste der Fachbegriffe (Begriffe deutsch, Oberfläche deutsch/engli
 | Unter-Team | Team innerhalb eines Teams | `team` (parent) |
 | Mitglied | Person in einem Team; alle gleichberechtigt | `member` |
 | Label | Frei benannte Rolle/Aufgabe, mehrfach je Person, für genau einen Bereich | `label` |
-| Veranstaltung | Öffentliche, vom Verband ausgerichtete Veranstaltung; bündelt interne Termine | `event` |
+| Veranstaltung | Öffentliche, vom Verband ausgerichtete Veranstaltung; bündelt interne Termine | `occasion` |
 | Termin | Interner Zeitpunkt oder Zeitraum eines Teams; Art Treffen oder Frist/Marke | `appointment` |
 | Treffen | Termin mit Rückmeldung | – |
 | Frist/Marke | Termin ohne Rückmeldung, z. B. Anmeldestart/-schluss | – |
@@ -26,5 +26,5 @@ Maßgebliche Liste der Fachbegriffe (Begriffe deutsch, Oberfläche deutsch/engli
 | Gast | Person ohne Konto, die über einen Link antwortet | `guest` |
 | Benachrichtigung | Meldung zu einem Ereignis über einen Kanal | `notification` |
 | Kanal | Web Push, E-Mail, optional Messenger | `channel` |
-| Ereignis | Fachliches Vorkommnis mit Auslöser, das Benachrichtigungen erzeugt | `event` (Konflikt mit Veranstaltung, Namensgebung klären) |
+| Ereignis | Fachliches Vorkommnis mit Auslöser, das Benachrichtigungen erzeugt | `event` |
 | Kalender-Feed | Persönlicher webcal-Abruf der Termine | `feed` |

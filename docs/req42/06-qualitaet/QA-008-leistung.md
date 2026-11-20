@@ -12,7 +12,7 @@ verknuepft: [Z-005]
 **Qualitätsmerkmal (ISO 25010):** Leistungseffizienz (Zeitverhalten)
 
 ## Szenario
-Bei < 500 aktiven Nutzern antworten Standardaktionen innerhalb des Ressourcenbudgets in eine Seite lädt in unter 1 s (Zielwert vom Product Owner festgelegt).
+Bei < 500 aktiven Nutzern und innerhalb des Ressourcenbudgets lädt eine Seite in unter 1 s (Zielwert vom Product Owner festgelegt).
 
 ## Messbar durch
 Lasttest ([RA-002](../12-risiken-annahmen/RA-002-nutzungsumfang.md)).

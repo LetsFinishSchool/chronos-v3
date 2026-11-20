@@ -5,7 +5,9 @@ status: entwurf
 
 # arc42
 
-Gliederung nach [arc42](https://arc42.org/). Im Zuge des Neuanfangs (re-write, chronos-v3) wurden alle bisherigen Inhalte entfernt; die Lösungen werden völlig neu betrachtet. Pro Kapitel bleibt nur `00-kapitelbeschreibung.md` (Hilfe der offiziellen arc42-Vorlage, Stand 2026-11-20). Die alten Inhalte stehen in der Git-Historie (Commit vor dem Leeren).
+Gliederung nach [arc42](https://arc42.org/). Im Zuge des Neuanfangs (re-write, chronos-v3) wurden alle bisherigen Inhalte entfernt; die Lösungen werden völlig neu betrachtet. Pro Kapitel liegt `00-kapitelbeschreibung.md` (Hilfe der offiziellen arc42-Vorlage, Stand 2026-11-20).
+
+**Stand (2026-11-20, Entwurf):** Befüllt ist, was sich aus [req42](../req42/README.md) ohne Entscheidung ableiten lässt. **Es ist noch keine Architekturentscheidung getroffen.** Was zu entscheiden ist, steht in [Kapitel 9](09-entscheidungen/01-offene-entscheidungen.md); Kapitel 5 (Bausteine) enthält fachliche Kandidaten, Kapitel 7 nur die vorgegebene Infrastruktur.
 
 | Kapitel | Verzeichnis |
 |---|---|

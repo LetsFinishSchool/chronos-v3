@@ -1,0 +1,8 @@
+# Erzeugte Zugangsdaten, Berichte und Werkzeugartefakte gehören nicht ins Repository (RB-008)
+e-002/.stack/
+e-002/reports/
+**/node_modules/
+**/target/
+**/__pycache__/
+*.env
+!*.env.example

@@ -26,7 +26,7 @@ Jedes Ereignis hat genau einen benannten Auslöser und wird protokolliert ([QA-0
 | Terminfindung entschieden | Vorschlag festgelegt | Abstimmende |
 | Zu Team hinzugefügt | Mitglied hinzugefügt / Linkbeitritt | betroffene Person |
 | Termine durch Zeitraumsregel abgesagt | Regel angelegt / Termin im Zeitraum angelegt | Eingeladene (gebündelt) |
-| Änderung rückgängig gemacht | Rücknahme | zuvor Informierte |
+| Objekt wiederhergestellt | Wiederherstellung | zuvor Informierte |
 | Aus Team entfernt | Mitglied entfernt | betroffene Person, Team |
 
 Das Benachrichtigungsbudget ([QA-010](../06-qualitaet/QA-010-benachrichtigungsbudget.md)) begrenzt die Standardeinstellung auf höchstens 2 × Termine der Woche je Person; Erinnerungen werden dazu gebündelt.

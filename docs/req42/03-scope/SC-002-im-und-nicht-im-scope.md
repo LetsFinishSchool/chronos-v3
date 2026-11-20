@@ -17,7 +17,7 @@ verknuepft: [SH-001]
 - Benachrichtigung über Web Push und E-Mail, Kalender-Feed, Terminnachrichten ([F-008](../04-product-backlog/features/F-008-benachrichtigungen.md) bis [F-010](../04-product-backlog/features/F-010-terminnachrichten.md)).
 - Serientermine mit vollen RRULE-Regeln und Schulferien-Ausnahmen ([F-014](../04-product-backlog/features/F-014-serientermine.md)).
 - KI-Assistent für komplexe Operationen und Bulk-Aktionen, dauerhafte Zeitraumsregeln ([F-015](../04-product-backlog/features/F-015-ki-assistent.md), [F-016](../04-product-backlog/features/F-016-zeitraumsregeln.md)).
-- Rückgängig machen aller Änderungen, Kostenerfassung je Benutzer/Team ([F-017](../04-product-backlog/features/F-017-rueckgaengig-machen.md), [F-018](../04-product-backlog/features/F-018-kostenerfassung.md)).
+- Wiederherstellen gelöschter Teams und Termine, Kostenerfassung je Benutzer/Team ([F-017](../04-product-backlog/features/F-017-rueckgaengig-machen.md), [F-018](../04-product-backlog/features/F-018-kostenerfassung.md)).
 - Mehrsprachigkeit Deutsch/Englisch ([RB-001](../07-randbedingungen/RB-001-mehrsprachigkeit.md)).
 - Anmeldung, Datenübernahme, rechtliche Seiten ([F-011](../04-product-backlog/features/F-011-anmeldung-und-konto.md) bis [F-013](../04-product-backlog/features/F-013-rechtliche-seiten.md)).
 
@@ -26,5 +26,6 @@ verknuepft: [SH-001]
 - Freundschaften und persönliche Netzwerke (entfallen gegenüber chronos-root).
 - Allgemeiner Kalender, Chat-Ersatz außerhalb von Terminen.
 - Eigene Benutzer- und Passwortverwaltung (liegt bei Keycloak).
+- Allgemeines Rückgängig für jede Änderung (nur gelöschte Objekte sind wiederherstellbar, [FA-017](../04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md)).
 
 **Optional / später:** Messenger-Kanäle (Telegram, WhatsApp), Übernahme der Push-Geräteabos aus chronos-root.

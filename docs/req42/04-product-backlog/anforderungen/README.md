@@ -25,5 +25,5 @@ Akzeptanzkriterien je Feature (Granularität nach [ticket-typen](../ticket-typen
 | FA-014 | Serientermine | entwurf | [FA-014-serientermine.md](FA-014-serientermine.md) |
 | FA-015 | KI-Assistent | entwurf | [FA-015-ki-assistent.md](FA-015-ki-assistent.md) |
 | FA-016 | Dauerhafte Zeitraumsregeln (Bulk) | entwurf | [FA-016-zeitraumsregeln.md](FA-016-zeitraumsregeln.md) |
-| FA-017 | Änderungen rückgängig machen | entwurf | [FA-017-rueckgaengig-machen.md](FA-017-rueckgaengig-machen.md) |
+| FA-017 | Gelöschtes wiederherstellen | entwurf | [FA-017-rueckgaengig-machen.md](FA-017-rueckgaengig-machen.md) |
 | FA-018 | Kostenerfassung | entwurf | [FA-018-kostenerfassung.md](FA-018-kostenerfassung.md) |
