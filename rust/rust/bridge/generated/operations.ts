@@ -64,6 +64,14 @@ timezone: string
 title: string
 }[]
 }
+export interface AppointmentRescheduleParams {
+appointment_id: string
+ends_at: string
+starts_at: string
+}
+export interface AppointmentRescheduleResult {
+
+}
 export interface CostListParams {
 limit?: number
 }
@@ -242,6 +250,7 @@ export interface OperationMap {
   "appointment.create": { params: AppointmentCreateParams; result: AppointmentCreateResult; mutating: true; preview: true };
   "appointment.get": { params: AppointmentGetParams; result: AppointmentGetResult; mutating: false; preview: false };
   "appointment.list": { params: AppointmentListParams; result: AppointmentListResult; mutating: false; preview: false };
+  "appointment.reschedule": { params: AppointmentRescheduleParams; result: AppointmentRescheduleResult; mutating: true; preview: true };
   "cost.list": { params: CostListParams; result: CostListResult; mutating: false; preview: false };
   "history.list": { params: HistoryListParams; result: HistoryListResult; mutating: false; preview: false };
   "history.undo": { params: HistoryUndoParams; result: HistoryUndoResult; mutating: true; preview: true };

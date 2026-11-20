@@ -31,3 +31,15 @@ Hindernisse: keine Rückfragen; K3 nicht Teil der Aufgabe.
 Abschlusslauf mit finalem Image: 65 Tests, 64 bestanden, 1 manuell übersprungen (Suite komplett grün).
 
 PHASE-1-FERTIG 2026-11-20T21:04:09Z
+
+## Phase 2 (N-1 appointment.reschedule)
+
+| Aufgabe | Beginn (UTC) | Ende (UTC) | Anmerkung |
+|---|---|---|---|
+| N-1 appointment.reschedule | 21:23 | 2026-11-20T21:25:47Z | **1 Datei berührt** (`src/domain/appointments.rs`: `impl Operation` + `register!`, ~45 Zeilen). Ohne weitere Handarbeit erscheint die Operation in `/api/v1/operations`, `/api/v1/ai/tools` und (nach `make bridge`) in `bridge/generated/operations.ts` (`AppointmentRescheduleParams/Result`). N1 2/2, Phase 1 weiter 64/65 (1 manuell übersprungen). |
+
+Korrekturschleifen Phase 2: 0. Lücke der Operationsbeschreibung: keine festgestellt.
+
+PHASE-2-FERTIG 2026-11-20T21:25:47Z
+
+FERTIG 2026-11-20T21:25:47Z

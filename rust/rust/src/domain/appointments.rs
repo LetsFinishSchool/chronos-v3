@@ -237,3 +237,55 @@ impl Operation for AppointmentCancel {
     }
 }
 register!(AppointmentCancel);
+
+// ---------------------------------------------------------------- appointment.reschedule (N-1)
+
+#[derive(Deserialize, ToSchema)]
+pub struct RescheduleParams {
+    pub appointment_id: Uuid,
+    #[schema(value_type = String, format = DateTime)]
+    pub starts_at: Ts,
+    #[schema(value_type = String, format = DateTime)]
+    pub ends_at: Ts,
+}
+
+pub struct AppointmentReschedule;
+impl Operation for AppointmentReschedule {
+    type Params = RescheduleParams;
+    type Result = EmptyResult;
+    const NAME: &'static str = "appointment.reschedule";
+    const DESCRIPTION: &'static str = "Verschiebt einen Termin auf neue Zeiten (UTC, ISO 8601 mit Z) und benachrichtigt die übrigen Mitglieder.";
+    const MUTATING: bool = true;
+    const PREVIEW: bool = true;
+    async fn run(ctx: Ctx, p: Self::Params) -> ApiResult<EmptyResult> {
+        check_range(p.starts_at, p.ends_at)?;
+        let mut tx = ctx.begin().await?;
+        let a = load_visible(&mut tx, p.appointment_id, &ctx.caller.id, true).await?;
+        let team_id = a.team_id;
+        let before = snapshot(a);
+        sqlx::query("UPDATE appointments SET starts_at = $2, ends_at = $3 WHERE id = $1")
+            .bind(p.appointment_id).bind(p.starts_at.0).bind(p.ends_at.0).execute(&mut *tx).await?;
+        let after = load(&mut tx, p.appointment_id, false).await?.map(snapshot);
+        let recipients = recipients_except(&mut tx, team_id, &ctx.caller.id).await?;
+        commit_change(
+            &mut tx,
+            &ctx,
+            HistoryEntry { action: "appointment.reschedule", object_type: "appointment", object_id: p.appointment_id, team_id, before: Some(before), after, undo_of: None },
+            Some(NewEvent { event_type: "appointment.rescheduled", recipients, payload: json!({"appointment_id": p.appointment_id}), only_channel: None }),
+        )
+        .await?;
+        tx.commit().await?;
+        Ok(EmptyResult {})
+    }
+    async fn preview(ctx: Ctx, p: Self::Params) -> ApiResult<Preview> {
+        check_range(p.starts_at, p.ends_at)?;
+        let mut c = ctx.pool.acquire().await?;
+        let a = load_visible(&mut c, p.appointment_id, &ctx.caller.id, false).await?;
+        Ok(Preview::new(vec![Affected {
+            kind: "appointment".into(),
+            id: a.id.to_string(),
+            change: format!("'{}' wird von {} auf {} verschoben", a.title, fmt(a.starts_at), fmt(p.starts_at.0)),
+        }]))
+    }
+}
+register!(AppointmentReschedule);
