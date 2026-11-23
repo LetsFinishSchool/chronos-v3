@@ -5,13 +5,13 @@ im Verzeichnis des Kandidaten, geteilt durch alle Quellzeilen (ohne generierte D
 """
 import os, re, sys
 root = sys.argv[1]
-SKIP = {"node_modules", "target", "vendor", ".git", "generated", "dist", "bridge"}
-EXT = (".ts", ".go", ".rs", ".sql")
+SKIP = {"node_modules", "target", "vendor", ".git", "generated", "dist", "bridge", ".venv", "venv", "__pycache__", "tests"}
+EXT = (".ts", ".go", ".rs", ".sql", ".py")
 total = own = 0
 for d, dirs, files in os.walk(root):
     dirs[:] = [x for x in dirs if x not in SKIP]
     for f in files:
-        if not f.endswith(EXT) or re.search(r"(_test\.go|\.test\.ts|\.spec\.ts)$", f):
+        if not f.endswith(EXT) or re.search(r"(_test\.go|\.test\.ts|\.spec\.ts|_test\.py|^test_.*\.py|^conftest\.py)$", f):
             continue
         inside = False
         for line in open(os.path.join(d, f), encoding="utf-8", errors="replace"):

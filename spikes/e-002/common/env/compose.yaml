@@ -38,6 +38,7 @@ services:
     image: axllent/mailpit:latest
     command: ["--smtp", "0.0.0.0:${PORT_SMTP}", "--listen", "0.0.0.0:${PORT_MAIL_UI}"]
     network_mode: host
+    healthcheck: {disable: true}   # der Image-Healthcheck prüft fest Port 8025 und schlägt bei Portversatz fehl
     mem_limit: 128m
 
   mock-channel:
