@@ -22,11 +22,13 @@ Gesamtlauf der Abnahmesuite 09:08:07–09:08:57: 65 Tests, alle bestanden (1 man
 
 ## Korrekturschleifen
 
-Anzahl: **3**
+Anzahl: **4**
 
 1. `uv lock` im Container scheiterte mit „Permission denied“ (uv.lock gehörte root) → Datei gelöscht, Container mit Benutzer-ID.
 2. K6 schlug fehl („unbekanntes Feld title“): Schema-Bereinigung entfernte das Feld `title` → `_inline` unterscheidet Schlüsselwort und Feldname.
 3. `make test`: `No module named 'chronos'` → `pythonpath = ["."]` in der pytest-Konfiguration.
+4. (Phase 2, Regressionslauf) K5 schlug einmal fehl: Zustellprotokoll lag nach dem Neustart bis zu 8 s hinter dem Mock (Sperre des
+   abgestürzten Workers lief erst ab) → Worker gibt beim Start Sperren frei (`release_stale_leases`); 4 Läufe danach grün.
 
 ## Hindernisse
 
@@ -36,3 +38,15 @@ Anzahl: **3**
 ## Phasen
 
 PHASE-1-FERTIG: 2026-11-23T09:11:22Z (Neubau des Images und Regressionslauf nach den letzten Kommentar-Änderungen: 58/58 bestanden, 1 manuell übersprungen). Warte auf `PHASE2.md`.
+
+## Phase 2 (N-1 `appointment.reschedule`)
+
+Beginn 09:25:32Z. Änderung: ein Handler mit `@operation(...)` am Ende von `chronos/domain/appointments.py` (+ Parametermodell,
+~20 Zeilen). **Eine Datei, keine weitere Handarbeit**: Endpunkt, `/api/v1/operations`, `/api/v1/ai/tools` und Brückentypen
+(`make bridge` erzeugte `AppointmentReschedule{Params,Result}` und den Eintrag in `Operations`) entstanden automatisch;
+Rückgängig läuft über die generische Objekttyp-Registry ohne Änderung. Eine Lücke der Operationsbeschreibung gab es nicht
+(die Importzeile in `catalog.py` war nicht nötig, da das Modul schon importiert ist). Zusätzlich zu N-1 war die K5-Korrektur
+(Schleife 4) an `worker/delivery.py` nötig, unabhängig von der neuen Operation.
+Abnahme: Phase 2 2/2, Phase 1 65 Tests ohne Fehler (1 manuell übersprungen).
+
+PHASE-2-FERTIG: 2026-11-23T09:30:00Z

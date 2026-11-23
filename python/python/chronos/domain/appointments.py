@@ -145,3 +145,28 @@ async def appointment_cancel(ctx: Ctx, p: AppointmentCancelParams) -> Empty:
     await record_change(ctx, action="appointment.cancel", event_type="appointment.cancelled", before=before,
                         after=after)
     return Empty()
+
+
+class AppointmentRescheduleParams(Params):
+    appointment_id: UUID
+    starts_at: UtcTime
+    ends_at: UtcTime
+
+    @model_validator(mode="after")
+    def _order(self) -> Self:
+        if self.ends_at <= self.starts_at:
+            raise ValueError("ends_at muss nach starts_at liegen")
+        return self
+
+
+@operation("appointment.reschedule", "Verschiebt einen geplanten Termin auf neue Zeiten (UTC) und benachrichtigt "
+           "alle effektiven Mitglieder außer dem Aufrufer.", mutating=True, preview=True)
+async def appointment_reschedule(ctx: Ctx, p: AppointmentRescheduleParams) -> Empty:
+    before = await _visible(ctx, str(p.appointment_id))
+    if before["status"] != "geplant":
+        raise Conflict("Nur geplante Termine lassen sich verschieben")
+    after = {**before, "starts_at": fmt_utc(p.starts_at), "ends_at": fmt_utc(p.ends_at)}
+    await store_snapshot(ctx, before["id"], after)
+    await record_change(ctx, action="appointment.reschedule", event_type="appointment.rescheduled", before=before,
+                        after=after)
+    return Empty()

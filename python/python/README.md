@@ -66,7 +66,7 @@ Kein Eigenbau bei Kryptografie, Token-Prüfung, OIDC, Web Push.
 - Eine Person ohne E-Mail-Adresse → E-Mail-Kanal `skipped`. Mehrere Push-Abos: Erfolg, wenn mindestens eines ankommt.
 - Optionale Parameter erscheinen im Schema als einfacher Typ (nicht Pflicht), nicht als `anyOf` mit `null`.
 - Unbekannte Operation wird vor der Authentifizierung mit 404 beantwortet.
-- Der Worker geht von einem Prozess aus; mehrere wären durch SKIP LOCKED und Sperre trotzdem korrekt (mit gelegentlichen Doppelversuchen).
+- Der Worker geht von einem Prozess aus: beim Start gibt er alle Sperren frei (schneller Wiederanlauf nach SIGKILL). Mehrere Worker blieben durch SKIP LOCKED korrekt, nur mit zusätzlichen Doppelversuchen.
 - `ai.ask` hält die Transaktion während des KI-Aufrufs offen (kurze Last, 60 s Zeitlimit).
 
 Widersprüche zwischen V-1 und Tests: keine gefunden.
@@ -95,3 +95,7 @@ Abbruch wirksam, 0–14 Duplikat-Versuche (vom Mock abgefangen). K6 bestand beim
   `appointment.create` (K6 meldete es). Behoben, durch Unit-Test abgesichert.
 - `uv` lokal nicht vorhanden: `make test|arch-check|lock` nutzen das uv-Image per Docker, wenn `uv` fehlt.
 - Container-uv legte `uv.lock` zunächst als root an (Schreibrechte); seither läuft der Container mit der Benutzer-ID.
+
+## Phase 2
+
+`appointment.reschedule` (N-1): eine Datei geändert (`chronos/domain/appointments.py`), alles Weitere (Endpunkt, Operationsliste, KI-Werkzeuge, Brückentypen, Rückgängig) automatisch. Phase 2: 2/2, Phase 1 weiter fehlerfrei.

@@ -10,6 +10,8 @@ import type { AppointmentListParams } from "./types/AppointmentListParams";
 import type { AppointmentListResult } from "./types/AppointmentListResult";
 import type { AppointmentCancelParams } from "./types/AppointmentCancelParams";
 import type { AppointmentCancelResult } from "./types/AppointmentCancelResult";
+import type { AppointmentRescheduleParams } from "./types/AppointmentRescheduleParams";
+import type { AppointmentRescheduleResult } from "./types/AppointmentRescheduleResult";
 import type { HistoryListParams } from "./types/HistoryListParams";
 import type { HistoryListResult } from "./types/HistoryListResult";
 import type { HistoryUndoParams } from "./types/HistoryUndoParams";
@@ -43,6 +45,7 @@ export interface Operations {
   "appointment.get": { params: AppointmentGetParams; result: AppointmentGetResult };
   "appointment.list": { params: AppointmentListParams; result: AppointmentListResult };
   "appointment.cancel": { params: AppointmentCancelParams; result: AppointmentCancelResult };
+  "appointment.reschedule": { params: AppointmentRescheduleParams; result: AppointmentRescheduleResult };
   "history.list": { params: HistoryListParams; result: HistoryListResult };
   "history.undo": { params: HistoryUndoParams; result: HistoryUndoResult };
   "series.create": { params: SeriesCreateParams; result: SeriesCreateResult };

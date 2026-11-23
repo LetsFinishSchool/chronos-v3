@@ -116,7 +116,16 @@ async def _guarded(task: Task, sem: asyncio.Semaphore) -> None:
         sem.release()
 
 
+async def release_stale_leases() -> None:
+    """Start: Sperren eines abgestürzten Vorgängers sofort freigeben (Annahme: ein Worker-Prozess)."""
+    async with db.session() as s, s.begin():
+        n = (await s.execute(text("UPDATE delivery_task SET lease_until = NULL WHERE status = 'pending' "
+                                  "AND lease_until IS NOT NULL"))).rowcount
+    log.info("Sperren freigegeben: %d", n)
+
+
 async def run_loop() -> None:
+    await release_stale_leases()
     sem = asyncio.Semaphore(CONCURRENCY)
     running: set[asyncio.Task] = set()
     while True:
