@@ -50,3 +50,5 @@ Rückgängig läuft über die generische Objekttyp-Registry ohne Änderung. Eine
 Abnahme: Phase 2 2/2, Phase 1 65 Tests ohne Fehler (1 manuell übersprungen).
 
 PHASE-2-FERTIG: 2026-11-23T09:30:00Z
+
+FERTIG: 2026-11-23T09:29:34Z
