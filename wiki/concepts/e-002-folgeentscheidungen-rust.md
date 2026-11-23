@@ -80,6 +80,8 @@ Gast-Identität (sprachneutral, aber zu entscheiden): (i) Link-Token beim ersten
 
 ## 4. E-009 KI-Anbindung
 
+**Entschieden (PO 2026-11-23): V2-G**, siehe [ADR-006](../../docs/arc42/09-entscheidungen/ADR-006-ki-anbindung.md): LiteLLM-Gateway, nur Anbieter mit garantiertem EU-Datenstandort (zulässig: Mistral EU-Endpunkt, IONOS; Anthropic direkt nicht). Die Optionen unten sind überholt und nur noch Herleitung.
+
 **Rust-Folge:** Laut Claude-Dokumentation (abgerufen 2026-11-23) gibt es offizielle SDKs für Python, TypeScript, C#, Go, Java, PHP, Ruby, **nicht für Rust**. Der Spike nutzt `reqwest` direkt und sendet `anthropic-version: 2023-06-01`; die Dokumentation nennt bereits eine API-Version `2026-10-21`. Das zeigt die Dauerpflege des Eigenbaus. Die Anbieterschnittstelle (anbieterneutral, K-006) und die Kostenerfassung je Aufruf (RB-010) sind in jeder Option nötig.
 
 | Option | Vorteile | Nachteile |

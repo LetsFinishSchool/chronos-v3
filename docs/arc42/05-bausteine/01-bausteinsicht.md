@@ -95,8 +95,8 @@ Rechtliche Seiten ([F-013](../../req42/04-product-backlog/features/F-013-rechtli
 
 | Prozess | Bausteine |
 |---|---|
-| Web | Weboberfläche (Auslieferung), Operationsschicht, Fachbereiche, Berechtigung, Verlauf, Ereignis erzeugen, Kalender-Feed |
+| Web | Weboberfläche (Auslieferung), Operationsschicht, Fachbereiche, Berechtigung, Verlauf, Ereignis erzeugen, Kalender-Feed, KI-Assistent und KI-Adapter ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) |
 | Worker | Zeitauslöser, Benachrichtigung (Zustellung, Wiederholung, Bündelung), Kanäle |
-| offen | KI-Anbindung (E-009), Backup (E-010), Datenübernahme (E-017), Ferien-Abruf |
+| offen | Backup (E-010), Datenübernahme (E-017), Ferien-Abruf |
 
 Detailsichten (Ebene 2) folgen, sobald die Modulentscheidungen getroffen sind.

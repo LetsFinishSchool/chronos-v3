@@ -19,11 +19,11 @@ verknuepft: [Z-008, SH-002]
 - Kostenerfassung der KI-Nutzung
 
 **Entscheidung:**
-- Anbieterneutrale Schnittstelle, Start mit Claude; konkretes Modell in arc42.
+- Anbieterneutrale Schnittstelle über ein KI-Gateway; nur Anbieter mit garantiertem europäischem Datenstandort; konkretes Modell nach Prüfkatalog ([ADR-006](../../../arc42/09-entscheidungen/ADR-006-ki-anbindung.md)).
 - Monatslimit je Team, der Betreiber trägt die Kosten ([F-018](F-018-kostenerfassung.md)).
 
 **Offen:**
-- Datenschutz beim KI-Anbieter im Detail (AV-Vertrag, Datenumfang)
+- AV-Vertrag und Aufbewahrung beim gewählten EU-Anbieter prüfen (ADR-006, Bedingung 7)
 - Wie Gäste ohne Konto den Assistenten nutzen: nicht (?)
 
 **Anforderung mit Akzeptanzkriterien:** [FA-015](../anforderungen/FA-015-ki-assistent.md)

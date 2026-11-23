@@ -20,7 +20,7 @@ flowchart LR
   C -- E-Mail --> M[Mailserver / SMTP]
   C -. optional .-> MS[Messenger-Anbieter]
   K2[Kalender-Apps] -- webcal-Abruf --> C
-  C -- Dialog, Operationsaufrufe --> AI[KI-Anbieter, anbieterneutral]
+  C -- Dialog, Operationsaufrufe --> GW[KI-Gateway] --> AI[KI-Anbieter, EU]
   C -- Schulferien abrufen --> SF[Öffentliche Ferien-API]
   C -- Sicherungen --> B[Backup-Speicher]
   C -- Metriken, Logs --> O[Beobachtung]
@@ -35,7 +35,8 @@ flowchart LR
 | Push-Dienste | System | Zustellung von Web Push | verschlüsselte Nutzlast |
 | Mailserver | System | E-Mail-Benachrichtigung; eigener SMTP-Relay bzw. EU-Anbieter | Nachrichten |
 | Messenger-Anbieter | System, optional | Telegram/WhatsApp; nur Option ([F-008](../04-product-backlog/features/F-008-benachrichtigungen.md)) | Nachrichten |
-| KI-Anbieter | System | Dialog und Operationsaufrufe des Assistenten ([F-015](../04-product-backlog/features/F-015-ki-assistent.md)); anbieterneutral, Start mit Claude; erhält personenbezogene Daten ([RA-010](../12-risiken-annahmen/RA-010-ki-assistent-risiken.md)) | Gesprächsinhalte, Operationsaufrufe |
+| KI-Anbieter | System | Dialog und Operationsaufrufe des Assistenten ([F-015](../04-product-backlog/features/F-015-ki-assistent.md)); anbieterneutral über das KI-Gateway des Betreibers, nur Anbieter mit EU-Datenstandort; erhält personenbezogene Daten ([RA-010](../12-risiken-annahmen/RA-010-ki-assistent-risiken.md)) | Gesprächsinhalte, Operationsaufrufe |
+| KI-Gateway (LiteLLM) | System, vom Betreiber betrieben | Leitet Anfragen des Assistenten an den zulässigen KI-Anbieter weiter, liefert Kosten je Aufruf | Gesprächsinhalte (durchgeleitet, nicht gespeichert), Kosten |
 | Ferien-API | System, öffentlich | Schulferienzeiträume für Serien ([F-014](../04-product-backlog/features/F-014-serientermine.md)); Antworten werden zwischengespeichert | Ferienzeiträume |
 | Kalender-Apps | System | Abruf des persönlichen Feeds ([F-009](../04-product-backlog/features/F-009-kalender-feed.md)) | iCalendar-Daten |
 | Backup-Speicher | System | Datensicherung ([QA-006](../06-qualitaet/QA-006-datensicherung.md)); S3-kompatibler EU-Objektspeicher, täglich, clientseitig verschlüsselt | Datenbankabzüge |

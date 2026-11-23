@@ -15,7 +15,8 @@ Aufgeführt sind nur Schnittstellen, deren Art durch Standards oder req42 festst
 | Push-Dienste | Web Push (Standard), verschlüsselte Nutzlast | Bibliothek, Abo-Verwaltung (E-006) |
 | Mailserver | SMTP-Relay oder EU-Anbieter | Anbieter (E-011) |
 | Messenger | optional (Telegram, WhatsApp), hinter einer Kanal-Abstraktion | Auswahl später |
-| KI-Anbieter | Anbieterneutral, Start mit Claude; Monatslimit je Team | Abstraktion, Datenschutz im Detail (E-009) |
+| KI-Gateway (LiteLLM, vom Betreiber) | OpenAI-kompatibles `/chat/completions` mit festem Modellnamen je Umgebung und virtuellem Schlüssel; Kosten je Aufruf und genutztes Modell in Antwort-Kopfzeilen ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) | Ort und Version des Gateways |
+| KI-Anbieter | Nur über das Gateway; nur Anbieter mit garantiertem EU-Datenstandort (ADR-006); Monatslimit je Team | Standardmodell nach Prüfkatalog |
 | Ferien-API | Öffentliche API, Antworten werden zwischengespeichert | Anbieter der Daten |
 | Kalender-Apps | `webcal`-URL mit nicht erratbarem, erneuerbarem Token; iCalendar (RFC 5545) | – |
 | Backup-Speicher | S3-kompatibler EU-Objektspeicher, tägliche, clientseitig verschlüsselte Sicherung | Anbieter, Schlüsselverwaltung (E-010) |

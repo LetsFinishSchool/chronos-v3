@@ -18,7 +18,7 @@ flowchart LR
   C -- Web Push --> P[Push-Dienste der Browser]
   C -- E-Mail --> M[Mailserver / SMTP]
   C -. optional .-> MS[Messenger-Anbieter]
-  C -- Dialog, Operationsaufrufe --> AI[KI-Anbieter, anbieterneutral]
+  C -- Dialog, Operationsaufrufe --> AI[KI-Anbieter, EU, über Gateway]
   C -- Schulferien abrufen --> SF[Öffentliche Ferien-API]
   KA[Kalender-Apps] -- webcal-Abruf --> C
   C -- verschlüsselte Sicherung --> B[S3-kompatibler EU-Objektspeicher]
@@ -32,7 +32,7 @@ flowchart LR
 | Externe Person (Gast) | Name, Antwort; sieht nur, wofür der Link gilt | beide |
 | Keycloak | Anmeldung, Kennung, Anzeigename, E-Mail | Chronos ← Keycloak |
 | Push-Dienste, Mailserver, Messenger | Benachrichtigungen | Chronos → |
-| KI-Anbieter | Gesprächsinhalte und Operationsaufrufe; enthält personenbezogene Daten ([RA-010](../../req42/12-risiken-annahmen/RA-010-ki-assistent-risiken.md)); Start mit Claude, anbieterneutral | beide |
+| KI-Anbieter | Gesprächsinhalte und Operationsaufrufe; enthält personenbezogene Daten ([RA-010](../../req42/12-risiken-annahmen/RA-010-ki-assistent-risiken.md)); anbieterneutral über ein KI-Gateway, nur EU-Datenstandort ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) | beide |
 | Ferien-API | Schulferienzeiträume, mit Cache ([RA-008](../../req42/12-risiken-annahmen/RA-008-offene-fragen.md)) | Chronos ← |
 | Kalender-Apps | iCalendar-Daten des persönlichen Feeds | Chronos → |
 | Backup-Speicher | verschlüsselte Datenbankabzüge | Chronos → |

@@ -23,3 +23,4 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [M-005 Rollen/Einstellungen](proposals/2026-11-20-m-005-rollen-einstellungen-verwerfen.md): Migration verwirft Rollen und Einstellungen, Termine je Team dupliziert
 - [RB-003 Limits je Umgebung](proposals/2026-11-20-rb-003-limits-je-umgebung.md): Budget je Umgebung statt gesamt, offen
 - [Rückgängig Folgeänderungen](proposals/2026-11-20-rueckgaengig-folgeaenderungen.md): Alt/Neu-Texte in req42 und arc42 nach FA-017-Reduzierung, offen
+- [KI-Anbieter nur EU](proposals/2026-11-23-ki-anbieter-eu.md): F-015 und SC-001 „Start mit Claude“ widerspricht ADR-006 (nur EU-Datenstandort, Gateway), angenommen und übernommen
