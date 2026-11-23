@@ -1,0 +1,1 @@
+{"title": "TeamCreateParams", "additionalProperties": false, "properties": {"name": {"maxLength": 100, "minLength": 1, "type": "string"}, "parent_id": {"format": "uuid", "type": "string"}}, "required": ["name"], "type": "object"}

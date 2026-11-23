@@ -1,0 +1,1 @@
+{"title": "NotificationSubscribePushParams", "additionalProperties": false, "properties": {"endpoint": {"description": "https-URL des Push-Dienstes", "pattern": "^https://\\S+$", "type": "string"}, "p256dh": {"minLength": 1, "type": "string"}, "auth": {"minLength": 1, "type": "string"}}, "required": ["endpoint", "p256dh", "auth"], "type": "object"}

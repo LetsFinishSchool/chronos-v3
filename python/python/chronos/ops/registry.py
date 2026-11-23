@@ -53,12 +53,21 @@ def operation(name: str, description: str, *, mutating: bool = False, preview: b
     return deco
 
 
+# EIGENBAU:BEGIN JSON-Schema-Nachbearbeitung (Referenzen auflösen, title entfernen, optionale Parameter vereinfachen)
 def _inline(node: Any, defs: dict[str, Any]) -> Any:
-    """Löst $ref/$defs auf und entfernt `title` (Lärm); Ergebnis ist ein in sich geschlossenes JSON Schema."""
+    """Löst $ref/$defs auf und entfernt das Schlüsselwort `title` (Lärm); Ergebnis ist in sich geschlossen."""
     if isinstance(node, dict):
         if "$ref" in node:
             return _inline(copy.deepcopy(defs[node["$ref"].split("/")[-1]]), defs)
-        return {k: _inline(v, defs) for k, v in node.items() if k not in ("title", "$defs")}
+        out = {}
+        for k, v in node.items():
+            if k in ("title", "$defs") and not isinstance(v, dict):
+                continue  # Schlüsselwort title (Zeichenkette); ein Feld namens title wäre ein Objekt
+            if k == "properties" and isinstance(v, dict):
+                out[k] = {name: _inline(sub, defs) for name, sub in v.items()}  # Feldnamen bleiben unangetastet
+            elif k != "$defs":
+                out[k] = _inline(v, defs)
+        return out
     if isinstance(node, list):
         return [_inline(v, defs) for v in node]
     return node
@@ -74,6 +83,7 @@ def _drop_null_options(schema: dict) -> dict:
             v.update(inner)
             v.pop("default", None)
     return schema
+# EIGENBAU:END
 
 
 def params_schema(op: Operation) -> dict:

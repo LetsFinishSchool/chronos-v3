@@ -41,6 +41,7 @@ async def ping() -> bool:
         return False
 
 
+# EIGENBAU:BEGIN Migrationsläufer für schema.sql (statt Alembic)
 async def migrate() -> None:
     sql = resources.files("chronos").joinpath("schema.sql").read_text(encoding="utf-8")
     async with engine().begin() as c:
@@ -50,6 +51,7 @@ async def migrate() -> None:
             if stmt:
                 await c.execute(text(stmt.rstrip(";")))
     log.info("Migration abgeschlossen")
+# EIGENBAU:END
 
 
 async def wait_for_schema(timeout_s: int = 60) -> None:

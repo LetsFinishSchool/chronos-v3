@@ -28,6 +28,7 @@ class Task:
     attempt: int
 
 
+# EIGENBAU:BEGIN Auftragswarteschlange auf PostgreSQL (SKIP LOCKED, Sperre, Wiederholung statt Auftragsbibliothek)
 async def claim(limit: int) -> list[Task]:
     async with db.session() as s, s.begin():
         rows = (await s.execute(
@@ -102,8 +103,10 @@ async def _finish(task: Task, _: None) -> None:
     async with db.session() as s, s.begin():
         await s.execute(text("UPDATE delivery_task SET status = 'done', lease_until = NULL "
                              "WHERE event_id = :e AND recipient = :r"), {"e": task.event_id, "r": task.recipient})
+# EIGENBAU:END
 
 
+# EIGENBAU:BEGIN Schleife der Warteschlange
 async def _guarded(task: Task, sem: asyncio.Semaphore) -> None:
     try:
         await process(task)
@@ -131,3 +134,4 @@ async def run_loop() -> None:
             fut.add_done_callback(running.discard)
         if not tasks:
             await asyncio.sleep(0.1)
+# EIGENBAU:END

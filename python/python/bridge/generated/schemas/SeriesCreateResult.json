@@ -1,0 +1,1 @@
+{"title": "SeriesCreateResult", "properties": {"series_id": {"type": "string"}}, "required": ["series_id"], "type": "object"}

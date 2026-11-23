@@ -1,0 +1,1 @@
+{"title": "HistoryUndoResult", "properties": {"history_id": {"type": "string"}}, "required": ["history_id"], "type": "object"}

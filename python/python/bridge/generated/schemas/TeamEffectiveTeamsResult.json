@@ -1,0 +1,1 @@
+{"title": "TeamEffectiveTeamsResult", "properties": {"teams": {"items": {"properties": {"team_id": {"type": "string"}, "name": {"type": "string"}, "parent_id": {"anyOf": [{"type": "string"}, {"type": "null"}]}}, "required": ["team_id", "name", "parent_id"], "type": "object"}, "type": "array"}}, "required": ["teams"], "type": "object"}

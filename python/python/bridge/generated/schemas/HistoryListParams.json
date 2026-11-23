@@ -1,0 +1,1 @@
+{"title": "HistoryListParams", "additionalProperties": false, "properties": {"object_id": {"format": "uuid", "type": "string"}, "limit": {"default": 50, "maximum": 200, "minimum": 1, "type": "integer"}}, "type": "object", "required": []}

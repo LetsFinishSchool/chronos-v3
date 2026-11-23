@@ -1,0 +1,1 @@
+{"title": "NotificationSetChannelsParams", "additionalProperties": false, "properties": {"channels": {"items": {"enum": ["mock", "email", "webpush"], "type": "string"}, "minItems": 1, "type": "array"}}, "required": ["channels"], "type": "object"}

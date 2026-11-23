@@ -1,0 +1,1 @@
+{"title": "AppointmentCreateResult", "properties": {"appointment_id": {"type": "string"}}, "required": ["appointment_id"], "type": "object"}
