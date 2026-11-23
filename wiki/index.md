@@ -5,6 +5,8 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 ## Konzepte
 - [Projektkontext chronos-v3](concepts/projektkontext-chronos-v3.md): Fork von chronos-root, Neuanfang, Datenübernahme als Hauptrandbedingung
 - [arc42-Entwurf, Stand 2026-11-20](concepts/arc42-entwurf-stand.md): Was in arc42 steht, was offen ist, nächste Schritte
+- [E-002 Spike-Ergebnisse](concepts/e-002-spike-ergebnisse.md): Messung und Bewertung TypeScript/Go/Rust, Lehren für Agentenläufe, Entwurf ADR-004 (Rust vorgeschlagen)
+- [Folgeentscheidungen bei Rust](concepts/e-002-folgeentscheidungen-rust.md): E-004, E-005, E-008, E-009, E-016, Migration, K-007, Zeitbibliothek, Build: Optionen mit Vor-/Nachteilen und Rust-Folgen
 - [Key Learnings und Eckpunkte](concepts/key-learnings-chronos-root.md): Warum Neuanfang, Zielgruppe Leitungsteams, Team-Modell, Ressourcenbudget
 
 ## Code
