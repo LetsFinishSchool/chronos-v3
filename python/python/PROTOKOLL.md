@@ -32,3 +32,7 @@ Anzahl: **3**
 
 - Kein `pip`/`uv` auf dem Host; Werkzeuge laufen im Container (uv-Image). Docker und Netz standen zur Verfügung.
 - KI-Proxy: 2 von 150 Anfragen verbraucht (K6, ein Fehlversuch durch Schemafehler, ein Erfolg), kein 429.
+
+## Phasen
+
+PHASE-1-FERTIG: 2026-11-23T09:11:22Z (Neubau des Images und Regressionslauf nach den letzten Kommentar-Änderungen: 58/58 bestanden, 1 manuell übersprungen). Warte auf `PHASE2.md`.
