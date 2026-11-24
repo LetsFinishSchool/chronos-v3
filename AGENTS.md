@@ -21,7 +21,6 @@ Ablauf in jeder Session:
 4. Keine Geheimnisse, Tokens oder personenbezogenen Daten ins Wiki.
 5. **Kein Agenten-Gedächtnis.** Das maschinengebundene Gedächtnis (z. B. `~/.claude/projects/.../memory/`) wird in diesem Projekt nicht verwendet. Alles Wissen gehört ins `wiki/`, damit es am Projekt hängt und nicht an einer Maschine. Siehe `wiki/lessons/wissen-nur-im-wiki.md`.
 
-Werkzeuge: Skill `chronos-wiki` (Claude Code und opencode), Befehle `/wiki-ingest`, `/wiki-lint`, `/wiki-query`.
 Erzwingung: Claude Code über `.claude/settings.json` (Hooks), opencode über `opencode.json` und `.opencode/plugin/chronos-wiki.js`.
 
 ## Kommentare im Code
