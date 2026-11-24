@@ -223,3 +223,6 @@ Auf Anweisung des Nutzers: herdr übernimmt `.worktreekeep` nicht (kennt die Dat
 
 ## [2026-11-24] ingest | #99 Cargo-Workspace mit sieben Crates und Architekturtest
 Umsetzung von #99 auf Branch `issue/99`: Workspace (resolver 3, edition 2024, Lints), sieben Crates nach dem Crate-Zuschnitt mit Modulkommentar, Binary `chronos` (clap, Exit-Code 2), Architekturtest über `cargo_metadata`. Neue Seite `code/cargo-workspace.md`. Gegenproben: `domain → channels` und Kanten gegen die Richtung scheitern im Test mit Kante und ADR-Verweis; `use chronos_channels` in `domain` ohne Eintrag scheitert beim Übersetzen (E0432). Funde: Normale Zyklen lehnt Cargo selbst ab, Zyklen über Dev-Abhängigkeiten nur der Test; clap nutzt Exit-Code 2 auch für Bedienfehler. Kein Widerspruch zu `docs/`.
+
+## [2026-11-24] ingest | #99 Toolchain auf 1.100.0
+Auf Anweisung des Nutzers (Product Owner): Toolchain in #99 und PR #108 von 1.95.0 auf 1.100.0 (Release 2026-11-09). `Cargo.lock` blieb unverändert. Fund: Cargo 1.100 meldet ungenutzte Abhängigkeiten als Warnung im Manifest, die `clippy -D warnings` nicht zum Fehler macht; leere Crates binden ihre Kanten deshalb mit `use … as _;` ein. Ticket #99 angepasst. `docs/` nennt keine Toolchain-Version, kein Vorschlag nötig. Lehre: Vorgegebene Versionen aus Tickets beim Start gegen das aktuelle Release prüfen und eine Abweichung im PR nennen.
