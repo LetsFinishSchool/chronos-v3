@@ -214,3 +214,6 @@ Auf Anweisung des Nutzers („Ja“): Feature #105 „Design-System: Tokens und 
 
 ## [2026-11-24] ingest | K-012 freigegeben und in docs/ eingetragen
 Auf Anweisung des Nutzers (Product Owner): Vorschlag als `docs/arc42/08-konzepte/K-012-design-system-und-barrierefreiheit.md` mit `status: freigegeben` übernommen und gelöscht. Kein Eintrag in `00-kapitelbeschreibung.md`: Das ist die unveränderte arc42-Vorlage, und kein anderes Konzept (K-001 bis K-011) wird dort oder sonst wo aufgelistet; die Angabe im Vorschlag war falsch. Commit auf Branch `docs/k-012-design-system`, nur diese Datei.
+
+## [2026-11-24] ingest | #99 geteilt, DoR geprüft
+Auf Anweisung des Nutzers: #99 auf „Cargo-Workspace mit sieben Crates und Architekturtest“ gekürzt (Task A), neuer Task #107 „CI und Lieferkettenprüfung“ (Task B, Sub-Issue von #1, hängt von #99 ab). Abhängige Issues #96, #100, #103, #104 auf die neuen Nummern umgestellt. Ablaufprüfung für `cargo-deny`-Ausnahmen ist ein Pflicht-Skript (ADR-013 verlangt Vorwarnung 14 Tage vorher). DoR (Task, `ticket-typen.md`): #99 erfüllt alle Punkte, Label `ready-for-agent` angelegt und gesetzt; #107 nicht bereit, weil der Vorgänger #99 noch nicht gemergt ist (Punkt 2). Lehre: Tasks, die ein Gerüst bauen und zugleich dessen Prüfung (CI) einführen, früh teilen; Punkt 2 der DoR macht die Reihenfolge sichtbar.
