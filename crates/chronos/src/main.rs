@@ -30,8 +30,11 @@ use chronos_core as _;
 use chronos_web as _;
 use chronos_worker as _;
 
-/// Exit-Code für Unterbefehle, die es noch nicht gibt.
-const EXIT_NOT_IMPLEMENTED: u8 = 2;
+/// Exit-Code für Unterbefehle, die es noch nicht gibt: `EX_UNAVAILABLE` aus
+/// `sysexits.h`. Bewusst nicht 2, weil clap 2 für Bedienfehler (unbekannter
+/// Unterbefehl, falsches Argument) nutzt; der Aufrufer soll beides
+/// unterscheiden können.
+const EXIT_NOT_IMPLEMENTED: u8 = 69;
 
 /// Chronos: Termine und Veranstaltungen für ehrenamtliche Leitungsteams.
 #[derive(Debug, Parser)]

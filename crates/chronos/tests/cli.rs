@@ -3,6 +3,12 @@
 
 use std::process::{Command, Output};
 
+/// `EX_UNAVAILABLE` aus `sysexits.h`: Unterbefehl gibt es noch nicht.
+const EXIT_NOT_IMPLEMENTED: i32 = 69;
+
+/// Exit-Code von clap bei Bedienfehlern.
+const EXIT_USAGE_ERROR: i32 = 2;
+
 fn chronos(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_chronos"))
         .args(args)
@@ -40,13 +46,26 @@ fn subcommands_are_not_implemented_yet() {
         let output = chronos(&[subcommand]);
         assert_eq!(
             output.status.code(),
-            Some(2),
-            "`chronos {subcommand}` soll mit Exit-Code 2 enden"
+            Some(EXIT_NOT_IMPLEMENTED),
+            "`chronos {subcommand}` soll mit Exit-Code {EXIT_NOT_IMPLEMENTED} (EX_UNAVAILABLE) enden"
         );
         let stderr = String::from_utf8_lossy(&output.stderr);
         assert!(
             stderr.contains("noch nicht implementiert"),
             "`chronos {subcommand}` meldet auf stderr nichts Erwartetes: {stderr}"
+        );
+    }
+}
+
+#[test]
+fn usage_errors_are_distinguishable_from_not_implemented() {
+    for args in [&["unbekannt"][..], &[][..], &["serve", "--unbekannt"][..]] {
+        let output = chronos(args);
+        assert_eq!(
+            output.status.code(),
+            Some(EXIT_USAGE_ERROR),
+            "`chronos {}` ist ein Bedienfehler und soll mit Exit-Code {EXIT_USAGE_ERROR} enden",
+            args.join(" ")
         );
     }
 }
