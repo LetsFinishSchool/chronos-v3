@@ -24,6 +24,16 @@ Ablauf in jeder Session:
 Werkzeuge: Skill `chronos-wiki` (Claude Code und opencode), Befehle `/wiki-ingest`, `/wiki-lint`, `/wiki-query`.
 Erzwingung: Claude Code über `.claude/settings.json` (Hooks), opencode über `opencode.json` und `.opencode/plugin/chronos-wiki.js`.
 
+## Kommentare im Code
+
+Kommentare sind die Ausnahme. Ein Kommentar wird nur geschrieben, wenn **alle drei** Bedingungen gelten:
+
+- **A) Er erklärt, was Code nicht ausdrücken kann.** Das ist das *Warum*: Hintergrund, Randbedingung, bewusste Abweichung, Verweis auf ADR oder Issue, ein Stolperstein, der nicht aus dem Code folgt. Das *Was* steht im Code.
+- **B) Er lässt sich nicht durch anderen Code ersetzen.** Erst umschreiben: aussagekräftige Namen, benannte Konstanten, eine extrahierte Funktion, ein Typ statt eines Magic Values. Nur wenn der Code danach noch Erklärung braucht, kommt ein Kommentar.
+- **C) Sein Nutzen übersteigt den Pflegeaufwand.** Kommentar, Code und `docs/` müssen zusammen aktuell bleiben. Ein veralteter Kommentar ist schlimmer als keiner. Was sich oft ändert oder in `docs/` bereits steht, wird verlinkt statt wiederholt.
+
+Kein Kommentar gehört an: Wiederholung des Codes (`// zählt i hoch`), auskommentierten Code (dafür gibt es Git), Änderungshistorie oder Autorenangaben, Platzhalter ohne Inhalt. Ändert man Code, prüft man die zugehörigen Kommentare und passt sie an oder löscht sie.
+
 ## Tickets
 
 Ticket-Typen (Epic, Feature, Story, Task), Struktur und Definition of Done: `docs/req42/04-product-backlog/ticket-typen.md`. Neue Tickets mit den Vorlagen in `.github/ISSUE_TEMPLATE/` und Typ-Label (`epic`, `feature`, `story`, `task`) anlegen; `ready-for-agent` nur an vollständige Tasks vergeben.

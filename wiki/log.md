@@ -220,3 +220,6 @@ Auf Anweisung des Nutzers: #99 auf „Cargo-Workspace mit sieben Crates und Arch
 
 ## [2026-11-24] ingest | Worktrees: Umgebungsdateien per post-checkout-Hook
 Auf Anweisung des Nutzers: herdr übernimmt `.worktreekeep` nicht (kennt die Datei nicht). Hook `.githooks/post-checkout` gebaut (kopiert, `core.hooksPath` gesetzt), mit Wegwerf-Worktree getestet. Fehler dabei: Hook las die Liste aus dem neuen Worktree (committete Fassung ohne `.envrc`); jetzt Liste aus dem Haupt-Worktree. Seite `concepts/worktree-dateien-uebernehmen.md`. Kein Widerspruch zu `docs/`.
+
+## [2026-11-24] ingest | Regel zu Code-Kommentaren
+Auf Anweisung des Nutzers: Abschnitt „Kommentare im Code“ in `AGENTS.md` (Kommentar nur, wenn er erklärt, was Code nicht kann, sich nicht durch besseren Code ersetzen lässt und mehr Nutzen als Pflegeaufwand bringt). `docs/` unverändert; kein Wiki-Bedarf über diesen Eintrag hinaus.
