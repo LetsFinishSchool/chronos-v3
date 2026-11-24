@@ -1,0 +1,1 @@
+{"title": "SeriesOccurrencesResult", "properties": {"occurrences": {"items": {"properties": {"starts_at": {"type": "string"}, "ends_at": {"type": "string"}}, "required": ["starts_at", "ends_at"], "type": "object"}, "type": "array"}}, "required": ["occurrences"], "type": "object"}

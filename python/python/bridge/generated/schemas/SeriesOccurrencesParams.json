@@ -1,0 +1,1 @@
+{"title": "SeriesOccurrencesParams", "additionalProperties": false, "properties": {"series_id": {"format": "uuid", "type": "string"}, "from": {"description": "UTC, ISO 8601 mit Z", "format": "date-time", "type": "string"}, "to": {"description": "UTC, ISO 8601 mit Z", "format": "date-time", "type": "string"}}, "required": ["series_id", "from", "to"], "type": "object"}

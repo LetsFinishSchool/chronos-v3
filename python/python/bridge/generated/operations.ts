@@ -1,0 +1,62 @@
+// Erzeugt von bridge/generate.py aus /api/v1/operations. Nicht von Hand ändern.
+
+import type { AiAskParams } from "./types/AiAskParams";
+import type { AiAskResult } from "./types/AiAskResult";
+import type { AppointmentCreateParams } from "./types/AppointmentCreateParams";
+import type { AppointmentCreateResult } from "./types/AppointmentCreateResult";
+import type { AppointmentGetParams } from "./types/AppointmentGetParams";
+import type { AppointmentGetResult } from "./types/AppointmentGetResult";
+import type { AppointmentListParams } from "./types/AppointmentListParams";
+import type { AppointmentListResult } from "./types/AppointmentListResult";
+import type { AppointmentCancelParams } from "./types/AppointmentCancelParams";
+import type { AppointmentCancelResult } from "./types/AppointmentCancelResult";
+import type { AppointmentRescheduleParams } from "./types/AppointmentRescheduleParams";
+import type { AppointmentRescheduleResult } from "./types/AppointmentRescheduleResult";
+import type { HistoryListParams } from "./types/HistoryListParams";
+import type { HistoryListResult } from "./types/HistoryListResult";
+import type { HistoryUndoParams } from "./types/HistoryUndoParams";
+import type { HistoryUndoResult } from "./types/HistoryUndoResult";
+import type { SeriesCreateParams } from "./types/SeriesCreateParams";
+import type { SeriesCreateResult } from "./types/SeriesCreateResult";
+import type { SeriesOccurrencesParams } from "./types/SeriesOccurrencesParams";
+import type { SeriesOccurrencesResult } from "./types/SeriesOccurrencesResult";
+import type { TeamCreateParams } from "./types/TeamCreateParams";
+import type { TeamCreateResult } from "./types/TeamCreateResult";
+import type { TeamAddMemberParams } from "./types/TeamAddMemberParams";
+import type { TeamAddMemberResult } from "./types/TeamAddMemberResult";
+import type { TeamEffectiveMembersParams } from "./types/TeamEffectiveMembersParams";
+import type { TeamEffectiveMembersResult } from "./types/TeamEffectiveMembersResult";
+import type { TeamEffectiveTeamsParams } from "./types/TeamEffectiveTeamsParams";
+import type { TeamEffectiveTeamsResult } from "./types/TeamEffectiveTeamsResult";
+import type { NotificationSetChannelsParams } from "./types/NotificationSetChannelsParams";
+import type { NotificationSetChannelsResult } from "./types/NotificationSetChannelsResult";
+import type { NotificationSubscribePushParams } from "./types/NotificationSubscribePushParams";
+import type { NotificationSubscribePushResult } from "./types/NotificationSubscribePushResult";
+import type { NotificationTestPushParams } from "./types/NotificationTestPushParams";
+import type { NotificationTestPushResult } from "./types/NotificationTestPushResult";
+import type { NotificationListParams } from "./types/NotificationListParams";
+import type { NotificationListResult } from "./types/NotificationListResult";
+import type { CostListParams } from "./types/CostListParams";
+import type { CostListResult } from "./types/CostListResult";
+
+export interface Operations {
+  "ai.ask": { params: AiAskParams; result: AiAskResult };
+  "appointment.create": { params: AppointmentCreateParams; result: AppointmentCreateResult };
+  "appointment.get": { params: AppointmentGetParams; result: AppointmentGetResult };
+  "appointment.list": { params: AppointmentListParams; result: AppointmentListResult };
+  "appointment.cancel": { params: AppointmentCancelParams; result: AppointmentCancelResult };
+  "appointment.reschedule": { params: AppointmentRescheduleParams; result: AppointmentRescheduleResult };
+  "history.list": { params: HistoryListParams; result: HistoryListResult };
+  "history.undo": { params: HistoryUndoParams; result: HistoryUndoResult };
+  "series.create": { params: SeriesCreateParams; result: SeriesCreateResult };
+  "series.occurrences": { params: SeriesOccurrencesParams; result: SeriesOccurrencesResult };
+  "team.create": { params: TeamCreateParams; result: TeamCreateResult };
+  "team.add_member": { params: TeamAddMemberParams; result: TeamAddMemberResult };
+  "team.effective_members": { params: TeamEffectiveMembersParams; result: TeamEffectiveMembersResult };
+  "team.effective_teams": { params: TeamEffectiveTeamsParams; result: TeamEffectiveTeamsResult };
+  "notification.set_channels": { params: NotificationSetChannelsParams; result: NotificationSetChannelsResult };
+  "notification.subscribe_push": { params: NotificationSubscribePushParams; result: NotificationSubscribePushResult };
+  "notification.test_push": { params: NotificationTestPushParams; result: NotificationTestPushResult };
+  "notification.list": { params: NotificationListParams; result: NotificationListResult };
+  "cost.list": { params: CostListParams; result: CostListResult };
+}

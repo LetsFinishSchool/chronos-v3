@@ -1,0 +1,1 @@
+{"title": "TeamAddMemberParams", "additionalProperties": false, "properties": {"team_id": {"format": "uuid", "type": "string"}, "person_id": {"description": "Keycloak-sub der Person", "minLength": 1, "type": "string"}}, "required": ["team_id", "person_id"], "type": "object"}

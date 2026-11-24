@@ -1,0 +1,1 @@
+{"title": "TeamEffectiveTeamsParams", "additionalProperties": false, "properties": {"person_id": {"type": "string"}}, "type": "object", "required": []}

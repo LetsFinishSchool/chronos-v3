@@ -1,0 +1,1 @@
+{"title": "AiAskParams", "additionalProperties": false, "properties": {"prompt": {"maxLength": 8000, "minLength": 1, "type": "string"}, "team_id": {"description": "Team, auf das sich die Frage bezieht", "format": "uuid", "type": "string"}}, "required": ["prompt"], "type": "object"}

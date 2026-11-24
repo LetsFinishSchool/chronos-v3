@@ -1,0 +1,1 @@
+{"title": "TeamCreateResult", "properties": {"team_id": {"type": "string"}}, "required": ["team_id"], "type": "object"}

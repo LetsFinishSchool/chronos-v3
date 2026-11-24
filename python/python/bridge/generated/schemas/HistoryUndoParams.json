@@ -1,0 +1,1 @@
+{"title": "HistoryUndoParams", "additionalProperties": false, "properties": {"history_id": {"format": "uuid", "type": "string"}}, "required": ["history_id"], "type": "object"}

@@ -1,0 +1,5 @@
+.venv
+__pycache__
+bridge/node_modules
+bridge/generated
+tests

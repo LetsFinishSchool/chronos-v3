@@ -1,0 +1,1 @@
+{"title": "TeamEffectiveMembersResult", "properties": {"members": {"items": {"properties": {"person_id": {"type": "string"}, "name": {"type": "string"}}, "required": ["person_id", "name"], "type": "object"}, "type": "array"}}, "required": ["members"], "type": "object"}

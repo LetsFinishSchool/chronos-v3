@@ -1,0 +1,1 @@
+{"title": "TeamEffectiveMembersParams", "additionalProperties": false, "properties": {"team_id": {"format": "uuid", "type": "string"}}, "required": ["team_id"], "type": "object"}
