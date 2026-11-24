@@ -8,7 +8,7 @@ quellen: [req42 SC-001, SC-002, FA-008, FA-015, F-014, RA-010]
 
 # 3.1 Fachlicher Kontext
 
-Grundlage ist [SC-001](../../req42/03-scope/SC-001-systemkontext.md), ergänzt um zwei Nachbarn, die in req42 an anderer Stelle vorkommen, aber im Kontextdiagramm fehlen (Vorschlag zur Ergänzung: [wiki/proposals](../../../wiki/proposals/2026-11-20-sc-001-kontext-ergaenzen.md)).
+Grundlage ist [SC-001](../../req42/03-scope/SC-001-systemkontext.md), ergänzt um zwei Nachbarn, die in req42 an anderer Stelle vorkommen, aber im Kontextdiagramm fehlen.
 
 ```mermaid
 flowchart LR

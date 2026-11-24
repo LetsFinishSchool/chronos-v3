@@ -198,7 +198,7 @@ class Diagram:
                                   backgroundColor=fill, roundness={"type": 3}))
             els.append(self._text("lg-t%d" % j, lx + j * 230 + 36, ly + 26, [label], "#333333", 13, align="left",
                                   valign="middle", w=180, h=18))
-        return {"type": "excalidraw", "version": 2, "source": "chronos-v3/wiki/diagramme",
+        return {"type": "excalidraw", "version": 2, "source": "chronos-v3/docs/arc42/diagramme/generator",
                 "elements": els, "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
                 "files": {}}
 

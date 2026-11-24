@@ -33,7 +33,7 @@ Alles hier ist **Vorgabe** (aus req42), keine Architekturentscheidung. RB-007 is
 | Zusatzkosten höchstens 10 €/Monat (ohne Cluster und Personal); bei Erreichen pausiert die KI, Backup und E-Mail laufen weiter | Limit-Prüfung vor KI-Aufrufen. | [RA-009](../../req42/12-risiken-annahmen/RA-009-budget-und-abhaengigkeit-von-keycloak.md) |
 | DSGVO, Impressum; keine Daten von Kindern und Eltern; Product Owner ist Verantwortlicher | Datensparsamkeit im Modell; Datenschutzerklärung deckt sich mit der Verarbeitung. | [RB-006](../../req42/07-randbedingungen/RB-006-datenschutz-und-impressum.md) |
 | Keine Geheimnisse im Repository | Konfiguration und Secrets von außen. | [RB-008](../../req42/07-randbedingungen/RB-008-keine-geheimnisse-im-repository.md) |
-| Wissen im `wiki/`, kein Agenten-Gedächtnis; `docs/` nur mit menschlicher Freigabe | Arbeitsweise, kein Systementwurf. | [RB-009](../../req42/07-randbedingungen/RB-009-wissen-im-wiki.md), [docs/README](../../README.md) |
+| Wissen im Projekt, kein Agenten-Gedächtnis; `docs/` nur mit menschlicher Freigabe | Arbeitsweise, kein Systementwurf. | [RB-009](../../req42/07-randbedingungen/RB-009-wissen-im-projekt.md), [docs/README](../../README.md) |
 | Ein-Personen-Team plus Agenten, keine benannte Vertretung | Einfachheit und Dokumentation vor Eleganz. | [TS-001](../../req42/10-teamstruktur/TS-001-rollen-und-zusammenarbeit.md), [RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md) |
 
 ## Konventionen

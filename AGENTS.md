@@ -11,6 +11,8 @@ Chronos hat zwei Wissensbereiche:
 | `docs/` (Produktvision, req42, arc42) | Menschen und Agenten gemeinsam | **Nie ohne menschliche Freigabe ändern.** Siehe `docs/README.md`. |
 | `wiki/` (LLM-Wiki) | Agenten | Lesen **vor**, pflegen **nach** jeder Aufgabe. Siehe `wiki/README.md`. |
 
+**Verweisrichtung:** `docs/` darf **niemals** auf `wiki/` verweisen (keine Links, Pfade oder Quellenangaben). Es steht für sich allein. Das Wiki darf auf `docs/` verweisen, nie umgekehrt. Braucht `docs/` Wissen aus dem Wiki, wird es als Vorschlag nach `docs/` übernommen und das Wiki verlinkt danach darauf.
+
 Ablauf in jeder Session:
 
 1. **Vor der Aufgabe:** `wiki/index.md` lesen und passende Seiten laden; für fachliche Fragen außerdem `docs/` (Anforderungen `docs/req42/`, Architektur `docs/arc42/`). Ist eine Wiki-Aussage von Code abhängig und `last-verified` alt, gegen den Code prüfen.

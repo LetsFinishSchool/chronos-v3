@@ -20,4 +20,4 @@ Excalidraw-Diagramme (`.excalidraw`, öffnen mit excalidraw.com oder der IDE-Erw
 
 Offen und gestrichelt gezeichnet: Backup (E-010), Ferien-Abruf, Messenger, Datenübernahme (E-017). Der Crate-Zuschnitt (ADR-009) ist noch nicht festgelegt.
 
-Erzeugt aus `wiki/diagramme/generate.py`. Wer in Excalidraw von Hand nachbessert, führt den Generator nicht mehr aus.
+Erzeugt aus `generator/generate.py`. Wer in Excalidraw von Hand nachbessert, führt den Generator nicht mehr aus.

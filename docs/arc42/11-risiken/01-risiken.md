@@ -15,7 +15,7 @@ Fachliche Risiken und Annahmen stehen in [req42/12-risiken-annahmen](../../req42
 | Risiko | Wirkung | Gegenmaßnahme (Stand) |
 |---|---|---|
 | [RA-002](../../req42/12-risiken-annahmen/RA-002-nutzungsumfang.md) < 500 Nutzer | Kapazitätsplanung; Lastspitzen (viele Antworten nach Einladung) unbekannt | Lasttest mit 500 Nutzern (QA-001) |
-| [RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md) Eine Person | Einfachheit vor Eleganz; Dokumentation im Wiki | akzeptiertes Restrisiko, keine Vertretung |
+| [RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md) Eine Person | Einfachheit vor Eleganz; Dokumentation | akzeptiertes Restrisiko, keine Vertretung |
 | [RA-004](../../req42/12-risiken-annahmen/RA-004-gleichberechtigung-und-versehentliche-aenderungen.md) Gleichberechtigung | Gelöschtes muss wiederherstellbar sein | [K-004](../08-konzepte/K-004-aenderungsverlauf-und-rueckgaengig.md) |
 | [RA-005](../../req42/12-risiken-annahmen/RA-005-migration-altmodell-passt-nicht.md) Altmodell passt nicht | Modellentscheidungen können an Altdaten scheitern | [K-010](../08-konzepte/K-010-datenuebernahme.md); Altschema früh prüfen |
 | [RA-006](../../req42/12-risiken-annahmen/RA-006-zustellung-ueber-web-push-ist-unsicher.md) Web Push unsicher | Ersatzkanal E-Mail Pflicht | [K-003](../08-konzepte/K-003-ereignisse-und-benachrichtigung.md) |

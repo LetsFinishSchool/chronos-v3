@@ -2,7 +2,7 @@
 import os
 from c4lib import Diagram
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "docs", "arc42", "diagramme")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LEG_ALL = [("person", "Person"), ("system", "Chronos (System)"), ("external", "Nachbarsystem"),
            ("container", "Container"), ("component", "Baustein / Komponente")]
 

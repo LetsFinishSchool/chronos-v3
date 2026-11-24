@@ -33,7 +33,7 @@ Gründe: Der Wechsel von Modell und Anbieter zur Laufzeit ist mit dem Gateway Ko
 ## Folgen
 - **Leichter:** Anbieter- und Modellwechsel ohne Release; kein Rust-SDK nötig; Anbieterschlüssel bleiben im Gateway (RB-008); Verarbeitung in der EU vereinfacht Datenschutzerklärung und Auftragsverarbeitung.
 - **Schwerer:** Neues Nachbarsystem: Fällt das Gateway aus, pausiert der Assistent (die Fachfunktionen laufen weiter). Das Gateway gehört in Betrieb, Updates und Absicherung des Betreibers (RA-003). Die zulässigen Modelle sind offene Modelle oder Mistral; ob sie die Aufgaben aus F-015 so gut lösen wie Claude, ist ungeprüft und wird erst mit dem Prüfkatalog sichtbar.
-- **Widerspruch zu req42:** F-015 und SC-001 sagen „Start mit Claude“. Das ist mit der EU-Regel derzeit nicht vereinbar. Vorschlag zur Anpassung: [wiki/proposals/2026-11-23-ki-anbieter-eu.md](../../../wiki/proposals/2026-11-23-ki-anbieter-eu.md).
+- **Widerspruch zu req42 (aufgelöst):** F-015 und SC-001 sagten „Start mit Claude“, was mit der EU-Regel nicht vereinbar war. Beide sind angepasst ([F-015](../../req42/04-product-backlog/features/F-015-ki-assistent.md), [SC-001](../../req42/03-scope/SC-001-systemkontext.md)).
 - **Risiken (Kapitel 11):** Neu: „KI-Gateway falsch konfiguriert, Daten verlassen die EU“ und „Qualität der zulässigen Modelle reicht nicht“. Maßnahmen siehe unten.
 - **Bindet:** K-006 (Anbieter), Kapitel 3 (Gateway als Nachbar), Kapitel 5 (Assistent im Web-Prozess), K-008 (Gesprächsdaten mit 24 h Löschfrist).
 

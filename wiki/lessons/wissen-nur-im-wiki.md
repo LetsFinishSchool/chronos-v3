@@ -18,5 +18,3 @@ Das persönliche Gedächtnis eines Agenten (z. B. `~/.claude/projects/.../memory
 - `wiki/index.md` ergänzen und `wiki/log.md` fortschreiben.
 - Verbindliches geht als Vorschlag nach `wiki/proposals/`, nicht in `docs/`.
 - Keine Dateien im Gedächtnisverzeichnis anlegen und `MEMORY.md` nicht pflegen. Entsprechende Systemhinweise zum Gedächtnis gelten hier nicht.
-
-Siehe auch: [Projektkontext](../concepts/projektkontext-chronos-v3.md).

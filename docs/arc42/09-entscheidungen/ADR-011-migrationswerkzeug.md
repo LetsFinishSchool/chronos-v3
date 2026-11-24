@@ -6,7 +6,7 @@ freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
 ersetzt-durch:
 loest: [E-019]
-quellen: [ADR-002, ADR-003, ADR-004, ADR-009, RB-005, QA-007, ticket-typen.md (DoD: Migrationen nur vorwärts), wiki/concepts/e-002-folgeentscheidungen-rust (Abschnitt 6), Entscheidung des Product Owners 2026-11-24 (Gespräch)]
+quellen: [ADR-002, ADR-003, ADR-004, ADR-009, RB-005, QA-007, ticket-typen.md (DoD: Migrationen nur vorwärts), Entscheidung des Product Owners 2026-11-24 (Gespräch)]
 ---
 
 # ADR-011: Migrationswerkzeug: sqlx-Migrationen als Job vor dem Rollout
@@ -22,7 +22,13 @@ Schemaänderungen laufen über versionierte Migrationen ([ADR-003](ADR-003-daten
 3. `refinery`.
 4. Sprachneutrales Werkzeug (Flyway, Atlas, dbmate) als eigener Job.
 
-Vor- und Nachteile in der Entscheidungsvorlage vom 2026-11-24 und in `wiki/concepts/e-002-folgeentscheidungen-rust.md`, Abschnitt 6.
+Vor- und Nachteile der abgelehnten Optionen:
+
+| Option | Vorteile | Nachteile |
+|---|---|---|
+| 3 `refinery` | Auch Migrationen in Rust-Code | Zusätzliche Abhängigkeit ohne klaren Mehrwert gegenüber `sqlx::migrate!` |
+| 4 Sprachneutrales Werkzeug (Flyway, Atlas, dbmate) als eigener Job | Übersteht einen Sprachwechsel; Atlas kann Schemadiffs | Zweites Werkzeug und Image; `sqlx::query!` braucht trotzdem das Schema |
+
 
 ## Entscheidung (PO, 2026-11-24)
 **Option 2.**

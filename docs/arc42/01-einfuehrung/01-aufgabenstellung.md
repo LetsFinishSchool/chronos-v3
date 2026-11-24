@@ -3,7 +3,7 @@ title: Aufgabenstellung
 status: freigegeben
 freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
-quellen: [req42 (Z-001..Z-010, F-001..F-018, RB-*, QA-*), wiki/concepts/key-learnings-chronos-root.md]
+quellen: [req42 (Z-001..Z-010, F-001..F-018, RB-*, QA-*)]
 ---
 
 # 1.1 Aufgabenstellung
@@ -23,7 +23,7 @@ Chronos ist eine Web-Anwendung für **ehrenamtliche Leitungsteams von Jugendverb
 
 ## Warum der Neuanfang (architekturtreibend)
 
-Aus den Key Learnings ([Wiki](../../../wiki/concepts/key-learnings-chronos-root.md)): Domänenmodell trug nicht, Zugang war zu hoch, Benachrichtigung unzuverlässig und kaum nachvollziehbar, Codebasis schwer pflegbar (intransparenter Datenfluss, schlechte Trennung), RAM-Verbrauch zu hoch. Jeder dieser Punkte ist ein Qualitätsziel ([1.2](02-qualitaetsziele.md)).
+Aus den Key Learnings des Altsystems chronos-root: Domänenmodell trug nicht, Zugang war zu hoch, Benachrichtigung unzuverlässig und kaum nachvollziehbar, Codebasis schwer pflegbar (intransparenter Datenfluss, schlechte Trennung), RAM-Verbrauch zu hoch. Jeder dieser Punkte ist ein Qualitätsziel ([1.2](02-qualitaetsziele.md)).
 
 ## Architekturrelevante Eckwerte
 

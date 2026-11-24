@@ -6,7 +6,7 @@ freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
 ersetzt-durch:
 loest: [E-021]
-quellen: [ADR-004 (Punkt 3, Folgen), ADR-009, ADR-012, RA-003, wiki/concepts/e-002-folgeentscheidungen-rust (Abschnitt 9), Entscheidung des Product Owners 2026-11-24 (Gespräch)]
+quellen: [ADR-004 (Punkt 3, Folgen), ADR-009, ADR-012, RA-003, Entscheidung des Product Owners 2026-11-24 (Gespräch)]
 ---
 
 # ADR-013: Build, CI und Lieferkette: cargo-deny als harte Prüfung mit befristeten Ausnahmen
@@ -17,7 +17,13 @@ quellen: [ADR-004 (Punkt 3, Folgen), ADR-009, ADR-012, RA-003, wiki/concepts/e-0
 Rust bringt eine große Abhängigkeitsmenge (375 Crates), Sicherheitsmeldungen und schwachen Pflegestand einzelner Bibliotheken mit ([ADR-004](ADR-004-sprache-und-laufzeit.md)). Das Team ist eine Person ([RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md)). ADR-004 Punkt 3 verlangt die Prüfung der Sicherheitsmeldungen in der Pipeline; [ADR-012](ADR-012-zeitbibliothek.md) lässt `chrono` und `chrono-tz` an den Rändern als dokumentierte Ausnahme zu.
 
 ## Optionen
-A `cargo-deny` als harte CI-Prüfung mit dokumentierten Ausnahmen; B nur `cargo audit` als Warnung; C A plus `cargo-vet`. Vor- und Nachteile in der Entscheidungsvorlage vom 2026-11-24 und in `wiki/concepts/e-002-folgeentscheidungen-rust.md`, Abschnitt 9.
+A `cargo-deny` als harte CI-Prüfung mit dokumentierten Ausnahmen; B nur `cargo audit` als Warnung; C A plus `cargo-vet`. Vor- und Nachteile der abgelehnten Optionen:
+
+| Option | Vorteile | Nachteile |
+|---|---|---|
+| **B** Nur `cargo audit` als Warnung | Kein Blockieren | Meldungen werden übersehen (RA-003, eine Person) |
+| **C** A + `cargo-vet` (geprüfte Crates) | Stärkste Lieferkettenkontrolle | Für eine Person mit 375 Crates kaum leistbar |
+
 
 ## Entscheidung (PO, 2026-11-24)
 **Option A, mit Ablaufdatum für jede Ausnahme.**

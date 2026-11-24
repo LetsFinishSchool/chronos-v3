@@ -18,7 +18,7 @@ quellen: [Gespräch mit dem Product Owner 2026-11-20, ADR-001, ADR-002, ADR-003,
 | Reihenfolge | Entfällt, weil parallel. Jeder Agent arbeitet in einem **eigenen Worktree** und sieht weder Code noch Zwischenstände der anderen. |
 | Vorgehen | Drei Agenten, **gleiches Modell, gleiche Aufgabenbeschreibung**, kein Eingriff des Menschen während des Laufs (Rückfragen werden einheitlich beantwortet und protokolliert). Jede Schleife (Fehler, Korrektur) und der Tokenverbrauch werden gezählt. |
 | Frameworks | Vorab festgelegt, idiomatisch und schlank, kein Wechsel während des Spikes. Vorschlag: TypeScript: Fastify, Kysely, Zod/TypeBox; Go: chi, huma, pgx, sqlc; Rust: axum, sqlx, serde, utoipa. |
-| Ort | Eigener Zweig bzw. Verzeichnis `spikes/e-002-<sprache>`, **nicht** im Hauptzweig; Ergebnis nur als Protokoll im Wiki. |
+| Ort | Eigener Zweig bzw. Verzeichnis `spikes/e-002-<sprache>`, **nicht** im Hauptzweig; Ergebnis nur als Protokoll außerhalb von `docs/`. |
 | Umgebung | Gleicher Rechner und gleiche Container-Grenzen (z. B. 1 vCPU gesamt), gleiche PostgreSQL-Konfiguration für alle, Produktionsmodus (Release-Build). Zielplattform und Messplattform: **amd64**. |
 | Messung | **Nicht durch den Agenten selbst:** ein gemeinsames, sprachunabhängiges Messskript und eine gemeinsame Abnahmesuite (siehe 2a) laufen gegen jeden Kandidaten. Je Metrik 3 Läufe, Median; dasselbe Werkzeug für alle (Container-Speicher als `working set`). PostgreSQL wird gleich konfiguriert und **nicht** als Unterscheidungsmerkmal gewertet; für das Budget reserviert: 256 MiB. |
 | Dokumentation | Pro Kandidat ein Protokoll nach Vorlage (Abschnitt 7). |
@@ -121,7 +121,7 @@ Die Metriken werden den fünf Qualitätszielen zugeordnet. Die Gewichte der Ziel
 2. Punktzahl je Kandidat = Summe über Ziele (Gewicht × Mittelwert der Punkte der Metriken des Ziels).
 3. **Sensitivitätsprüfung:** Ergebnis zusätzlich mit gleichen Gewichten (je 20 %) und mit Ressourceneffizienz an Rang 1 berechnen.
 4. **Entscheidungsregel:** Gewinnt derselbe Kandidat in allen drei Rechnungen mit mindestens 5 Punkten (von 100) Vorsprung, wird er vorgeschlagen. Sonst ist das Ergebnis ein Befund, über den der Product Owner entscheidet (Gründe im ADR).
-5. Ergebnis als ADR-004 festhalten; das Protokoll liegt im Wiki.
+5. Ergebnis als ADR-004 festhalten; das Protokoll liegt außerhalb von `docs/` (Spike-Zweig).
 
 ## 7. Protokollvorlage je Kandidat
 

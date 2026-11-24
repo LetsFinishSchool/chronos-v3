@@ -12,16 +12,15 @@ Dieser Bereich enthält die **verbindlichen** Dokumente zu Chronos. Er gehört M
 ## Regeln
 
 1. **Menschliche Freigabe.** PRs, die `docs/` ändern, werden nur von einem Menschen gemergt. Agenten dürfen Änderungen
-   *vorschlagen* (PR oder Datei in `wiki/proposals/`), aber nie selbst freigeben oder automatisch mergen.
-2. **Nur Verbindliches.** Was hier steht, gilt. Beobachtungen, Vermutungen und Gelerntes stehen im [wiki/](../wiki/README.md).
+   *vorschlagen* (PR oder Vorschlagsdatei, siehe [AGENTS.md](../AGENTS.md)), aber nie selbst freigeben oder automatisch mergen.
+2. **Nur Verbindliches.** Was hier steht, gilt. Beobachtungen, Vermutungen und Gelerntes gehören nicht hierher.
 3. **Änderungen sind Entscheidungen.** Jeder PR nennt Anlass (Ticket/Gespräch) und Wirkung. Ändert sich eine
    Architekturentscheidung, wird sie in `arc42/09-entscheidungen/` ersetzt, nicht stillschweigend überschrieben.
 4. **Sprache.** Deutsch, wie die Oberfläche. Code-Namen bleiben englisch (Zuordnung: Glossar).
 5. **Status im Frontmatter.** `status: entwurf | freigegeben`, `freigegeben-am`, `freigegeben-von`. Entwürfe gelten noch nicht.
-6. **Eine Datei, ein Thema.** Kurz halten; Details gehören in Code, Tests oder das Wiki, nicht hierher.
+6. **Eine Datei, ein Thema.** Kurz halten; Details gehören in Code und Tests, nicht hierher.
+7. **Keine Verweise auf das Wiki.** `docs/` ist die Quelle der Wahrheit und steht für sich allein. Es enthält keine Links, Pfade oder Quellenangaben auf `wiki/`; Wissen, auf das `docs/` angewiesen ist, steht in `docs/`. Die Abhängigkeit läuft nur in eine Richtung: das Wiki darf auf `docs/` verweisen, nie umgekehrt.
 
 ## Wie ein Agent hier arbeitet
 
-Agenten lesen `docs/` als Eingabe, schreiben aber nur nach `wiki/`. Findet ein Agent einen Widerspruch zwischen
-`docs/` und Code oder Tickets, legt er `wiki/proposals/<datum>-<thema>.md` an (Vorlage dort). Ein Mensch entscheidet,
-ob daraus ein PR gegen `docs/` wird.
+Agenten lesen `docs/` als Eingabe und ändern es nie ohne menschliche Freigabe. Den Ablauf (Widersprüche melden, Vorschläge) regelt [AGENTS.md](../AGENTS.md).

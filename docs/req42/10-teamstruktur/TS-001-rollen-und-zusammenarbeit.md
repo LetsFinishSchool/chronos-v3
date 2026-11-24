@@ -12,6 +12,6 @@ verknuepft: [SH-001, SH-007]
 # TS-001: Rollen und Zusammenarbeit
 
 - **Product Owner** (1 Person): entscheidet, priorisiert, gibt `docs/` frei, nimmt Tickets ab.
-- **Entwicklung/Betrieb:** derzeit dieselbe Person plus KI-Agenten; Agenten schreiben Code und `wiki/`, schlagen `docs/`-Änderungen vor.
+- **Entwicklung/Betrieb:** derzeit dieselbe Person plus KI-Agenten; Agenten schreiben Code und halten Wissen im Projekt fest, schlagen `docs/`-Änderungen vor.
 - Tickets nach [ticket-typen](../04-product-backlog/ticket-typen.md).
 - Folge: hohe Abhängigkeit von einer Person ([RA-003](../12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md)); weitere Teammitglieder und Vertretung (?).

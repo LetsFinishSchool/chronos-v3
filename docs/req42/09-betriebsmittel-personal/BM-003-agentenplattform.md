@@ -11,4 +11,4 @@ verknuepft: [SH-007]
 
 # BM-003: Agentenplattform
 
-KI-Agenten (Claude Code, opencode) arbeiten nach [AGENTS.md](../../../AGENTS.md) mit Wiki und docs. Ausstattung und Kosten der Modellnutzung (?).
+KI-Agenten (Claude Code, opencode) arbeiten nach [AGENTS.md](../../../AGENTS.md) mit dem Projektwissen und `docs/`. Ausstattung und Kosten der Modellnutzung (?).

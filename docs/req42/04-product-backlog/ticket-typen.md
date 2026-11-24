@@ -119,14 +119,14 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 - Review erfolgt, Konflikte gelöst, PR gemergt (Mensch).
 - Keine Geheimnisse im Diff ([RB-011](../07-randbedingungen/RB-008-keine-geheimnisse-im-repository.md)); Datenbankmigrationen nur vorwärts; Oberflächentexte übersetzbar, Deutsch und Englisch ([RB-001](../07-randbedingungen/RB-001-mehrsprachigkeit.md)).
 - Oberflächenänderungen erfüllen WCAG 2.2 Stufe AA: automatische Prüfung (axe-core) ohne Verstöße in Deutsch und Englisch, Bedienung per Tastatur, Oberfläche in Tests über Rollen und Beschriftungen ansprechbar.
-- `docs/` nicht verändert; Erkenntnisse im Wiki festgehalten (`wiki/log.md`), Widersprüche als Vorschlag in `wiki/proposals/`.
+- `docs/` nicht verändert; Widersprüche zu `docs/` als Vorschlag gemeldet (Ablauf für Agenten: [AGENTS.md](../../../AGENTS.md)).
 
 **User-Story – DoD**
 - Alle Tasks erledigt (Task-DoD).
 - Jedes Akzeptanzkriterium ist nachweislich erfüllt: automatisierter Test oder dokumentierte manuelle Prüfung, inklusive Fehler-, Berechtigungs- und Leerzustände.
 - Die Story läuft zusammen mit dem Rest des Produkts (Integration auf `main`, kein Feature-Flag-Rest ohne Plan).
 - Product Owner hat abgenommen (Ticket kommentiert/geschlossen).
-- Anforderung `FA-nnn` ist als Vorschlag in `wiki/proposals/` gemeldet, damit der Ist-Zustand in `docs/req42/04-product-backlog/anforderungen/` ergänzt werden kann.
+- Anforderung `FA-nnn` ist als Änderungsvorschlag gemeldet, damit der Ist-Zustand in `docs/req42/04-product-backlog/anforderungen/` ergänzt werden kann.
 
 **Feature – DoD**
 - Alle Stories erledigt (Story-DoD).
@@ -139,7 +139,7 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 - Alle Features erledigt oder bewusst gestrichen (jeweils begründet im Epic).
 - Erfolgskriterien geprüft und Ergebnis im Epic festgehalten; Ziel (Z-nnn) erreicht oder Abweichung benannt.
 - Produktiv ausgerollt ([RB-010](../07-randbedingungen/RB-005-betrieb-auf-geteiltem-k3s-cluster.md)), Bestandsdaten migriert, Altlasten entfernt.
-- Roadmap-Eintrag (`RM-nnn`) aktualisiert, offene `needs-po`/`follow-up`-Tickets abgearbeitet oder verschoben, Rückblick (was gelernt?) im Wiki.
+- Roadmap-Eintrag (`RM-nnn`) aktualisiert, offene `needs-po`/`follow-up`-Tickets abgearbeitet oder verschoben, Rückblick (was gelernt?) festgehalten.
 - Product Owner schließt das Epic.
 
 **Definition of Ready (Kurzfassung)**

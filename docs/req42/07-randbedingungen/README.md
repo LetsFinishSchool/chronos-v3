@@ -19,6 +19,6 @@ Einschränkungen für Lösungen. Alt-Randbedingungen aus chronos-root (Web-Push-
 | RB-006 | Datenschutz und Impressum | entwurf | [RB-006-datenschutz-und-impressum.md](RB-006-datenschutz-und-impressum.md) |
 | RB-007 | Entwicklungsprozess und Qualitätsprüfungen (keine Randbedingung) | entfallen | [RB-007-aenderungen-nur-per-pull-request.md](RB-007-aenderungen-nur-per-pull-request.md) |
 | RB-008 | Keine Geheimnisse im Repository | entwurf | [RB-008-keine-geheimnisse-im-repository.md](RB-008-keine-geheimnisse-im-repository.md) |
-| RB-009 | Wissen im Wiki, kein Agenten-Gedächtnis | entwurf | [RB-009-wissen-im-wiki.md](RB-009-wissen-im-wiki.md) |
+| RB-009 | Wissen im Projekt, kein Agenten-Gedächtnis | freigegeben | [RB-009-wissen-im-projekt.md](RB-009-wissen-im-projekt.md) |
 | RB-010 | Kostenzuordnung je Benutzer oder Team | entwurf | [RB-010-kostenzuordnung.md](RB-010-kostenzuordnung.md) |
 | RB-011 | Einfache Weboberfläche, vollständige Funktionen über den Assistenten | entwurf | [RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md](RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |

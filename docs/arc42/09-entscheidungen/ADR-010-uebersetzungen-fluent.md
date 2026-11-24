@@ -6,7 +6,7 @@ freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
 ersetzt-durch:
 loest: [E-018]
-quellen: [wiki/concepts/e-002-folgeentscheidungen-rust (Abschnitt 7), K-007, RB-001, E-004-E-008-frontend-und-zugang-analyse (T7), ADR-004, ADR-007, ADR-008, Entscheidung des Product Owners 2026-11-24 (Gespräch)]
+quellen: [K-007, RB-001, E-004-E-008-frontend-und-zugang-analyse (T7), ADR-004, ADR-007, ADR-008, Entscheidung des Product Owners 2026-11-24 (Gespräch)]
 ---
 
 # ADR-010: Übersetzungen mit Fluent in Server und Client
@@ -17,7 +17,15 @@ quellen: [wiki/concepts/e-002-folgeentscheidungen-rust (Abschnitt 7), K-007, RB-
 Oberflächentexte braucht der Client, Benachrichtigungstexte der Server (Worker, je Empfänger übersetzt); die Gastseite kann später in den Server wandern ([ADR-007](ADR-007-frontend-spa-svelte.md) G-4). Deutsch und Englisch, weitere Sprachen ohne Umbau ([RB-001](../../req42/07-randbedingungen/RB-001-mehrsprachigkeit.md)). Plural, Datum und Zahlen müssen in beiden Welten stimmen. ADR-007 V-3 hatte für die UI JSON mit ICU-Syntax vorgesehen; im Server gibt es dafür keinen stabilen Parser.
 
 ## Optionen
-A JSON mit ICU-Syntax, im Server eigenes Nachschlagen mit ICU4X-Plural; **B Fluent (`.ftl`) auf beiden Seiten**; C gettext PO; D `rust-i18n` im Server mit eigenem Format im Frontend. Vor- und Nachteile in der Auswahl vom 2026-11-24 und in `wiki/concepts/e-002-folgeentscheidungen-rust.md`, Abschnitt 7.
+A JSON mit ICU-Syntax, im Server eigenes Nachschlagen mit ICU4X-Plural; **B Fluent (`.ftl`) auf beiden Seiten**; C gettext PO; D `rust-i18n` im Server mit eigenem Format im Frontend. Vor- und Nachteile der abgelehnten Optionen:
+
+| Option | Vorteile | Nachteile |
+|---|---|---|
+| A JSON mit ICU MessageFormat, Browser vue-i18n/FormatJS | Frontend-Standard; Plattformen wie Weblate können es | Rust-Unterstützung für MessageFormat dünner; Gefahr eines zweiten Formats im Server |
+| C gettext PO | Ausgereifte Übersetzungswerkzeuge (Poedit, Weblate) | Rust-Crates teils C-Bindungen; im Frontend unüblich; Pluralformeln als C-Ausdruck |
+| D `rust-i18n` (YAML/JSON, Makro `t!`) im Server, eigenes Format im Frontend | Schnell eingerichtet, Schlüssel beim Übersetzen geprüft | Zwei Formate; Pluralregeln einfach |
+
+Bei Server-Rendering (E-004 B) entfiele die Client-Seite; E-004 ist als SPA entschieden.
 
 ## Entscheidung (PO, 2026-11-24)
 **Option B: Fluent in Server und Client.**
@@ -28,7 +36,9 @@ A JSON mit ICU-Syntax, im Server eigenes Nachschlagen mit ICU4X-Plural; **B Flue
 4. **Prüfungen in CI:** beide Sprachen enthalten dieselben Nachrichten mit denselben Variablen; Syntaxprüfung der Dateien auf beiden Seiten.
 
 ## Prüfergebnis (Stand 2026-11-24)
-Geprüft über crates.io, npm und GitHub (Metadaten, kein Übersetzen im Workspace). Ausführlich: `wiki/concepts/fluent-pflegestand-und-datetime.md`.
+Geprüft über crates.io, npm und GitHub (Metadaten, kein Übersetzen im Workspace).
+
+Weitere Befunde: `fluent-bundle` 0.16.0 und `fluent` 0.17.0 (2025-05-22/23) haben 67 offene Issues und seit Mai 2025 nur Lint- und Doku-Commits. `fluent-syntax` 0.12.0, `intl-memoizer` 0.5.3, `unic-langid` 0.9.6 und `fluent-langneg` 0.14.2 haben je etwa 25 bis 33 Mio. Downloads. `@fluent/bundle`: Der Hauptzweig enthält unveröffentlichte, teils inkompatible Änderungen (Vitest-Umstieg, `Intl.Locale` in langneg). `fluent-datetime` 0.2.0 (2026-02-21, Repo `g2p/fluent-datetime`, `add_datetime_support()`) und `icu` 2.4.0 (2026-10-22).
 
 | Baustein | Stand | Bewertung |
 |---|---|---|

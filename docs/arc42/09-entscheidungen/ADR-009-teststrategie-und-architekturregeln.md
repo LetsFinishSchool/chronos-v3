@@ -6,7 +6,7 @@ freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
 ersetzt-durch:
 loest: [E-016]
-quellen: [wiki/concepts/e-002-folgeentscheidungen-rust (Abschnitt 5), QA-003, RB-007, ADR-002, ADR-004, ADR-005, ADR-007, Rust-Spike E-002 (tools/arch-check.sh), Entscheidung des Product Owners 2026-11-24 (Gespräch)]
+quellen: [QA-003, RB-007, ADR-002, ADR-004, ADR-005, ADR-007, Rust-Spike E-002 (tools/arch-check.sh), Entscheidung des Product Owners 2026-11-24 (Gespräch)]
 ---
 
 # ADR-009: Teststrategie und Architekturregeln: Cargo-Workspace mit einem Crate je Baustein

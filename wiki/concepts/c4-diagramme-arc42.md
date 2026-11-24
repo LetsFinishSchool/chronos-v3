@@ -16,7 +16,7 @@ last-verified: 2026-11-24
 
 # C4-Diagramme zu arc42
 
-Acht Excalidraw-Diagramme in `docs/arc42/diagramme/` (vom PO freigegeben); Generator in `wiki/diagramme/`. Zuordnung C4 zu arc42: Kontext = Kap. 3, Container = Kap. 5/7, Komponente = Kap. 5, Dynamisch = Kap. 6, Deployment = Kap. 7.
+Acht Excalidraw-Diagramme in `docs/arc42/diagramme/` (vom PO freigegeben); Generator in `docs/arc42/diagramme/generator/`. Zuordnung C4 zu arc42: Kontext = Kap. 3, Container = Kap. 5/7, Komponente = Kap. 5, Dynamisch = Kap. 6, Deployment = Kap. 7.
 
 ## Entscheidungen, die sich im Bild niederschlagen
 - Zwei Prozesse (Web, Worker), eine Codebasis, eine PostgreSQL-Instanz je Umgebung; Migrationsjob als Helm-Hook (ADR-002, 003, 011).
