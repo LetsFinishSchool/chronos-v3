@@ -21,4 +21,4 @@ Inklusive Fehlerfälle, Berechtigungen sowie leere, Lade- und Fehlerzustände.
 - [ ] #
 
 ## Hinweise
-Betroffene Anforderungen/Modelle (FA-, M-nnn), Design (Figma-Link), offene Fragen.
+Betroffene Modelle, Randbedingungen und Qualitätsszenarien (M-, RB-, QA-nnn), Design (Figma-Link), offene Fragen.

@@ -18,4 +18,4 @@ Was gehört ausdrücklich nicht dazu?
 - [ ] #
 
 ## Offene Entscheidungen / Risiken
-Verweise auf `needs-po`-Tickets, Risiken und Annahmen.
+Verweise auf Risiken und Annahmen (`RA-nnn`) und offene Fragen an den Product Owner.

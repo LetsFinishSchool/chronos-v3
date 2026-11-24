@@ -19,6 +19,6 @@ Betroffene Module/Dateien, Ansatz, Randbedingungen. Genug, dass ein Agent ohne R
 ## Nicht Teil dieses Tasks
 
 ## Prüfung
-Java: `cd backend && ./mvnw -B verify`; Frontend: `cd frontend && npm run lint && npm run typecheck && npm run build`.
+Prüfbefehle des betroffenen Bausteins (legt die Entwicklung fest, siehe ADR-009 und ADR-013).
 
-<!-- Label `ready-for-agent` und `area:*` erst setzen, wenn Ziel, Umsetzung und „Fertig, wenn“ ausgefüllt sind und keine Rückfrage offen ist. -->
+<!-- Label `ready-for-agent` erst setzen, wenn Ziel, Umsetzung und „Fertig, wenn“ ausgefüllt sind und keine Rückfrage offen ist. -->
