@@ -30,7 +30,7 @@ Beide Prozesse nutzen dieselben Fachbereiche, dieselben Regeln und dieselbe Date
 - **Atomarität bleibt:** Zustandsänderung, Verlauf und Ereignis entstehen in einer Transaktion der Web-Seite; der Worker verarbeitet danach.
 - **Entkopplung:** Zustellungsfehler, Wiederholungen und Zeitauslöser belasten das Web nicht; ein Neustart des Web verliert keine Zustellungen (QA-004).
 - **Modulgrenzen** bleiben innerhalb der Codebasis und werden durch Architekturtests geprüft (E-016); die Prozessgrenze ersetzt sie nicht.
-- **Deployment:** zwei Container mit je eigenem Image (PO 2026-11-20), je Umgebung prod und staging.
+- **Deployment:** zwei Container (Web, Worker) aus **einem** Image, das Binary `chronos` wählt per Unterbefehl den Prozess (PO 2026-11-24; ersetzt „zwei Container mit je eigenem Image“ vom 2026-11-20), je Umgebung prod und staging.
 - **Konsequenz für E-003:** Die Datenbank muss gleichzeitigen Zugriff von zwei Prozessen vertragen (schränkt z. B. dateibasierte Datenbanken ein).
 - **Konsequenz für E-006:** Der Mechanismus „Ereignis festhalten, Worker arbeitet ab“ ist jetzt Pflicht, nicht mehr optional.
 
