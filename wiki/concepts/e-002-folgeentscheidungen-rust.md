@@ -9,7 +9,7 @@ sources:
   - docs/arc42/08-konzepte/K-006-operationsschicht-und-assistent.md
   - docs/arc42/08-konzepte/K-007-mehrsprachigkeit-und-zeitzonen.md
   - docs/vision/product-vision.md (PWA)
-  - spikes/e-002/ergebnisse/rust/rust/README.md, src/core/ops.rs, src/ai/mod.rs, src/auth/mod.rs, tools/arch-check.sh (Spike-Stand 2026-11-23)
+  - Branch spikes/e-002-ergebnisse: rust/rust/README.md, src/core/ops.rs, src/ai/mod.rs, src/auth/mod.rs, tools/arch-check.sh (Spike-Stand 2026-11-23)
   - spikes/e-002/reports/q4-pflegestand.md
   - https://platform.claude.com/docs/en/cli-sdks-libraries/overview (abgerufen 2026-11-23)
 confidence: mittel

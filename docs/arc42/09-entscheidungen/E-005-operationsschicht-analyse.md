@@ -3,7 +3,7 @@ title: E-005 Form der Operationsschicht, Analyse
 status: freigegeben
 freigegeben-am: 2026-11-24
 freigegeben-von: Product Owner
-quellen: [RB-011, FA-015, QA-002, QA-003, K-002, K-004, K-005, K-006, RA-010, ADR-001, ADR-002, ADR-004 (Entwurf), Kapitel 4, 5, 6, 11 (R-A2), Rust-Spike E-002 (spikes/e-002/ergebnisse/rust, Stand 2026-11-23)]
+quellen: [RB-011, FA-015, QA-002, QA-003, K-002, K-004, K-005, K-006, RA-010, ADR-001, ADR-002, ADR-004 (Entwurf), Kapitel 4, 5, 6, 11 (R-A2), Rust-Spike E-002 (Branch spikes/e-002-ergebnisse, Ordner rust/, Stand 2026-11-23)]
 ---
 
 # E-005: Form der Operationsschicht, Analyse
