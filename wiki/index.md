@@ -8,6 +8,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [E-002 Spike-Ergebnisse](concepts/e-002-spike-ergebnisse.md): Messung und Bewertung TypeScript/Go/Rust, Lehren für Agentenläufe, Entwurf ADR-004 (Rust vorgeschlagen)
 - [Folgeentscheidungen bei Rust](concepts/e-002-folgeentscheidungen-rust.md): E-004, E-005, E-008, E-009, E-016, Migration, K-007, Zeitbibliothek, Build: Optionen mit Vor-/Nachteilen und Rust-Folgen
 - [Fluent-Prüfung](concepts/fluent-pflegestand-und-datetime.md): Pflegestand fluent-rs/@fluent/bundle, DATETIME (Server fehlt, Browser eingebaut), Weblate, Empfehlung zu ADR-010
+- [jiff-tzdb Pflegestand](concepts/jiff-tzdb-pflegestand.md): Verzug gegenüber IANA (1 bis 70 Tage); `jiff::tz::db()` bevorzugt die Systemdatenbank, eingebettete mit `bundled()` erzwingen
 - [Key Learnings und Eckpunkte](concepts/key-learnings-chronos-root.md): Warum Neuanfang, Zielgruppe Leitungsteams, Team-Modell, Ressourcenbudget
 
 ## Code

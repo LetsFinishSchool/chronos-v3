@@ -37,7 +37,9 @@ A `chrono` + `chrono-tz` überall; B `jiff` überall; **C `jiff` im Fachkern, `c
 **Bindet:** [ADR-009](ADR-009-teststrategie-und-architekturregeln.md) (Crate-Grenze zwischen Fachkern und Rändern); Build und Lieferkette (Ausnahmen in `deny.toml`, noch zu entscheiden).
 
 ## Festgelegte Werte (PO, 2026-11-24)
-- **Zeitzonendaten im Fachkern:** `jiff` mit eingebetteter Datenbank (`jiff-tzdb`, Feature `tzdb-bundle-always`), unabhängig von der Systemdatenbank des Images. Aktualisierung über Dependency-Updates (Renovate oder Dependabot) und den monatlichen Image-Neubau; wie schnell `jiff-tzdb` neue IANA-Releases übernimmt, ist vor der Umsetzung zu prüfen ▲.
+- **Zeitzonendaten im Fachkern:** `jiff` mit eingebetteter Datenbank (`jiff-tzdb`, Feature `tzdb-bundle-always`), unabhängig von der Systemdatenbank des Images. Aktualisierung über Dependency-Updates (Renovate oder Dependabot) und den monatlichen Image-Neubau; der Pflegestand ist geprüft (siehe unten).
+- **Prüfung 2026-11-24 (Pflegestand, [Wiki](../../../wiki/concepts/jiff-tzdb-pflegestand.md)):** `jiff` und `jiff-tzdb` sind aktiv gepflegt. `jiff-tzdb` übernimmt neue IANA-Releases mit unregelmäßigem Verzug (meist 1 Tag, bei 2026b 70 Tage, bei 2026f 17 Tage). Regeländerungen mit kurzer Vorlaufzeit können daher mit Verzug im Binary ankommen; Renovate/Dependabot und der monatliche Image-Neubau (ADR-013) mildern das.
+- **Eingebettet erzwingen:** `jiff::tz::db()` nutzt zuerst die Systemdatenbank, die eingebettete ist nur Rückfall (und `distroless/cc` enthält `tzdata`). Der Fachkern löst Zeitzonen daher über `TimeZoneDatabase::bundled()` auf, gekapselt im Adapter. Beim Start wird `jiff_tzdb::VERSION` geloggt, ein Test prüft, dass die eingebettete Version benutzt wird.
 - **Ränder:** `chrono-tz` bleibt für `rrule`; ein Test der Sommerzeit-Übergänge vergleicht beide Zeitzonendatenbanken.
 
 ## Wann überprüfen?
