@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1610" height="900" viewBox="0 0 1610 900" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse"><path d="M0,0 L10,4 L0,8 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="44" font-size="24" font-weight="bold">C4 Dynamisch: L-2 Termin ändern und Benachrichtigung zustellen</text>
+<text x="40" y="68" font-size="14" fill="#555">arc42 Kapitel 6. Das Ereignis ist vor der Zustellung dauerhaft festgehalten (Outbox); höchstens eine Zustellung je Empfänger und Kanal.</text>
+<rect x="40" y="170" width="230" height="100" rx="8" fill="#08427b" stroke="#052e56" />
+<text x="155.0" y="224.5" font-size="14" text-anchor="middle" fill="#ffffff">Mitglied</text>
+<rect x="440" y="170" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="565.0" y="215.0" font-size="14" text-anchor="middle" fill="#0b1f33">Operationsschicht</text>
+<text x="565.0" y="234.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess]</text>
+<rect x="870" y="170" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="995.0" y="215.0" font-size="14" text-anchor="middle" fill="#0b1f33">Termine</text>
+<text x="995.0" y="234.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess]</text>
+<rect x="1300" y="170" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1425.0" y="215.0" font-size="14" text-anchor="middle" fill="#0b1f33">Änderungsverlauf</text>
+<text x="1425.0" y="234.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess]</text>
+<rect x="870" y="420" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="995.0" y="465.0" font-size="14" text-anchor="middle" fill="#0b1f33">Ereignisse</text>
+<text x="995.0" y="484.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess, Outbox]</text>
+<rect x="440" y="410" width="250" height="130" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="565.0" y="451.0" font-size="14" text-anchor="middle" fill="#0b1f33">Benachrichtigung</text>
+<text x="565.0" y="470.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Worker-Prozess]</text>
+<text x="565.0" y="489.0" font-size="14" text-anchor="middle" fill="#0b1f33">Protokoll: Auslöser,</text>
+<text x="565.0" y="508.0" font-size="14" text-anchor="middle" fill="#0b1f33">Empfänger, Kanal, Ergebnis</text>
+<rect x="40" y="680" width="230" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="155.0" y="725.0" font-size="14" text-anchor="middle" fill="#0b1f33">Kanal Push</text>
+<text x="155.0" y="744.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Worker-Prozess]</text>
+<rect x="440" y="680" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="565.0" y="725.0" font-size="14" text-anchor="middle" fill="#0b1f33">Kanal E-Mail</text>
+<text x="565.0" y="744.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Worker-Prozess]</text>
+<rect x="870" y="680" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="995.0" y="734.5" font-size="14" text-anchor="middle" fill="#0b1f33">Kostenerfassung</text>
+<path d="M270.0,220.0 L440.0,220.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="278.2" y="210.5" width="153.60000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="355.0" y="224.5" font-size="13" text-anchor="middle" fill="#333">1 Termin verschieben</text>
+<path d="M690.0,220.0 L870.0,220.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="746.88" y="210.5" width="66.24000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="780.0" y="224.5" font-size="13" text-anchor="middle" fill="#333">2 ändern</text>
+<path d="M1120.0,220.0 L1300.0,220.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1129.56" y="201.0" width="160.88000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="1210.0" y="215.0" font-size="13" text-anchor="middle" fill="#333">3 Eintrag mit Akteur,</text>
+<text x="1210.0" y="234.0" font-size="13" text-anchor="middle" fill="#333">Vorher-Zustand</text>
+<path d="M995.0,270.0 L995.0,420.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="918.2" y="316.5" width="153.60000000000002" height="57" fill="#fff" opacity="0.9"/>
+<text x="995.0" y="330.5" font-size="13" text-anchor="middle" fill="#333">4 Ereignis „Termin</text>
+<text x="995.0" y="349.5" font-size="13" text-anchor="middle" fill="#333">geändert“, Auslöser,</text>
+<text x="995.0" y="368.5" font-size="13" text-anchor="middle" fill="#333">Korrelations-ID</text>
+<path d="M870.0,471.45348837209303 L690.0,473.54651162790697" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="706.84" y="453.5" width="146.32000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="780.0" y="467.5" font-size="13" text-anchor="middle" fill="#333">5 festhalten,</text>
+<text x="780.0" y="486.5" font-size="13" text-anchor="middle" fill="#333">Empfänger bestimmen</text>
+<path d="M460.4901960784314,540.0 L235.39215686274508,680.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="292.98117647058825" y="591.0" width="109.92000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="347.94117647058823" y="605.0" font-size="13" text-anchor="middle" fill="#333">6 zustellen:</text>
+<text x="347.94117647058823" y="624.0" font-size="13" text-anchor="middle" fill="#333">fehlgeschlagen</text>
+<path d="M565.0,540.0 L565.0,680.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="484.56" y="591.0" width="160.88000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="565.0" y="605.0" font-size="13" text-anchor="middle" fill="#333">7 Ersatzkanal, sofern</text>
+<text x="565.0" y="624.0" font-size="13" text-anchor="middle" fill="#333">erlaubt</text>
+<path d="M690.0,730.0 L870.0,730.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="725.04" y="711.0" width="109.92000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="780.0" y="725.0" font-size="13" text-anchor="middle" fill="#333">8 Kostenposten</text>
+<text x="780.0" y="744.0" font-size="13" text-anchor="middle" fill="#333">(E-Mail)</text>
+<text x="40" y="824" font-size="14" fill="#444">Legende</text>
+<rect x="40" y="836" width="28" height="18" rx="4" fill="#08427b" stroke="#052e56"/>
+<text x="76" y="850" font-size="13" fill="#333">Person</text>
+<rect x="270" y="836" width="28" height="18" rx="4" fill="#85bbf0" stroke="#5d82a8"/>
+<text x="306" y="850" font-size="13" fill="#333">Baustein</text>
+</svg>

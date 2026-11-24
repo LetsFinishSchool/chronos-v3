@@ -16,4 +16,4 @@ quellen: [req42 QA-002, QA-001, QA-006, Z-002, SH-005]
 - Betreiber wird benachrichtigt bei Erreichen des KI-Limits und bei Backup-Fehlern.
 - Logs und Metriken enthalten keine unnötigen personenbezogenen Daten.
 
-**Offen:** Werkzeuge, die ins Budget passen ([E-012](../09-entscheidungen/01-offene-entscheidungen.md)); Aufbewahrungsdauer; Alarmierungsweg.
+**Entschieden (PO 2026-11-20):** Der Bestand im Cluster wird genutzt ([E-012](../09-entscheidungen/01-offene-entscheidungen.md)). **Offen:** Aufbewahrungsdauer; Alarmierungsweg.

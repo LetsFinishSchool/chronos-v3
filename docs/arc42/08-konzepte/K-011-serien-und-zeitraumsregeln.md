@@ -23,4 +23,4 @@ quellen: [req42 FA-014, FA-016, F-014, F-016, M-001]
 
 **Gemeinsame Folge:** Serien und Regeln erzeugen viele Änderungen auf einmal. Sie müssen als **Bündel** im Verlauf stehen ([K-004](K-004-aenderungsverlauf-und-rueckgaengig.md)) und das Benachrichtigungsbudget wahren ([K-003](K-003-ereignisse-und-benachrichtigung.md)).
 
-**Offen:** Vorkommen speichern oder aus der Regel berechnen ([E-013](../09-entscheidungen/01-offene-entscheidungen.md)); Zeithorizont der Serien; Verhalten bei Ausfall der Ferien-API.
+**Entschieden (PO 2026-11-20):** Vorkommen werden materialisiert ([E-013](../09-entscheidungen/01-offene-entscheidungen.md)). **Offen:** Zeithorizont der Serien; Verhalten bei Ausfall der Ferien-API.

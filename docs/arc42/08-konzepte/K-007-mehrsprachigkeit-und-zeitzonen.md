@@ -25,4 +25,4 @@ quellen: [req42 RB-001, FA-003, RA-008]
 
 **Entschieden (PO 2026-11-20, Format geändert 2026-11-24):** Übersetzungen als Textdateien je Sprache im Repository. Das Format ist **Fluent (`.ftl`)** in Server und Client ([ADR-010](../09-entscheidungen/ADR-010-uebersetzungen-fluent.md), freigegeben 2026-11-24). Die frühere Vorgabe „JSON oder PO“ entfällt; sie war keine Anforderung des Product Owners.
 
-**Offen (nach E-002, PO 2026-11-20):** Datums- und Zahlenformate (Vorschlag in ADR-010: Browser über `Intl`, Server formatiert mit ICU4X vor der Übergabe). Plural und Geschlecht stehen in den Fluent-Nachrichten.
+**Entschieden (PO 2026-11-24, ADR-010):** Datums- und Zahlenformate: Browser über `Intl`, Server formatiert vor der Übergabe an Fluent (ICU4X mit `jiff`, falls nötig). Plural und Geschlecht stehen in den Fluent-Nachrichten.

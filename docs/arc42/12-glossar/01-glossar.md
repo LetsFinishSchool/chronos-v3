@@ -15,7 +15,7 @@ Die **Fachbegriffe** stehen maßgeblich im [req42-Glossar](../../req42/08-termin
 | Operationsschicht | Vollständige Menge benannter Fachoperationen; einziger Weg für Zustandsänderungen und Abfragen. Oberfläche und Assistent nutzen sie gleichrangig ([K-006](../08-konzepte/K-006-operationsschicht-und-assistent.md)). |
 | Operation | Eine benannte, beschriebene Fachfunktion (lesend oder schreibend), mit Berechtigung, Verlauf und ggf. Vorschau. |
 | Vorschau | Wirkungsfreie Darstellung dessen, was eine schreibende Operation täte (Objekte, Änderungen, Anzahl). |
-| Ereignis | Fachliches Vorkommnis mit benanntem Auslöser, dauerhaft festgehalten. Nicht zu verwechseln mit der *Veranstaltung* (Code-Namenskonflikt, [E-015](../09-entscheidungen/01-offene-entscheidungen.md)). |
+| Ereignis | Fachliches Vorkommnis mit benanntem Auslöser, dauerhaft festgehalten. Nicht zu verwechseln mit der *Veranstaltung* (im Code `occasion`, [E-015](../09-entscheidungen/01-offene-entscheidungen.md)). |
 | Auslöser | Person, Assistent im Auftrag einer Person, Regel oder Zeitauslöser, der ein Ereignis verursacht. |
 | Zeitauslöser | Zeitgesteuerter Auslöser ohne Benutzeraktion (Erinnerung, Frist, Ablauf, Löschung nach 30 Tagen). |
 | Bündel | Zusammengehörige Änderungen (Bulk, Assistent, Regel) mit gemeinsamer Bündel-ID im Verlauf; gebündelte Löschungen sind als Ganzes wiederherstellbar. |

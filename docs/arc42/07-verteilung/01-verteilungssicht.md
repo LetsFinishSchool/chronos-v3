@@ -8,7 +8,7 @@ quellen: [req42 BM-001, RB-002, RB-003, RB-005, QA-006, RA-009]
 
 # Kapitel 7: Verteilungssicht
 
-> **Stand:** Infrastruktur steht fest (k3s, Keycloak, S3, SMTP). **Festgelegt ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md), Entwurf):** Chronos läuft als zwei Prozesse, Web und Worker, mit gemeinsamer Datenbank. Datenbank: PostgreSQL in eigener Instanz ([ADR-003](../09-entscheidungen/ADR-003-datenbank-postgresql.md), Entwurf). **Offen:** Zuordnung von KI, Backup und Import.
+> **Stand:** Infrastruktur steht fest (k3s, Keycloak, S3, SMTP). **Festgelegt ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md)):** Chronos läuft als zwei Prozesse, Web und Worker, mit gemeinsamer Datenbank. Datenbank: PostgreSQL in eigener Instanz ([ADR-003](../09-entscheidungen/ADR-003-datenbank-postgresql.md)). **Offen:** Zuordnung von KI, Backup und Import.
 
 ## Ebene 1: Infrastruktur
 

@@ -4,11 +4,12 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 
 ## Konzepte
 - [Projektkontext chronos-v3](concepts/projektkontext-chronos-v3.md): Fork von chronos-root, Neuanfang, Datenübernahme als Hauptrandbedingung
-- [arc42-Entwurf, Stand 2026-11-20](concepts/arc42-entwurf-stand.md): Was in arc42 steht, was offen ist, nächste Schritte
+- [arc42-Stand 2026-11-24](concepts/arc42-entwurf-stand.md): E-000 bis E-021 entschieden (nur E-017 teilweise), verbleibende Umsetzungsdetails
 - [E-002 Spike-Ergebnisse](concepts/e-002-spike-ergebnisse.md): Messung und Bewertung TypeScript/Go/Rust, Lehren für Agentenläufe, Entwurf ADR-004 (Rust vorgeschlagen)
 - [Folgeentscheidungen bei Rust](concepts/e-002-folgeentscheidungen-rust.md): E-004, E-005, E-008, E-009, E-016, Migration, K-007, Zeitbibliothek, Build: Optionen mit Vor-/Nachteilen und Rust-Folgen
 - [Fluent-Prüfung](concepts/fluent-pflegestand-und-datetime.md): Pflegestand fluent-rs/@fluent/bundle, DATETIME (Server fehlt, Browser eingebaut), Weblate, Empfehlung zu ADR-010
 - [jiff-tzdb Pflegestand](concepts/jiff-tzdb-pflegestand.md): Verzug gegenüber IANA (1 bis 70 Tage); `jiff::tz::db()` bevorzugt die Systemdatenbank, eingebettete mit `bundled()` erzwingen
+- [C4-Diagramme zu arc42](concepts/c4-diagramme-arc42.md): Excalidraw-Diagramme (Kontext, Container, Komponenten, Laufzeit, Verteilung) in `docs/arc42/diagramme/` (Generator in `wiki/diagramme/`), Lücken der Zeichnung
 - [Key Learnings und Eckpunkte](concepts/key-learnings-chronos-root.md): Warum Neuanfang, Zielgruppe Leitungsteams, Team-Modell, Ressourcenbudget
 
 ## Code

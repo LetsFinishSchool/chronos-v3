@@ -18,4 +18,4 @@ quellen: [req42 M-001, M-003, M-005, FA-017, RB-004]
 - **Datensparsamkeit:** nur nötige personenbezogene Daten; keine Daten von Kindern und Eltern ([K-008](K-008-sicherheit-und-datenschutz.md)).
 - **Migrationstauglichkeit:** Jede Modellentscheidung ist gegen [M-005](../../req42/05-modelle/M-005-migrationsabbildung.md) zu prüfen. Offene Abbildungen (Termin-Besitz je Team, Rolle → Label) hängen am Altschema ([RA-005](../../req42/12-risiken-annahmen/RA-005-migration-altmodell-passt-nicht.md)).
 
-**Datenbank:** PostgreSQL ([ADR-003](../09-entscheidungen/ADR-003-datenbank-postgresql.md), Entwurf). **Offen:** Serien: Vorkommen gespeichert oder berechnet (E-013), Benennung `event` ([E-015](../09-entscheidungen/01-offene-entscheidungen.md)).
+**Datenbank:** PostgreSQL ([ADR-003](../09-entscheidungen/ADR-003-datenbank-postgresql.md)). **Entschieden (PO 2026-11-20):** Serienvorkommen werden materialisiert (E-013); Veranstaltung heißt `occasion`, Ereignis bleibt `event` ([E-015](../09-entscheidungen/01-offene-entscheidungen.md)).

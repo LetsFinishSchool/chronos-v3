@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1570" height="830" viewBox="0 0 1570 830" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse"><path d="M0,0 L10,4 L0,8 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="44" font-size="24" font-weight="bold">C4 Ebene 3: Rahmen der Operationsschicht</text>
+<text x="40" y="68" font-size="14" fill="#555">arc42 Kapitel 5, Ebene 2 (ADR-005 V2: Der Rahmen trägt den Querschnitt, Operationen enthalten nur Fachlogik).</text>
+<rect x="40" y="250" width="1470" height="300" rx="10" fill="none" stroke="#555" stroke-dasharray="8 6"/>
+<text x="52" y="274" font-size="14" fill="#444">Rahmen (ADR-005)</text>
+<rect x="60" y="100" width="250" height="70" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="185.0" y="120.5" font-size="14" text-anchor="middle" fill="#ffffff">Aufrufer</text>
+<text x="185.0" y="139.5" font-size="14" text-anchor="middle" fill="#ffffff">Oberfläche, Assistent,</text>
+<text x="185.0" y="158.5" font-size="14" text-anchor="middle" fill="#ffffff">Worker, Import</text>
+<rect x="1220" y="100" width="250" height="70" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1345.0" y="130.0" font-size="14" text-anchor="middle" fill="#0b1f33">Freigabe-Beleg</text>
+<text x="1345.0" y="149.0" font-size="14" text-anchor="middle" fill="#0b1f33">gültig 10 Minuten</text>
+<rect x="60" y="300" width="250" height="200" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="185.0" y="385.5" font-size="14" text-anchor="middle" fill="#0b1f33">1 Transaktion öffnen</text>
+<text x="185.0" y="404.5" font-size="14" text-anchor="middle" fill="#0b1f33">Lesende Operationen als READ</text>
+<text x="185.0" y="423.5" font-size="14" text-anchor="middle" fill="#0b1f33">ONLY</text>
+<rect x="350" y="300" width="250" height="200" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="475.0" y="366.5" font-size="14" text-anchor="middle" fill="#0b1f33">2 Geltungsbereich prüfen</text>
+<text x="475.0" y="385.5" font-size="14" text-anchor="middle" fill="#0b1f33">Aus den Parametern ableiten,</text>
+<text x="475.0" y="404.5" font-size="14" text-anchor="middle" fill="#0b1f33">gegen Akteur-Art prüfen;</text>
+<text x="475.0" y="423.5" font-size="14" text-anchor="middle" fill="#0b1f33">erzeugt geprüften Kontext</text>
+<text x="475.0" y="442.5" font-size="14" text-anchor="middle" fill="#0b1f33">(ohne Adapter)</text>
+<rect x="640" y="300" width="250" height="200" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="765.0" y="385.5" font-size="14" text-anchor="middle" fill="#0b1f33">3 Fachlogik ausführen</text>
+<text x="765.0" y="404.5" font-size="14" text-anchor="middle" fill="#0b1f33">Änderungen und Ereignisse</text>
+<text x="765.0" y="423.5" font-size="14" text-anchor="middle" fill="#0b1f33">werden gesammelt</text>
+<rect x="930" y="300" width="250" height="200" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1055.0" y="376.0" font-size="14" text-anchor="middle" fill="#0b1f33">4 Verlauf und Outbox</text>
+<text x="1055.0" y="395.0" font-size="14" text-anchor="middle" fill="#0b1f33">schreiben</text>
+<text x="1055.0" y="414.0" font-size="14" text-anchor="middle" fill="#0b1f33">Akteur und Bündel-ID, in</text>
+<text x="1055.0" y="433.0" font-size="14" text-anchor="middle" fill="#0b1f33">derselben Transaktion</text>
+<rect x="1220" y="300" width="250" height="200" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1345.0" y="376.0" font-size="14" text-anchor="middle" fill="#0b1f33">5 Commit oder Rollback</text>
+<text x="1345.0" y="395.0" font-size="14" text-anchor="middle" fill="#0b1f33">Vorschau: Probelauf mit</text>
+<text x="1345.0" y="414.0" font-size="14" text-anchor="middle" fill="#0b1f33">Rollback; Stapel max. 50</text>
+<text x="1345.0" y="433.0" font-size="14" text-anchor="middle" fill="#0b1f33">Aufrufe oder 500 Objekte</text>
+<rect x="350" y="620" width="250" height="90" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="475.0" y="660.0" font-size="14" text-anchor="middle" fill="#0b1f33">Berechtigungskonzept</text>
+<text x="475.0" y="679.0" font-size="14" text-anchor="middle" fill="#0b1f33">K-002</text>
+<rect x="640" y="620" width="250" height="90" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="765.0" y="641.0" font-size="14" text-anchor="middle" fill="#0b1f33">Operation</text>
+<text x="765.0" y="660.0" font-size="14" text-anchor="middle" fill="#0b1f33">Trait: Name, Schema,</text>
+<text x="765.0" y="679.0" font-size="14" text-anchor="middle" fill="#0b1f33">Bereich; Registrierung über</text>
+<text x="765.0" y="698.0" font-size="14" text-anchor="middle" fill="#0b1f33">inventory</text>
+<rect x="1060" y="620" width="380" height="90" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="1250.0" y="660.0" font-size="14" text-anchor="middle" fill="#ffffff">PostgreSQL</text>
+<text x="1250.0" y="679.0" font-size="14" text-anchor="middle" fill="#ffffff">Fachdaten, Verlauf, Outbox</text>
+<path d="M185.0,170.0 L185.0,300.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="104.55999999999999" y="216.0" width="160.88000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="185.0" y="230.0" font-size="13" text-anchor="middle" fill="#333">Aufruf: Name, Params,</text>
+<text x="185.0" y="249.0" font-size="13" text-anchor="middle" fill="#333">Modus</text>
+<path d="M310.0,400.0 L350.0,400.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<path d="M600.0,400.0 L640.0,400.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<path d="M890.0,400.0 L930.0,400.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<path d="M1180.0,400.0 L1220.0,400.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<path d="M475.0,500.0 L475.0,620.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" marker-start="url(#a)"/>
+<rect x="390.91999999999996" y="550.5" width="168.16000000000003" height="19" fill="#fff" opacity="0.9"/>
+<text x="475.0" y="564.5" font-size="13" text-anchor="middle" fill="#333">Bereich und Akteur-Art</text>
+<path d="M765.0,620.0 L765.0,500.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="728.24" y="550.5" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="765.0" y="564.5" font-size="13" text-anchor="middle" fill="#333">Fachlogik</text>
+<path d="M1128.5849056603774,500.0 L1216.8867924528302,620.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1139.615849056604" y="550.5" width="66.24000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1172.735849056604" y="564.5" font-size="13" text-anchor="middle" fill="#333">schreibt</text>
+<path d="M1309.1509433962265,500.0 L1266.132075471698,620.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1210.8415094339623" y="550.5" width="153.60000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="1287.6415094339623" y="564.5" font-size="13" text-anchor="middle" fill="#333">commit oder rollback</text>
+<path d="M1345.0,300.0 L1345.0,170.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1264.56" y="225.5" width="160.88000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="1345.0" y="239.5" font-size="13" text-anchor="middle" fill="#333">stellt aus (Vorschau)</text>
+<text x="40" y="754" font-size="14" fill="#444">Legende</text>
+<rect x="40" y="766" width="28" height="18" rx="4" fill="#85bbf0" stroke="#5d82a8"/>
+<text x="76" y="780" font-size="13" fill="#333">Schritt / Komponente</text>
+<rect x="270" y="766" width="28" height="18" rx="4" fill="#8a8a8a" stroke="#6b6b6b"/>
+<text x="306" y="780" font-size="13" fill="#333">Aufrufer</text>
+</svg>

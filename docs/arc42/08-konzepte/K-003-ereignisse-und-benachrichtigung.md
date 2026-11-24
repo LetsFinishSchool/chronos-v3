@@ -23,4 +23,4 @@ quellen: [req42 M-004, FA-005, FA-008, QA-002, QA-004, QA-010, Z-002, Z-009, Z-0
 
 **Erweiterungspunkte:** neuer Kanal, neue Ereignisart (siehe [Veränderlichkeit](../04-loesungsstrategie/02-veraenderlichkeit.md)).
 
-**Offen:** Festhalten und Zustellen (Mechanismus, Wiederholung, Idempotenzschlüssel), Zeitsteuerung, Planung des Budgets ([E-006](../09-entscheidungen/01-offene-entscheidungen.md)); Messung des Budgets je Person aus dem Protokoll.
+**Entschieden (PO 2026-11-20):** Ereignisse werden in der Datenbank festgehalten und vom Worker abgearbeitet (Outbox, E-006); Erinnerungen werden beim Planen vorausberechnet (E-014). **Offen:** Wiederholung und Idempotenzschlüssel der Zustellung, Planung des Budgets; Messung des Budgets je Person aus dem Protokoll.

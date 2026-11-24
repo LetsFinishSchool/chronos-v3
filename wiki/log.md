@@ -136,3 +136,11 @@ Commit 5cebf3f (alle Dokumente dieser Sitzung auf freigegeben gesetzt, ADR-006: 
 Product Owner nahm ausdrücklich alle Dokumente in docs/req42 und docs/arc42 an. 143 Dateien von `status: entwurf` auf `freigegeben` gesetzt (freigegeben-am 2026-11-24, freigegeben-von Product Owner). Ausgenommen: die Vorlage `_vorlage-adr.md` (bleibt Entwurf, Vorlage), `status: entfallen` (1), `status: angenommen` (3, ADR-001 bis ADR-003 und eine weitere). docs/vision/product-vision.md liegt außerhalb des genannten Umfangs und blieb unverändert (Entwurf).
 ## [2026-11-24] ingest | Produktvision freigegeben
 Product Owner gab docs/vision/product-vision.md frei (status freigegeben, 2026-11-24). Damit sind alle Dokumente in docs/ freigegeben, außer der Vorlage `_vorlage-adr.md`.
+## [2026-11-24] ingest | arc42-Pflegeänderungen direkt in docs/
+Product Owner wies an, die Pflegeänderungen direkt in `docs/` vorzunehmen (kein Vorschlag nach `wiki/proposals/`). Veraltete „offen“/„Entwurf“-Aussagen angepasst in arc42 README, Kapitel 3 (technischer Kontext), 4 (Lösungsstrategie, Spalte „Entscheidung“), 5, 6, 7 sowie K-001, K-003, K-007, K-008, K-009, K-011 und Glossar; Inhalte nur nach dem Stand von Kapitel 9 und den ADRs, keine neuen Entscheidungen. Wiki-Seite `concepts/arc42-entwurf-stand.md` auf Stand 2026-11-24 gebracht.
+
+## [2026-11-24] ingest | C4-Diagramme zu arc42
+Auftrag (Ziel der Session): C4-Diagramme in Excalidraw zu den arc42-Sichten. Erzeugt in `wiki/diagramme/` (nicht in `docs/`, da dort Freigabe nötig): Systemkontext, Container, Komponenten (Bausteine und Operationsrahmen), Dynamik (L-1, L-2, L-4), Deployment; Generator `generate.py`/`c4lib.py`. Quellen: arc42 Kap. 3, 5, 6, 7 und ADR-002 bis ADR-013. Seite `concepts/c4-diagramme-arc42.md`. Keine Widersprüche zu `docs/` gefunden.
+
+## [2026-11-24] ingest | C4-Diagramme nach docs/arc42/diagramme
+PO wies an, die Diagramme im arc42 abzulegen. Dateien nach `docs/arc42/diagramme/` verschoben (README mit `status: entwurf`, Verweis in `docs/arc42/README.md`); Generator bleibt in `wiki/diagramme/`. Freigabe steht aus.

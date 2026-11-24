@@ -101,7 +101,7 @@ Rechtliche Seiten ([F-013](../../req42/04-product-backlog/features/F-013-rechtli
 | Web | Weboberfläche (Auslieferung), Operationsschicht mit Rahmen, Fachbereiche, Berechtigung, Verlauf, Ereignis erzeugen, Kalender-Feed, KI-Assistent und KI-Adapter ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) |
 | Worker | Zeitauslöser, Benachrichtigung (Zustellung, Wiederholung, Bündelung), Kanäle, Sitzungs-Heartbeat (Erneuerung der Keycloak-Sitzung alle 6 Stunden) |
 | Unterbefehle desselben Binarys | `chronos migrate` als Job vor dem Rollout ([ADR-011](../09-entscheidungen/ADR-011-migrationswerkzeug.md)); Datenübernahme (E-017) als Import über die Operationsschicht |
-| offen | Backup (E-010), Ferien-Abruf |
+| offen | Zuordnung von Backup (E-010: S3, clientseitig verschlüsselt) und Ferien-Abruf zu Web, Worker oder Job |
 
 ## Ebene 2: Rahmen der Operationsschicht ([ADR-005](../09-entscheidungen/ADR-005-operationsschicht.md))
 

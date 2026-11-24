@@ -8,7 +8,7 @@ quellen: [req42 FA-002, FA-005, FA-008, FA-015, FA-016, FA-017, FA-012, M-004]
 
 # Kapitel 6: Laufzeitsicht
 
-Die Szenarien zeigen das **geforderte Verhalten** zwischen den [Bausteinen](../05-bausteine/01-bausteinsicht.md) (Kandidaten). Technische Mechanismen (Warteschlange, Scheduler, Transaktionsgrenzen) sind offen und hier abstrakt als „festhalten“ bzw. „Zeitauslöser“ bezeichnet.
+Die Szenarien zeigen das **geforderte Verhalten** zwischen den [Bausteinen](../05-bausteine/01-bausteinsicht.md) (Kandidaten). Technische Mechanismen (Outbox, Worker, Transaktionsgrenzen, siehe [ADR-005](../09-entscheidungen/ADR-005-operationsschicht.md)) sind hier abstrakt als „festhalten“ bzw. „Zeitauslöser“ bezeichnet.
 
 ## L-1 Antwort über Gastlink
 

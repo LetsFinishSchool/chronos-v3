@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="1165" viewBox="0 0 1720 1165" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse"><path d="M0,0 L10,4 L0,8 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="44" font-size="24" font-weight="bold">C4 Ebene 2: Container von Chronos</text>
+<text x="40" y="68" font-size="14" fill="#555">arc42 Kapitel 5 und 7 (ADR-002 Monolith plus Worker, ADR-003, ADR-007, ADR-008, ADR-011). Eine Codebasis, zwei Prozesse, eine Datenbank je Umgebung.</text>
+<rect x="370" y="215" width="850" height="700" rx="10" fill="none" stroke="#555" stroke-dasharray="8 6"/>
+<text x="382" y="239" font-size="14" fill="#444">System Chronos (je Umgebung: prod, staging)</text>
+<rect x="860" y="100" width="280" height="90" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1000.0" y="140.0" font-size="14" text-anchor="middle" fill="#ffffff">Kalender-Apps</text>
+<text x="1000.0" y="159.0" font-size="14" text-anchor="middle" fill="#ffffff">webcal-Abruf</text>
+<rect x="40" y="260" width="230" height="100" rx="8" fill="#08427b" stroke="#052e56" />
+<text x="155.0" y="314.5" font-size="14" text-anchor="middle" fill="#ffffff">Leitungsteam-Mitglied</text>
+<rect x="40" y="390" width="230" height="100" rx="8" fill="#08427b" stroke="#052e56" />
+<text x="155.0" y="444.5" font-size="14" text-anchor="middle" fill="#ffffff">Externe Person (Gast)</text>
+<rect x="420" y="260" width="260" height="110" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="550.0" y="291.0" font-size="14" text-anchor="middle" fill="#ffffff">Weboberfläche</text>
+<text x="550.0" y="310.0" font-size="14" text-anchor="middle" fill="#ffffff">[Svelte, SPA und PWA]</text>
+<text x="550.0" y="329.0" font-size="14" text-anchor="middle" fill="#ffffff">Mobil zuerst; Push-Abo,</text>
+<text x="550.0" y="348.0" font-size="14" text-anchor="middle" fill="#ffffff">Service Worker</text>
+<rect x="420" y="390" width="260" height="110" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="550.0" y="411.5" font-size="14" text-anchor="middle" fill="#ffffff">Gastseite</text>
+<text x="550.0" y="430.5" font-size="14" text-anchor="middle" fill="#ffffff">[Svelte, eigener Einstieg]</text>
+<text x="550.0" y="449.5" font-size="14" text-anchor="middle" fill="#ffffff">Termin lesen, Antwort</text>
+<text x="550.0" y="468.5" font-size="14" text-anchor="middle" fill="#ffffff">speichern; eigener Service</text>
+<text x="550.0" y="487.5" font-size="14" text-anchor="middle" fill="#ffffff">Worker</text>
+<rect x="860" y="260" width="310" height="160" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="1015.0" y="306.5" font-size="14" text-anchor="middle" fill="#ffffff">Web-Prozess</text>
+<text x="1015.0" y="325.5" font-size="14" text-anchor="middle" fill="#ffffff">[Rust, axum]</text>
+<text x="1015.0" y="344.5" font-size="14" text-anchor="middle" fill="#ffffff">Operationsschicht, Fachbereiche,</text>
+<text x="1015.0" y="363.5" font-size="14" text-anchor="middle" fill="#ffffff">KI-Assistent, Kalender-Feed, Sitzung</text>
+<text x="1015.0" y="382.5" font-size="14" text-anchor="middle" fill="#ffffff">(BFF), liefert die SPA aus</text>
+<rect x="860" y="600" width="310" height="140" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="1015.0" y="636.5" font-size="14" text-anchor="middle" fill="#ffffff">Worker-Prozess</text>
+<text x="1015.0" y="655.5" font-size="14" text-anchor="middle" fill="#ffffff">[Rust, gleiche Codebasis]</text>
+<text x="1015.0" y="674.5" font-size="14" text-anchor="middle" fill="#ffffff">Zeitauslöser, Zustellung mit</text>
+<text x="1015.0" y="693.5" font-size="14" text-anchor="middle" fill="#ffffff">Wiederholung, Sitzungs-Heartbeat (6</text>
+<text x="1015.0" y="712.5" font-size="14" text-anchor="middle" fill="#ffffff">h)</text>
+<rect x="420" y="600" width="260" height="110" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="550.0" y="631.0" font-size="14" text-anchor="middle" fill="#ffffff">PostgreSQL</text>
+<text x="550.0" y="650.0" font-size="14" text-anchor="middle" fill="#ffffff">[eigene Instanz je Umgebung]</text>
+<text x="550.0" y="669.0" font-size="14" text-anchor="middle" fill="#ffffff">Fachdaten, Verlauf, Outbox,</text>
+<text x="550.0" y="688.0" font-size="14" text-anchor="middle" fill="#ffffff">Sitzungen</text>
+<rect x="420" y="760" width="260" height="100" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="550.0" y="786.0" font-size="14" text-anchor="middle" fill="#ffffff">Migrationsjob</text>
+<text x="550.0" y="805.0" font-size="14" text-anchor="middle" fill="#ffffff">[chronos migrate, sqlx]</text>
+<text x="550.0" y="824.0" font-size="14" text-anchor="middle" fill="#ffffff">Helm-Hook vor dem Rollout</text>
+<text x="550.0" y="843.0" font-size="14" text-anchor="middle" fill="#ffffff">(ADR-011)</text>
+<rect x="1400" y="260" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="293.0" font-size="14" text-anchor="middle" fill="#ffffff">KI-Gateway</text>
+<text x="1530.0" y="312.0" font-size="14" text-anchor="middle" fill="#ffffff">[LiteLLM, Betreiber]</text>
+<text x="1530.0" y="331.0" font-size="14" text-anchor="middle" fill="#ffffff">Nur EU-Anbieter (ADR-006)</text>
+<rect x="1400" y="375" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="417.5" font-size="14" text-anchor="middle" fill="#ffffff">Keycloak (geteilt)</text>
+<text x="1530.0" y="436.5" font-size="14" text-anchor="middle" fill="#ffffff">Authorization Code mit PKCE</text>
+<rect x="1400" y="490" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="532.5" font-size="14" text-anchor="middle" fill="#ffffff">Ferien-API</text>
+<text x="1530.0" y="551.5" font-size="14" text-anchor="middle" fill="#ffffff">Zuordnung zum Prozess offen</text>
+<rect x="1400" y="605" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="647.5" font-size="14" text-anchor="middle" fill="#ffffff">Push-Dienste</text>
+<text x="1530.0" y="666.5" font-size="14" text-anchor="middle" fill="#ffffff">Web Push</text>
+<rect x="1400" y="720" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="772.0" font-size="14" text-anchor="middle" fill="#ffffff">SMTP / EU-Anbieter</text>
+<rect x="1400" y="835" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" stroke-dasharray="6 4"/>
+<text x="1530.0" y="877.5" font-size="14" text-anchor="middle" fill="#ffffff">Messenger</text>
+<text x="1530.0" y="896.5" font-size="14" text-anchor="middle" fill="#ffffff">optional</text>
+<rect x="1400" y="950" width="260" height="95" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1530.0" y="992.5" font-size="14" text-anchor="middle" fill="#ffffff">EU-Objektspeicher (S3)</text>
+<text x="1530.0" y="1011.5" font-size="14" text-anchor="middle" fill="#ffffff">Ausführung offen (E-010)</text>
+<path d="M270.0,311.45569620253167 L420.0,313.3544303797468" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="293.68" y="302.90506329113924" width="102.64000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="345.0" y="316.90506329113924" font-size="13" text-anchor="middle" fill="#333">nutzt [HTTPS]</text>
+<path d="M270.0,441.45569620253167 L420.0,443.3544303797468" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="300.96" y="432.90506329113924" width="88.08000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="345.0" y="446.90506329113924" font-size="13" text-anchor="middle" fill="#333">öffnet Link</text>
+<path d="M1003.4615384615385,190.0 L1008.8461538461538,260.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="969.3938461538462" y="215.5" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1006.1538461538462" y="229.5" font-size="13" text-anchor="middle" fill="#333">iCalendar</text>
+<path d="M680.0,321.98924731182797 L860.0,331.6666666666667" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="704.12" y="307.82795698924735" width="131.76" height="38" fill="#fff" opacity="0.9"/>
+<text x="770.0" y="321.82795698924735" font-size="13" text-anchor="middle" fill="#333">Operationsaufrufe</text>
+<text x="770.0" y="340.82795698924735" font-size="13" text-anchor="middle" fill="#333">[JSON]</text>
+<path d="M680.0,415.64516129032256 L860.0,375.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="685.92" y="376.3225806451613" width="168.16000000000003" height="38" fill="#fff" opacity="0.9"/>
+<text x="770.0" y="390.3225806451613" font-size="13" text-anchor="middle" fill="#333">Token tauschen, lesen,</text>
+<text x="770.0" y="409.3225806451613" font-size="13" text-anchor="middle" fill="#333">antworten</text>
+<path d="M896.9047619047619,420.0 L631.1904761904761,600.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="701.807619047619" y="491.0" width="124.48000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="764.047619047619" y="505.0" font-size="13" text-anchor="middle" fill="#333">liest, schreibt,</text>
+<text x="764.047619047619" y="524.0" font-size="13" text-anchor="middle" fill="#333">Outbox [SQL]</text>
+<path d="M860.0,665.0 L680.0,659.1935483870968" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" marker-start="url(#a)"/>
+<rect x="704.12" y="643.0967741935484" width="131.76" height="38" fill="#fff" opacity="0.9"/>
+<text x="770.0" y="657.0967741935484" font-size="13" text-anchor="middle" fill="#333">Outbox, Sitzungen</text>
+<text x="770.0" y="676.0967741935484" font-size="13" text-anchor="middle" fill="#333">[SQL]</text>
+<path d="M550.0,760.0 L550.0,710.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="502.32" y="725.5" width="95.36000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="550.0" y="739.5" font-size="13" text-anchor="middle" fill="#333">Schema [DDL]</text>
+<path d="M1170.0,330.21844660194176 L1400.0,315.70388349514565" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1259.16" y="313.4611650485437" width="51.68000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1285.0" y="327.4611650485437" font-size="13" text-anchor="middle" fill="#333">Dialog</text>
+<path d="M1170.0,364.83009708737865 L1400.0,401.6747572815534" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1208.2" y="364.252427184466" width="153.60000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="1285.0" y="378.252427184466" font-size="13" text-anchor="middle" fill="#333">Anmeldung, Logout;</text>
+<text x="1285.0" y="397.252427184466" font-size="13" text-anchor="middle" fill="#333">Heartbeat per Worker</text>
+<path d="M1170.0,399.44174757281553 L1406.139240506329,490.0" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a)" />
+<rect x="1262.2296202531645" y="435.22087378640776" width="51.68000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1288.0696202531644" y="449.22087378640776" font-size="13" text-anchor="middle" fill="#333">Ferien</text>
+<path d="M1170.0,664.7330097087379 L1400.0,656.9174757281553" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1248.24" y="651.3252427184466" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1285.0" y="665.3252427184466" font-size="13" text-anchor="middle" fill="#333">zustellen</text>
+<path d="M1170.0,699.3446601941747 L1400.0,742.8883495145631" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1248.24" y="711.6165048543689" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1285.0" y="725.6165048543689" font-size="13" text-anchor="middle" fill="#333">zustellen</text>
+<path d="M1170.0,733.9563106796116 L1414.8823529411766,835.0" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a)" />
+<rect x="1255.6811764705883" y="774.9781553398059" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="1292.4411764705883" y="788.9781553398059" font-size="13" text-anchor="middle" fill="#333">zustellen</text>
+<path d="M680.0,700.4336734693877 L1400.0,952.0663265306123" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a)" />
+<rect x="955.92" y="816.75" width="168.16000000000003" height="19" fill="#fff" opacity="0.9"/>
+<text x="1040.0" y="830.75" font-size="13" text-anchor="middle" fill="#333">täglich, verschlüsselt</text>
+<text x="40" y="1089" font-size="14" fill="#444">Legende</text>
+<rect x="40" y="1101" width="28" height="18" rx="4" fill="#08427b" stroke="#052e56"/>
+<text x="76" y="1115" font-size="13" fill="#333">Person</text>
+<rect x="270" y="1101" width="28" height="18" rx="4" fill="#438dd5" stroke="#2e6295"/>
+<text x="306" y="1115" font-size="13" fill="#333">Container</text>
+<rect x="500" y="1101" width="28" height="18" rx="4" fill="#8a8a8a" stroke="#6b6b6b"/>
+<text x="536" y="1115" font-size="13" fill="#333">Nachbarsystem</text>
+</svg>
