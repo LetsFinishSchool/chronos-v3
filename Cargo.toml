@@ -33,6 +33,7 @@ chronos-web = { path = "crates/web" }
 chronos-worker = { path = "crates/worker" }
 
 # Fremde Bibliotheken
+cargo_metadata = "0.23"
 clap = { version = "4.5", features = ["derive"] }
 
 [workspace.lints.rust]
