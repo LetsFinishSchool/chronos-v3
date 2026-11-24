@@ -17,4 +17,7 @@ last-verified: 2026-11-24
 - `deny.toml`: Ausnahmen mit `reason` und `bis JJJJ-MM-TT` (90 Tage). `tools/check-deny-expiry.sh` liest diese Daten (`DENY_TODAY=` für Tests): abgelaufen = Exit 1, ab 14 Tage vorher Warnung.
 - **Stolpersteine:** Workspace-Pfadabhängigkeiten zählen als Wildcards (`allow-wildcard-paths = true`); Workspace-Crates ohne Lizenz brauchen `[licenses.private] ignore = true`; ein `wrappers`-Eintrag für ein noch nicht vorhandenes Crate ist nur eine Warnung.
 - Gegenprobe: `native-tls` als Abhängigkeit zieht `openssl-sys` mit und lässt `cargo deny check bans` fehlschlagen.
+- Ablaufskript: prüft jede einzeilige Ausnahme (`reason =` oder `RUSTSEC-`) und lässt eine ohne `bis JJJJ-MM-TT` fehlschlagen; die 90-Tage-Obergrenze ist nicht prüfbar (kein Eintragsdatum), das bleibt Review-Sache. Ausnahmen müssen einzeilig stehen. Ausgabe als `::error::`/`::warning::`.
+- CI läuft zusätzlich täglich per `schedule` (nur Lieferkette), damit neue Advisories und die 14-Tage-Warnung ohne PR auffallen. Doctests laufen separat (`cargo test --doc`), weil nextest sie nicht ausführt.
+- **Werkzeugversionen** (`cargo-nextest`, `cargo-deny` im `tool:`-Input) aktualisiert Dependabot nicht; von Hand anheben (`gh api repos/<r>/releases/latest`).
 - Dependabot: `cargo` und `github-actions`, wöchentlich, je eine Gruppe.

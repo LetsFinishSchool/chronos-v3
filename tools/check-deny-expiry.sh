@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Prüft die Ablaufdaten der Ausnahmen in deny.toml (ADR-013).
-# Datum im Format "bis JJJJ-MM-TT". Überschritten: Exit-Code 1.
+# Jede Ausnahme steht einzeilig mit `reason = "..., bis JJJJ-MM-TT"`.
+# Eine Ausnahme ohne gültiges Datum, ein überschrittenes Datum: Exit-Code 1.
 # Ab 14 Tagen vorher: Warnung, Exit-Code 0.
 # DENY_TODAY=JJJJ-MM-TT ersetzt das heutige Datum (für Tests).
 set -euo pipefail
@@ -13,6 +14,10 @@ failed=0
 
 summary() {
     echo "$1"
+    case "$1" in
+        FEHLER*) echo "::error::$1" ;;
+        WARNUNG*) echo "::warning::$1" ;;
+    esac
     if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
         echo "$1" >> "$GITHUB_STEP_SUMMARY"
     fi
@@ -20,7 +25,12 @@ summary() {
 
 while IFS= read -r line; do
     [[ "$line" =~ ^[[:space:]]*# ]] && continue
-    [[ "$line" =~ bis[[:space:]]+([0-9]{4}-[0-9]{2}-[0-9]{2}) ]] || continue
+    [[ "$line" =~ reason[[:space:]]*= || "$line" =~ RUSTSEC- ]] || continue
+    if ! [[ "$line" =~ reason[[:space:]]*=.*bis[[:space:]]+([0-9]{4}-[0-9]{2}-[0-9]{2}) ]]; then
+        summary "FEHLER: Ausnahme ohne reason mit Ablaufdatum \"bis JJJJ-MM-TT\": $line"
+        failed=1
+        continue
+    fi
     date="${BASH_REMATCH[1]}"
     if ! expiry_s=$(date -u -d "$date" +%s 2>/dev/null); then
         summary "FEHLER: ungültiges Datum $date in: $line"
