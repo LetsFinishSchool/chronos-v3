@@ -13,3 +13,6 @@ venv/
 # Local agent settings (hold API keys, change per worktree)
 .claude/settings.local.json
 .worktrees/
+
+# direnv: lokale Umgebung mit Token (nur .envrc.example wird eingecheckt)
+.envrc

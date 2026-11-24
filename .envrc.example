@@ -1,0 +1,4 @@
+# Vorlage für .envrc (direnv). Kopieren: cp .envrc.example .envrc && direnv allow
+# Fine-grained PAT, nur für dieses Repo (Metadata: Read, Issues/Pull requests: Read+Write, Contents: Read).
+# Wird von Claude Code (.mcp.json) und opencode (opencode.json) für den GitHub-MCP-Server gelesen.
+export GITHUB_PERSONAL_ACCESS_TOKEN=github_pat_HIER_EINTRAGEN
