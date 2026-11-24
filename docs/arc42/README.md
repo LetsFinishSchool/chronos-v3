@@ -26,6 +26,6 @@ Gliederung nach [arc42](https://arc42.org/). Im Zuge des Neuanfangs (re-write, c
 | 11 Risiken und technische Schulden | [11-risiken](11-risiken/00-kapitelbeschreibung.md) |
 | 12 Glossar | [12-glossar](12-glossar/00-kapitelbeschreibung.md) |
 
-C4-Diagramme zu den Sichten: [diagramme](diagramme/README.md) (Entwurf).
+C4-Diagramme zu den Sichten: [diagramme](diagramme/README.md).
 
 Anforderungen stehen in [req42](../req42/README.md).

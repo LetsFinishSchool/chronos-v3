@@ -144,3 +144,4 @@ Auftrag (Ziel der Session): C4-Diagramme in Excalidraw zu den arc42-Sichten. Erz
 
 ## [2026-11-24] ingest | C4-Diagramme nach docs/arc42/diagramme
 PO wies an, die Diagramme im arc42 abzulegen. Dateien nach `docs/arc42/diagramme/` verschoben (README mit `status: entwurf`, Verweis in `docs/arc42/README.md`); Generator bleibt in `wiki/diagramme/`. Freigabe steht aus.
+Product Owner gab die Diagramme in docs/arc42/diagramme frei (2026-11-24).

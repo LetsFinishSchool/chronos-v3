@@ -1,6 +1,8 @@
 ---
 title: C4-Diagramme zu arc42
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
 # C4-Diagramme
