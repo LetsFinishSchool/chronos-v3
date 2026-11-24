@@ -1,0 +1,5 @@
+.stack/
+node_modules/
+target/
+__pycache__/
+*.env
