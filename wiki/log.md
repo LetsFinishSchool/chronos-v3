@@ -235,3 +235,6 @@ Auf Anweisung des Nutzers: Kommentar-Review des PR. Crate-Kopfkommentare auf Zwe
 
 ## [2026-11-24] ingest | Regel zu Code-Kommentaren
 Auf Anweisung des Nutzers: Abschnitt „Kommentare im Code“ in `AGENTS.md` (Kommentar nur, wenn er erklärt, was Code nicht kann, sich nicht durch besseren Code ersetzen lässt und mehr Nutzen als Pflegeaufwand bringt). `docs/` unverändert; kein Wiki-Bedarf über diesen Eintrag hinaus.
+
+## [2026-11-24] ingest | #107 CI und Lieferkette
+CI, cargo-deny, Ablaufskript, Dependabot umgesetzt; Seite `code/ci-und-lieferkette.md`.
