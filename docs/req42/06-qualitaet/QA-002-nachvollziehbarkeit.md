@@ -1,7 +1,9 @@
 ---
 id: QA-002
 title: Nachvollziehbarkeit (Analysierbarkeit)
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: qualitaetsanforderung
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-002, Z-005]

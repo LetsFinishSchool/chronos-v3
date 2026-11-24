@@ -1,6 +1,8 @@
 ---
 title: Fachlicher Kontext
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 SC-001, SC-002, FA-008, FA-015, F-014, RA-010]
 ---
 

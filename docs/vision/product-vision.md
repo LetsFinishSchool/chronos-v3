@@ -1,8 +1,8 @@
 ---
 title: Produktvision
-status: entwurf   # Menschen: nach Prüfung auf "freigegeben" setzen
-freigegeben-am:
-freigegeben-von:
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen:
   - frontend/app/pages/index.vue
   - backend/src/main/java/de/chronos_live/chronos_date_api/domain/

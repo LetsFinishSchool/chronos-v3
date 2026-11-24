@@ -1,7 +1,9 @@
 ---
 id: FA-002
 title: Mitglieder und Einladungslink
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: anforderung
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [F-002]

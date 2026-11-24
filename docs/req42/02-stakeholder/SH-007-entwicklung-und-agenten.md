@@ -1,7 +1,9 @@
 ---
 id: SH-007
 title: Entwicklung und Agenten
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: stakeholder
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

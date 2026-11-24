@@ -1,6 +1,8 @@
 ---
 title: E-009 KI-Anbindung, Anbieterneutralität, Limit, Analyse
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [F-015, FA-015, FA-018, RB-001, RB-006, RB-010, RA-002, RA-009, RA-010, K-005, K-006, K-008, ADR-002, ADR-004, ADR-005, Kapitel 5, Kapitel 6 L-4, Rust-Spike E-002 (src/ai/mod.rs), Claude-Dokumentation (Preise, Datenstandort, Aufbewahrung, API-Versionen; abgerufen 2026-11-23)]
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Technischer Kontext
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 SC-001, RB-002, FA-009, FA-014, QA-006]
 ---
 

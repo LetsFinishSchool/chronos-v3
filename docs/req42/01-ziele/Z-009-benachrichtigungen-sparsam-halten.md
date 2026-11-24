@@ -1,7 +1,9 @@
 ---
 id: Z-009
 title: Benachrichtigungen sparsam halten
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: ziel
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-002, SH-003, F-008, QA-010]

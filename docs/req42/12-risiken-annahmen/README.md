@@ -1,6 +1,8 @@
 ---
 title: Risiken und Annahmen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
 # Risiken und Annahmen

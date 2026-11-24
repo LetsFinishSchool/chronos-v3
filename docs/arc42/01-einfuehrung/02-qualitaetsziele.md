@@ -1,6 +1,8 @@
 ---
 title: Qualitätsziele
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 QA-001..QA-010, wiki/concepts/key-learnings-chronos-root.md]
 ---
 

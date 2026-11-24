@@ -1,6 +1,8 @@
 ---
 title: K-010 Datenübernahme
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 RB-004, FA-012, M-005, RA-005, RM-001]
 ---
 

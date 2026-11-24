@@ -1,6 +1,8 @@
 ---
 title: Verteilungssicht
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 BM-001, RB-002, RB-003, RB-005, QA-006, RA-009]
 ---
 

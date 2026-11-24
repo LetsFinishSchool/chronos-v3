@@ -1,7 +1,9 @@
 ---
 id: RA-005
 title: Altmodell passt nicht zum neuen Modell
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: risiko
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

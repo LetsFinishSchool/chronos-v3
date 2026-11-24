@@ -1,7 +1,9 @@
 ---
 id: Z-010
 title: Rückmeldungen automatisch einholen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: ziel
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-001, Z-009, SH-002, F-005, F-008]

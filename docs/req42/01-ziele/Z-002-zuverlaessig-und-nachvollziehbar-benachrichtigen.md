@@ -1,7 +1,9 @@
 ---
 id: Z-002
 title: Zuverlässig und nachvollziehbar benachrichtigen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: ziel
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [SH-002, SH-003]

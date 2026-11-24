@@ -1,7 +1,9 @@
 ---
 id: TS-001
 title: Rollen und Zusammenarbeit
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: teamstruktur
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [SH-001, SH-007]

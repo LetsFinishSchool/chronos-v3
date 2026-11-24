@@ -1,7 +1,9 @@
 ---
 id: SH-001
 title: Product Owner
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: stakeholder
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

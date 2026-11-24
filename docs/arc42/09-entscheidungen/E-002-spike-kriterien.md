@@ -1,6 +1,8 @@
 ---
 title: E-002 Spike-Kriterien und Metriken (Vorschlag)
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [Gespräch mit dem Product Owner 2026-11-20, ADR-001, ADR-002, ADR-003, E-002-sprachwahl-analyse, req42 QA-001..QA-010, RB-003]
 ---
 

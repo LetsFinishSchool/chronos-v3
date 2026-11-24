@@ -1,6 +1,8 @@
 ---
 title: K-009 Beobachtbarkeit
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 QA-002, QA-001, QA-006, Z-002, SH-005]
 ---
 

@@ -1,7 +1,9 @@
 ---
 id: RB-011
 title: Einfache Weboberfläche, vollständige Funktionen über den Assistenten
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: randbedingung
 kategorie: konzeptionell
 quellen: [Gespräch mit dem Product Owner 2026-11-20]

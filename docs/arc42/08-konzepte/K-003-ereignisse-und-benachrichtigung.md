@@ -1,6 +1,8 @@
 ---
 title: K-003 Ereignisse und Benachrichtigung
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 M-004, FA-005, FA-008, QA-002, QA-004, QA-010, Z-002, Z-009, Z-010]
 ---
 

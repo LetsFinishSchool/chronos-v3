@@ -1,6 +1,8 @@
 ---
 title: Laufzeitszenarien
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 FA-002, FA-005, FA-008, FA-015, FA-016, FA-017, FA-012, M-004]
 ---
 

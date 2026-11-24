@@ -1,6 +1,8 @@
 ---
 title: K-011 Serien und Zeitraumsregeln
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 FA-014, FA-016, F-014, F-016, M-001]
 ---
 

@@ -1,7 +1,9 @@
 ---
 id: RA-002
 title: Nutzungsumfang unter 500 aktiven Nutzern
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: annahme
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

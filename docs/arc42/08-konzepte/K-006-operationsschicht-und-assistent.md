@@ -1,6 +1,8 @@
 ---
 title: K-006 Operationsschicht und Assistent
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 RB-011, FA-015, QA-003, RA-010, Z-008]
 ---
 

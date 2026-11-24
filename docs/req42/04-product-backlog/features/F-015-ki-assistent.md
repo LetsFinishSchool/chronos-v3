@@ -1,7 +1,9 @@
 ---
 id: F-015
 title: KI-Assistent
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: feature
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-008, SH-002]

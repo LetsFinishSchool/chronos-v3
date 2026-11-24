@@ -1,7 +1,9 @@
 ---
 id: QA-004
 title: Zuverlässige Benachrichtigung
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: qualitaetsanforderung
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-002]

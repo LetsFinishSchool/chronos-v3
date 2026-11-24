@@ -1,7 +1,9 @@
 ---
 id: QA-005
 title: Bedienbarkeit auf dem Smartphone
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: qualitaetsanforderung
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-004]

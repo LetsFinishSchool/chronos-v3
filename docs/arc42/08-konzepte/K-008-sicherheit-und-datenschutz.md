@@ -1,6 +1,8 @@
 ---
 title: K-008 Sicherheit und Datenschutz
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 QA-007, RB-006, Z-007, FA-013, RA-007, RA-010]
 ---
 

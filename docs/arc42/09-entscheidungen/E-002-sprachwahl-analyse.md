@@ -1,6 +1,8 @@
 ---
 title: E-002 Sprach- und Laufzeitwahl, Analyse
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [ADR-001, ADR-002, ADR-003, req42 RB-003, QA-001, QA-003, FA-014, FA-008, FA-015]
 ---
 

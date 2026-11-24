@@ -1,7 +1,9 @@
 ---
 id: RM-001
 title: Fundament mit Datenübernahme
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: roadmap
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

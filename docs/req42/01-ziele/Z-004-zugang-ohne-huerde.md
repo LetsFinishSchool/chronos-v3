@@ -1,7 +1,9 @@
 ---
 id: Z-004
 title: Zugang ohne Hürde
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: ziel
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [SH-003]

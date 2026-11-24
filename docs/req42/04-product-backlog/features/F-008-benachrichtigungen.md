@@ -1,7 +1,9 @@
 ---
 id: F-008
 title: Benachrichtigungen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: feature
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-002, SH-002, SH-003]

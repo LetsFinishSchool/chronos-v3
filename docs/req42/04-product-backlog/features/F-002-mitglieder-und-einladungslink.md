@@ -1,7 +1,9 @@
 ---
 id: F-002
 title: Mitglieder und Einladungslink
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: feature
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [Z-004, SH-002, SH-003]

@@ -1,7 +1,9 @@
 ---
 id: M-001
 title: Fachdatenmodell
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: modell
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [F-001, F-003, F-004, F-005, F-007]

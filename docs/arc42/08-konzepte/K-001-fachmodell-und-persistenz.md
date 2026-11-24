@@ -1,6 +1,8 @@
 ---
 title: K-001 Fachmodell und Persistenz
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 M-001, M-003, M-005, FA-017, RB-004]
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: K-005 Kostenerfassung
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 RB-010, FA-018, QA-009, RA-009, FA-015]
 ---
 

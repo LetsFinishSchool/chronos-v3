@@ -1,7 +1,9 @@
 ---
 id: RB-003
 title: Ressourcenbudget
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: randbedingung
 kategorie: technisch
 quellen: [Gespräch mit dem Product Owner 2026-11-20]

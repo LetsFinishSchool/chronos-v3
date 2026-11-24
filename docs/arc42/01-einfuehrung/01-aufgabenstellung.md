@@ -1,6 +1,8 @@
 ---
 title: Aufgabenstellung
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 (Z-001..Z-010, F-001..F-018, RB-*, QA-*), wiki/concepts/key-learnings-chronos-root.md]
 ---
 

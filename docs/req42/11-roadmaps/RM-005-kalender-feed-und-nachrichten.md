@@ -1,7 +1,9 @@
 ---
 id: RM-005
 title: Kalender-Feed und Terminnachrichten
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: roadmap
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: []

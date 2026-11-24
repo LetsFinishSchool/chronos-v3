@@ -1,7 +1,9 @@
 ---
 id: SC-001
 title: Systemkontext, Akteure und Nachbarsysteme
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 typ: scope
 quellen: [Gespräch mit dem Product Owner 2026-11-20]
 verknuepft: [SH-002, SH-003, SH-005, SH-006]
