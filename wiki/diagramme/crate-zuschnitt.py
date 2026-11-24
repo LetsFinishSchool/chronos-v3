@@ -1,4 +1,4 @@
-"""Zeichnet den vorgeschlagenen Crate-Zuschnitt (Task #99, ADR-009, Kapitel 5) als Excalidraw und SVG.
+"""Zeichnet den Crate-Zuschnitt (docs/arc42/05-bausteine/02-crate-zuschnitt.md) als Excalidraw und SVG.
 
 Nutzt die Bibliothek c4lib aus docs/arc42/diagramme/generator (nur lesend).
 Aufruf: python3 crate-zuschnitt.py   (schreibt in dieses Verzeichnis)
@@ -17,56 +17,58 @@ RED = "#c92a2a"
 
 def build():
     d = Diagram("crate-zuschnitt", "Cargo-Workspace: Crates und erlaubte Abhängigkeiten",
-                "Vorschlag für Task #99 (ADR-009, Kapitel 5). Pfeil A → B: A darf von B abhängen. Rot gestrichelt: verbotene Kante.")
+                "arc42 Kapitel 5, Crate-Zuschnitt (freigegeben 2026-11-24). Pfeil A → B: A darf von B abhängen. Rot gestrichelt: verbotene Kante.")
     d.boundary("WS", 40, 100, 1640, 610, "Cargo-Workspace (crates/)")
 
-    # Binary
-    d.box("CH", 640, 150, 400, 110, "chronos", "system", tech="Binary, crates/chronos",
+    d.box("CH", 655, 150, 400, 110, "chronos", "system", tech="Binary, crates/chronos",
           desc="Unterbefehle serve, worker, migrate; einziger Ort, an dem alles zusammengesteckt wird")
 
-    # Reihe: web, domain, channels, worker
-    y, w, h = 340, 260, 140
+    y, w, h = 340, 230, 140
     d.box("WEB", 80, y, w, h, "chronos-web", "component", tech="crates/web",
-          desc="HTTP, Auslieferung der Oberfläche, Sitzung")
-    d.box("DOM", 500, y, w, h, "chronos-domain", "component", tech="crates/domain",
+          desc="HTTP, Oberfläche ausliefern, Sitzung, Feed, Assistent")
+    d.box("DOM", 410, y, w, h, "chronos-domain", "component", tech="crates/domain",
           desc="Fachbereiche: Teams, Termine, ...")
-    d.box("CHA", 920, y, w, h, "chronos-channels", "component", tech="crates/channels",
-          desc="Kanäle: Web Push, E-Mail")
-    d.box("WRK", 1340, y, w, h, "chronos-worker", "component", tech="crates/worker",
-          desc="Outbox abarbeiten, Zeitauslöser, Benachrichtigung")
+    d.box("CHA", 740, y, w, h, "chronos-channels", "component", tech="crates/channels",
+          desc="Zustellkanäle: Web Push, E-Mail")
+    d.box("WRK", 1070, y, w, h, "chronos-worker", "component", tech="crates/worker",
+          desc="Outbox, Benachrichtigung, Zeitauslöser")
+    d.box("ADA", 1400, y, w, h, "chronos-adapters", "component", tech="crates/adapters",
+          desc="Keycloak, KI-Gateway, Ferien-Quelle, Backup (ein Modul je Adapter)")
 
-    # Kern
-    d.box("COR", 80, 580, 1520, 100, "chronos-core", "container", tech="crates/core",
-          desc="Operationsschicht und Rahmen, Kontext, Fehler, Zeit; hängt von nichts im Workspace ab")
+    d.box("COR", 80, 580, 1550, 100, "chronos-core", "container", tech="crates/core",
+          desc="Operationsschicht und Rahmen, Kontext, Fehler, Zeit, Kostenerfassung; hängt von nichts im Workspace ab")
 
-    # erlaubte Kanten
+    # erlaubte Kanten (Reihenfolge = Excalidraw-Kennung e-0 ...)
     d.edge("CH", "WEB")
-    d.edge("CH", "DOM", "use chronos_domain as _ (inventory)", lt=0.45)
+    d.edge("CH", "DOM", "use chronos_domain as _", lt=0.45)
     d.edge("CH", "CHA")
     d.edge("CH", "WRK")
-    d.edge("CH", "COR", via=[(1640, 205), (1640, 630)])
+    d.edge("CH", "ADA")
+    d.edge("CH", "COR", via=[(1660, 205), (1660, 630)])
     d.edge("WEB", "COR", "ruft Operationen")
     d.edge("DOM", "COR", "registriert Operationen")
     d.edge("CHA", "COR", "Ereignistypen")
     d.edge("WRK", "COR", "arbeitet Outbox ab")
+    d.edge("ADA", "COR")
     d.edge("WRK", "CHA", "stellt zu")
+    d.edge("WRK", "ADA", "Heartbeat")
+    d.edge("WEB", "ADA", via=[(195, 530), (1515, 530)])
 
-    # verbotene Kanten (Kapitel 5, Regel 1 und 2)
-    d.edge("WEB", "DOM", "✗ Regel 1", dashed=True, lt=0.5)
-    d.edge("DOM", "CHA", "✗ Regel 2", dashed=True, lt=0.5)
+    # verbotene Kanten
+    d.edge("WEB", "DOM", "✗ Regel 1", dashed=True)
+    d.edge("DOM", "CHA", "✗ Regel 2", dashed=True)
 
-    d.box("NOTE", 80, 740, 1520, 120, "Regeln und Sicherung", "node",
-          desc="Regel 1 (Kapitel 5): Clients (web) greifen nur über die Operationsschicht zu, deshalb kennt web die Fachbereiche nicht. "
-               "Regel 2: Fachbereiche erzeugen nur Ereignisse und kennen keine Kanäle. "
+    d.box("NOTE", 80, 740, 1550, 120, "Regeln und Sicherung", "node",
+          desc="Regel 1: Clients (web) greifen nur über die Operationsschicht zu und kennen domain nicht. "
+               "Regel 2: Fachbereiche (domain) erzeugen nur Ereignisse und kennen weder channels noch adapters. "
                "Gesichert durch: Positivliste der Kanten als Test über cargo metadata (schützt auch vor Änderungen an der Cargo.toml); "
                "der Compiler verhindert Importe ohne Eintrag; cargo-deny (bans, wrappers) beschränkt Bibliotheken je Crate.")
-    d.add_legend([("system", "Binary"), ("component", "Crate (Baustein)"), ("container", "Kern"), ("node", "Hinweis")])
-    return d, {"e-10", "e-11"}
+    d.add_legend([("system", "Binary"), ("component", "Crate"), ("container", "Kern"), ("node", "Hinweis")])
+    return d, {"e-14", "e-15"}
 
 
 def main():
     d, forbidden = build()
-    # Excalidraw: verbotene Kanten rot
     data = d.to_excalidraw()
     for el in data["elements"]:
         if el["id"] in forbidden:
@@ -74,7 +76,6 @@ def main():
     data["source"] = "chronos-v3/wiki/diagramme/crate-zuschnitt.py"
     with open(os.path.join(HERE, "crate-zuschnitt.excalidraw"), "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
-    # SVG: Kantenpfade (fill="none") in Reihenfolge der Kanten
     svg = d.to_svg()
     idx = {int(k.split("-")[1]) for k in forbidden}
     cnt = [-1]
@@ -83,8 +84,7 @@ def main():
         cnt[0] += 1
         s = m.group(0)
         return s.replace('stroke="#555"', 'stroke="%s"' % RED) if cnt[0] in idx else s
-    svg = re.sub(r'<path d="[^"]*" fill="none" stroke="#555"[^>]*>', lambda m: sub(m), svg)
-    svg = svg.replace('<path d="M0,0 L10,4 L0,8 z" fill="#555"/>', '<path d="M0,0 L10,4 L0,8 z" fill="#555"/>')
+    svg = re.sub(r'<path d="[^"]*" fill="none" stroke="#555"[^>]*>', sub, svg)
     with open(os.path.join(HERE, "crate-zuschnitt.svg"), "w", encoding="utf-8") as f:
         f.write(svg)
     print("ok")

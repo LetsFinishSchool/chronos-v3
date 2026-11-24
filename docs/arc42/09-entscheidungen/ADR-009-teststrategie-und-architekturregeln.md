@@ -22,7 +22,7 @@ Die Zerlegung ([ADR-002](ADR-002-zerlegung-monolith-plus-worker.md)) und die Ope
 - **C** A für harte Grenzen plus `cargo-deny` (`bans`) für verbotene Bibliotheken je Crate: doppelte Absicherung, zwei Mechanismen zu pflegen.
 
 ## Entscheidung (PO, 2026-11-24)
-**Option A.** Ein Cargo-Workspace mit einem Crate je Baustein; die Abhängigkeitsregeln stehen in den `Cargo.toml` und werden vom Compiler erzwungen. Der genaue Zuschnitt der Crates folgt aus der Bausteinsicht ([Kapitel 5](../05-bausteine/01-bausteinsicht.md)); die fünf Spike-Bausteine (core, domain, channels, web, worker) sind der Ausgangspunkt.
+**Option A.** Ein Cargo-Workspace mit einem Crate je Baustein; die Abhängigkeitsregeln stehen in den `Cargo.toml` und werden vom Compiler erzwungen. Der genaue Zuschnitt der Crates folgt aus der Bausteinsicht ([Kapitel 5](../05-bausteine/01-bausteinsicht.md)); die fünf Spike-Bausteine (core, domain, channels, web, worker) sind der Ausgangspunkt. Der Zuschnitt (sieben Crates, mit `adapters` und dem Binary `chronos`) steht im [Crate-Zuschnitt](../05-bausteine/02-crate-zuschnitt.md).
 
 **Testebenen (Vorschlag des Entwurfs, vom Product Owner übernommen):**
 1. Unit-Tests im Modul.

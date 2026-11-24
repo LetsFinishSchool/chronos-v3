@@ -18,6 +18,6 @@ Excalidraw-Diagramme (`.excalidraw`, öffnen mit excalidraw.com oder der IDE-Erw
 | [L-1 Gastlink](c4-dynamisch-l1-gastlink.svg), [L-2 Termin ändern](c4-dynamisch-l2-termin-aendern.svg), [L-4 Assistent](c4-dynamisch-l4-assistent.svg) | Dynamisch | [6 Laufzeit](../06-laufzeit/01-laufzeitszenarien.md) |
 | [Deployment](c4-deployment.svg) | Deployment | [7 Verteilung](../07-verteilung/01-verteilungssicht.md) |
 
-Offen und gestrichelt gezeichnet: Backup (E-010), Ferien-Abruf, Messenger, Datenübernahme (E-017). Der Crate-Zuschnitt (ADR-009) ist noch nicht festgelegt.
+Offen und gestrichelt gezeichnet: Backup (E-010), Ferien-Abruf, Messenger, Datenübernahme (E-017). Die Komponentendiagramme zeigen Bausteine, nicht Crates; der Crate-Zuschnitt (ADR-009) steht in Kapitel 5, Crate-Zuschnitt.
 
 Erzeugt aus `generator/generate.py`. Wer in Excalidraw von Hand nachbessert, führt den Generator nicht mehr aus.

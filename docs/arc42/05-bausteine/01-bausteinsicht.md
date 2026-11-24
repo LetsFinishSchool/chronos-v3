@@ -8,7 +8,7 @@ quellen: [req42 M-001, M-002, M-004, F-001..F-018, RB-011, QA-003]
 
 # Kapitel 5: Bausteinsicht
 
-> **Stand: fachliche Kandidaten.** Die Bausteine ergeben sich aus dem Fachmodell und den Features. **Festgelegt ist die Prozessgrenze ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md)): eine Codebasis, zwei Prozesse, Web und Worker.** Die Codebasis ist ein Cargo-Workspace mit einem Crate je Baustein ([ADR-009](../09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md)); der genaue Zuschnitt der Crates ist noch festzulegen. Zwingend sind die Abhängigkeitsrichtungen unten.
+> **Stand: fachliche Kandidaten.** Die Bausteine ergeben sich aus dem Fachmodell und den Features. **Festgelegt ist die Prozessgrenze ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md)): eine Codebasis, zwei Prozesse, Web und Worker.** Die Codebasis ist ein Cargo-Workspace mit einem Crate je Baustein ([ADR-009](../09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md)); der Zuschnitt der Crates steht in [Crate-Zuschnitt](02-crate-zuschnitt.md). Zwingend sind die Abhängigkeitsrichtungen unten.
 
 ## Ebene 1: Überblick
 
@@ -113,4 +113,4 @@ Jede Operation ist ein Trait mit Name, Beschreibung, lesend oder schreibend, `Pa
 4. Verlauf mit Akteur und Bündel-ID sowie Ereignisse (Outbox) in derselben Transaktion schreiben ([K-004](../08-konzepte/K-004-aenderungsverlauf-und-rueckgaengig.md)).
 5. Committen, oder bei einer **Vorschau** zurückrollen: Die Vorschau ist der Probelauf mit Rollback; der Rahmen bildet sie aus den gesammelten Änderungen und stellt einen **Freigabe-Beleg** (gültig 10 Minuten) aus. Aufrufe des Assistenten werden nur mit gültigem Beleg ausgeführt; Stapel laufen als eine Transaktion mit einer Bündel-ID (Obergrenze 50 Aufrufe oder 500 Objekte).
 
-Weitere Detailsichten (Crate-Zuschnitt) folgen, sobald er festgelegt ist.
+Der Crate-Zuschnitt mit Zuständigkeiten je Crate steht in [Crate-Zuschnitt](02-crate-zuschnitt.md).

@@ -6,7 +6,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [E-002 Spike: Lehren](concepts/e-002-spike-ergebnisse.md): Lehren für künftige Agentenläufe (Ergebnisse in ADR-004)
 - [C4-Diagramme zu arc42](concepts/c4-diagramme-arc42.md): Excalidraw-Diagramme (Kontext, Container, Komponenten, Laufzeit, Verteilung) in `docs/arc42/diagramme/` (Generator in `docs/arc42/diagramme/generator/`), Lücken der Zeichnung
 - [req42-Backlog und GitHub-Issues](concepts/req42-anforderung-vs-feature-und-tickets.md): FA/F-Unterschied, Überführung in 91 Issues, Anpassungen, Stolpersteine
-- [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): Vorschlag für #99, sechs Crates mit erlaubten und verbotenen Kanten (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`); noch nicht vom Product Owner bestätigt
+- [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): sieben Crates mit erlaubten und verbotenen Kanten zu `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`)
 
 ## Code
 - *(noch leer)*
