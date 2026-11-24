@@ -4,3 +4,5 @@
 
 // Platzhalter, bis Code die Abhängigkeiten nutzt (`unused_crate_dependencies`).
 use chronos_core as _;
+
+fn   schlecht( ) {  }
