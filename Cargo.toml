@@ -6,6 +6,7 @@
 [workspace]
 resolver = "3"
 members = [
+    "crates/chronos",
     "crates/adapters",
     "crates/channels",
     "crates/core",
@@ -30,6 +31,9 @@ chronos-core = { path = "crates/core" }
 chronos-domain = { path = "crates/domain" }
 chronos-web = { path = "crates/web" }
 chronos-worker = { path = "crates/worker" }
+
+# Fremde Bibliotheken
+clap = { version = "4.5", features = ["derive"] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
