@@ -21,8 +21,17 @@ Ablauf in jeder Session:
 4. Keine Geheimnisse, Tokens oder personenbezogenen Daten ins Wiki.
 5. **Kein Agenten-Gedächtnis.** Das maschinengebundene Gedächtnis (z. B. `~/.claude/projects/.../memory/`) wird in diesem Projekt nicht verwendet. Alles Wissen gehört ins `wiki/`, damit es am Projekt hängt und nicht an einer Maschine. Siehe `wiki/lessons/wissen-nur-im-wiki.md`.
 
-Werkzeuge: Skill `chronos-wiki` (Claude Code und opencode), Befehle `/wiki-ingest`, `/wiki-lint`, `/wiki-query`.
 Erzwingung: Claude Code über `.claude/settings.json` (Hooks), opencode über `opencode.json` und `.opencode/plugin/chronos-wiki.js`.
+
+## Kommentare im Code
+
+Kommentare sind die Ausnahme. Ein Kommentar wird nur geschrieben, wenn **alle drei** Bedingungen gelten:
+
+- **A) Er erklärt, was Code nicht ausdrücken kann.** Das ist das *Warum*: Hintergrund, Randbedingung, bewusste Abweichung, Verweis auf ADR oder Issue, ein Stolperstein, der nicht aus dem Code folgt. Das *Was* steht im Code.
+- **B) Er lässt sich nicht durch anderen Code ersetzen.** Erst umschreiben: aussagekräftige Namen, benannte Konstanten, eine extrahierte Funktion, ein Typ statt eines Magic Values. Nur wenn der Code danach noch Erklärung braucht, kommt ein Kommentar.
+- **C) Sein Nutzen übersteigt den Pflegeaufwand.** Kommentar, Code und `docs/` müssen zusammen aktuell bleiben. Ein veralteter Kommentar ist schlimmer als keiner. Was sich oft ändert oder in `docs/` bereits steht, wird verlinkt statt wiederholt.
+
+Kein Kommentar gehört an: Wiederholung des Codes (`// zählt i hoch`), auskommentierten Code (dafür gibt es Git), Änderungshistorie oder Autorenangaben, Platzhalter ohne Inhalt. Ändert man Code, prüft man die zugehörigen Kommentare und passt sie an oder löscht sie.
 
 ## Tickets
 

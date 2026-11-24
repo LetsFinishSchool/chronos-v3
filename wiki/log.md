@@ -232,3 +232,6 @@ Auf Anweisung des Nutzers (Product Owner): Nicht implementierte Unterbefehle end
 
 ## [2026-11-24] ingest | #99 Kommentare gekürzt
 Auf Anweisung des Nutzers: Kommentar-Review des PR. Crate-Kopfkommentare auf Zweck plus Verweis gekürzt (Zuständigkeitslisten doppelten `docs/` ohne Absicherung), `use … as _`-Kommentare vereinheitlicht, Funktions-Docs im Architekturtest entfernt, die den Namen wiederholten. Lehre: Kommentare, die `docs/` oder einen Test doppeln, nicht schreiben; ein Verweis genügt. Kein Widerspruch zu `docs/`.
+
+## [2026-11-24] ingest | Regel zu Code-Kommentaren
+Auf Anweisung des Nutzers: Abschnitt „Kommentare im Code“ in `AGENTS.md` (Kommentar nur, wenn er erklärt, was Code nicht kann, sich nicht durch besseren Code ersetzen lässt und mehr Nutzen als Pflegeaufwand bringt). `docs/` unverändert; kein Wiki-Bedarf über diesen Eintrag hinaus.
