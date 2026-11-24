@@ -23,7 +23,7 @@ Verbindlich ist der [Crate-Zuschnitt](../../docs/arc42/05-bausteine/02-crate-zus
 - `rust-toolchain.toml`: 1.100.0 mit `rustfmt`, `clippy`; `rust-version` im Workspace gleich. Vorgabe des Product Owners in #99 (ursprünglich 1.95.0 im Ticket). Lokal fehlende Version: `rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy`.
 - **Ungenutzte Abhängigkeiten:** Cargo ab 1.100 warnt bei Abhängigkeiten, die der Code nicht nutzt (Manifest-Warnung, `clippy -D warnings` fängt sie **nicht**, nur ein Blick auf `cargo build`). Leere Crates binden ihre erlaubten Kanten deshalb mit `use <crate> as _;` ein. Sobald echter Code die Kante nutzt, kann die Zeile weg.
 - Crates unter `crates/<kurz>`, Paketname `chronos-<kurz>`, Bibliotheksname `chronos_<kurz>`. Das Binary heißt `chronos` (`crates/chronos/src/main.rs`).
-- Modulkommentar jeder `lib.rs`/`main.rs`: „Zuständig für …“ / „Nicht zuständig für …“ als Kurzfassung von Kapitel 5. Bei Änderungen am Zuschnitt mitziehen.
+- Modulkommentar jeder `lib.rs`/`main.rs`: ein Satz zum Zweck plus Verweis auf Kapitel 5. Die Listen „Zuständig / Nicht zuständig“ stehen bewusst nur in `docs/`, damit keine zweite, ungeprüfte Fassung driftet.
 
 ## Binary
 - `chronos serve|worker|migrate` geben „noch nicht implementiert“ auf stderr aus, Exit-Code **69** (`EX_UNAVAILABLE` aus `sysexits.h`), Konstante `EXIT_NOT_IMPLEMENTED` in `main.rs` (`crates/chronos/tests/cli.rs`).

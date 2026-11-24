@@ -1,28 +1,15 @@
 //! Architekturtest: Die Abhängigkeiten zwischen den Workspace-Crates müssen der
-//! Positivliste aus Kapitel 5 (Crate-Zuschnitt) entsprechen.
+//! Positivliste aus dem Crate-Zuschnitt entsprechen (ADR-009).
 //!
-//! Der Compiler verhindert Importe ohne Eintrag in der `Cargo.toml`, aber nicht,
-//! dass jemand eine verbotene Kante in die `Cargo.toml` einträgt (ADR-009).
-//! Dieser Test liest die tatsächlichen Kanten über `cargo metadata` und prüft:
-//!
-//! 1. Jedes Workspace-Crate steht in der Positivliste und umgekehrt.
-//! 2. Jede Kante zwischen Workspace-Crates steht in der Positivliste, gleich ob
-//!    normale, Dev- oder Build-Abhängigkeit.
-//! 3. Der Abhängigkeitsgraph hat keine Zyklen.
-//!
-//! Wer die Positivliste ändern will, braucht zuerst eine Änderung an
-//! `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Rückfrage an den Product
-//! Owner), nicht nur an diesem Test.
+//! Der Compiler verhindert Importe ohne Eintrag in der `Cargo.toml`, aber nicht
+//! eine verbotene Kante in der `Cargo.toml` selbst.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 use cargo_metadata::MetadataCommand;
 
-/// Erlaubte Kanten: Crate → Crates, von denen es abhängen darf.
-///
-/// Quelle: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`, Tabelle
-/// „Erlaubte Kanten“. Jede andere Kante ist verboten.
+/// Quelle: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`, Tabelle „Erlaubte Kanten“.
 const ALLOWED: &[(&str, &[&str])] = &[
     (
         "chronos",
@@ -50,7 +37,6 @@ const REFERENCE: &str = "Siehe ADR-009 (docs/arc42/09-entscheidungen/ADR-009-tes
      und Kapitel 5, Crate-Zuschnitt (docs/arc42/05-bausteine/02-crate-zuschnitt.md). \
      Eine Änderung des Zuschnitts ist eine Rückfrage an den Product Owner.";
 
-/// Abhängigkeitsgraph: Crate → Crates, von denen es abhängt.
 type Graph = BTreeMap<String, BTreeSet<String>>;
 
 fn allowed_graph() -> Graph {
@@ -65,7 +51,6 @@ fn allowed_graph() -> Graph {
         .collect()
 }
 
-/// Liest die tatsächlichen Kanten zwischen Workspace-Crates aus `cargo metadata`.
 fn workspace_graph() -> Graph {
     let manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../Cargo.toml");
     let metadata = MetadataCommand::new()
@@ -95,7 +80,6 @@ fn workspace_graph() -> Graph {
         .collect()
 }
 
-/// Meldungen für Crates, die nur im Workspace oder nur in der Positivliste stehen.
 fn unknown_crates(actual: &Graph, allowed: &Graph) -> Vec<String> {
     let mut problems = Vec::new();
     for krate in actual.keys().filter(|krate| !allowed.contains_key(*krate)) {
@@ -111,7 +95,6 @@ fn unknown_crates(actual: &Graph, allowed: &Graph) -> Vec<String> {
     problems
 }
 
-/// Meldungen für jede Kante, die nicht in der Positivliste steht.
 fn forbidden_edges(actual: &Graph, allowed: &Graph) -> Vec<String> {
     let empty = BTreeSet::new();
     actual
@@ -125,7 +108,7 @@ fn forbidden_edges(actual: &Graph, allowed: &Graph) -> Vec<String> {
         .collect()
 }
 
-/// Sucht einen Zyklus und gibt ihn als Pfad zurück (erstes und letztes Element gleich).
+/// Pfad eines Zyklus; erstes und letztes Element sind gleich.
 fn find_cycle(graph: &Graph) -> Option<Vec<String>> {
     #[derive(Clone, Copy, PartialEq)]
     enum State {

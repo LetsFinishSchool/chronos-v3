@@ -3,10 +3,8 @@
 
 use std::process::{Command, Output};
 
-/// `EX_UNAVAILABLE` aus `sysexits.h`: Unterbefehl gibt es noch nicht.
 const EXIT_NOT_IMPLEMENTED: i32 = 69;
 
-/// Exit-Code von clap bei Bedienfehlern.
 const EXIT_USAGE_ERROR: i32 = 2;
 
 fn chronos(args: &[&str]) -> Output {

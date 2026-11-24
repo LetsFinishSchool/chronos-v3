@@ -23,8 +23,6 @@ publish = false
 repository = "https://github.com/LetsFinishSchool/chronos-v3"
 
 [workspace.dependencies]
-# Workspace-Crates: Welche Crate welche einbinden darf, steht in der Positivliste
-# (Kapitel 5, Crate-Zuschnitt) und wird vom Architekturtest geprüft.
 chronos-adapters = { path = "crates/adapters" }
 chronos-channels = { path = "crates/channels" }
 chronos-core = { path = "crates/core" }
@@ -32,7 +30,6 @@ chronos-domain = { path = "crates/domain" }
 chronos-web = { path = "crates/web" }
 chronos-worker = { path = "crates/worker" }
 
-# Fremde Bibliotheken
 cargo_metadata = "0.23"
 clap = { version = "4.5", features = ["derive"] }
 

@@ -1,17 +1,6 @@
-//! Einstiegspunkt von Chronos: ein Binary mit Unterbefehlen für alle Prozesse.
+//! Einstiegspunkt: ein Binary mit Unterbefehlen für alle Prozesse (ADR-002, ADR-011).
 //!
-//! Zuständig für die Unterbefehle `serve`, `worker` und `migrate` (später
-//! Import) in einem Image für alle (ADR-002, ADR-011), für das Laden der
-//! Konfiguration aus Umgebung und Secrets, das Initialisieren von Logging und
-//! Tracing, das Zusammenstecken aller Crates (`chronos-domain` einbinden,
-//! Adapter und Kanäle erzeugen und an Web und Worker übergeben) und für die
-//! eingebetteten Migrationen von `chronos migrate`.
-//!
-//! Nicht zuständig für Fachlogik, Berechtigungen und Protokolle: Alles, was
-//! ein anderes Crate brauchen könnte, gehört dorthin. Von `chronos` hängt kein
-//! anderes Crate ab.
-//!
-//! Crate-Zuschnitt: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
+//! Zuschnitt und erlaubte Abhängigkeiten: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
 
 use std::process::ExitCode;
 
@@ -22,18 +11,14 @@ use clap::{Parser, Subcommand};
 // nicht kennt.
 use chronos_domain as _;
 
-// Übrige erlaubte Kanten aus dem Crate-Zuschnitt. Bis das Zusammenstecken sie
-// nutzt, sind sie hier eingebunden, damit Cargo sie nicht als ungenutzt meldet.
+// Platzhalter, bis das Zusammenstecken die Abhängigkeiten nutzt (`unused_crate_dependencies`).
 use chronos_adapters as _;
 use chronos_channels as _;
 use chronos_core as _;
 use chronos_web as _;
 use chronos_worker as _;
 
-/// Exit-Code für Unterbefehle, die es noch nicht gibt: `EX_UNAVAILABLE` aus
-/// `sysexits.h`. Bewusst nicht 2, weil clap 2 für Bedienfehler (unbekannter
-/// Unterbefehl, falsches Argument) nutzt; der Aufrufer soll beides
-/// unterscheiden können.
+/// `EX_UNAVAILABLE` aus `sysexits.h`; nicht 2, das clap für Bedienfehler nutzt.
 const EXIT_NOT_IMPLEMENTED: u8 = 69;
 
 /// Chronos: Termine und Veranstaltungen für ehrenamtliche Leitungsteams.

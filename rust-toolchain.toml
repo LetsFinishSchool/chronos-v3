@@ -1,5 +1,4 @@
 # Feste Toolchain für alle Entwickler, Agenten und die CI.
-# Updates laufen über einen eigenen PR.
 [toolchain]
 channel = "1.100.0"
 components = ["rustfmt", "clippy"]

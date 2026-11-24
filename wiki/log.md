@@ -229,3 +229,6 @@ Auf Anweisung des Nutzers (Product Owner): Toolchain in #99 und PR #108 von 1.95
 
 ## [2026-11-24] ingest | #99 Exit-Code 69 statt 2
 Auf Anweisung des Nutzers (Product Owner): Nicht implementierte Unterbefehle enden mit 69 (`EX_UNAVAILABLE`) statt 2, weil clap 2 für Bedienfehler nutzt. Test für Bedienfehler ergänzt, Ticket #99 und PR #108 angepasst. `cargo-deny` bleibt bewusst in #107 (Entscheidung des Product Owners). Lehre: Ticketvorgaben für Exit-Codes gegen die Konventionen der genutzten Bibliothek prüfen (clap: 2 = Bedienfehler) und eine Kollision vor der Umsetzung melden.
+
+## [2026-11-24] ingest | #99 Kommentare gekürzt
+Auf Anweisung des Nutzers: Kommentar-Review des PR. Crate-Kopfkommentare auf Zweck plus Verweis gekürzt (Zuständigkeitslisten doppelten `docs/` ohne Absicherung), `use … as _`-Kommentare vereinheitlicht, Funktions-Docs im Architekturtest entfernt, die den Namen wiederholten. Lehre: Kommentare, die `docs/` oder einen Test doppeln, nicht schreiben; ein Verweis genügt. Kein Widerspruch zu `docs/`.
