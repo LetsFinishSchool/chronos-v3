@@ -221,5 +221,17 @@ Auf Anweisung des Nutzers: #99 auf „Cargo-Workspace mit sieben Crates und Arch
 ## [2026-11-24] ingest | Worktrees: Umgebungsdateien per post-checkout-Hook
 Auf Anweisung des Nutzers: herdr übernimmt `.worktreekeep` nicht (kennt die Datei nicht). Hook `.githooks/post-checkout` gebaut (kopiert, `core.hooksPath` gesetzt), mit Wegwerf-Worktree getestet. Fehler dabei: Hook las die Liste aus dem neuen Worktree (committete Fassung ohne `.envrc`); jetzt Liste aus dem Haupt-Worktree. Seite `concepts/worktree-dateien-uebernehmen.md`. Kein Widerspruch zu `docs/`.
 
+## [2026-11-24] ingest | #99 Cargo-Workspace mit sieben Crates und Architekturtest
+Umsetzung von #99 auf Branch `issue/99`: Workspace (resolver 3, edition 2024, Lints), sieben Crates nach dem Crate-Zuschnitt mit Modulkommentar, Binary `chronos` (clap, Exit-Code 2), Architekturtest über `cargo_metadata`. Neue Seite `code/cargo-workspace.md`. Gegenproben: `domain → channels` und Kanten gegen die Richtung scheitern im Test mit Kante und ADR-Verweis; `use chronos_channels` in `domain` ohne Eintrag scheitert beim Übersetzen (E0432). Funde: Normale Zyklen lehnt Cargo selbst ab, Zyklen über Dev-Abhängigkeiten nur der Test; clap nutzt Exit-Code 2 auch für Bedienfehler. Kein Widerspruch zu `docs/`.
+
+## [2026-11-24] ingest | #99 Toolchain auf 1.100.0
+Auf Anweisung des Nutzers (Product Owner): Toolchain in #99 und PR #108 von 1.95.0 auf 1.100.0 (Release 2026-11-09). `Cargo.lock` blieb unverändert. Fund: Cargo 1.100 meldet ungenutzte Abhängigkeiten als Warnung im Manifest, die `clippy -D warnings` nicht zum Fehler macht; leere Crates binden ihre Kanten deshalb mit `use … as _;` ein. Ticket #99 angepasst. `docs/` nennt keine Toolchain-Version, kein Vorschlag nötig. Lehre: Vorgegebene Versionen aus Tickets beim Start gegen das aktuelle Release prüfen und eine Abweichung im PR nennen.
+
+## [2026-11-24] ingest | #99 Exit-Code 69 statt 2
+Auf Anweisung des Nutzers (Product Owner): Nicht implementierte Unterbefehle enden mit 69 (`EX_UNAVAILABLE`) statt 2, weil clap 2 für Bedienfehler nutzt. Test für Bedienfehler ergänzt, Ticket #99 und PR #108 angepasst. `cargo-deny` bleibt bewusst in #107 (Entscheidung des Product Owners). Lehre: Ticketvorgaben für Exit-Codes gegen die Konventionen der genutzten Bibliothek prüfen (clap: 2 = Bedienfehler) und eine Kollision vor der Umsetzung melden.
+
+## [2026-11-24] ingest | #99 Kommentare gekürzt
+Auf Anweisung des Nutzers: Kommentar-Review des PR. Crate-Kopfkommentare auf Zweck plus Verweis gekürzt (Zuständigkeitslisten doppelten `docs/` ohne Absicherung), `use … as _`-Kommentare vereinheitlicht, Funktions-Docs im Architekturtest entfernt, die den Namen wiederholten. Lehre: Kommentare, die `docs/` oder einen Test doppeln, nicht schreiben; ein Verweis genügt. Kein Widerspruch zu `docs/`.
+
 ## [2026-11-24] ingest | Regel zu Code-Kommentaren
 Auf Anweisung des Nutzers: Abschnitt „Kommentare im Code“ in `AGENTS.md` (Kommentar nur, wenn er erklärt, was Code nicht kann, sich nicht durch besseren Code ersetzen lässt und mehr Nutzen als Pflegeaufwand bringt). `docs/` unverändert; kein Wiki-Bedarf über diesen Eintrag hinaus.

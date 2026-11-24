@@ -1,0 +1,24 @@
+[package]
+name = "chronos"
+description = "Chronos: Binary mit den Unterbefehlen serve, worker und migrate"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+repository.workspace = true
+
+[dependencies]
+chronos-adapters.workspace = true
+chronos-channels.workspace = true
+chronos-core.workspace = true
+chronos-domain.workspace = true
+chronos-web.workspace = true
+chronos-worker.workspace = true
+clap.workspace = true
+
+[dev-dependencies]
+# Nur für den Architekturtest (tests/architecture.rs).
+cargo_metadata.workspace = true
+
+[lints]
+workspace = true
