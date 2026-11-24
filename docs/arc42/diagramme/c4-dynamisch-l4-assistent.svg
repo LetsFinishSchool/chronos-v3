@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse"><path d="M0,0 L10,4 L0,8 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="44" font-size="24" font-weight="bold">C4 Dynamisch: L-4 Assistent mit Vorschau und Freigabe</text>
+<text x="40" y="68" font-size="14" fill="#555">arc42 Kapitel 6 (ADR-005, ADR-006). Ohne Freigabe wird nichts geschrieben; lesende Operationen brauchen keine Freigabe.</text>
+<rect x="40" y="340" width="250" height="120" rx="8" fill="#08427b" stroke="#052e56" />
+<text x="165.0" y="385.5" font-size="14" text-anchor="middle" fill="#ffffff">Mitglied</text>
+<text x="165.0" y="404.5" font-size="14" text-anchor="middle" fill="#ffffff">„Sage alle Termine in den</text>
+<text x="165.0" y="423.5" font-size="14" text-anchor="middle" fill="#ffffff">Herbstferien ab“</text>
+<rect x="560" y="340" width="280" height="120" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="700.0" y="385.5" font-size="14" text-anchor="middle" fill="#0b1f33">KI-Assistent</text>
+<text x="700.0" y="404.5" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess]</text>
+<text x="700.0" y="423.5" font-size="14" text-anchor="middle" fill="#0b1f33">Dialogschleife im Server</text>
+<rect x="560" y="80" width="280" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="700.0" y="125.0" font-size="14" text-anchor="middle" fill="#0b1f33">Kostenerfassung</text>
+<text x="700.0" y="144.0" font-size="14" text-anchor="middle" fill="#0b1f33">Monatslimit je Team</text>
+<rect x="1140" y="80" width="300" height="110" rx="8" fill="#8a8a8a" stroke="#6b6b6b" />
+<text x="1290.0" y="130.0" font-size="14" text-anchor="middle" fill="#ffffff">KI-Gateway und Anbieter</text>
+<text x="1290.0" y="149.0" font-size="14" text-anchor="middle" fill="#ffffff">EU-Datenstandort</text>
+<rect x="1140" y="600" width="300" height="140" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1290.0" y="646.0" font-size="14" text-anchor="middle" fill="#0b1f33">Operationsschicht</text>
+<text x="1290.0" y="665.0" font-size="14" text-anchor="middle" fill="#0b1f33">Vorschau (Probelauf), Beleg,</text>
+<text x="1290.0" y="684.0" font-size="14" text-anchor="middle" fill="#0b1f33">Ausführung; Verlauf „durch</text>
+<text x="1290.0" y="703.0" font-size="14" text-anchor="middle" fill="#0b1f33">Assistent im Auftrag von …“</text>
+<path d="M290.0,360.0 L560.0,360.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="388.24" y="350.5" width="73.52000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="425.0" y="364.5" font-size="13" text-anchor="middle" fill="#333">1 Auftrag</text>
+<path d="M560.0,400.0 L290.0,400.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="351.84" y="390.5" width="146.32000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="425.0" y="404.5" font-size="13" text-anchor="middle" fill="#333">8 Vorschau anzeigen</text>
+<path d="M290.0,440.0 L560.0,440.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="384.6" y="430.5" width="80.80000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="425.0" y="444.5" font-size="13" text-anchor="middle" fill="#333">9 Freigabe</text>
+<path d="M670.0,340.0 L670.0,180.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="615.04" y="274.5" width="109.92000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="670.0" y="288.5" font-size="13" text-anchor="middle" fill="#333">2 Limit prüfen</text>
+<path d="M730.0,340.0 L730.0,180.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="675.04" y="217.0" width="109.92000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="730.0" y="231.0" font-size="13" text-anchor="middle" fill="#333">5 Kostenposten</text>
+<text x="730.0" y="250.0" font-size="13" text-anchor="middle" fill="#333">(Kopfzeilen)</text>
+<path d="M770.1271973777973,340.0 L1140.0,173.87069034765472" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="848.5563184266784" y="254.5482761390619" width="139.04000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="918.0763184266784" y="268.5482761390619" font-size="13" text-anchor="middle" fill="#333">3 Dialog (auch</text>
+<text x="918.0763184266784" y="287.5482761390619" font-size="13" text-anchor="middle" fill="#333">Fehlversuch zählt)</text>
+<path d="M1231.0048780939007,190.0 L840.0,365.6208350760741" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="997.8029268563405" y="250.74833403042965" width="153.60000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="1074.6029268563404" y="264.74833403042965" font-size="13" text-anchor="middle" fill="#333">4 geplante Operation</text>
+<path d="M840.0,409.0809213643785 L1257.1935422037652,600.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" marker-start="url(#a)"/>
+<rect x="971.7967711018825" y="466.5404606821893" width="153.60000000000002" height="76" fill="#fff" opacity="0.9"/>
+<text x="1048.5967711018825" y="480.5404606821893" font-size="13" text-anchor="middle" fill="#333">6 Vorschau anfordern</text>
+<text x="1048.5967711018825" y="499.5404606821893" font-size="13" text-anchor="middle" fill="#333">(lesend), 7 zurück:</text>
+<text x="1048.5967711018825" y="518.5404606821893" font-size="13" text-anchor="middle" fill="#333">Änderungen, Anzahl,</text>
+<text x="1048.5967711018825" y="537.5404606821893" font-size="13" text-anchor="middle" fill="#333">Beleg</text>
+<path d="M710.9546059443827,460.0 L1140.0,656.3428074491808" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" marker-start="url(#a)"/>
+<rect x="841.3973029721914" y="520.1714037245904" width="168.16000000000003" height="76" fill="#fff" opacity="0.9"/>
+<text x="925.4773029721914" y="534.1714037245904" font-size="13" text-anchor="middle" fill="#333">10 ausführen mit Beleg</text>
+<text x="925.4773029721914" y="553.1714037245904" font-size="13" text-anchor="middle" fill="#333">(Rechte der Person,</text>
+<text x="925.4773029721914" y="572.1714037245904" font-size="13" text-anchor="middle" fill="#333">Bündel-ID), 11 zurück:</text>
+<text x="925.4773029721914" y="591.1714037245904" font-size="13" text-anchor="middle" fill="#333">Ergebnis</text>
+<text x="40" y="784" font-size="14" fill="#444">Legende</text>
+<rect x="40" y="796" width="28" height="18" rx="4" fill="#08427b" stroke="#052e56"/>
+<text x="76" y="810" font-size="13" fill="#333">Person</text>
+<rect x="270" y="796" width="28" height="18" rx="4" fill="#85bbf0" stroke="#5d82a8"/>
+<text x="306" y="810" font-size="13" fill="#333">Baustein</text>
+<rect x="500" y="796" width="28" height="18" rx="4" fill="#8a8a8a" stroke="#6b6b6b"/>
+<text x="536" y="810" font-size="13" fill="#333">Nachbarsystem</text>
+</svg>

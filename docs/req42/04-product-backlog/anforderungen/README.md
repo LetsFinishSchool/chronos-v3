@@ -1,31 +1,31 @@
 ---
-title: Funktionale Anforderungen
-status: entwurf
+title: Anforderungen
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
-# Funktionale Anforderungen
+# Anforderungen
 
-Anforderungen in Story-Form („Als … möchte ich … damit …“) mit prüfbaren Akzeptanzkriterien; `verknuepft` nennt das übergeordnete Feature. Die Kriterien sind aus dem Backend-Code, dem Frontend und den Tests abgeleitet. Priorität und Rang legt der Product Owner fest ([RA-013](../../12-risiken-annahmen/RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md)); die Reihenfolge entspricht der ID.
+Akzeptanzkriterien je Feature (Granularität nach [ticket-typen](../ticket-typen.md)).
 
-| ID | Titel | Datei |
-|---|---|---|
-| FA-001 | Termine anlegen, ändern, verschieben, absagen, löschen | [FA-001-termine-anlegen-aendern-verschieben-absagen-loeschen.md](FA-001-termine-anlegen-aendern-verschieben-absagen-loeschen.md) |
-| FA-002 | Personen und Gruppen einladen | [FA-002-personen-und-gruppen-einladen.md](FA-002-personen-und-gruppen-einladen.md) |
-| FA-003 | Zu- und Absage mit Mindestteilnehmerzahl | [FA-003-zu-und-absage-mit-mindestteilnehmerzahl.md](FA-003-zu-und-absage-mit-mindestteilnehmerzahl.md) |
-| FA-004 | Push-Benachrichtigungen | [FA-004-push-benachrichtigungen.md](FA-004-push-benachrichtigungen.md) |
-| FA-005 | Nachrichten zu einem Termin | [FA-005-nachrichten-zu-einem-termin.md](FA-005-nachrichten-zu-einem-termin.md) |
-| FA-006 | Freundschaften und Gruppen verwalten | [FA-006-freundschaften-und-gruppen-verwalten.md](FA-006-freundschaften-und-gruppen-verwalten.md) |
-| FA-007 | Admin-API | [FA-007-admin-api.md](FA-007-admin-api.md) |
-| FA-008 | Terminänderungen nachvollziehbar mitteilen | [FA-008-terminaenderungen-nachvollziehbar-mitteilen.md](FA-008-terminaenderungen-nachvollziehbar-mitteilen.md) |
-| FA-009 | Terminliste paginiert abrufen | [FA-009-terminliste-paginiert-abrufen.md](FA-009-terminliste-paginiert-abrufen.md) |
-| FA-010 | Rolle eines Teilnehmers ändern | [FA-010-rolle-eines-teilnehmers-aendern.md](FA-010-rolle-eines-teilnehmers-aendern.md) |
-| FA-011 | Automatische Erinnerungen | [FA-011-automatische-erinnerungen.md](FA-011-automatische-erinnerungen.md) |
-| FA-012 | Benachrichtigungen konfigurieren | [FA-012-benachrichtigungen-konfigurieren.md](FA-012-benachrichtigungen-konfigurieren.md) |
-| FA-013 | Anmeldung über Keycloak und Onboarding | [FA-013-anmeldung-ueber-keycloak-und-onboarding.md](FA-013-anmeldung-ueber-keycloak-und-onboarding.md) |
-| FA-014 | Profil und Konto verwalten | [FA-014-profil-und-konto-verwalten.md](FA-014-profil-und-konto-verwalten.md) |
-| FA-015 | Nutzerumfrage beantworten | [FA-015-nutzerumfrage-beantworten.md](FA-015-nutzerumfrage-beantworten.md) |
-| FA-016 | Installation als PWA | [FA-016-installation-als-pwa.md](FA-016-installation-als-pwa.md) |
-| FA-017 | Impressum und Datenschutzerklärung bereitstellen | [FA-017-impressum-und-datenschutzerklaerung-bereitstellen.md](FA-017-impressum-und-datenschutzerklaerung-bereitstellen.md) |
-| FA-018 | Termin teilen | [FA-018-termin-teilen.md](FA-018-termin-teilen.md) |
-| FA-019 | Neuigkeiten-Hinweis | [FA-019-neuigkeiten-hinweis.md](FA-019-neuigkeiten-hinweis.md) |
-| FA-020 | Termin im Detail ansehen | [FA-020-termin-im-detail-ansehen.md](FA-020-termin-im-detail-ansehen.md) |
+| ID | Titel | Status | Datei |
+|---|---|---|---|
+| FA-001 | Teams und Unter-Teams | entwurf | [FA-001-teams-und-unter-teams.md](FA-001-teams-und-unter-teams.md) |
+| FA-002 | Mitglieder und Einladungslink | entwurf | [FA-002-mitglieder-und-einladungslink.md](FA-002-mitglieder-und-einladungslink.md) |
+| FA-003 | Termine | entwurf | [FA-003-termine.md](FA-003-termine.md) |
+| FA-004 | Veranstaltungen | entwurf | [FA-004-veranstaltungen.md](FA-004-veranstaltungen.md) |
+| FA-005 | Rückmeldung (Zusage, Absage, Zeitweise) | entwurf | [FA-005-rueckmeldung.md](FA-005-rueckmeldung.md) |
+| FA-006 | Terminfindung per Abstimmung | entwurf | [FA-006-terminfindung.md](FA-006-terminfindung.md) |
+| FA-007 | Labels für Rollen und Aufgaben | entwurf | [FA-007-labels.md](FA-007-labels.md) |
+| FA-008 | Benachrichtigungen | entwurf | [FA-008-benachrichtigungen.md](FA-008-benachrichtigungen.md) |
+| FA-009 | Kalender-Feed (webcal) | entwurf | [FA-009-kalender-feed.md](FA-009-kalender-feed.md) |
+| FA-010 | Terminnachrichten | entwurf | [FA-010-terminnachrichten.md](FA-010-terminnachrichten.md) |
+| FA-011 | Anmeldung und Konto | entwurf | [FA-011-anmeldung-und-konto.md](FA-011-anmeldung-und-konto.md) |
+| FA-012 | Datenübernahme aus chronos-root | entwurf | [FA-012-datenuebernahme.md](FA-012-datenuebernahme.md) |
+| FA-013 | Rechtliche Seiten | entwurf | [FA-013-rechtliche-seiten.md](FA-013-rechtliche-seiten.md) |
+| FA-014 | Serientermine | entwurf | [FA-014-serientermine.md](FA-014-serientermine.md) |
+| FA-015 | KI-Assistent | entwurf | [FA-015-ki-assistent.md](FA-015-ki-assistent.md) |
+| FA-016 | Dauerhafte Zeitraumsregeln (Bulk) | entwurf | [FA-016-zeitraumsregeln.md](FA-016-zeitraumsregeln.md) |
+| FA-017 | Gelöschtes wiederherstellen | entwurf | [FA-017-rueckgaengig-machen.md](FA-017-rueckgaengig-machen.md) |
+| FA-018 | Kostenerfassung | entwurf | [FA-018-kostenerfassung.md](FA-018-kostenerfassung.md) |

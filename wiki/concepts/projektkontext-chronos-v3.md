@@ -16,4 +16,4 @@ last-verified: 2026-11-20
 
 Folgen für die Arbeit: Bei Datenmodell-, Schema- und Architekturentscheidungen prüfen, ob die Migration aus chronos-root abbildbar bleibt. Migrationsaspekte in Vorschlägen unter `wiki/proposals/` berücksichtigen.
 
-Offen: Datenmodell des Altsystems und Key Learnings sind noch nicht erfasst.
+Key Learnings: siehe [key-learnings-chronos-root](key-learnings-chronos-root.md). Offen: Datenmodell des Altsystems.

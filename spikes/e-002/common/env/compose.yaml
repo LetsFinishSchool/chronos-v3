@@ -1,0 +1,86 @@
+# V-4: Gemeinsame Umgebung für alle Spike-Kandidaten. Start über ./stack.sh (setzt Ports, Secrets, Realm).
+# web und worker laufen im Host-Netz, damit alle URLs (Keycloak-Issuer, Mock, Mailpit) innen und außen gleich sind.
+name: ${COMPOSE_PROJECT_NAME}
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    command: ["postgres", "-c", "shared_buffers=64MB", "-c", "max_connections=50", "-c", "work_mem=4MB",
+              "-c", "maintenance_work_mem=16MB", "-c", "port=${PORT_PG}"]
+    environment: {POSTGRES_USER: chronos, POSTGRES_PASSWORD: chronos, POSTGRES_DB: chronos}
+    network_mode: host
+    mem_limit: 384m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -p ${PORT_PG} -U chronos -d chronos"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.5
+    command: ["start-dev", "--import-realm", "--http-port=${PORT_KC}", "--http-management-port=${PORT_KC_MGMT}"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: http://localhost:${PORT_KC}
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+    volumes: ["${GEN_DIR}/realm.json:/opt/keycloak/data/import/realm.json:ro"]
+    network_mode: host
+    mem_limit: 1g
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/${PORT_KC_MGMT}; printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3; grep -q '\"UP\"' <&3"]
+      interval: 3s
+      timeout: 5s
+      retries: 60
+
+  mailpit:
+    image: axllent/mailpit:latest
+    command: ["--smtp", "0.0.0.0:${PORT_SMTP}", "--listen", "0.0.0.0:${PORT_MAIL_UI}"]
+    network_mode: host
+    healthcheck: {disable: true}   # der Image-Healthcheck prüft fest Port 8025 und schlägt bei Portversatz fehl
+    mem_limit: 128m
+
+  mock-channel:
+    image: python:3.13-alpine
+    command: ["python", "/app/mock_channel.py"]
+    environment: {MOCK_PORT: "${PORT_MOCK}"}
+    volumes: ["./mock-channel:/app:ro"]
+    network_mode: host
+    mem_limit: 128m
+
+  ai-guard:
+    image: python:3.13-alpine
+    command: ["python", "/app/ai_guard.py"]
+    env_file: ["${GEN_DIR}/guard.env"]
+    volumes: ["./ai-guard:/app:ro"]
+    network_mode: host
+    mem_limit: 128m
+
+  web:
+    image: ${SPIKE_IMAGE}
+    command: ["web"]
+    env_file: ["${GEN_DIR}/app.env"]
+    volumes: ["./static:/static:ro"]
+    network_mode: host
+    mem_limit: 768m
+    cpus: 1.0
+    depends_on:
+      postgres: {condition: service_healthy}
+      keycloak: {condition: service_healthy}
+      mailpit: {condition: service_started}
+      mock-channel: {condition: service_started}
+      ai-guard: {condition: service_started}
+
+  worker:
+    image: ${SPIKE_IMAGE}
+    command: ["worker"]
+    env_file: ["${GEN_DIR}/app.env"]
+    network_mode: host
+    mem_limit: 768m
+    cpus: 1.0
+    depends_on:
+      postgres: {condition: service_healthy}
+      keycloak: {condition: service_healthy}
+      mailpit: {condition: service_started}
+      mock-channel: {condition: service_started}

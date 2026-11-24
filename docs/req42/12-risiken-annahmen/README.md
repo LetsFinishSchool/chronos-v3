@@ -1,31 +1,23 @@
 ---
 title: Risiken und Annahmen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
 # Risiken und Annahmen
 
-Produktrisiken und -annahmen. Wahrscheinlichkeit und Schadenshöhe sind Einschätzungen aus dem Code; mit **(?)** markierte Angaben bestätigt der Product Owner (Detail in der jeweiligen Datei). Alle Festlegungen, die nur ein Mensch treffen kann (Zielwerte, Zeitplan, Budget, Priorität usw.), stehen gebündelt in [RA-013](RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md); nur dort, hier in Kapitel 12 und in der [Roadmap](../11-roadmaps/README.md) darf **(?)** stehen. Technische Risiken und Schulden stehen in arc42 [Kapitel 11](../../arc42/11-risiken/00-kapitelbeschreibung.md) (nach dem Neuanfang noch zu erstellen) (u. a. geleakter Schlüssel in der Historie, Keycloak als Single Point of Failure, Abhängigkeit vom Service Worker, nicht erzwungene Freigabe von `docs/`).
+Annahmen und Risiken; offene Fragen gebündelt in [RA-008](RA-008-offene-fragen.md).
 
-## Risiken
-
-| ID | Risiko | Datei |
-|---|---|---|
-| RA-003 | Frontend und Backend nutzen unterschiedliche Schnittstellen | [RA-003-frontend-und-backend-schnittstellen-weichen-ab.md](RA-003-frontend-und-backend-schnittstellen-weichen-ab.md) |
-| RA-004 | Datenschutzerklärung verspricht mehr, als die Anwendung leistet | [RA-004-datenschutzerklaerung-verspricht-mehr-als-die-anwendung-leistet.md](RA-004-datenschutzerklaerung-verspricht-mehr-als-die-anwendung-leistet.md) |
-| RA-005 | Erinnerungen teilweise ohne Wirkung | [RA-005-erinnerungen-teilweise-ohne-wirkung.md](RA-005-erinnerungen-teilweise-ohne-wirkung.md) |
-| RA-006 | Nutzerumfrage ohne Backend | [RA-006-nutzerumfrage-ohne-backend.md](RA-006-nutzerumfrage-ohne-backend.md) |
-| RA-007 | Berechtigung zum Ändern von Terminen ist weit gefasst | [RA-007-berechtigung-zum-aendern-von-terminen-ist-weit-gefasst.md](RA-007-berechtigung-zum-aendern-von-terminen-ist-weit-gefasst.md) |
-| RA-010 | Betrieb und Entwicklung hängen an einer Person | [RA-010-betrieb-und-entwicklung-haengen-an-einer-person.md](RA-010-betrieb-und-entwicklung-haengen-an-einer-person.md) |
-| RA-012 | Standardeinstellungen unterdrücken die Einladungsbenachrichtigung | [RA-012-standardeinstellungen-unterdruecken-einladungsbenachrichtigung.md](RA-012-standardeinstellungen-unterdruecken-einladungsbenachrichtigung.md) |
-
-## Annahmen
-
-| ID | Annahme | Datei |
-|---|---|---|
-| RA-001 | Zielgruppe: Jugendorganisationen im deutschsprachigen Raum | [RA-001-zielgruppe-jugendorganisationen-im-deutschsprachigen-raum.md](RA-001-zielgruppe-jugendorganisationen-im-deutschsprachigen-raum.md) |
-| RA-002 | Nutzer haben einen push-fähigen Browser | [RA-002-nutzer-haben-push-faehigen-browser.md](RA-002-nutzer-haben-push-faehigen-browser.md) |
-| RA-008 | Wochentagsregeln gelten in UTC | [RA-008-wochentagsregeln-gelten-in-utc.md](RA-008-wochentagsregeln-gelten-in-utc.md) |
-| RA-009 | Nutzungsumfang und Last sind unbekannt | [RA-009-nutzungsumfang-und-last-sind-unbekannt.md](RA-009-nutzungsumfang-und-last-sind-unbekannt.md) |
-| RA-011 | Nutzer registrieren sich selbst bei Keycloak | [RA-011-nutzer-registrieren-sich-selbst-bei-keycloak.md](RA-011-nutzer-registrieren-sich-selbst-bei-keycloak.md) |
-| RA-013 | Vom Product Owner festzulegende Werte und Entscheidungen | [RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md](RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md) |
+| ID | Titel | Status | Datei |
+|---|---|---|---|
+| RA-001 | Zielgruppe sind Leitungsteams | entwurf | [RA-001-zielgruppe-sind-leitungsteams.md](RA-001-zielgruppe-sind-leitungsteams.md) |
+| RA-002 | Nutzungsumfang unter 500 aktiven Nutzern | entwurf | [RA-002-nutzungsumfang.md](RA-002-nutzungsumfang.md) |
+| RA-003 | Betrieb und Entwicklung hängen an einer Person | entwurf | [RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md](RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md) |
+| RA-004 | Gleichberechtigung und versehentliche Änderungen | entwurf | [RA-004-gleichberechtigung-und-versehentliche-aenderungen.md](RA-004-gleichberechtigung-und-versehentliche-aenderungen.md) |
+| RA-005 | Altmodell passt nicht zum neuen Modell | entwurf | [RA-005-migration-altmodell-passt-nicht.md](RA-005-migration-altmodell-passt-nicht.md) |
+| RA-006 | Zustellung über Web Push ist unsicher | entwurf | [RA-006-zustellung-ueber-web-push-ist-unsicher.md](RA-006-zustellung-ueber-web-push-ist-unsicher.md) |
+| RA-007 | Einladungslinks und Gast-Identität | entwurf | [RA-007-einladungslinks-und-gast-identitaet.md](RA-007-einladungslinks-und-gast-identitaet.md) |
+| RA-008 | Offene Fragen an den Product Owner | entwurf | [RA-008-offene-fragen.md](RA-008-offene-fragen.md) |
+| RA-009 | Budget und Abhängigkeit von Keycloak | entwurf | [RA-009-budget-und-abhaengigkeit-von-keycloak.md](RA-009-budget-und-abhaengigkeit-von-keycloak.md) |
+| RA-010 | Risiken des KI-Assistenten | entwurf | [RA-010-ki-assistent-risiken.md](RA-010-ki-assistent-risiken.md) |

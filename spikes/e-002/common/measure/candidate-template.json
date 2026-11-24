@@ -1,0 +1,17 @@
+{
+  "name": "typescript",
+  "K": {"K1": null, "K2": null, "K3": null, "K4": null, "K5": null, "K6": null, "K7": null},
+  "M": {
+    "M1": null, "M2": null, "M3": null, "M4": null, "M5": null, "M6": null,
+    "M7": null,
+    "M8_deps": null, "M8_high_vulns": null,
+    "M9": null,
+    "M10_hours": null, "M10_loops": null,
+    "M11_files": null, "M11_auto_tool": null,
+    "M12_detected": null, "M12_seconds": null,
+    "M13": null, "M14": null,
+    "M15_manual_places": null, "M15_sample_ok": null,
+    "Q1": null, "Q2": null, "Q3": null, "Q4": null, "Q5": null
+  },
+  "hinweise": "M1 MiB, M2 MiB, M3 mCPU, M4 ms (p95), M5 s, M6 MB, M7 s, M9 Prozent, M13 Verbindungen, M14 Prozent bestandener Fälle; Q1..Q5 = 1..5"
+}

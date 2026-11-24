@@ -1,0 +1,21 @@
+# Isolierte VM für die Spike-Agenten (E-002). Siehe README.md.
+# Bewusst KEIN geteilter Ordner: Die Agenten sehen weder das Repository noch das Home-Verzeichnis des Hosts.
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.hostname = "spike-agents"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.boot_timeout = 600
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "chronos-spike-agents"
+    v.memory = 12288
+    v.cpus = 8
+    v.customize ["modifyvm", :id, "--clipboard-mode", "disabled", "--draganddrop", "disabled"]
+  end
+
+  # Nutzlast (Arbeitsbereiche, Schlüssel) wird einmalig hineinkopiert; erzeugt von make-payload.sh
+  config.vm.provision "file", source: "payload/spikes.tgz", destination: "/tmp/spikes.tgz"
+  config.vm.provision "file", source: "payload/anthropic.env", destination: "/tmp/anthropic.env"
+  config.vm.provision "file", source: "start-agents.sh", destination: "/tmp/start-agents.sh"
+  config.vm.provision "shell", path: "provision.sh"
+end

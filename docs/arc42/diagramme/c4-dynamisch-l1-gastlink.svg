@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="900" viewBox="0 0 1660 900" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse"><path d="M0,0 L10,4 L0,8 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="44" font-size="24" font-weight="bold">C4 Dynamisch: L-1 Antwort über Gastlink</text>
+<text x="40" y="68" font-size="14" fill="#555">arc42 Kapitel 6 (ADR-008). Antwort in höchstens 3 Interaktionen; ein widerrufener oder abgelaufener Link liefert keine Daten.</text>
+<rect x="40" y="300" width="220" height="100" rx="8" fill="#08427b" stroke="#052e56" />
+<text x="150.0" y="354.5" font-size="14" text-anchor="middle" fill="#ffffff">Gast</text>
+<rect x="440" y="300" width="240" height="100" rx="8" fill="#438dd5" stroke="#2e6295" />
+<text x="560.0" y="345.0" font-size="14" text-anchor="middle" fill="#ffffff">Gastseite</text>
+<text x="560.0" y="364.0" font-size="14" text-anchor="middle" fill="#ffffff">[Svelte]</text>
+<rect x="860" y="300" width="250" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="985.0" y="345.0" font-size="14" text-anchor="middle" fill="#0b1f33">Operationsschicht</text>
+<text x="985.0" y="364.0" font-size="14" text-anchor="middle" fill="#0b1f33">[Web-Prozess]</text>
+<rect x="1300" y="100" width="300" height="110" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1450.0" y="140.5" font-size="14" text-anchor="middle" fill="#0b1f33">Berechtigung und Zugang</text>
+<text x="1450.0" y="159.5" font-size="14" text-anchor="middle" fill="#0b1f33">Token: gültig, nicht widerrufen,</text>
+<text x="1450.0" y="178.5" font-size="14" text-anchor="middle" fill="#0b1f33">nicht abgelaufen</text>
+<rect x="1300" y="440" width="300" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1450.0" y="494.5" font-size="14" text-anchor="middle" fill="#0b1f33">Rückmeldung</text>
+<rect x="1300" y="680" width="300" height="100" rx="8" fill="#85bbf0" stroke="#5d82a8" />
+<text x="1450.0" y="725.0" font-size="14" text-anchor="middle" fill="#0b1f33">Ereignisse</text>
+<text x="1450.0" y="744.0" font-size="14" text-anchor="middle" fill="#0b1f33">Outbox</text>
+<path d="M260.0,350.0 L440.0,350.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="273.2" y="331.0" width="153.60000000000002" height="38" fill="#fff" opacity="0.9"/>
+<text x="350.0" y="345.0" font-size="13" text-anchor="middle" fill="#333">1 Link öffnen, Namen</text>
+<text x="350.0" y="364.0" font-size="13" text-anchor="middle" fill="#333">angeben, antworten</text>
+<path d="M680.0,326.0 L860.0,326.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="667.92" y="307.0" width="168.16000000000003" height="38" fill="#fff" opacity="0.9"/>
+<text x="752.0" y="321.0" font-size="13" text-anchor="middle" fill="#333">2 Antwort setzen</text>
+<text x="752.0" y="340.0" font-size="13" text-anchor="middle" fill="#333">(Token, Name, Antwort)</text>
+<path d="M860.0,374.0 L680.0,374.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="725.96" y="364.5" width="88.08000000000001" height="19" fill="#fff" opacity="0.9"/>
+<text x="770.0" y="378.5" font-size="13" text-anchor="middle" fill="#333">7 bestätigt</text>
+<path d="M1036.9998239748827,300.0 L1300.0,189.7096036023702" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1087.2398943849296" y="246.3838414409481" width="109.92000000000002" height="19" fill="#fff" opacity="0.9"/>
+<text x="1142.1998943849296" y="260.3838414409481" font-size="13" text-anchor="middle" fill="#333">3 Token prüfen</text>
+<path d="M1386.0770991020404,210.0 L1110.0,325.7742673653717" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1182.1585495510203" y="248.88713368268589" width="131.76" height="38" fill="#fff" opacity="0.9"/>
+<text x="1248.0385495510202" y="262.8871336826859" font-size="13" text-anchor="middle" fill="#333">4 Gast-Person für</text>
+<text x="1248.0385495510202" y="281.8871336826859" font-size="13" text-anchor="middle" fill="#333">diesen Termin</text>
+<path d="M1110.0,387.63440860215053 L1300.0,444.8387096774194" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1153.68" y="397.23655913978496" width="102.64000000000001" height="38" fill="#fff" opacity="0.9"/>
+<text x="1205.0" y="411.23655913978496" font-size="13" text-anchor="middle" fill="#333">5 Rückmeldung</text>
+<text x="1205.0" y="430.23655913978496" font-size="13" text-anchor="middle" fill="#333">speichern</text>
+<path d="M1450.0,540.0 L1450.0,680.0" fill="none" stroke="#555" stroke-width="1.5"  marker-end="url(#a)" />
+<rect x="1365.92" y="591.0" width="168.16000000000003" height="38" fill="#fff" opacity="0.9"/>
+<text x="1450.0" y="605.0" font-size="13" text-anchor="middle" fill="#333">6 Ereignis</text>
+<text x="1450.0" y="624.0" font-size="13" text-anchor="middle" fill="#333">„Rückmeldung geändert“</text>
+<text x="40" y="824" font-size="14" fill="#444">Legende</text>
+<rect x="40" y="836" width="28" height="18" rx="4" fill="#08427b" stroke="#052e56"/>
+<text x="76" y="850" font-size="13" fill="#333">Person</text>
+<rect x="270" y="836" width="28" height="18" rx="4" fill="#438dd5" stroke="#2e6295"/>
+<text x="306" y="850" font-size="13" fill="#333">Container</text>
+<rect x="500" y="836" width="28" height="18" rx="4" fill="#85bbf0" stroke="#5d82a8"/>
+<text x="536" y="850" font-size="13" fill="#333">Baustein</text>
+</svg>

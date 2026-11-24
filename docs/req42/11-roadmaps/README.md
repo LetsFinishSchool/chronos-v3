@@ -1,23 +1,21 @@
 ---
-title: Roadmaps
-status: entwurf
+title: Roadmap
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
-# Roadmaps
+# Roadmap
 
-Belegt sind nur geplante Liefergegenstände aus offenen GitHub-Tickets (Stand 2026-11-20). Für keinen Eintrag ist ein Zeitplan belegt; Zeitplan, Reihenfolge und Releasetermine liefert der Product Owner ([RA-013](../12-risiken-annahmen/RA-013-vom-product-owner-festzulegende-werte-und-entscheidungen.md)). Der letzte veröffentlichte Stand ist Release v1.10.0 (2026-10-03). Ticketstatus: `gh issue list --state open`.
+Vorläufige Reihenfolge; Es gibt keine festen Termine; die Roadmap-Punkte sind Meilensteine nach Wert (Kern zuerst, Datenübernahme vor der Prod-Umstellung). Offene Punkte: [RA-008](../12-risiken-annahmen/RA-008-offene-fragen.md).
 
-| ID | Titel | Datei |
-|---|---|---|
-| RM-001 | Angular-Frontend nach Figma | [RM-001-angular-frontend-nach-figma.md](RM-001-angular-frontend-nach-figma.md) |
-| RM-002 | Teams statt Freunde und verbessertes Onboarding | [RM-002-teams-statt-freunde-und-verbessertes-onboarding.md](RM-002-teams-statt-freunde-und-verbessertes-onboarding.md) |
-| RM-003 | Einladungslinks und externe Teilnehmer | [RM-003-einladungslinks-und-externe-teilnehmer.md](RM-003-einladungslinks-und-externe-teilnehmer.md) |
-| RM-004 | Gruppen im Team | [RM-004-gruppen-im-team.md](RM-004-gruppen-im-team.md) |
-| RM-005 | Termin-Typen | [RM-005-termin-typen.md](RM-005-termin-typen.md) |
-| RM-006 | Terminfindung | [RM-006-terminfindung.md](RM-006-terminfindung.md) |
-| RM-007 | Rückmeldeoption „Zeitweise“ | [RM-007-rueckmeldeoption-zeitweise.md](RM-007-rueckmeldeoption-zeitweise.md) |
-| RM-008 | Kalender-Feed (WebCal) | [RM-008-kalender-feed-webcal.md](RM-008-kalender-feed-webcal.md) |
-| RM-009 | Zuverlässigeres Benachrichtigungssystem | [RM-009-zuverlaessigeres-benachrichtigungssystem.md](RM-009-zuverlaessigeres-benachrichtigungssystem.md) |
-| RM-010 | Nutzerdaten nur in Keycloak | [RM-010-nutzerdaten-nur-in-keycloak.md](RM-010-nutzerdaten-nur-in-keycloak.md) |
-
-Offene Defekte und technische Schulden (z. B. #256, #258, #349) sind keine Roadmap-Inhalte; siehe [Risiken](../12-risiken-annahmen/README.md) und arc42 Kapitel 11.
+| ID | Titel | Status | Datei |
+|---|---|---|---|
+| RM-001 | Fundament mit Datenübernahme | entwurf | [RM-001-fundament-mit-datenuebernahme.md](RM-001-fundament-mit-datenuebernahme.md) |
+| RM-002 | Zugang ohne Konto | entwurf | [RM-002-zugang-ohne-konto.md](RM-002-zugang-ohne-konto.md) |
+| RM-003 | Terminfindung | entwurf | [RM-003-terminfindung.md](RM-003-terminfindung.md) |
+| RM-004 | Veranstaltungen und Labels | entwurf | [RM-004-veranstaltungen-und-labels.md](RM-004-veranstaltungen-und-labels.md) |
+| RM-005 | Kalender-Feed und Terminnachrichten | entwurf | [RM-005-kalender-feed-und-nachrichten.md](RM-005-kalender-feed-und-nachrichten.md) |
+| RM-006 | Messenger-Kanäle (Option) | entwurf | [RM-006-messenger-kanaele.md](RM-006-messenger-kanaele.md) |
+| RM-007 | Serientermine | entwurf | [RM-007-serientermine.md](RM-007-serientermine.md) |
+| RM-008 | KI-Assistent und Zeitraumsregeln | entwurf | [RM-008-ki-assistent-und-zeitraumsregeln.md](RM-008-ki-assistent-und-zeitraumsregeln.md) |
