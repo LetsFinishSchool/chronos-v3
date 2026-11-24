@@ -217,3 +217,6 @@ Auf Anweisung des Nutzers (Product Owner): Vorschlag als `docs/arc42/08-konzepte
 
 ## [2026-11-24] ingest | #99 geteilt, DoR geprüft
 Auf Anweisung des Nutzers: #99 auf „Cargo-Workspace mit sieben Crates und Architekturtest“ gekürzt (Task A), neuer Task #107 „CI und Lieferkettenprüfung“ (Task B, Sub-Issue von #1, hängt von #99 ab). Abhängige Issues #96, #100, #103, #104 auf die neuen Nummern umgestellt. Ablaufprüfung für `cargo-deny`-Ausnahmen ist ein Pflicht-Skript (ADR-013 verlangt Vorwarnung 14 Tage vorher). DoR (Task, `ticket-typen.md`): #99 erfüllt alle Punkte, Label `ready-for-agent` angelegt und gesetzt; #107 nicht bereit, weil der Vorgänger #99 noch nicht gemergt ist (Punkt 2). Lehre: Tasks, die ein Gerüst bauen und zugleich dessen Prüfung (CI) einführen, früh teilen; Punkt 2 der DoR macht die Reihenfolge sichtbar.
+
+## [2026-11-24] ingest | Worktrees: Umgebungsdateien per post-checkout-Hook
+Auf Anweisung des Nutzers: herdr übernimmt `.worktreekeep` nicht (kennt die Datei nicht). Hook `.githooks/post-checkout` gebaut (kopiert, `core.hooksPath` gesetzt), mit Wegwerf-Worktree getestet. Fehler dabei: Hook las die Liste aus dem neuen Worktree (committete Fassung ohne `.envrc`); jetzt Liste aus dem Haupt-Worktree. Seite `concepts/worktree-dateien-uebernehmen.md`. Kein Widerspruch zu `docs/`.
