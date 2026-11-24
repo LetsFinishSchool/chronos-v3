@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/spikes/e-002/ergebnisse/go" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/spikes/e-002/ergebnisse/rust" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/spikes/e-002/ergebnisse/typescript" vcs="Git" />
+  </component>
+</project>
