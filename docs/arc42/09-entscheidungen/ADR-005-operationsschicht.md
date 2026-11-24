@@ -42,11 +42,18 @@ Gründe: V2 erfüllt Vorschaupflicht, Freigabe, Berechtigung an einer Stelle, Ve
 - **Risiken (Kapitel 11):** R-A2 erhält die Maßnahme „Rahmen nach ADR-005“. Neu zu beobachten: Sperrdauer des Probelaufs bei großen Stapeln.
 - **Bindet oder gibt frei:** E-009 (KI-Anbindung) ist frei: Werkzeugschemas, Freigabe-Beleg und Stapel stehen fest. E-016 (Architekturtests) erhält eine Regel mehr: Fachbereiche erreichen Adapter nicht. E-008 (Gast) muss sich in die Akteur- und Bereichsarten einfügen. E-017 (Import) nutzt die Akteur-Art Import.
 
-## Noch festzulegen (ohne neue Entscheidung)
+## Noch festzulegen (ohne neue Entscheidung; Werte siehe „Festgelegte Werte“)
 1. **Spike-Erweiterung E-005a:** Rahmen für `appointment.create`, `appointment.cancel`, `appointment.reschedule` und einen Stapel; `schemars` gegen utoipa; messen: Zeilen je Operation, Zeilen des Rahmens, Dauer und Sperren des Probelaufs unter Last (M-4), ob ein Agent eine neue Operation ohne Kenntnis des Querschnitts richtig anlegt.
 2. **Werte:** Obergrenze für Stapel (Vorschlag 50 Aufrufe oder 500 betroffene Objekte), Ablaufzeit des Freigabe-Belegs (Vorschlag 10 min).
 3. **Sprache der Operationsbeschreibungen für die KI** (Deutsch oder Englisch); die Antwortsprache der Person bleibt unberührt.
 4. **Folgeänderungen in arc42:** K-002 (Geltungsbereich als Ort der Prüfung), K-004 (Akteur-Arten, Bündel aus Stapel), Kapitel 5 Ebene 2 (Rahmen als Baustein), Kapitel 11 R-A2.
+
+## Festgelegte Werte (PO, 2026-11-24)
+Zu den Punkten 1 bis 3 von „Noch festzulegen“:
+1. **Obergrenze für Stapel:** 50 Aufrufe **oder** 500 betroffene Objekte. E-005a darf den Wert nach der Messung der Sperrdauer anpassen.
+2. **Freigabe-Beleg:** gültig 10 Minuten; abgelaufen heißt neue Vorschau, kein Fehler.
+3. **Sprache der Operationsbeschreibungen für die KI:** Englisch; die Antwortsprache der Person bleibt getrennt (Systemprompt). Der Prüfkatalog ([ADR-006](ADR-006-ki-anbindung.md)) testet beide Sprachen.
+4. **Spike-Erweiterung E-005a:** kein eigener Agenten-Spike, sondern ein **Durchstich zu Beginn der Umsetzung** (`appointment.create`, `appointment.cancel`, `appointment.reschedule` und ein Stapel) mit den Messpunkten aus Punkt 1 von „Noch festzulegen“. Abbruchkriterium: Der Probelauf sperrt unter Last zu lange, dann Wechsel auf Planen und Anwenden (T3-C).
 
 ## Wann überprüfen?
 - Wenn E-005a zeigt, dass der Probelauf unter Last zu lange sperrt: auf Planen und Anwenden (T3-C) wechseln, die Operationen werden dabei nur aufgeteilt.

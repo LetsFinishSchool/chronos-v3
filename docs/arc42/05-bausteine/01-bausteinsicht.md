@@ -1,12 +1,14 @@
 ---
 title: Bausteinsicht, Ebene 1 (Kandidaten)
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 M-001, M-002, M-004, F-001..F-018, RB-011, QA-003]
 ---
 
 # Kapitel 5: Bausteinsicht
 
-> **Stand: fachliche Kandidaten.** Die Bausteine ergeben sich aus dem Fachmodell und den Features. **Festgelegt ist die Prozessgrenze ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md), Entwurf): eine Codebasis, zwei Prozesse, Web und Worker.** Offen ist der Zuschnitt in Module innerhalb der Codebasis. Zwingend sind nur die Abhängigkeitsrichtungen unten.
+> **Stand: fachliche Kandidaten.** Die Bausteine ergeben sich aus dem Fachmodell und den Features. **Festgelegt ist die Prozessgrenze ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md)): eine Codebasis, zwei Prozesse, Web und Worker.** Die Codebasis ist ein Cargo-Workspace mit einem Crate je Baustein ([ADR-009](../09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md)); der genaue Zuschnitt der Crates ist noch festzulegen. Zwingend sind die Abhängigkeitsrichtungen unten.
 
 ## Ebene 1: Überblick
 
@@ -17,7 +19,7 @@ flowchart TB
     AS[KI-Assistent]
     FD[Kalender-Feed]
   end
-  OP[Operationsschicht]
+  OP["Operationsschicht mit Rahmen: Transaktion, Berechtigung, Verlauf, Ereignis"]
   subgraph Fachbereiche
     TM[Teams und Mitglieder]
     TE[Termine, Serien, Veranstaltungen]
@@ -62,9 +64,9 @@ flowchart TB
 
 | Baustein | Verantwortung | Anforderungen |
 |---|---|---|
-| Weboberfläche | Einfache, mobile Oberfläche für den Alltag; bildet nicht alle Funktionen ab | [QA-005](../../req42/06-qualitaet/QA-005-bedienbarkeit-mobil.md), [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
-| KI-Assistent | Dialog, Vorschau und Freigabe schreibender Operationen, ruft Operationen mit den Rechten der Person auf | [FA-015](../../req42/04-product-backlog/anforderungen/FA-015-ki-assistent.md) |
-| Operationsschicht | Vollständige Menge benannter Fachoperationen; einziger Weg für Zustandsänderungen und Abfragen | [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
+| Weboberfläche | Einfache, mobile Oberfläche für den Alltag; bildet nicht alle Funktionen ab. SPA und PWA mit Svelte, Gastseite als eigener Einstieg, eigener Service Worker ([ADR-007](../09-entscheidungen/ADR-007-frontend-spa-svelte.md), [ADR-008](../09-entscheidungen/ADR-008-sitzung-und-gast-identitaet.md)) | [QA-005](../../req42/06-qualitaet/QA-005-bedienbarkeit-mobil.md), [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
+| KI-Assistent | Dialog, Vorschau und Freigabe schreibender Operationen, ruft Operationen mit den Rechten der Person auf; eigener Baustein im Web-Prozess und Client der Operationsschicht, Schleife im Server ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) | [FA-015](../../req42/04-product-backlog/anforderungen/FA-015-ki-assistent.md) |
+| Operationsschicht | Vollständige Menge benannter Fachoperationen; einziger Weg für Zustandsänderungen und Abfragen. Der **Rahmen** trägt Transaktion, Berechtigung, Verlauf, Ereignis, Vorschau per Probelauf, Freigabe-Beleg und Stapel ([ADR-005](../09-entscheidungen/ADR-005-operationsschicht.md)); Operationen enthalten nur Fachlogik | [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
 | Teams und Mitglieder | Team-Baum, Mitgliedschaft (erbt nach oben), Einladungen, Gäste | [FA-001](../../req42/04-product-backlog/anforderungen/FA-001-teams-und-unter-teams.md), [FA-002](../../req42/04-product-backlog/anforderungen/FA-002-mitglieder-und-einladungslink.md) |
 | Termine, Serien, Veranstaltungen | Termine (Treffen, Frist/Marke), Serien mit RRULE und Ausnahmen, Veranstaltungen als Klammer, Zeitzonen | [FA-003](../../req42/04-product-backlog/anforderungen/FA-003-termine.md), [FA-004](../../req42/04-product-backlog/anforderungen/FA-004-veranstaltungen.md), [FA-014](../../req42/04-product-backlog/anforderungen/FA-014-serientermine.md) |
 | Rückmeldung | Antworten je Termin/Vorkommen, Übersicht, Erinnerungsbedarf | [FA-005](../../req42/04-product-backlog/anforderungen/FA-005-rueckmeldung.md) |
@@ -72,8 +74,8 @@ flowchart TB
 | Labels | Freitext-Labels je Bereich | [FA-007](../../req42/04-product-backlog/anforderungen/FA-007-labels.md) |
 | Terminnachrichten | Nachrichten je Termin | [FA-010](../../req42/04-product-backlog/anforderungen/FA-010-terminnachrichten.md) |
 | Zeitraumsregeln | Dauerhafte Regeln, die bestehende und künftige Termine betreffen | [FA-016](../../req42/04-product-backlog/anforderungen/FA-016-zeitraumsregeln.md) |
-| Berechtigung und Zugang | Wer darf was; Mitgliedschaft, Gastlinks, Token | [M-002](../../req42/05-modelle/M-002-berechtigungen.md) |
-| Änderungsverlauf | Akteur, Aktion, Vorher-Zustand, Bündel-ID, Rückgängig, Wiederherstellung 30 Tage | [FA-017](../../req42/04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md) |
+| Berechtigung und Zugang | Wer darf was; Mitgliedschaft, Gastlinks, Token; Sitzung als BFF mit Heartbeat und Back-Channel-Logout, Gast-Cookie mit Rückkehr-Link ([ADR-008](../09-entscheidungen/ADR-008-sitzung-und-gast-identitaet.md)) | [M-002](../../req42/05-modelle/M-002-berechtigungen.md) |
+| Änderungsverlauf | Anzeige von Akteur, Aktion, Zeitpunkt und Bündel-ID, vom Rahmen geschrieben; Wiederherstellung gelöschter Objekte 30 Tage (kein allgemeines Rückgängig) | [FA-017](../../req42/04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md) |
 | Ereignisse | Fachliche Vorkommnisse mit benanntem Auslöser | [QA-002](../../req42/06-qualitaet/QA-002-nachvollziehbarkeit.md), [M-004](../../req42/05-modelle/M-004-benachrichtigungsmatrix.md) |
 | Benachrichtigung | Empfänger, Kanalwahl, Bündelung, Zustellung, Wiederholung, Protokoll, Erinnerungsplanung | [FA-008](../../req42/04-product-backlog/anforderungen/FA-008-benachrichtigungen.md), [QA-004](../../req42/06-qualitaet/QA-004-zuverlaessige-benachrichtigung.md), [QA-010](../../req42/06-qualitaet/QA-010-benachrichtigungsbudget.md) |
 | Kostenerfassung | Einzelposten je Benutzer/Team, Monatslimit KI | [FA-018](../../req42/04-product-backlog/anforderungen/FA-018-kostenerfassung.md) |
@@ -89,14 +91,26 @@ Rechtliche Seiten ([F-013](../../req42/04-product-backlog/features/F-013-rechtli
 2. Fachbereiche kennen **keine Kanäle** und keine Anbieter; sie erzeugen nur Ereignisse (QA-003 a).
 3. Benachrichtigung und Rückmeldung kennen **keine konkreten Terminarten** (QA-003 b).
 4. Jeder kostenverursachende Aufruf geht durch die Kostenerfassung.
-5. Diese Regeln werden durch automatische Architekturtests geprüft.
+5. Diese Regeln erzwingt der Compiler über die Crate-Grenzen des Cargo-Workspace ([ADR-009](../09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md)); `cargo-deny` (`bans`) ergänzt sie um verbotene Bibliotheken ([ADR-013](../09-entscheidungen/ADR-013-build-ci-lieferkette.md)).
+6. Der Fachkern nutzt `jiff`; `chrono` bleibt an den Rändern ([ADR-012](../09-entscheidungen/ADR-012-zeitbibliothek.md)). Fachlogik ruft keine Adapter und prüft keine Berechtigung selbst; beides liegt im Rahmen.
 
 ## Zuordnung zu Prozessen (ADR-002)
 
 | Prozess | Bausteine |
 |---|---|
-| Web | Weboberfläche (Auslieferung), Operationsschicht, Fachbereiche, Berechtigung, Verlauf, Ereignis erzeugen, Kalender-Feed, KI-Assistent und KI-Adapter ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) |
-| Worker | Zeitauslöser, Benachrichtigung (Zustellung, Wiederholung, Bündelung), Kanäle |
-| offen | Backup (E-010), Datenübernahme (E-017), Ferien-Abruf |
+| Web | Weboberfläche (Auslieferung), Operationsschicht mit Rahmen, Fachbereiche, Berechtigung, Verlauf, Ereignis erzeugen, Kalender-Feed, KI-Assistent und KI-Adapter ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) |
+| Worker | Zeitauslöser, Benachrichtigung (Zustellung, Wiederholung, Bündelung), Kanäle, Sitzungs-Heartbeat (Erneuerung der Keycloak-Sitzung alle 6 Stunden) |
+| Unterbefehle desselben Binarys | `chronos migrate` als Job vor dem Rollout ([ADR-011](../09-entscheidungen/ADR-011-migrationswerkzeug.md)); Datenübernahme (E-017) als Import über die Operationsschicht |
+| offen | Backup (E-010), Ferien-Abruf |
 
-Detailsichten (Ebene 2) folgen, sobald die Modulentscheidungen getroffen sind.
+## Ebene 2: Rahmen der Operationsschicht ([ADR-005](../09-entscheidungen/ADR-005-operationsschicht.md))
+
+Jede Operation ist ein Trait mit Name, Beschreibung, lesend oder schreibend, `Params` und `Result` mit Schema, Geltungsbereich und Fachlogik; sie wird über `inventory` registriert. Der Rahmen führt jeden Aufruf in dieser Reihenfolge aus:
+
+1. Transaktion öffnen (lesende Operationen als `READ ONLY`).
+2. Geltungsbereich aus den Parametern ableiten und gegen die Akteur-Art prüfen ([K-002](../08-konzepte/K-002-berechtigung-und-zugang.md)); geprüften Kontext erzeugen (nur der Rahmen kann ihn erzeugen, er enthält keine Adapter).
+3. Fachlogik ausführen; Änderungen und Ereignisse werden gesammelt.
+4. Verlauf mit Akteur und Bündel-ID sowie Ereignisse (Outbox) in derselben Transaktion schreiben ([K-004](../08-konzepte/K-004-aenderungsverlauf-und-rueckgaengig.md)).
+5. Committen, oder bei einer **Vorschau** zurückrollen: Die Vorschau ist der Probelauf mit Rollback; der Rahmen bildet sie aus den gesammelten Änderungen und stellt einen **Freigabe-Beleg** (gültig 10 Minuten) aus. Aufrufe des Assistenten werden nur mit gültigem Beleg ausgeführt; Stapel laufen als eine Transaktion mit einer Bündel-ID (Obergrenze 50 Aufrufe oder 500 Objekte).
+
+Weitere Detailsichten (Crate-Zuschnitt) folgen, sobald er festgelegt ist.

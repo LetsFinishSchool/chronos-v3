@@ -1,6 +1,8 @@
 ---
 title: Ticket-Typen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 ---
 
 # Ticket-Typen: Epic, Feature, User-Story, Task
@@ -116,6 +118,7 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 - PR `Resolve #<Ticket>: <Titel>`, Body beginnt mit `Closes #<Ticket>`, gegen `main`/`develop`; CI grün.
 - Review erfolgt, Konflikte gelöst, PR gemergt (Mensch).
 - Keine Geheimnisse im Diff ([RB-011](../07-randbedingungen/RB-008-keine-geheimnisse-im-repository.md)); Datenbankmigrationen nur vorwärts; Oberflächentexte übersetzbar, Deutsch und Englisch ([RB-001](../07-randbedingungen/RB-001-mehrsprachigkeit.md)).
+- Oberflächenänderungen erfüllen WCAG 2.2 Stufe AA: automatische Prüfung (axe-core) ohne Verstöße in Deutsch und Englisch, Bedienung per Tastatur, Oberfläche in Tests über Rollen und Beschriftungen ansprechbar.
 - `docs/` nicht verändert; Erkenntnisse im Wiki festgehalten (`wiki/log.md`), Widersprüche als Vorschlag in `wiki/proposals/`.
 
 **User-Story – DoD**
@@ -128,7 +131,7 @@ Gilt jeweils **zusätzlich** zu den Kriterien der darunterliegenden Ebene (botto
 **Feature – DoD**
 - Alle Stories erledigt (Story-DoD).
 - Der Funktionsumfang ist Ende-zu-Ende aus Nutzersicht verwendbar (Frontend + Backend + ggf. Push/Keycloak), auf Mobil und Desktop.
-- Nichtfunktionale Anforderungen berührter Qualitätsziele geprüft (Barrierefreiheit, Datenschutz, Leistung, Benachrichtigungen), Betrieb berücksichtigt (Helm-Werte, Migrationen, Monitoring).
+- Nichtfunktionale Anforderungen berührter Qualitätsziele geprüft (Datenschutz, Leistung, Benachrichtigungen), Betrieb berücksichtigt (Helm-Werte, Migrationen, Monitoring). Barrierefreiheit nach WCAG 2.2 Stufe AA: manueller Durchlauf mit Tastatur und Screenreader je Feature.
 - In `staging`/Testumgebung verifiziert; Rollback-Pfad bekannt.
 - `F-nnn` samt Verknüpfungen (Z-, SH-, FA-) als Vorschlag gemeldet; Nutzer-Doku/„Neuigkeiten“ geklärt.
 

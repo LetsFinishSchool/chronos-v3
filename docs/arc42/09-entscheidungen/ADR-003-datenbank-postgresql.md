@@ -26,7 +26,7 @@ PostgreSQL; SQLite (beide Prozesse auf derselben Node mit gemeinsamem Volume, ei
 - Backup: Abzug, clientseitig verschlüsselt, nach S3 (Anbieter und Schlüssel: E-010).
 - E-006 darf die Datenbank als Grundlage für Ereignisse und Aufträge nutzen.
 - Zuschnitt prod/staging: je Umgebung eine eigene Instanz (PO 2026-11-20, Kapitel 7).
-- Schemaänderungen laufen über versionierte Migrationen (Werkzeug folgt aus E-002).
+- Schemaänderungen laufen über versionierte Migrationen (Werkzeug: sqlx-Migrationen als Job vor dem Rollout, siehe [ADR-011](ADR-011-migrationswerkzeug.md), Entwurf).
 
 ## Wann überprüfen?
 Wenn die gemessene Datenbank allein das Budget sprengt, oder wenn eine geteilte Instanz im Cluster verfügbar wird.

@@ -1,6 +1,8 @@
 ---
 title: K-007 Mehrsprachigkeit und Zeitzonen
-status: entwurf
+status: freigegeben
+freigegeben-am: 2026-11-24
+freigegeben-von: Product Owner
 quellen: [req42 RB-001, FA-003, RA-008]
 ---
 
@@ -19,8 +21,8 @@ quellen: [req42 RB-001, FA-003, RA-008]
 - Anzeige in der Zeitzone der Person; Sommerzeitwechsel sind zu berücksichtigen, insbesondere bei Serien (RRULE in Terminzeitzone).
 - Zeitpunkte werden eindeutig gespeichert; Umrechnung erst bei der Anzeige.
 
-**Entschieden (PO 2026-11-20):** Zeitpunkt in UTC plus Zeitzone des Termins (Serien bleiben über die Sommerzeit lokal stabil, RFC 5545 TZID). Risiko: veraltete Zeitzonendatenbank, regelmäßig aktualisieren.
+**Entschieden (PO 2026-11-20):** Zeitpunkt in UTC plus Zeitzone des Termins (Serien bleiben über die Sommerzeit lokal stabil, RFC 5545 TZID). Risiko: veraltete Zeitzonendatenbank, regelmäßig aktualisieren. Zeitbibliothek ([ADR-012](../09-entscheidungen/ADR-012-zeitbibliothek.md)): `jiff` im Fachkern mit eingebetteter Zeitzonendatenbank, `chrono` nur an den Rändern (`rrule`, `sqlx`).
 
-**Entschieden (PO 2026-11-20):** Übersetzungen als Textdateien je Sprache im Repository (JSON oder PO, konkretes Format mit E-004/E-002).
+**Entschieden (PO 2026-11-20, Format geändert 2026-11-24):** Übersetzungen als Textdateien je Sprache im Repository. Das Format ist **Fluent (`.ftl`)** in Server und Client ([ADR-010](../09-entscheidungen/ADR-010-uebersetzungen-fluent.md), freigegeben 2026-11-24). Die frühere Vorgabe „JSON oder PO“ entfällt; sie war keine Anforderung des Product Owners.
 
-**Offen (nach E-002, PO 2026-11-20):** Plural-/Datumsformate.
+**Offen (nach E-002, PO 2026-11-20):** Datums- und Zahlenformate (Vorschlag in ADR-010: Browser über `Intl`, Server formatiert mit ICU4X vor der Übergabe). Plural und Geschlecht stehen in den Fluent-Nachrichten.

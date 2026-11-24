@@ -46,11 +46,18 @@ Gründe: Der Wechsel von Modell und Anbieter zur Laufzeit ist mit dem Gateway Ko
 6. **Modellwechsel nur nach Prüfkatalog**, zuerst in staging.
 7. **Mistral:** Zero Data Retention beantragen und die Trainingsnutzung der API-Daten prüfen; den AV-Vertrag lesen. Verwaltungsdaten (Konto, Abrechnung, Nutzungsmetadaten) können laut Mistral außerhalb der Region liegen; Gesprächsinhalte nicht.
 
-## Noch festzulegen (ohne neue Entscheidung)
+## Noch festzulegen (ohne neue Entscheidung; Werte siehe „Festgelegte Werte“)
 1. Anteil der KI an den 10 €/Monat und Monatslimit je Team.
 2. Standardmodell nach dem ersten Prüflauf.
 3. Gäste ohne Zugang zum Assistenten (F-015 „nicht (?)“), hier als Annahme.
 4. Ort und Version des Gateways, `STORE_MODEL_IN_DB` aktiv, Mitnutzung durch andere Anwendungen.
+
+## Festgelegte Werte (PO, 2026-11-24)
+1. **Budget:** KI-Gesamtgrenze 5 €/Monat (Hälfte der 10 € Zusatzkosten), Limit je Team 1 €/Monat. Die Aufteilung ist eine Schätzung ▲ (Grundlage: grob 5.000 Eingabe- und 1.000 Ausgabetoken je Runde, Mistral Small 4 etwa 0,001 €, Large 4 etwa 0,006 € je Runde) und gegen [RB-003](../../req42/07-randbedingungen/) zu prüfen.
+2. **Standardmodell:** vorläufig Mistral Small 4; endgültig erst nach dem Prüflauf; Mistral Large 4 ist die Rückfallebene.
+3. **Prüfkatalog:** etwa 20 Aufgaben aus F-015, dazu Prompt-Injection-Fälle, Antwortsprache und „nie schreiben ohne Vorschau“. Bestanden bei mindestens 90 % der Aufgaben und 100 % der Sicherheitsfälle (Startwert ohne Messbasis).
+4. **Gäste** haben keinen Zugang zum Assistenten (kein Konto, keine zuordenbaren Kosten, größere Angriffsfläche, RA-010).
+5. **Gateway:** bestehender LiteLLM-Proxy des Betreibers in der EU, Version fest gepinnt, `STORE_MODEL_IN_DB` aktiv, eigener virtueller Schlüssel je Umgebung, Mitnutzung durch andere Anwendungen nur mit eigenem Schlüssel und Budget; ein Test sichert die ausgewerteten `x-litellm-*`-Header. **Ort:** im selben Cluster wie Chronos (Angabe des Betreibers 2026-11-24); Betriebsbedingung 1 („Gateway in der EU“) setzt einen EU-Standort des Clusters voraus, der vom Betreiber am 2026-11-24 bestätigt wurde (Gateway läuft in der EU). **Version:** die aktuelle LiteLLM-Version; die konkrete Nummer wird beim Festschreiben (Pin) hier eingetragen.
 
 ## Wann überprüfen?
 - Wenn Anthropic (oder eine Cloud-Plattform mit Claude) einen garantierten EU-Standort anbietet: Claude wird zulässig, ohne Codeänderung.
