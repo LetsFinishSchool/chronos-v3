@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.envrc)",
+      "Read(**/.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.envrc)",
+      "Edit(**/.env.*)",
+      "Bash(cat *.env)",
+      "Bash(cat *.envrc)",
+      "Bash(cat *.env.*)",
+      "Bash(printenv*)",
+      "Bash(env)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|NotebookEdit|Grep|Glob|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-env-read.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
