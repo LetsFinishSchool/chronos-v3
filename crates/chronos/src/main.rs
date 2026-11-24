@@ -22,6 +22,14 @@ use clap::{Parser, Subcommand};
 // nicht kennt.
 use chronos_domain as _;
 
+// Übrige erlaubte Kanten aus dem Crate-Zuschnitt. Bis das Zusammenstecken sie
+// nutzt, sind sie hier eingebunden, damit Cargo sie nicht als ungenutzt meldet.
+use chronos_adapters as _;
+use chronos_channels as _;
+use chronos_core as _;
+use chronos_web as _;
+use chronos_worker as _;
+
 /// Exit-Code für Unterbefehle, die es noch nicht gibt.
 const EXIT_NOT_IMPLEMENTED: u8 = 2;
 

@@ -14,3 +14,7 @@
 //! (`chronos-adapters`).
 //!
 //! Crate-Zuschnitt: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
+
+// Erlaubte Kanten aus dem Crate-Zuschnitt. Bis der erste Code sie nutzt, sind
+// sie hier eingebunden, damit Cargo sie nicht als ungenutzt meldet.
+use chronos_core as _;
