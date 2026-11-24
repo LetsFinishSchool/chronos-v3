@@ -166,3 +166,24 @@ Auftrag des Product Owners: Vorschlag `ki-anbieter-eu` in `docs/` übernehmen un
 
 ## [2026-11-24] ingest | RB-009 und Nachbarn ohne Wiki-Nennung
 Auf Anweisung des Product Owners RB-009 umbenannt (`RB-009-wissen-im-projekt.md`, „Wissen im Projekt“) und die Wiki-Nennungen in arc42 Kapitel 2 und 11, TS-001, BM-003, RA-003, RA-008 umformuliert. `grep -rni wiki docs` trifft nur noch die Regel selbst (`docs/README.md`, Regel 7) und den Generator-Hinweis.
+
+## [2026-11-24] ingest | req42: Anforderung vs. Feature, Ticket-Abbildung
+Analyse auf Anfrage des Nutzers. Neue Seite `concepts/req42-anforderung-vs-feature-und-tickets.md`. Offen, braucht Freigabe des Product Owners: Linkfehler und falsches Beispiel in `docs/req42/04-product-backlog/ticket-typen.md` (RB-011/RB-010-Beschriftungen, RM-006 statt RM-003); `docs/` unverändert.
+
+## [2026-11-24] ingest | req42-Backlog nach GitHub-Issues überführt
+Auf Anweisung des Nutzers: 91 Issues (Epics, Features, Stories, Tasks, 1 Option) mit Labels und Sub-Issue-Hierarchie angelegt; `docs/req42/04-product-backlog/features/` und `anforderungen/` gelöscht, Kapitel 4 verweist auf die Issues (README mit Zuordnung früherer Kennungen); Links in `docs/` auf Issues umgestellt; `ticket-typen.md` korrigiert (RB-Labels, RM-003-Beispiel), `needs-po` entfernt, Option und Einzel-Story ergänzt; Issue-Vorlagen angepasst. Neuer Vorschlag `proposals/2026-11-24-neue-definition-of-done.md` (offen). Offen: `area:java` und `./mvnw` in Vorlagen und ticket-typen, Backend ist Rust (ADR-004).
+
+## [2026-11-24] ingest | Vorschlag neue DoD übernommen, area-Labels und Java-Bezüge entfernt
+Auf Anweisung des Nutzers: Vorschlag `2026-11-24-neue-definition-of-done.md` in `docs/req42/04-product-backlog/ticket-typen.md` (Abschnitt 3) übernommen und gelöscht. Alle `area:*`-Verweise und `./mvnw`/Java-Prüfbefehle aus `ticket-typen.md` und `.github/ISSUE_TEMPLATE/task.md` entfernt, `wiki/README.md` ohne Java. Unverändert: historische Vergleiche in ADR/E-002-Analyse und `docs/vision` (Quellenpfade des Altsystems).
+
+## [2026-11-24] ingest | Story #9 in Tasks zerlegt
+Auf Anweisung des Nutzers: Tasks #92 bis #98 (Datenmodell, `team.create`, `team.rename`, `team.list`, HTTP-Endpunkte, Frontend Anlegen, Frontend Umbenennen) unter Story #9 angelegt, als Sub-Issues verknüpft, Task-Liste in #9 ergänzt. Keiner ist `ready-for-agent`: Voraussetzungen fehlen (Walking Skeleton ohne Ticket, Verlaufsmechanismus #34, Anmeldung #29, Personen-Tabelle ungeklärt). Kein neues Wiki-Wissen außer diesem Eintrag.
+
+## [2026-11-24] ingest | Walking Skeleton als Tasks #99 bis #104 unter Epic #1
+Auf Anweisung des Nutzers: Walking Skeleton in sechs Tasks geteilt (Workspace/CI, Datenbank/Migration, Operationsrahmen, Worker/Outbox, Frontend-Gerüst, Image/Deployment), als Sub-Issues von #1 verknüpft. Tasks #92 bis #98 auf die neuen Nummern umgestellt. Entscheidung des Nutzers: Teamname höchstens 32 Zeichen (in #92, #93, #94, #97 eingetragen; Zählung nach Unicode-Zeichen, Backend und Frontend gleich). Neuer Vorschlag `proposals/2026-11-24-image-und-deployment-widerspruch.md`: Kapitel 7/ADR-002 (zwei Images, kustomize) gegen ADR-011 (ein Image, Helm-Hook). Offen: Schemaquelle `schemars` oder `utoipa` (E-005a).
+
+## [2026-11-24] ingest | Entscheidung „ein Image mit Unterbefehlen“, #99 ausgearbeitet
+Auf Anweisung des Nutzers (Product Owner): Kapitel 7 und ADR-002 auf „ein Image, `chronos` startet per Unterbefehl“ angepasst (Branch `docs/image-mit-unterbefehlen`, Commit b740687). Fehler dabei: Der Commit enthält zusätzlich die zuvor gestagten Löschungen der FA-/F-Dateien (38 Dateien); Korrektur vom Berechtigungssystem abgelehnt, Entscheidung beim Nutzer. Vorschlag `2026-11-24-image-und-deployment-widerspruch.md` auf Helm oder kustomize verkürzt. #99 ausgearbeitet (sechs Crates mit Positivliste der Kanten, Architekturtest gegen Manifest-Änderungen, `cargo-deny` mit Ablaufprüfung, CI, Dependabot). Lehre: `cargo-deny` kennt vermutlich kein Ablaufdatum für Ausnahmen, ADR-013 Punkt 2 braucht daher ein Zusatzskript (im Task vor dem Start zu prüfen). Label `ready-for-agent` existiert im Repository noch nicht.
+
+## [2026-11-24] ingest | Diagramm zum Crate-Zuschnitt
+Auf Anweisung des Nutzers: `wiki/diagramme/crate-zuschnitt.excalidraw` und `.svg` (Skript `crate-zuschnitt.py`, nutzt `c4lib` aus `docs/arc42/diagramme/generator` nur lesend) zeigen die Kanten des in #99 vorgeschlagenen Zuschnitts, verbotene Kanten rot gestrichelt. Im Wiki statt in `docs/`, weil der Zuschnitt noch nicht freigegeben ist. Geprüft: Bindungen konsistent, SVG gerendert; im Excalidraw-Editor nicht geöffnet.

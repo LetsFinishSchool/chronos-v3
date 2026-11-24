@@ -19,7 +19,7 @@ Das Wiki ist **nicht verbindlich**. Was gilt, steht in [docs/](../docs/README.md
 | `index.md` | Katalog aller Seiten mit je einer Zeile. Agenten lesen **zuerst** diese Datei. |
 | `log.md` | Chronologisch, nur anhängen: Was wurde wann aus welcher Quelle gelernt? |
 | `concepts/` | Fachliche und technische Begriffe, Domänenmodell, Glossar |
-| `code/` | Landkarte des Codes: Modul → Zweck, Einstiegspunkte, Stolperstellen (Java, Rust, Frontend) |
+| `code/` | Landkarte des Codes: Modul → Zweck, Einstiegspunkte, Stolperstellen (Rust, Frontend) |
 | `decisions/` | Detail-Entscheidungen und Begründungen (Herkunft: bisherige `kb/adr/`) |
 | `lessons/` | Aus Sessions und Reviews gelernt: Fehler, Workarounds, Kommandos, die funktionieren |
 | `tickets/` | Verdichtung von Ticket-Verläufen, wenn sie später noch helfen |
