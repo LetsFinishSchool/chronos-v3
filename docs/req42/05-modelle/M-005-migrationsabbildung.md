@@ -21,7 +21,7 @@ Ziel: [Z-006](../01-ziele/Z-006-bestandsdaten-verlustfrei-uebernehmen.md). Das A
 | Teilnahme-Rolle (RESPONSIBLE, ATTENDANT, HELPER, GUEST) | entfällt | Rollen werden verworfen; Rollenrechte entfallen (gleichberechtigt) |
 | Gruppe (+ Mitgliedschaft) | Team (+ Mitgliedschaft) | flach, Besitzer wird Mitglied |
 | Gruppenteilnahme an Termin | Termin gehört dem Team | Termin je beteiligtem Team dupliziert |
-| Mindestteilnehmerzahl, abgeleiteter Terminstatus | entfällt | [F-003](../04-product-backlog/features/F-003-termine.md) |
+| Mindestteilnehmerzahl, abgeleiteter Terminstatus | entfällt | [F-003](https://github.com/LetsFinishSchool/chronos-v3/issues/13) |
 | Freundschaft | entfällt | |
 | Nachricht | Terminnachricht | bleibt |
 | Geräteabo (Push) | Kanal Web Push | optional |

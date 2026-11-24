@@ -11,6 +11,6 @@ verknuepft: []
 
 # RM-004: Veranstaltungen und Labels
 
-**Inhalt:** [F-004](../04-product-backlog/features/F-004-veranstaltungen.md), [F-007](../04-product-backlog/features/F-007-labels.md).
+**Inhalt:** [F-004](https://github.com/LetsFinishSchool/chronos-v3/issues/62), [F-007](https://github.com/LetsFinishSchool/chronos-v3/issues/66).
 
 **Termin:** kein fester Termin; Meilenstein, der nach Fertigstellung erreicht wird

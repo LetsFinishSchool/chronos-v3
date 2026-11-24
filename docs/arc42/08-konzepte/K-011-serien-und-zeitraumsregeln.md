@@ -8,14 +8,14 @@ quellen: [req42 FA-014, FA-016, F-014, F-016, M-001]
 
 # K-011: Serien und Zeitraumsregeln
 
-**Serien** ([FA-014](../../req42/04-product-backlog/anforderungen/FA-014-serientermine.md)):
+**Serien** ([FA-014](https://github.com/LetsFinishSchool/chronos-v3/issues/75)):
 
 - Jede gültige **RRULE nach RFC 5545**; ungültige werden mit Fehlermeldung abgelehnt.
 - **Ausnahmen:** einzelne Vorkommen (absagen, verschieben) und **Schulferien-Zeiträume** je Team; Ferien kommen aus einer öffentlichen API mit Cache.
 - **Rückmeldung je Vorkommen.** Änderungen „ab hier“ oder „ganze Serie“ benachrichtigen die Eingeladenen.
 - Der Kalender-Feed enthält die Vorkommen.
 
-**Zeitraumsregeln** ([FA-016](../../req42/04-product-backlog/anforderungen/FA-016-zeitraumsregeln.md)):
+**Zeitraumsregeln** ([FA-016](https://github.com/LetsFinishSchool/chronos-v3/issues/88)):
 
 - Eine Regel wirkt auf **bestehende und künftig angelegte** Termine im Zeitraum (absagen).
 - Wird sie aufgehoben, werden nur die **durch sie** abgesagten Termine wieder geplant: Die Absage muss ihre Ursache (Regel, manuell) kennen.

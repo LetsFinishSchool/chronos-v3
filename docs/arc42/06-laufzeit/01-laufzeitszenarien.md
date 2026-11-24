@@ -93,7 +93,7 @@ sequenceDiagram
   AS->>OP: Operation ausführen (mit Rechten der Person, Bündel-ID)
   OP-->>AS: Ergebnis, im Verlauf "durch Assistent im Auftrag von …"
 ```
-Ohne Freigabe wird nichts geschrieben. Lesende Operationen brauchen keine Freigabe ([FA-015](../../req42/04-product-backlog/anforderungen/FA-015-ki-assistent.md)). Ist das Monatslimit erreicht, pausiert die KI bis Monatsende.
+Ohne Freigabe wird nichts geschrieben. Lesende Operationen brauchen keine Freigabe ([FA-015](https://github.com/LetsFinishSchool/chronos-v3/issues/80)). Ist das Monatslimit erreicht, pausiert die KI bis Monatsende.
 
 ## L-5 Zeitraumsregel wirkt auf bestehende und künftige Termine
 
@@ -118,4 +118,4 @@ Nach 30 Tagen wird endgültig gelöscht ([K-008](../08-konzepte/K-008-sicherheit
 
 ## L-7 Datenübernahme
 
-Ablauf: Altdaten lesen → Abbildung nach [M-005](../../req42/05-modelle/M-005-migrationsabbildung.md) → schreiben → **Abgleich der Datensatzzahlen je Entität** mit dokumentierten Abweichungen. Wiederholbar, Altsystem bleibt unverändert, bestehende Keycloak-Kennungen bleiben gültig ([FA-012](../../req42/04-product-backlog/anforderungen/FA-012-datenuebernahme.md)). Die Übernahme löst keine Benachrichtigungen aus (zu entscheiden in E-017).
+Ablauf: Altdaten lesen → Abbildung nach [M-005](../../req42/05-modelle/M-005-migrationsabbildung.md) → schreiben → **Abgleich der Datensatzzahlen je Entität** mit dokumentierten Abweichungen. Wiederholbar, Altsystem bleibt unverändert, bestehende Keycloak-Kennungen bleiben gültig ([FA-012](https://github.com/LetsFinishSchool/chronos-v3/issues/1)). Die Übernahme löst keine Benachrichtigungen aus (zu entscheiden in E-017).

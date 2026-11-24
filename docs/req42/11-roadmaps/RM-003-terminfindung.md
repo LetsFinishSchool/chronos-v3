@@ -11,6 +11,6 @@ verknuepft: []
 
 # RM-003: Terminfindung
 
-**Inhalt:** [F-006](../04-product-backlog/features/F-006-terminfindung.md), „zeitweise“ in [F-005](../04-product-backlog/features/F-005-rueckmeldung.md) falls nicht schon in RM-001.
+**Inhalt:** [F-006](https://github.com/LetsFinishSchool/chronos-v3/issues/57), „zeitweise“ in [F-005](https://github.com/LetsFinishSchool/chronos-v3/issues/17) falls nicht schon in RM-001.
 
 **Termin:** kein fester Termin; Meilenstein, der nach Fertigstellung erreicht wird

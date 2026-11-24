@@ -65,25 +65,25 @@ flowchart TB
 | Baustein | Verantwortung | Anforderungen |
 |---|---|---|
 | Weboberfläche | Einfache, mobile Oberfläche für den Alltag; bildet nicht alle Funktionen ab. SPA und PWA mit Svelte, Gastseite als eigener Einstieg, eigener Service Worker ([ADR-007](../09-entscheidungen/ADR-007-frontend-spa-svelte.md), [ADR-008](../09-entscheidungen/ADR-008-sitzung-und-gast-identitaet.md)) | [QA-005](../../req42/06-qualitaet/QA-005-bedienbarkeit-mobil.md), [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
-| KI-Assistent | Dialog, Vorschau und Freigabe schreibender Operationen, ruft Operationen mit den Rechten der Person auf; eigener Baustein im Web-Prozess und Client der Operationsschicht, Schleife im Server ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) | [FA-015](../../req42/04-product-backlog/anforderungen/FA-015-ki-assistent.md) |
+| KI-Assistent | Dialog, Vorschau und Freigabe schreibender Operationen, ruft Operationen mit den Rechten der Person auf; eigener Baustein im Web-Prozess und Client der Operationsschicht, Schleife im Server ([ADR-006](../09-entscheidungen/ADR-006-ki-anbindung.md)) | [FA-015](https://github.com/LetsFinishSchool/chronos-v3/issues/80) |
 | Operationsschicht | Vollständige Menge benannter Fachoperationen; einziger Weg für Zustandsänderungen und Abfragen. Der **Rahmen** trägt Transaktion, Berechtigung, Verlauf, Ereignis, Vorschau per Probelauf, Freigabe-Beleg und Stapel ([ADR-005](../09-entscheidungen/ADR-005-operationsschicht.md)); Operationen enthalten nur Fachlogik | [RB-011](../../req42/07-randbedingungen/RB-011-einfache-weboberflaeche-vollstaendige-funktionen-ueber-assistent.md) |
-| Teams und Mitglieder | Team-Baum, Mitgliedschaft (erbt nach oben), Einladungen, Gäste | [FA-001](../../req42/04-product-backlog/anforderungen/FA-001-teams-und-unter-teams.md), [FA-002](../../req42/04-product-backlog/anforderungen/FA-002-mitglieder-und-einladungslink.md) |
-| Termine, Serien, Veranstaltungen | Termine (Treffen, Frist/Marke), Serien mit RRULE und Ausnahmen, Veranstaltungen als Klammer, Zeitzonen | [FA-003](../../req42/04-product-backlog/anforderungen/FA-003-termine.md), [FA-004](../../req42/04-product-backlog/anforderungen/FA-004-veranstaltungen.md), [FA-014](../../req42/04-product-backlog/anforderungen/FA-014-serientermine.md) |
-| Rückmeldung | Antworten je Termin/Vorkommen, Übersicht, Erinnerungsbedarf | [FA-005](../../req42/04-product-backlog/anforderungen/FA-005-rueckmeldung.md) |
-| Terminfindung | Vorschläge, Stimmen, Festlegen erzeugt Termin | [FA-006](../../req42/04-product-backlog/anforderungen/FA-006-terminfindung.md) |
-| Labels | Freitext-Labels je Bereich | [FA-007](../../req42/04-product-backlog/anforderungen/FA-007-labels.md) |
-| Terminnachrichten | Nachrichten je Termin | [FA-010](../../req42/04-product-backlog/anforderungen/FA-010-terminnachrichten.md) |
-| Zeitraumsregeln | Dauerhafte Regeln, die bestehende und künftige Termine betreffen | [FA-016](../../req42/04-product-backlog/anforderungen/FA-016-zeitraumsregeln.md) |
+| Teams und Mitglieder | Team-Baum, Mitgliedschaft (erbt nach oben), Einladungen, Gäste | [FA-001](https://github.com/LetsFinishSchool/chronos-v3/issues/8), [FA-002](https://github.com/LetsFinishSchool/chronos-v3/issues/49) |
+| Termine, Serien, Veranstaltungen | Termine (Treffen, Frist/Marke), Serien mit RRULE und Ausnahmen, Veranstaltungen als Klammer, Zeitzonen | [FA-003](https://github.com/LetsFinishSchool/chronos-v3/issues/13), [FA-004](https://github.com/LetsFinishSchool/chronos-v3/issues/62), [FA-014](https://github.com/LetsFinishSchool/chronos-v3/issues/75) |
+| Rückmeldung | Antworten je Termin/Vorkommen, Übersicht, Erinnerungsbedarf | [FA-005](https://github.com/LetsFinishSchool/chronos-v3/issues/17) |
+| Terminfindung | Vorschläge, Stimmen, Festlegen erzeugt Termin | [FA-006](https://github.com/LetsFinishSchool/chronos-v3/issues/57) |
+| Labels | Freitext-Labels je Bereich | [FA-007](https://github.com/LetsFinishSchool/chronos-v3/issues/66) |
+| Terminnachrichten | Nachrichten je Termin | [FA-010](https://github.com/LetsFinishSchool/chronos-v3/issues/72) |
+| Zeitraumsregeln | Dauerhafte Regeln, die bestehende und künftige Termine betreffen | [FA-016](https://github.com/LetsFinishSchool/chronos-v3/issues/88) |
 | Berechtigung und Zugang | Wer darf was; Mitgliedschaft, Gastlinks, Token; Sitzung als BFF mit Heartbeat und Back-Channel-Logout, Gast-Cookie mit Rückkehr-Link ([ADR-008](../09-entscheidungen/ADR-008-sitzung-und-gast-identitaet.md)) | [M-002](../../req42/05-modelle/M-002-berechtigungen.md) |
-| Änderungsverlauf | Anzeige von Akteur, Aktion, Zeitpunkt und Bündel-ID, vom Rahmen geschrieben; Wiederherstellung gelöschter Objekte 30 Tage (kein allgemeines Rückgängig) | [FA-017](../../req42/04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md) |
+| Änderungsverlauf | Anzeige von Akteur, Aktion, Zeitpunkt und Bündel-ID, vom Rahmen geschrieben; Wiederherstellung gelöschter Objekte 30 Tage (kein allgemeines Rückgängig) | [FA-017](https://github.com/LetsFinishSchool/chronos-v3/issues/32) |
 | Ereignisse | Fachliche Vorkommnisse mit benanntem Auslöser | [QA-002](../../req42/06-qualitaet/QA-002-nachvollziehbarkeit.md), [M-004](../../req42/05-modelle/M-004-benachrichtigungsmatrix.md) |
-| Benachrichtigung | Empfänger, Kanalwahl, Bündelung, Zustellung, Wiederholung, Protokoll, Erinnerungsplanung | [FA-008](../../req42/04-product-backlog/anforderungen/FA-008-benachrichtigungen.md), [QA-004](../../req42/06-qualitaet/QA-004-zuverlaessige-benachrichtigung.md), [QA-010](../../req42/06-qualitaet/QA-010-benachrichtigungsbudget.md) |
-| Kostenerfassung | Einzelposten je Benutzer/Team, Monatslimit KI | [FA-018](../../req42/04-product-backlog/anforderungen/FA-018-kostenerfassung.md) |
-| Kalender-Feed | Persönlicher iCalendar-Abruf mit Token | [FA-009](../../req42/04-product-backlog/anforderungen/FA-009-kalender-feed.md) |
+| Benachrichtigung | Empfänger, Kanalwahl, Bündelung, Zustellung, Wiederholung, Protokoll, Erinnerungsplanung | [FA-008](https://github.com/LetsFinishSchool/chronos-v3/issues/22), [QA-004](../../req42/06-qualitaet/QA-004-zuverlaessige-benachrichtigung.md), [QA-010](../../req42/06-qualitaet/QA-010-benachrichtigungsbudget.md) |
+| Kostenerfassung | Einzelposten je Benutzer/Team, Monatslimit KI | [FA-018](https://github.com/LetsFinishSchool/chronos-v3/issues/39) |
+| Kalender-Feed | Persönlicher iCalendar-Abruf mit Token | [FA-009](https://github.com/LetsFinishSchool/chronos-v3/issues/69) |
 | Adapter | Kapseln je einen Nachbarn (Identität, Kanäle, KI, Ferien, Backup) | [Kapitel 3](../03-kontext/02-technischer-kontext.md) |
-| Datenübernahme | Wiederholbarer Import aus chronos-root mit Abgleich der Datensatzzahlen | [FA-012](../../req42/04-product-backlog/anforderungen/FA-012-datenuebernahme.md) |
+| Datenübernahme | Wiederholbarer Import aus chronos-root mit Abgleich der Datensatzzahlen | [FA-012](https://github.com/LetsFinishSchool/chronos-v3/issues/1) |
 
-Rechtliche Seiten ([F-013](../../req42/04-product-backlog/features/F-013-rechtliche-seiten.md)) und Anmeldung ([F-011](../../req42/04-product-backlog/features/F-011-anmeldung-und-konto.md)) sind Teil von Oberfläche bzw. Identitäts-Adapter.
+Rechtliche Seiten ([F-013](https://github.com/LetsFinishSchool/chronos-v3/issues/31)) und Anmeldung ([F-011](https://github.com/LetsFinishSchool/chronos-v3/issues/28)) sind Teil von Oberfläche bzw. Identitäts-Adapter.
 
 ## Zwingende Abhängigkeitsregeln (aus QA-003 und RB-011)
 

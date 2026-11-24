@@ -11,4 +11,4 @@ verknuepft: []
 
 # RA-006: Zustellung über Web Push ist unsicher
 
-Risiko: Nicht jeder Browser/jedes Gerät erhält Web Push zuverlässig (Erfahrung aus chronos-root). Maßnahme: E-Mail als zweiter Kanal ([F-008](../04-product-backlog/features/F-008-benachrichtigungen.md)). Annahme: ein Mailversand ist im Budget verfügbar (?).
+Risiko: Nicht jeder Browser/jedes Gerät erhält Web Push zuverlässig (Erfahrung aus chronos-root). Maßnahme: E-Mail als zweiter Kanal ([F-008](https://github.com/LetsFinishSchool/chronos-v3/issues/22)). Annahme: ein Mailversand ist im Budget verfügbar (?).

@@ -11,7 +11,7 @@ verknuepft: [F-001, F-002]
 
 # M-002: Berechtigungen
 
-Alle Mitglieder eines Teams sind gleichberechtigt. Labels ([F-007](../04-product-backlog/features/F-007-labels.md)) geben keine Rechte.
+Alle Mitglieder eines Teams sind gleichberechtigt. Labels ([F-007](https://github.com/LetsFinishSchool/chronos-v3/issues/66)) geben keine Rechte.
 
 | Aktion | Wer |
 |---|---|

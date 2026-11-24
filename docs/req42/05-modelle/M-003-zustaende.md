@@ -45,4 +45,4 @@ stateDiagram-v2
 
 - Nur die betroffene Person ändert ihre Rückmeldung, bis zum Terminbeginn; „offen“ kann nicht wieder gesetzt werden.
 - Termine der Art Frist/Marke haben keine Rückmeldung.
-- Es gibt keinen von der Teilnehmerzahl abgeleiteten Terminstatus (Mindestteilnehmerzahl entfällt, [F-003](../04-product-backlog/features/F-003-termine.md)).
+- Es gibt keinen von der Teilnehmerzahl abgeleiteten Terminstatus (Mindestteilnehmerzahl entfällt, [F-003](https://github.com/LetsFinishSchool/chronos-v3/issues/13)).

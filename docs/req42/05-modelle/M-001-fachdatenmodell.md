@@ -51,7 +51,7 @@ erDiagram
 | Kanal / Einstellung | Kanal je Person (Web Push, E-Mail, optional Messenger) und Einstellungen je Ereignisart |
 | Serie | RRULE (RFC 5545), Beginn, Team, Ausnahmen (einzelne Vorkommen, Ferienzeiträume); Vorkommen sind Termine mit Rückmeldung je Vorkommen |
 | Ferienzeitraum | Team, Name, Von, Bis; Ausnahme für Serien |
-| Zeitraumsregel | Team, Zeitraum, Aktion (absagen); wirkt auf bestehende und später angelegte Termine ([F-016](../04-product-backlog/features/F-016-zeitraumsregeln.md)) |
+| Zeitraumsregel | Team, Zeitraum, Aktion (absagen); wirkt auf bestehende und später angelegte Termine ([F-016](https://github.com/LetsFinishSchool/chronos-v3/issues/88)) |
 | Kostenposten | Benutzer oder Team, Auslöser, Anbieter, Zeitpunkt, Menge, Betrag ([RB-010](../07-randbedingungen/RB-010-kostenzuordnung.md)) |
 | Änderungsverlauf | Akteur (Person oder Assistent im Auftrag einer Person), Aktion, Vorher-Zustand zur Wiederherstellung, Zeitpunkt, Bündel-ID; für Teams, Mitgliedschaften, Termine, Veranstaltungen |
 | Benachrichtigung | Ereignis, **Auslöser**, Empfänger, Kanal, Ergebnis, Zeitpunkt ([QA-002](../06-qualitaet/QA-002-nachvollziehbarkeit.md)) |

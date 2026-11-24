@@ -11,6 +11,6 @@ verknuepft: [F-014]
 
 # RM-007: Serientermine
 
-**Inhalt:** [F-014](../04-product-backlog/features/F-014-serientermine.md) mit vollen RRULE-Regeln und Schulferien-Ausnahmen.
+**Inhalt:** [F-014](https://github.com/LetsFinishSchool/chronos-v3/issues/75) mit vollen RRULE-Regeln und Schulferien-Ausnahmen.
 
 **Termin:** kein fester Termin; Meilenstein, der nach Fertigstellung erreicht wird

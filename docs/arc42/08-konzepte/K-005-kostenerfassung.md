@@ -10,7 +10,7 @@ quellen: [req42 RB-010, FA-018, QA-009, RA-009, FA-015]
 
 **Vorgaben:**
 
-- Jeder kostenverursachende Aufruf (E-Mail, Messenger, KI) erzeugt einen **Einzelposten**: Benutzer oder Team, Auslöser, Anbieter, Zeitpunkt, Menge, Betrag ([FA-018](../../req42/04-product-backlog/anforderungen/FA-018-kostenerfassung.md)).
+- Jeder kostenverursachende Aufruf (E-Mail, Messenger, KI) erzeugt einen **Einzelposten**: Benutzer oder Team, Auslöser, Anbieter, Zeitpunkt, Menge, Betrag ([FA-018](https://github.com/LetsFinishSchool/chronos-v3/issues/39)).
 - Zuordnung: Benutzer; ist das unmöglich, Team. **Unzuordenbare Posten gibt es nicht.**
 - Auch fehlgeschlagene, aber berechnete Aufrufe werden erfasst.
 - Summen sind in Einzelposten aufschlüsselbar und auf die auslösende Aktion rückführbar; Summe der Posten = Anbieterrechnung ([QA-009](../../req42/06-qualitaet/QA-009-kostentransparenz.md)).

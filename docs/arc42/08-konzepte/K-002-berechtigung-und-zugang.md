@@ -13,7 +13,7 @@ quellen: [req42 M-002, FA-001, FA-002, FA-011, QA-007, RA-004, RA-007]
 - Alle Mitglieder eines Teams sind gleichberechtigt; **Labels geben keine Rechte**.
 - Mitgliedschaft erbt **nach oben**: Mitglied eines Unter-Teams ist Mitglied aller übergeordneten Teams. Gäste erben nicht, sie gelten nur für das konkrete Team bzw. den konkreten Termin.
 - „Nur die Person selbst“ ändert: eigene Antwort, Einstellungen, Feed-Link.
-- Der Assistent handelt ausschließlich mit den Rechten der angemeldeten Person ([FA-015](../../req42/04-product-backlog/anforderungen/FA-015-ki-assistent.md)).
+- Der Assistent handelt ausschließlich mit den Rechten der angemeldeten Person ([FA-015](https://github.com/LetsFinishSchool/chronos-v3/issues/80)).
 - Der Missbrauchsschutz ist nicht Einschränkung, sondern Nachvollziehbarkeit: Verlauf, Benachrichtigung der Betroffenen, Wiederherstellung gelöschter Objekte ([K-004](K-004-aenderungsverlauf-und-rueckgaengig.md)).
 
 **Zugangsarten:**

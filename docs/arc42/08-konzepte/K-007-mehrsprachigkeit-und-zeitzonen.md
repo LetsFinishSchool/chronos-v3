@@ -15,7 +15,7 @@ quellen: [req42 RB-001, FA-003, RA-008]
 - Texte stehen nicht verstreut im Code; Benachrichtigungstexte werden **je Empfänger** in dessen Sprache erzeugt, nicht beim Auslöser.
 - Fachbegriffe folgen dem [Glossar](../../req42/08-terminologie/glossar.md).
 
-**Zeitzonen** ([FA-003](../../req42/04-product-backlog/anforderungen/FA-003-termine.md)):
+**Zeitzonen** ([FA-003](https://github.com/LetsFinishSchool/chronos-v3/issues/13)):
 
 - Beginn, Ende und Erinnerungen gelten in der Zeitzone des Termins (Standard: Team, Europe/Berlin).
 - Anzeige in der Zeitzone der Person; Sommerzeitwechsel sind zu berücksichtigen, insbesondere bei Serien (RRULE in Terminzeitzone).

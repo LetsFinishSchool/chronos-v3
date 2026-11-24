@@ -28,5 +28,5 @@ Aufgeführt sind nur Schnittstellen, deren Art durch Standards oder req42 festst
 
 ## Zusätzliche Eingänge
 
-- **Zeitgesteuerte Auslöser** (Erinnerungen, wöchentliche Zusammenfassung, Fristen, Ablauf von Links, 30-Tage-Löschung): Chronos handelt auch ohne Benutzeraktion ([FA-005](../../req42/04-product-backlog/anforderungen/FA-005-rueckmeldung.md), [FA-017](../../req42/04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md)). Der Mechanismus: Ereignisse in der Datenbank festhalten, Worker arbeitet ab (E-006).
+- **Zeitgesteuerte Auslöser** (Erinnerungen, wöchentliche Zusammenfassung, Fristen, Ablauf von Links, 30-Tage-Löschung): Chronos handelt auch ohne Benutzeraktion ([FA-005](https://github.com/LetsFinishSchool/chronos-v3/issues/17), [FA-017](https://github.com/LetsFinishSchool/chronos-v3/issues/32)). Der Mechanismus: Ereignisse in der Datenbank festhalten, Worker arbeitet ab (E-006).
 - **Operationsaufrufe des Assistenten** kommen über dieselbe Schicht wie die der Oberfläche ([K-006](../08-konzepte/K-006-operationsschicht-und-assistent.md)).

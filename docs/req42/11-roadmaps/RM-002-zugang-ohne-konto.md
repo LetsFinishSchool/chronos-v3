@@ -11,6 +11,6 @@ verknuepft: []
 
 # RM-002: Zugang ohne Konto
 
-**Inhalt:** Einladungslinks, Antworten ohne Konto, optionaler Team-Beitritt ([F-002](../04-product-backlog/features/F-002-mitglieder-und-einladungslink.md)).
+**Inhalt:** Einladungslinks, Antworten ohne Konto, optionaler Team-Beitritt ([F-002](https://github.com/LetsFinishSchool/chronos-v3/issues/49)).
 
 **Termin:** kein fester Termin; Meilenstein, der nach Fertigstellung erreicht wird

@@ -8,7 +8,7 @@ quellen: [req42 FA-017, FA-001, FA-015, FA-016, RA-004, M-001]
 
 # K-004: Änderungsverlauf und Wiederherstellung
 
-**Vorgaben** ([FA-017](../../req42/04-product-backlog/anforderungen/FA-017-rueckgaengig-machen.md), Stand PO 2026-11-20: kein allgemeines Rückgängig):
+**Vorgaben** ([FA-017](https://github.com/LetsFinishSchool/chronos-v3/issues/32), Stand PO 2026-11-20: kein allgemeines Rückgängig):
 
 - Jede Änderung an Teams, Mitgliedschaften, Terminen, Veranstaltungen steht im Verlauf als Anzeige: **Akteur** (Person, „Assistent im Auftrag von …“ oder Regel), Aktion, Zeitpunkt, **Bündel-ID**. Ein Vorher-Zustand wird nicht gespeichert.
 - **Wiederherstellung** gibt es für gelöschte Teams und Termine samt Unter-Teams, Mitgliedschaften, Rückmeldungen, Labels und Nachrichten (Soft-Delete, 30 Tage, danach endgültig gelöscht; [K-001](K-001-fachmodell-und-persistenz.md)). Gebündelte Löschungen lassen sich als Ganzes wiederherstellen.

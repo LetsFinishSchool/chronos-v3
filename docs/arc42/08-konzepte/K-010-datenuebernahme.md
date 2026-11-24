@@ -8,7 +8,7 @@ quellen: [req42 RB-004, FA-012, M-005, RA-005, RM-001]
 
 # K-010: Datenübernahme aus chronos-root
 
-**Vorgaben** ([FA-012](../../req42/04-product-backlog/anforderungen/FA-012-datenuebernahme.md), [M-005](../../req42/05-modelle/M-005-migrationsabbildung.md)):
+**Vorgaben** ([FA-012](https://github.com/LetsFinishSchool/chronos-v3/issues/1), [M-005](../../req42/05-modelle/M-005-migrationsabbildung.md)):
 
 - Übernommen werden Benutzer (Keycloak-Kennung bleibt, Logins gültig), Termine mit Zu-/Absagen, Gruppen als Teams (flach, Besitzer wird Mitglied), Terminnachrichten. Freundschaften, Mindestteilnehmerzahl und abgeleiteter Status entfallen. Geräteabos optional.
 - **Wiederholbar**, ohne Datenverlust im Altsystem.

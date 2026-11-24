@@ -11,7 +11,7 @@ quellen: [req42 M-004, FA-005, FA-008, QA-002, QA-004, QA-010, Z-002, Z-009, Z-0
 **Vorgaben:**
 
 1. **Ereignis ≠ Benachrichtigung.** Ein fachliches Ereignis hat genau einen **benannten Auslöser** (Person, Assistent im Auftrag, Regel, Zeit) und wird festgehalten. Benachrichtigungen sind Reaktionen darauf ([M-004](../../req42/05-modelle/M-004-benachrichtigungsmatrix.md)).
-2. **Protokoll** je Benachrichtigung: Auslöser, Empfänger, Kanal, Ergebnis, Zeitpunkt ([FA-008](../../req42/04-product-backlog/anforderungen/FA-008-benachrichtigungen.md)); Zielgröße: 100 % mit Auslöser.
+2. **Protokoll** je Benachrichtigung: Auslöser, Empfänger, Kanal, Ergebnis, Zeitpunkt ([FA-008](https://github.com/LetsFinishSchool/chronos-v3/issues/22)); Zielgröße: 100 % mit Auslöser.
 3. **Höchstens eine Zustellung** je Ereignis, Empfänger und Kanal, auch bei Wiederholung nach Fehler. **Kein Ereignis geht verloren**, auch bei Neustart.
 4. **Wiederholung begrenzt**, danach Ersatzkanal E-Mail, sofern die Person ihn erlaubt hat; Externe nur über hinterlegte Kanäle (?).
 5. **Einstellung je Person** und Ereignisart; Standardkanäle Web Push und E-Mail; Messenger optional hinter derselben Kanal-Abstraktion.

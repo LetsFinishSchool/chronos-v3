@@ -11,6 +11,6 @@ verknuepft: []
 
 # RM-005: Kalender-Feed und Terminnachrichten
 
-**Inhalt:** [F-009](../04-product-backlog/features/F-009-kalender-feed.md), [F-010](../04-product-backlog/features/F-010-terminnachrichten.md) (Nachrichten werden in RM-001 migriert, Neuschreiben ggf. später).
+**Inhalt:** [F-009](https://github.com/LetsFinishSchool/chronos-v3/issues/69), [F-010](https://github.com/LetsFinishSchool/chronos-v3/issues/72) (Nachrichten werden in RM-001 migriert, Neuschreiben ggf. später).
 
 **Termin:** kein fester Termin; Meilenstein, der nach Fertigstellung erreicht wird

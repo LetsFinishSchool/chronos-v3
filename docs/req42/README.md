@@ -14,7 +14,7 @@ Anforderungen nach [req42](https://www.req42.de/) mit den 12 Artefakten. Jede En
 | 1 | [01-ziele/](01-ziele/README.md) | Ziele | `Z-nnn` |
 | 2 | [02-stakeholder/](02-stakeholder/README.md) | Stakeholder | `SH-nnn` |
 | 3 | [03-scope/](03-scope/README.md) | Scope-Abgrenzung | `SC-nnn` |
-| 4 | [04-product-backlog/](04-product-backlog/README.md) | Features und Anforderungen mit Akzeptanzkriterien | `F-nnn`, `FA-nnn` |
+| 4 | [04-product-backlog/](04-product-backlog/README.md) | Verweis auf die GitHub-Issues (Epics, Features, Stories, Tasks); frühere Kennungen `F-nnn`, `FA-nnn` | GitHub-Issues |
 | 5 | [05-modelle/](05-modelle/README.md) | Modelle | `M-nnn` |
 | 6 | [06-qualitaet/](06-qualitaet/README.md) | Qualitätsanforderungen | `QA-nnn` |
 | 7 | [07-randbedingungen/](07-randbedingungen/README.md) | Randbedingungen | `RB-nnn` |

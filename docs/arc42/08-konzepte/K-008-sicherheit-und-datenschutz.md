@@ -11,7 +11,7 @@ quellen: [req42 QA-007, RB-006, Z-007, FA-013, RA-007, RA-010]
 **Vorgaben:**
 
 - **Datensparsamkeit:** Nur nötige personenbezogene Daten (Keycloak-Kennung, Anzeigename, E-Mail, Gast-Name). Keine Daten von Kindern und Eltern ([Z-007](../../req42/01-ziele/Z-007-datensparsam-und-datenschutzkonform-betreiben.md)).
-- **Datenschutzerklärung = Verarbeitung:** Sie beschreibt nur, was das System tut, und umgekehrt. Standardtexte DE/EN, Product Owner ist Verantwortlicher ([FA-013](../../req42/04-product-backlog/anforderungen/FA-013-rechtliche-seiten.md)). Impressum und Datenschutz sind ohne Anmeldung erreichbar.
+- **Datenschutzerklärung = Verarbeitung:** Sie beschreibt nur, was das System tut, und umgekehrt. Standardtexte DE/EN, Product Owner ist Verantwortlicher ([FA-013](https://github.com/LetsFinishSchool/chronos-v3/issues/31)). Impressum und Datenschutz sind ohne Anmeldung erreichbar.
 - **Link-Token** (Einladung, Gast, Feed): nicht erratbar, widerrufbar, ablaufend; Gäste sehen nur, wofür der Link gilt ([QA-007](../../req42/06-qualitaet/QA-007-sicherheit-und-datenschutz.md)).
 - **Zugangstoken** sind für Skripte der Seite nicht lesbar.
 - **Backup** clientseitig verschlüsselt; Speicher in der EU.
