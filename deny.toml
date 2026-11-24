@@ -1,0 +1,59 @@
+# Lieferkettenprüfung (cargo-deny), harte CI-Prüfung nach ADR-013.
+#
+# Jede Ausnahme braucht `reason` mit Ablaufdatum im Format `bis JJJJ-MM-TT`
+# (90 Tage ab Eintrag). tools/check-deny-expiry.sh schlägt nach Ablauf fehl
+# und warnt 14 Tage vorher.
+
+[graph]
+all-features = true
+
+[advisories]
+version = 2
+unmaintained = "all"
+yanked = "deny"
+# Ausnahmen: { id = "RUSTSEC-JJJJ-NNNN", reason = "<Begründung>, bis JJJJ-MM-TT" }
+ignore = []
+
+[licenses]
+version = 2
+# Erweiterung nur mit Begründung im PR.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+]
+# Ausnahmen: { crate = "<name>", allow = ["<Lizenz>"], reason = "<Begründung>, bis JJJJ-MM-TT" }
+exceptions = []
+
+# Workspace-Crates sind `publish = false` und haben keine Lizenzangabe.
+[licenses.private]
+ignore = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+# Pfadabhängigkeiten im Workspace sind keine Wildcards.
+allow-wildcard-paths = true
+# Ausnahmen für chrono und chrono-tz (ADR-012) kommen mit der Abhängigkeit,
+# jeweils mit Ablaufdatum.
+
+# Kein OpenSSL, rustls überall (ADR-013).
+deny = [
+    { crate = "openssl-sys" },
+    { crate = "native-tls" },
+
+    # Nur ein Crate darf die Bibliothek nutzen (ADR-009). Weitere Einträge
+    # kommen mit der jeweiligen Abhängigkeit.
+    { crate = "lettre", wrappers = ["chronos-channels"] },
+]
+
