@@ -11,7 +11,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): sieben Crates mit erlaubten und verbotenen Kanten zu `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`)
 
 ## Code
-- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos`, Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 bei clap, Zyklen über Dev-Abhängigkeiten), Prüfbefehle
+- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos`, Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, eigener Code 69; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
 
 ## Lektionen
 - [Wissen nur im Wiki](lessons/wissen-nur-im-wiki.md): Kein Agenten-Gedächtnis, alles projektgebunden im Wiki

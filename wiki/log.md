@@ -226,3 +226,6 @@ Umsetzung von #99 auf Branch `issue/99`: Workspace (resolver 3, edition 2024, Li
 
 ## [2026-11-24] ingest | #99 Toolchain auf 1.100.0
 Auf Anweisung des Nutzers (Product Owner): Toolchain in #99 und PR #108 von 1.95.0 auf 1.100.0 (Release 2026-11-09). `Cargo.lock` blieb unverändert. Fund: Cargo 1.100 meldet ungenutzte Abhängigkeiten als Warnung im Manifest, die `clippy -D warnings` nicht zum Fehler macht; leere Crates binden ihre Kanten deshalb mit `use … as _;` ein. Ticket #99 angepasst. `docs/` nennt keine Toolchain-Version, kein Vorschlag nötig. Lehre: Vorgegebene Versionen aus Tickets beim Start gegen das aktuelle Release prüfen und eine Abweichung im PR nennen.
+
+## [2026-11-24] ingest | #99 Exit-Code 69 statt 2
+Auf Anweisung des Nutzers (Product Owner): Nicht implementierte Unterbefehle enden mit 69 (`EX_UNAVAILABLE`) statt 2, weil clap 2 für Bedienfehler nutzt. Test für Bedienfehler ergänzt, Ticket #99 und PR #108 angepasst. `cargo-deny` bleibt bewusst in #107 (Entscheidung des Product Owners). Lehre: Ticketvorgaben für Exit-Codes gegen die Konventionen der genutzten Bibliothek prüfen (clap: 2 = Bedienfehler) und eine Kollision vor der Umsetzung melden.

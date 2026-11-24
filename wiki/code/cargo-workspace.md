@@ -9,6 +9,7 @@ sources:
   - crates/chronos/tests/architecture.rs@380e69f
   - crates/chronos/src/main.rs@380e69f
   - rust-toolchain.toml@1c961a8
+  - crates/chronos/tests/cli.rs@19720ed
 confidence: hoch
 last-verified: 2026-11-24
 ---
@@ -25,8 +26,8 @@ Verbindlich ist der [Crate-Zuschnitt](../../docs/arc42/05-bausteine/02-crate-zus
 - Modulkommentar jeder `lib.rs`/`main.rs`: „Zuständig für …“ / „Nicht zuständig für …“ als Kurzfassung von Kapitel 5. Bei Änderungen am Zuschnitt mitziehen.
 
 ## Binary
-- `chronos serve|worker|migrate` geben „noch nicht implementiert“ auf stderr aus, Exit-Code 2 (`crates/chronos/tests/cli.rs`).
-- Stolperstelle: clap beendet sich bei Bedienfehlern (unbekannter Unterbefehl, fehlendes Argument) **ebenfalls** mit 2. Exit-Code 2 allein unterscheidet also nicht „nicht implementiert“ von „falsch aufgerufen“; Tests prüfen zusätzlich die Meldung.
+- `chronos serve|worker|migrate` geben „noch nicht implementiert“ auf stderr aus, Exit-Code **69** (`EX_UNAVAILABLE` aus `sysexits.h`), Konstante `EXIT_NOT_IMPLEMENTED` in `main.rs` (`crates/chronos/tests/cli.rs`).
+- Ursprünglich verlangte #99 Exit-Code 2. Der Product Owner hat auf 69 umgestellt, weil clap bei Bedienfehlern (unbekannter Unterbefehl, falsches Argument, kein Unterbefehl) **ebenfalls** mit 2 endet und der Aufrufer beides nicht unterscheiden konnte. Ein Test sichert, dass Bedienfehler weiter mit 2 enden. Für eigene Exit-Codes nie 2 verwenden.
 - `use chronos_domain as _;` in `main.rs` bleibt stehen, auch wenn es ungenutzt aussieht: Es linkt die Operationen (später über `inventory`).
 
 ## Architekturtest (`crates/chronos/tests/architecture.rs`)
