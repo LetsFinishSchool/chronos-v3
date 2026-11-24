@@ -1,0 +1,13 @@
+[package]
+name = "chronos-core"
+description = "Operationsschicht, Kontext, Fehler und Zeittypen von Chronos"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+repository.workspace = true
+
+[dependencies]
+
+[lints]
+workspace = true

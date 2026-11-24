@@ -1,0 +1,38 @@
+# Cargo-Workspace von Chronos.
+#
+# Crate-Zuschnitt und erlaubte Kanten: docs/arc42/05-bausteine/02-crate-zuschnitt.md
+# und ADR-009. Die Kanten prüft crates/chronos/tests/architecture.rs.
+
+[workspace]
+resolver = "3"
+members = [
+    "crates/adapters",
+    "crates/channels",
+    "crates/core",
+    "crates/domain",
+    "crates/web",
+    "crates/worker",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95.0"
+publish = false
+repository = "https://github.com/LetsFinishSchool/chronos-v3"
+
+[workspace.dependencies]
+# Workspace-Crates: Welche Crate welche einbinden darf, steht in der Positivliste
+# (Kapitel 5, Crate-Zuschnitt) und wird vom Architekturtest geprüft.
+chronos-adapters = { path = "crates/adapters" }
+chronos-channels = { path = "crates/channels" }
+chronos-core = { path = "crates/core" }
+chronos-domain = { path = "crates/domain" }
+chronos-web = { path = "crates/web" }
+chronos-worker = { path = "crates/worker" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }

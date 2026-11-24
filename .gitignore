@@ -16,3 +16,6 @@ venv/
 
 # direnv: lokale Umgebung mit Token (nur .envrc.example wird eingecheckt)
 .envrc
+
+# Rust
+target/
