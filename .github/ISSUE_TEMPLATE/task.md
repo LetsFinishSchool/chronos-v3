@@ -21,4 +21,10 @@ Betroffene Module/Dateien, Ansatz, Randbedingungen. Genug, dass ein Agent ohne R
 ## Prüfung
 Prüfbefehle des betroffenen Bausteins (legt die Entwicklung fest, siehe ADR-009 und ADR-013).
 
+## Bereit?
+- [ ] Eltern-Story bereit, Vorgänger-Tasks gemergt
+- [ ] Prüfbefehle benannt und lauffähig
+- [ ] Bei UI: Verweis auf Wireframe und Tokens
+- [ ] Umfang höchstens ein PR
+
 <!-- Label `ready-for-agent` erst setzen, wenn Ziel, Umsetzung und „Fertig, wenn“ ausgefüllt sind und keine Rückfrage offen ist. -->
