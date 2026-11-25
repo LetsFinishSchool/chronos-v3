@@ -1,9 +1,9 @@
 ---
 title: Crate-Zuschnitt des Cargo-Workspace
 status: freigegeben
-freigegeben-am: 2026-11-24
+freigegeben-am: 2026-11-25
 freigegeben-von: Product Owner
-quellen: [ADR-002, ADR-005, ADR-006, ADR-008, ADR-009, ADR-012, ADR-013, K-003, K-005, Kapitel 5 Ebene 1, Gespräch mit dem Product Owner 2026-11-24]
+quellen: [ADR-002, ADR-005, ADR-006, ADR-008, ADR-009, ADR-012, ADR-013, K-003, K-005, Kapitel 5 Ebene 1, Gespräch mit dem Product Owner 2026-11-24, Gespräch zu #100 2026-11-25]
 ---
 
 # Kapitel 5: Crate-Zuschnitt
@@ -60,7 +60,7 @@ Einordnungsregel: Entscheidet die Sache, **was fachlich gilt**, gehört sie nach
 - Einstiegspunkt mit den Unterbefehlen `serve`, `worker` und `migrate` (später Import, E-017); ein Image für alle ([ADR-002](../09-entscheidungen/ADR-002-zerlegung-monolith-plus-worker.md), [ADR-011](../09-entscheidungen/ADR-011-migrationswerkzeug.md)).
 - Konfiguration aus Umgebung und Secrets laden, Logging und Tracing initialisieren.
 - Alles zusammenstecken: `domain` einbinden, Adapter und Kanäle erzeugen und an Web und Worker übergeben.
-- Eingebettete Migrationen für `chronos migrate`.
+- Eingebettete Migrationen für `chronos migrate`: **ein** Verzeichnis `crates/chronos/migrations/` mit allen Migrationen, auch denen der Fachtabellen (`sqlx::migrate!` bettet genau ein Verzeichnis ein).
 
 **Nicht zuständig**
 - Fachlogik, Berechtigungen, Protokolle: Alles, was ein anderes Crate brauchen könnte, gehört dorthin. Von `chronos` hängt nichts ab.
@@ -81,7 +81,7 @@ Einordnungsregel: Entscheidet die Sache, **was fachlich gilt**, gehört sie nach
 
 **Zuständig**
 - Die Fachbereiche aus der Bausteinsicht: Teams und Mitglieder, Termine, Serien und Veranstaltungen, Rückmeldung, Terminfindung, Labels, Terminnachrichten, Zeitraumsregeln.
-- Operationen als **reine Fachlogik** im Rahmen, einschließlich der Ableitung des Geltungsbereichs aus den Parametern und der zugehörigen SQL-Abfragen; Fachtabellen als Migrationen; Anzeige-Operationen (z. B. Änderungsverlauf lesen).
+- Operationen als **reine Fachlogik** im Rahmen, einschließlich der Ableitung des Geltungsbereichs aus den Parametern und der zugehörigen SQL-Abfragen; Fachtabellen als Migrationen im gemeinsamen Verzeichnis von `chronos` (siehe dort); Anzeige-Operationen (z. B. Änderungsverlauf lesen).
 - Fachereignisse **erzeugen** (Name, Auslöser). Die RRULE-Auswertung liegt isoliert in einem eigenen Modul ([ADR-004](../09-entscheidungen/ADR-004-sprache-und-laufzeit.md)).
 
 **Nicht zuständig**
