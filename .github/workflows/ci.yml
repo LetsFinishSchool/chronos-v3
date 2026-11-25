@@ -101,7 +101,11 @@ jobs:
       # install-action kennt sqlx-cli nicht; Version von Hand anheben (Dependabot sieht sie nicht).
       - run: cargo install sqlx-cli --version 0.9.1 --locked --no-default-features --features rustls,postgres
       - run: psql postgres://postgres:postgres@127.0.0.1:5432/chronos -v ON_ERROR_STOP=1 -f tools/db/init-roles.sql
+      # Das Binary baut offline mit den eingecheckten .sqlx-Daten: `query!` braucht
+      # sonst schon beim Übersetzen das Schema, das erst `migrate` anlegt.
       - run: cargo run --locked -- migrate
+        env:
+          SQLX_OFFLINE: "true"
       - run: cargo sqlx prepare --workspace --check -- --all-targets
 
   supply-chain:
