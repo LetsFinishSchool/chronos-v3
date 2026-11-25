@@ -238,3 +238,6 @@ Auf Anweisung des Nutzers: Abschnitt „Kommentare im Code“ in `AGENTS.md` (Ko
 
 ## [2026-11-24] ingest | #107 CI und Lieferkette
 CI, cargo-deny, Ablaufskript, Dependabot umgesetzt; Seite `code/ci-und-lieferkette.md`.
+
+## [2026-11-25] ingest | #100 konkretisiert
+Auf Anweisung des Nutzers (Product Owner): Ticket #100 mit Prüfbefehlen, lokalem PostgreSQL, CI-Änderungen und vier Festlegungen (Migrationsverzeichnis, Pool in `core`, Schemaversionsprüfung mit Exit-Code 75, sqlx 0.9) konkretisiert. Kapitel 5 direkt geändert (ein Migrationsverzeichnis in `crates/chronos/migrations/`), Freigabe durch den Product Owner im Gespräch. Seite `concepts/sqlx-und-rsa-advisory.md`. Lehre: Abhängigkeitsfragen zu Advisories im Wegwerf-Crate mit `cargo generate-lockfile` und `cargo deny` prüfen, statt zu raten.

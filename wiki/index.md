@@ -8,6 +8,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Farb- und Token-System](concepts/farb-und-token-system.md): Purple-Schema, Textstile, Schatten, Verläufe; WCAG-AA-Anpassungen und Prüfstand; Datei `designs/tokens/tokens.json` (kein Figma-Export im Repo)
 - [Worktrees: .env und .envrc übernehmen](concepts/worktree-dateien-uebernehmen.md): herdr kopiert keine gitignorierten Dateien; Hook `.githooks/post-checkout` liest `.worktreekeep`
 - [req42-Backlog und GitHub-Issues](concepts/req42-anforderung-vs-feature-und-tickets.md): FA/F-Unterschied, Überführung in 91 Issues, Anpassungen, Stolpersteine
+- [sqlx und das rsa-Advisory](concepts/sqlx-und-rsa-advisory.md): sqlx 0.8 bringt `rsa` in die Lockdatei, 0.9.1 nicht; Entscheidung für 0.9 in #100
 - [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): sieben Crates mit erlaubten und verbotenen Kanten zu `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`)
 
 ## Code
