@@ -17,6 +17,8 @@ concurrency:
 
 env:
   CARGO_TERM_COLOR: always
+  # query! liest .sqlx statt einer Datenbank; die Prüfung der Dateien macht Job sqlx-offline.
+  SQLX_OFFLINE: "true"
 
 jobs:
   format:
@@ -40,15 +42,67 @@ jobs:
     if: github.event_name != 'schedule'
     name: Tests
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        # Gleiche Major-Version wie compose.yaml (ADR-003).
+        image: postgres:19
+        env:
+          POSTGRES_DB: chronos
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U postgres -d chronos"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgres://chronos_migrate:chronos_migrate@127.0.0.1:5432/chronos
+      DATABASE_URL_APP: postgres://chronos_app:chronos_app@127.0.0.1:5432/chronos
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
       - uses: taiki-e/install-action@fe3acb53a98b62c772db35de75ce0e4595e7ca8c # v2.90.8
         with:
           tool: cargo-nextest@0.9.152
+      - run: psql postgres://postgres:postgres@127.0.0.1:5432/chronos -v ON_ERROR_STOP=1 -f tools/db/init-roles.sql
       - run: cargo nextest run --workspace --locked
       # nextest führt keine Doctests aus
       - run: cargo test --workspace --doc --locked
+
+  sqlx-offline:
+    if: github.event_name != 'schedule'
+    name: sqlx offline
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        # Gleiche Major-Version wie compose.yaml (ADR-003).
+        image: postgres:19
+        env:
+          POSTGRES_DB: chronos
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U postgres -d chronos"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgres://chronos_migrate:chronos_migrate@127.0.0.1:5432/chronos
+      DATABASE_URL_APP: postgres://chronos_app:chronos_app@127.0.0.1:5432/chronos
+      # Die Prüfung braucht die Datenbank, nicht den Offline-Modus.
+      SQLX_OFFLINE: "false"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+      # install-action kennt sqlx-cli nicht; Version von Hand anheben (Dependabot sieht sie nicht).
+      - run: cargo install sqlx-cli --version 0.9.1 --locked --no-default-features --features rustls,postgres
+      - run: psql postgres://postgres:postgres@127.0.0.1:5432/chronos -v ON_ERROR_STOP=1 -f tools/db/init-roles.sql
+      - run: cargo run --locked -- migrate
+      - run: cargo sqlx prepare --workspace --check -- --all-targets
 
   supply-chain:
     name: Lieferkette
