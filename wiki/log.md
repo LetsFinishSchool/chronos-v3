@@ -244,3 +244,6 @@ Auf Anweisung des Nutzers (Product Owner): Ticket #100 mit Prüfbefehlen, lokale
 
 ## [2026-11-25] ingest | PostgreSQL-Version 19 in ADR-003
 Auf Anweisung des Nutzers (Product Owner): Version „PostgreSQL 19“ direkt in `docs/arc42/09-entscheidungen/ADR-003-datenbank-postgresql.md` (Abschnitt Folgen) festgehalten, Freigabe im Gespräch. Ticket #100 nennt `postgres:19` für `compose.yaml` und CI. Kein weiterer Wiki-Bedarf.
+
+## [2026-11-25] ingest | #100 Datenbankanbindung und Migrationswerkzeug
+Umgesetzt: sqlx 0.9, `core::db`, `chronos migrate`, Schemaprüfung in `serve`/`worker` (Exit-Code 75), `compose.yaml`, Rollen-Skript, Datenbanktests, `.sqlx`, CI-Job `sqlx-offline`. Seite `code/datenbank-und-migrationen.md`. Lehren: Healthcheck-Falle am Init-Socket, Lizenz `CDLA-Permissive-2.0`, `install-action` ohne `sqlx-cli`. Nicht geprüft: Gegenprobe der CI auf Wegwerf-Branch und CI-Lauf selbst. Kein Widerspruch zu `docs/`.
