@@ -4,3 +4,4 @@
 
 // Platzhalter, bis Code die Abhängigkeiten nutzt (`unused_crate_dependencies`).
 use chronos_core as _;
+use sqlx as _;

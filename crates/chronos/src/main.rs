@@ -17,6 +17,8 @@ use chronos_channels as _;
 use chronos_core as _;
 use chronos_web as _;
 use chronos_worker as _;
+use sqlx as _;
+use tokio as _;
 
 /// `EX_UNAVAILABLE` aus `sysexits.h`; nicht 2, das clap für Bedienfehler nutzt.
 const EXIT_NOT_IMPLEMENTED: u8 = 69;
