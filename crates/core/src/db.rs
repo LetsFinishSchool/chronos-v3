@@ -49,7 +49,7 @@ pub async fn applied_version(pool: &PgPool) -> Result<Option<i64>, sqlx::Error> 
     if !table_exists {
         return Ok(None);
     }
-    sqlx::query_scalar("SELECT max(version) FROM _sqlx_migrations WHERE success")
+    sqlx::query_scalar!("SELECT max(version) FROM _sqlx_migrations WHERE success")
         .fetch_one(pool)
         .await
 }
