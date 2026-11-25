@@ -26,6 +26,15 @@ pub async fn connect(url: &str) -> Result<PgPool, sqlx::Error> {
         .await
 }
 
+/// Wie [`connect`], baut die erste Verbindung aber erst bei Bedarf auf. So kann
+/// [`wait_for_schema`] eine noch nicht erreichbare Datenbank abwarten.
+pub fn connect_lazy(url: &str) -> Result<PgPool, sqlx::Error> {
+    PgPoolOptions::new()
+        .max_connections(MAX_CONNECTIONS)
+        .acquire_timeout(ACQUIRE_TIMEOUT)
+        .connect_lazy(url)
+}
+
 /// Neueste Version, die das Binary kennt; `0`, wenn es keine Migration enthält.
 pub fn required_version(migrator: &Migrator) -> i64 {
     migrator.iter().map(|m| m.version).max().unwrap_or(0)
@@ -69,11 +78,14 @@ impl std::fmt::Display for SchemaError {
                 applied,
                 waited,
             } => {
-                let applied = applied.map_or_else(|| "keine".to_owned(), |v| v.to_string());
+                let state = applied.map_or_else(
+                    || "Es ist noch keine Migration eingespielt".to_owned(),
+                    |version| format!("Die Schemaversion ist {version}"),
+                );
                 write!(
                     f,
-                    "Schemaversion {applied} ist älter als die vom Binary benötigte Version {required} \
-                     (nach {}s Wartezeit). `chronos migrate` ausführen oder auf den Migrationsjob warten.",
+                    "{state}, das Binary benötigt mindestens {required} (nach {}s Wartezeit). \
+                     `chronos migrate` ausführen oder auf den Migrationsjob warten.",
                     waited.as_secs()
                 )
             }
