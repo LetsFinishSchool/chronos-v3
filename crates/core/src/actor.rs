@@ -5,7 +5,7 @@ use uuid::Uuid;
 
 use crate::schema::JsonSchema;
 
-/// Kennung eines Akteurs in der Tabelle `person`.
+/// Identifier of a person or guest.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 #[serde(transparent)]
 pub struct PersonId(Uuid);

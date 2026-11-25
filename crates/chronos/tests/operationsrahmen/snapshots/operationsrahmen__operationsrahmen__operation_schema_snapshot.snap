@@ -1,0 +1,221 @@
+---
+source: crates/chronos/tests/operationsrahmen/main.rs
+expression: "Frame::describe()"
+---
+[
+  {
+    "description": "Creates a note owned by the given person.",
+    "mode": "write",
+    "name": "notes.create",
+    "params": {
+      "$defs": {
+        "PersonId": {
+          "description": "Identifier of a person or guest.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/PersonId"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "text"
+      ],
+      "title": "CreateNote",
+      "type": "object"
+    },
+    "result": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "NoteCreated",
+      "type": "object"
+    }
+  },
+  {
+    "description": "Creates a note and then fails; leaves nothing behind.",
+    "mode": "write",
+    "name": "notes.create_then_fail",
+    "params": {
+      "$defs": {
+        "PersonId": {
+          "description": "Identifier of a person or guest.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/PersonId"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "text"
+      ],
+      "title": "CreateNote",
+      "type": "object"
+    },
+    "result": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "NoteCreated",
+      "type": "object"
+    }
+  },
+  {
+    "description": "Reads a note of the given person.",
+    "mode": "read",
+    "name": "notes.read",
+    "params": {
+      "$defs": {
+        "PersonId": {
+          "description": "Identifier of a person or guest.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "owner": {
+          "$ref": "#/$defs/PersonId"
+        }
+      },
+      "required": [
+        "owner",
+        "id"
+      ],
+      "title": "ReadNote",
+      "type": "object"
+    },
+    "result": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "Note",
+      "type": "object"
+    }
+  },
+  {
+    "description": "A read operation that tries to record a change.",
+    "mode": "read",
+    "name": "notes.record_while_reading",
+    "params": {
+      "$defs": {
+        "PersonId": {
+          "description": "Identifier of a person or guest.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/PersonId"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "text"
+      ],
+      "title": "CreateNote",
+      "type": "object"
+    },
+    "result": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "NoteCreated",
+      "type": "object"
+    }
+  },
+  {
+    "description": "A read operation that tries to write.",
+    "mode": "read",
+    "name": "notes.write_while_reading",
+    "params": {
+      "$defs": {
+        "PersonId": {
+          "description": "Identifier of a person or guest.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/PersonId"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "text"
+      ],
+      "title": "CreateNote",
+      "type": "object"
+    },
+    "result": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "NoteCreated",
+      "type": "object"
+    }
+  }
+]

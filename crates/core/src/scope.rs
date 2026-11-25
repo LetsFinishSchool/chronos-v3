@@ -22,3 +22,32 @@ impl Scope {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use uuid::Uuid;
+
+    use super::*;
+
+    fn id() -> PersonId {
+        PersonId::new(Uuid::new_v4())
+    }
+
+    #[test]
+    fn public_permits_guests() {
+        assert!(Scope::Public.permits(&Principal::guest(id())));
+    }
+
+    #[test]
+    fn authenticated_refuses_guests() {
+        assert!(Scope::Authenticated.permits(&Principal::person(id())));
+        assert!(!Scope::Authenticated.permits(&Principal::guest(id())));
+    }
+
+    #[test]
+    fn person_scope_permits_only_that_actor() {
+        let owner = id();
+        assert!(Scope::Person(owner).permits(&Principal::person(owner)));
+        assert!(!Scope::Person(owner).permits(&Principal::person(id())));
+    }
+}
