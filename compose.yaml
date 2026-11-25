@@ -1,0 +1,24 @@
+# Lokales PostgreSQL für Entwicklung und Tests. Start: docker compose up --wait
+# Die Major-Version muss mit dem Service-Container in .github/workflows/ci.yml
+# übereinstimmen (ADR-003).
+services:
+  postgres:
+    image: postgres:19
+    environment:
+      POSTGRES_DB: chronos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "127.0.0.1:54329:5432"
+    volumes:
+      - ./tools/db/init-roles.sql:/docker-entrypoint-initdb.d/10-init-roles.sql:ro
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      # -h erzwingt TCP: der Init-Server lauscht nur am Unix-Socket und würde sonst zu früh „gesund“ melden.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres -d chronos"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres-data:
