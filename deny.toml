@@ -25,6 +25,8 @@ allow = [
     "ISC",
     "Unicode-3.0",
     "Zlib",
+    # Mozilla-Wurzelzertifikate in webpki-roots (sqlx, #100); permissive Datenlizenz.
+    "CDLA-Permissive-2.0",
 ]
 # Ausnahmen: { crate = "<name>", allow = ["<Lizenz>"], reason = "<Begründung>, bis JJJJ-MM-TT" }
 exceptions = []
@@ -55,5 +57,6 @@ deny = [
     # Nur ein Crate darf die Bibliothek nutzen (ADR-009). Weitere Einträge
     # kommen mit der jeweiligen Abhängigkeit.
     { crate = "lettre", wrappers = ["chronos-channels"] },
+    { crate = "sqlx", wrappers = ["chronos-core", "chronos-domain", "chronos"] },
 ]
 

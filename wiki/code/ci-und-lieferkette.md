@@ -20,4 +20,5 @@ last-verified: 2026-11-24
 - Ablaufskript: prüft jede einzeilige Ausnahme (`reason =` oder `RUSTSEC-`) und lässt eine ohne `bis JJJJ-MM-TT` fehlschlagen; die 90-Tage-Obergrenze ist nicht prüfbar (kein Eintragsdatum), das bleibt Review-Sache. Ausnahmen müssen einzeilig stehen. Ausgabe als `::error::`/`::warning::`.
 - CI läuft zusätzlich täglich per `schedule` (nur Lieferkette), damit neue Advisories und die 14-Tage-Warnung ohne PR auffallen. Doctests laufen separat (`cargo test --doc`), weil nextest sie nicht ausführt.
 - **Werkzeugversionen** (`cargo-nextest`, `cargo-deny` im `tool:`-Input) aktualisiert Dependabot nicht; von Hand anheben (`gh api repos/<r>/releases/latest`).
+- Seit #100: Job `test` hat einen PostgreSQL-Service (`tools/db/init-roles.sql` per `psql`), `SQLX_OFFLINE=true` auf Workflow-Ebene, Job `sqlx-offline` prüft `.sqlx` gegen frisch migrierte Datenbank. `sqlx-cli` (`cargo install … --version 0.9.1`) wie `cargo-nextest`/`cargo-deny` von Hand aktuell halten. Details: `datenbank-und-migrationen.md`.
 - Dependabot: `cargo` und `github-actions`, wöchentlich, je eine Gruppe.
