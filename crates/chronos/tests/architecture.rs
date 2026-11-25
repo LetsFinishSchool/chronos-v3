@@ -271,3 +271,108 @@ fn detects_cycles() {
     let acyclic = graph(&[("a", &["b", "c"]), ("b", &["c"]), ("c", &[])]);
     assert_eq!(find_cycle(&acyclic), None);
 }
+
+/// Crates, die Fachbereiche nicht erreichen dürfen (Regel 2, ADR-005): Fachbereiche erzeugen
+/// nur Ereignisse und kennen keine Nachbarsysteme, Kanäle oder Prozesse.
+const UNREACHABLE_FROM_DOMAIN: &[&str] = &[
+    "chronos-adapters",
+    "chronos-channels",
+    "chronos-web",
+    "chronos-worker",
+];
+
+/// Bausteine, mit denen Fachcode selbst eine Verbindung oder Transaktion beschaffen könnte.
+/// Eine Verbindung bekommt er nur über den `Context` des Rahmens.
+const DATABASE_ACCESS_BYPASSES: &[&str] = &[
+    "PgPool",
+    "PgPoolOptions",
+    "PgConnectOptions",
+    "sqlx::Pool",
+    "Connection::connect",
+    "connect_lazy",
+    ".begin(",
+    "chronos_core::db",
+    "Context::new",
+];
+
+fn bypasses_in(source: &str) -> Vec<&'static str> {
+    DATABASE_ACCESS_BYPASSES
+        .iter()
+        .copied()
+        .filter(|bypass| source.contains(bypass))
+        .collect()
+}
+
+fn rust_files(directory: &Path) -> Vec<std::path::PathBuf> {
+    let mut files = Vec::new();
+    for entry in std::fs::read_dir(directory).expect("Verzeichnis lesbar") {
+        let path = entry.expect("Eintrag lesbar").path();
+        if path.is_dir() {
+            files.extend(rust_files(&path));
+        } else if path.extension().is_some_and(|extension| extension == "rs") {
+            files.push(path);
+        }
+    }
+    files
+}
+
+#[test]
+fn domain_does_not_reach_adapters() {
+    let graph = workspace_graph();
+    let reached: Vec<String> = graph["chronos-domain"]
+        .iter()
+        .filter(|dep| UNREACHABLE_FROM_DOMAIN.contains(&dep.as_str()))
+        .cloned()
+        .collect();
+    assert!(
+        reached.is_empty(),
+        "{}",
+        report(
+            "Fachbereiche erreichen Adapter, Kanäle oder Prozesse:",
+            &reached
+        )
+    );
+}
+
+#[test]
+fn domain_gets_no_database_connection_without_the_frame() {
+    let sources = Path::new(env!("CARGO_MANIFEST_DIR")).join("../domain/src");
+    let problems: Vec<String> = rust_files(&sources)
+        .into_iter()
+        .flat_map(|file| {
+            let source = std::fs::read_to_string(&file).expect("Quelldatei lesbar");
+            bypasses_in(&source)
+                .into_iter()
+                .map(|bypass| format!("{} nutzt `{bypass}`", file.display()))
+                .collect::<Vec<_>>()
+        })
+        .collect();
+    assert!(
+        problems.is_empty(),
+        "{}",
+        report(
+            "Fachbereiche umgehen den Rahmen (Verbindung nur über den Context):",
+            &problems
+        )
+    );
+}
+
+#[test]
+fn detects_database_access_bypasses() {
+    assert_eq!(
+        bypasses_in("fn run(ctx: &mut Context) {}"),
+        Vec::<&str>::new()
+    );
+    assert_eq!(
+        bypasses_in("let pool: PgPool = db::connect(url);"),
+        vec!["PgPool"]
+    );
+    assert_eq!(
+        bypasses_in("let tx = pool.begin().await?;"),
+        vec![".begin("]
+    );
+    assert_eq!(
+        bypasses_in("use chronos_core::db::connect;"),
+        vec!["chronos_core::db"]
+    );
+}
