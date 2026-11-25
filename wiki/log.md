@@ -247,3 +247,6 @@ Auf Anweisung des Nutzers (Product Owner): Version „PostgreSQL 19“ direkt in
 
 ## [2026-11-25] ingest | #100 Datenbankanbindung und Migrationswerkzeug
 Umgesetzt: sqlx 0.9, `core::db`, `chronos migrate`, Schemaprüfung in `serve`/`worker` (Exit-Code 75), `compose.yaml`, Rollen-Skript, Datenbanktests, `.sqlx`, CI-Job `sqlx-offline`. Seite `code/datenbank-und-migrationen.md`. Lehren: Healthcheck-Falle am Init-Socket, Lizenz `CDLA-Permissive-2.0`, `install-action` ohne `sqlx-cli`. Nicht geprüft: Gegenprobe der CI auf Wegwerf-Branch und CI-Lauf selbst. Kein Widerspruch zu `docs/`.
+
+## [2026-11-25] ingest | #101 Operationsrahmen im Minimalstand
+Umgesetzt in `crates/core`: `Operation`-Trait mit `inventory`, `Frame` (Transaktion, Geltungsprüfung, Verlauf, Outbox, Probelauf), `Context` nur vom Rahmen erzeugbar, Akteur-Arten Person und Gast, Fehlercodes, Test-Principal mit Umgebungssperre; Migration `person`/`verlauf`/`outbox`; Tests mit Beispieloperationen, `insta`-Snapshot, zwei Architekturregeln, CI-Schritt `cargo insta`. Seite `code/operationsrahmen.md`, Ergänzungen in `ci-und-lieferkette.md` und `datenbank-und-migrationen.md`. Offen für den Product Owner: `schemars` ist als gekapselte Schemaquelle gesetzt, die Entscheidung gegen `utoipa` (E-005a) steht aus. Kein Widerspruch zu `docs/`.

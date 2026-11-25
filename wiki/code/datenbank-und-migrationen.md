@@ -26,4 +26,5 @@ last-verified: 2026-11-25
 - **`webpki-roots`** (über `tls-rustls-ring-webpki`) hat die Lizenz `CDLA-Permissive-2.0`; in `deny.toml` unter `allow` ergänzt.
 - **`taiki-e/install-action` kennt `sqlx-cli` nicht:** in CI `cargo install sqlx-cli --version 0.9.1 --locked …`, Version von Hand anheben.
 - **Rootless Docker mit pasta:** veröffentlichte Host-Ports (auch `busybox`) waren im Agenten-Setup nicht erreichbar. Notlösung zum Testen: Postgres-Container mit gemountetem Socket-Verzeichnis (`-v DIR:/var/run/postgresql`) und `DATABASE_URL=postgres://…@localhost/chronos?host=DIR`. `compose.yaml` selbst wurde dort nicht per TCP geprüft.
+- **Socket-Pfad:** Unix-Socket-Pfade sind auf 107 Bytes begrenzt; das Scratchpad-Verzeichnis ist zu lang. Socket-Verzeichnis kurz wählen (z. B. `/tmp/c101pg`, `chmod 777`), Rollen mit `tools/db/init-roles.sql` per `psql` anlegen (#101).
 - `git checkout <datei>` zur Gegenprobe verwirft auch nicht committete Änderungen derselben Datei; Gegenproben mit `git stash`-freiem Rücksetzen per `sed` umkehren.
