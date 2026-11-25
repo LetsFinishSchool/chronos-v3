@@ -241,3 +241,6 @@ CI, cargo-deny, Ablaufskript, Dependabot umgesetzt; Seite `code/ci-und-lieferket
 
 ## [2026-11-25] ingest | #100 konkretisiert
 Auf Anweisung des Nutzers (Product Owner): Ticket #100 mit Prüfbefehlen, lokalem PostgreSQL, CI-Änderungen und vier Festlegungen (Migrationsverzeichnis, Pool in `core`, Schemaversionsprüfung mit Exit-Code 75, sqlx 0.9) konkretisiert. Kapitel 5 direkt geändert (ein Migrationsverzeichnis in `crates/chronos/migrations/`), Freigabe durch den Product Owner im Gespräch. Seite `concepts/sqlx-und-rsa-advisory.md`. Lehre: Abhängigkeitsfragen zu Advisories im Wegwerf-Crate mit `cargo generate-lockfile` und `cargo deny` prüfen, statt zu raten.
+
+## [2026-11-25] ingest | PostgreSQL-Version 19 in ADR-003
+Auf Anweisung des Nutzers (Product Owner): Version „PostgreSQL 19“ direkt in `docs/arc42/09-entscheidungen/ADR-003-datenbank-postgresql.md` (Abschnitt Folgen) festgehalten, Freigabe im Gespräch. Ticket #100 nennt `postgres:19` für `compose.yaml` und CI. Kein weiterer Wiki-Bedarf.

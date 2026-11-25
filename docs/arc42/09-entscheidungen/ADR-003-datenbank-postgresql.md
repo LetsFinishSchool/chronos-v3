@@ -6,7 +6,7 @@ freigegeben-am: 2026-11-20
 freigegeben-von: Product Owner
 ersetzt-durch:
 loest: [E-003]
-quellen: [Gespräch mit dem Product Owner 2026-11-20, ADR-001, ADR-002]
+quellen: [Gespräch mit dem Product Owner 2026-11-20, ADR-001, ADR-002, Gespräch mit dem Product Owner 2026-11-25 (Version)]
 ---
 
 # ADR-003: Datenbank: PostgreSQL in eigener Instanz
@@ -25,6 +25,7 @@ PostgreSQL; SQLite (beide Prozesse auf derselben Node mit gemeinsamem Volume, ei
 - Betrieb der Datenbank (Updates, Backup, Wiederherstellungstest) liegt beim Betreiber ([RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md)).
 - Backup: Abzug, clientseitig verschlüsselt, nach S3 (Anbieter und Schlüssel: E-010).
 - E-006 darf die Datenbank als Grundlage für Ereignisse und Aufträge nutzen.
+- **Version: PostgreSQL 19**, die aktuelle Hauptversion (PO 2026-11-25). Entwicklung, CI und Cluster nutzen dieselbe Hauptversion; ein Wechsel der Hauptversion ist ein eigener Schritt mit Backup und Wiederherstellungstest.
 - Zuschnitt prod/staging: je Umgebung eine eigene Instanz (PO 2026-11-20, Kapitel 7).
 - Schemaänderungen laufen über versionierte Migrationen (Werkzeug: sqlx-Migrationen als Job vor dem Rollout, siehe [ADR-011](ADR-011-migrationswerkzeug.md), Entwurf).
 
