@@ -4,14 +4,21 @@
 
 use std::future::Future;
 use std::net::SocketAddr;
+use std::num::NonZeroU32;
 use std::process::ExitCode;
 use std::time::Duration;
 
 use chronos_core::db::{self, SchemaError};
+use chronos_core::{ConsumerRegistry, Outbox};
+use chronos_worker::{LogConsumer, WorkerConfig};
 use clap::{Parser, Subcommand};
+use sqlx::PgPool;
 use sqlx::migrate::Migrator;
 use tokio::net::TcpListener;
 use tokio::signal::unix::{SignalKind, signal};
+use tokio_util::sync::CancellationToken;
+use tracing::info;
+use tracing_subscriber::EnvFilter;
 
 // Bindet die Fachbereiche ein, damit ihre Operationen (Registrierung über
 // `inventory` in `chronos-core`) gelinkt werden, obwohl `chronos-web` sie
@@ -22,13 +29,10 @@ use chronos_domain as _;
 use chronos_adapters as _;
 use chronos_channels as _;
 use chronos_core as _;
-use chronos_worker as _;
 
 /// Alle Migrationen, eingebettet aus `crates/chronos/migrations/` (ADR-011).
 static MIGRATOR: Migrator = sqlx::migrate!();
 
-/// `EX_UNAVAILABLE` aus `sysexits.h`; nicht 2, das clap für Bedienfehler nutzt.
-const EXIT_NOT_IMPLEMENTED: u8 = 69;
 /// `EX_TEMPFAIL`: die Schemaversion passte nicht innerhalb der Wartezeit.
 const EXIT_SCHEMA_NOT_READY: u8 = 75;
 const EXIT_FAILURE: u8 = 1;
@@ -38,10 +42,14 @@ const ENV_MIGRATE_URL: &str = "DATABASE_URL";
 /// Anwendungsbenutzer ohne DDL-Rechte, für `serve` und `worker`.
 const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
-/// Nur für lokale Entwicklung: `serve` und `worker` migrieren vor dem Start selbst.
-const ENV_MIGRATE_ON_START: &str = "CHRONOS_MIGRATE_ON_START";
 const ENV_LISTEN: &str = "CHRONOS_LISTEN";
 const DEFAULT_LISTEN: &str = "127.0.0.1:8080";
+const ENV_WORKER_POLL_MS: &str = "CHRONOS_WORKER_POLL_MS";
+const ENV_WORKER_BATCH_SIZE: &str = "CHRONOS_WORKER_BATCH_SIZE";
+/// Comma-separated event types the `LogConsumer` is registered for.
+const ENV_WORKER_LOG_EVENTS: &str = "CHRONOS_WORKER_LOG_EVENTS";
+/// Nur für lokale Entwicklung: `serve` und `worker` migrieren vor dem Start selbst.
+const ENV_MIGRATE_ON_START: &str = "CHRONOS_MIGRATE_ON_START";
 
 /// Chronos: Termine und Veranstaltungen für ehrenamtliche Leitungsteams.
 #[derive(Debug, Parser)]
@@ -164,7 +172,7 @@ async fn migrate() -> Result<(), Failure> {
 
 /// Gemeinsamer Start von Web und Worker: Schemaversion prüfen, nie selbst migrieren
 /// (außer lokal per Schalter).
-async fn ensure_schema() -> Result<(), Failure> {
+async fn ensure_schema() -> Result<PgPool, Failure> {
     let wait = schema_wait()?;
     if std::env::var_os(ENV_MIGRATE_ON_START).is_some() {
         migrate().await?;
@@ -172,18 +180,79 @@ async fn ensure_schema() -> Result<(), Failure> {
     let pool = db::connect_lazy(&required_env(ENV_APP_URL)?).map_err(Failure::Database)?;
     db::wait_for_schema(&pool, &MIGRATOR, wait)
         .await
-        .map_err(Failure::Schema)
+        .map_err(Failure::Schema)?;
+    Ok(pool)
+}
+
+fn worker_config(poll_ms: Option<&str>, batch_size: Option<&str>) -> Result<WorkerConfig, Failure> {
+    let mut config = WorkerConfig::default();
+    if let Some(value) = poll_ms {
+        config.poll_interval = value
+            .parse()
+            .ok()
+            .filter(|millis| *millis > 0)
+            .map(Duration::from_millis)
+            .ok_or_else(|| {
+                Failure::Config(format!(
+                    "{ENV_WORKER_POLL_MS} must be a whole number of milliseconds greater than zero"
+                ))
+            })?;
+    }
+    if let Some(value) = batch_size {
+        config.batch_size = value.parse::<NonZeroU32>().map_err(|_| {
+            Failure::Config(format!(
+                "{ENV_WORKER_BATCH_SIZE} must be a whole number greater than zero"
+            ))
+        })?;
+    }
+    Ok(config)
+}
+
+/// Structured log (JSON, one line per entry) on stderr; level via `RUST_LOG`.
+fn init_logging() {
+    tracing_subscriber::fmt()
+        .json()
+        .with_env_filter(EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()))
+        .with_writer(std::io::stderr)
+        .init();
+}
+
+/// Cancels the returned token on SIGTERM or SIGINT.
+fn shutdown_on_signal() -> Result<CancellationToken, Failure> {
+    let signalled = shutdown_signal()?;
+    let token = CancellationToken::new();
+    let on_signal = token.clone();
+    tokio::spawn(async move {
+        signalled.await;
+        info!("shutdown signal received");
+        on_signal.cancel();
+    });
+    Ok(token)
+}
+
+async fn worker() -> Result<(), Failure> {
+    init_logging();
+    let config = worker_config(
+        std::env::var(ENV_WORKER_POLL_MS).ok().as_deref(),
+        std::env::var(ENV_WORKER_BATCH_SIZE).ok().as_deref(),
+    )?;
+    let pool = ensure_schema().await?;
+    let shutdown = shutdown_on_signal()?;
+    // No domain areas emit events yet: without an entry every event counts as "no consumer".
+    let mut registry = ConsumerRegistry::new();
+    let logged = std::env::var(ENV_WORKER_LOG_EVENTS).unwrap_or_default();
+    for event in logged.split(',').map(str::trim).filter(|e| !e.is_empty()) {
+        registry.register(event, LogConsumer);
+    }
+    chronos_worker::run(&Outbox::new(pool), &registry, &config, shutdown).await;
+    Ok(())
 }
 
 async fn run(command: &Command) -> Result<u8, Failure> {
     match command {
         Command::Migrate => migrate().await.map(|()| 0),
         Command::Serve => serve().await.map(|()| 0),
-        Command::Worker => {
-            ensure_schema().await?;
-            eprintln!("chronos {}: not implemented yet", command.name());
-            Ok(EXIT_NOT_IMPLEMENTED)
-        }
+        Command::Worker => worker().await.map(|()| 0),
     }
 }
 
@@ -201,12 +270,37 @@ async fn main() -> ExitCode {
 
 #[cfg(test)]
 mod tests {
+    use std::num::NonZeroU32;
+    use std::time::Duration;
+
     use clap::CommandFactory;
 
-    use super::Cli;
+    use super::{Cli, worker_config};
 
     #[test]
     fn cli_definition_is_consistent() {
         Cli::command().debug_assert();
+    }
+
+    #[test]
+    fn worker_config_defaults_to_two_seconds_and_fifty_events() {
+        let config = worker_config(None, None).unwrap();
+        assert_eq!(config.poll_interval, Duration::from_secs(2));
+        assert_eq!(config.batch_size, NonZeroU32::new(50).unwrap());
+    }
+
+    #[test]
+    fn worker_config_reads_both_values() {
+        let config = worker_config(Some("250"), Some("7")).unwrap();
+        assert_eq!(config.poll_interval, Duration::from_millis(250));
+        assert_eq!(config.batch_size, NonZeroU32::new(7).unwrap());
+    }
+
+    #[test]
+    fn worker_config_rejects_invalid_values() {
+        assert!(worker_config(Some("soon"), None).is_err());
+        assert!(worker_config(Some("0"), None).is_err());
+        assert!(worker_config(None, Some("0")).is_err());
+        assert!(worker_config(None, Some("-1")).is_err());
     }
 }

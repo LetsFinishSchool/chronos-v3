@@ -28,7 +28,7 @@ Verbindlich ist der [Crate-Zuschnitt](../../docs/arc42/05-bausteine/02-crate-zus
 - Modulkommentar jeder `lib.rs`/`main.rs`: ein Satz zum Zweck plus Verweis auf Kapitel 5. Die Listen „Zuständig / Nicht zuständig“ stehen bewusst nur in `docs/`, damit keine zweite, ungeprüfte Fassung driftet.
 
 ## Binary
-- `chronos worker` gibt „not implemented yet“ auf stderr aus, Exit-Code **69** (`EX_UNAVAILABLE` aus `sysexits.h`), Konstante `EXIT_NOT_IMPLEMENTED` in `main.rs` (`crates/chronos/tests/cli.rs`).
+- `chronos worker` ist seit #102 implementiert (`code/worker-and-outbox.md`); der frühere Exit-Code 69 („not implemented yet“) wird nicht mehr verwendet.
 - **`chronos serve` (Stand #113):** liest `CHRONOS_LISTEN` (Standard `127.0.0.1:8080`; ungültig = `Failure::Config`, Exit 1, noch **vor** dem Datenbankzugriff), prüft das Schema (`ensure_schema`), bindet den Listener, schreibt `chronos serve: listening on <Adresse>` auf stderr (der Test mit Port 0 liest die Adresse daraus) und ruft `chronos_web::serve`. SIGTERM und Strg+C lösen Graceful Shutdown aus, Exit 0.
 - **`crates/web`:** `router()` mit `GET /healthz` (200, `ok`, keine Prüfung), `serve(listener, shutdown)`. Tests: Szenario über `tower::ServiceExt::oneshot`, TCP-Test mit Port 0. Abhängigkeiten: `axum` 0.8, `tower` 0.5 (nur Dev, Feature `util`); `tokio` im Workspace um `net` und `signal` erweitert. Darauf bauen #96 und #103 auf.
 - Der SIGTERM-Test in `tests/cli.rs` sendet das Signal über das Programm `kill`, weil `unsafe_code = "forbid"` gilt.

@@ -11,6 +11,9 @@ repository.workspace = true
 chronos-adapters.workspace = true
 chronos-channels.workspace = true
 chronos-core.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
 
 [lints]
 workspace = true

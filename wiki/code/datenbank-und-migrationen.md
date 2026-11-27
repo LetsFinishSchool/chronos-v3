@@ -17,7 +17,7 @@ last-verified: 2026-11-25
 
 - **Pool und Schemaprüfung:** `chronos-core::db` (`connect`, `connect_lazy`, `wait_for_schema`). Migrationen liegen in `crates/chronos/migrations/` und werden in `chronos` per `sqlx::migrate!()` eingebettet (`build.rs` für `rerun-if-changed`).
 - **Umgebung:** `DATABASE_URL` (Migrationsbenutzer, nur `migrate`), `DATABASE_URL_APP` (Anwendungsbenutzer, `serve`/`worker`), `CHRONOS_SCHEMA_WAIT_SECS` (Standard 60), `CHRONOS_MIGRATE_ON_START` (nur lokal).
-- **Exit-Codes:** 75 = Schema nach Wartezeit zu alt; 1 = Konfiguration, Verbindung, Migration; 69 = not implemented yet; 2 gehört clap. Eine Datenbank, die *weiter* ist als das Binary, ist erlaubt.
+- **Exit-Codes:** 75 = Schema nach Wartezeit zu alt; 1 = Konfiguration, Verbindung, Migration; 69 wird seit #102 nicht mehr vergeben (früher „not implemented yet“); 2 gehört clap. Eine Datenbank, die *weiter* ist als das Binary, ist erlaubt.
 - **Rollen:** `tools/db/init-roles.sql`. Die erste Migration gibt `chronos_app` `SELECT` auf `_sqlx_migrations` (sqlx legt sie vor Migration 1 an, Default-Privilegien greifen dort nicht) und setzt `ALTER DEFAULT PRIVILEGES` für spätere Tabellen.
 - **Tests:** `crates/chronos/tests/database.rs` mit `#[sqlx::test]`; sie brauchen `DATABASE_URL` und `DATABASE_URL_APP`. `cli.rs` migriert die gemeinsame Datenbank selbst (idempotent). `.sqlx` entsteht mit `cargo sqlx prepare --workspace -- --all-targets`; mindestens eine `query!` (`applied_version`) hält die Prüfung aussagekräftig.
 

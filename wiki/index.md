@@ -12,8 +12,9 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): sieben Crates mit erlaubten und verbotenen Kanten zu `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`)
 
 ## Code
-- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos` (`serve` mit axum, `/healthz`, Graceful Shutdown seit #113), Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, eigener Code 69; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
+- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos` (`serve` mit axum, `/healthz`, Graceful Shutdown seit #113), Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, 69 seit #102 nicht mehr vergeben; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
+- [Worker und Outbox-Abarbeitung](code/worker-and-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
 - [Operationsrahmen (Minimalstand)](code/operationsrahmen.md): `Frame`, `Operation`, `Context`, Geltungsbereich, Probelauf, Test-Principal, Tabellen `person`/`verlauf`/`outbox`, Tests, Stolpersteine, Messwerte
 
@@ -26,3 +27,4 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Hell/Dunkel nur System](proposals/2026-11-27-hell-dunkel-nur-system.md): K-012 „manuelle Umschaltung offen“ → nur `prefers-color-scheme`, kein Schalter; angenommen und in `docs/` umgesetzt
 - [Vitest für Frontend-Unit-Tests](proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md): ADR-009 Ebene 1 um Vitest im Frontend ergänzen; erster Fall Tokentest #106; angenommen und in `docs/` umgesetzt
 - [Code-Namen im Glossar](proposals/2026-11-27-code-namen-im-glossar.md): englische Code-Namen für Verlauf, Akteur, Ereignis u. a.; Ticket #101 nannte deutsche Namen (offen)
+- [Outbox-Abarbeitung liegt in core](proposals/2026-11-27-outbox-processing-in-core.md): Kapitel 5 nennt sie beim Worker, ADR-009 erlaubt `sqlx` dort nicht (offen)

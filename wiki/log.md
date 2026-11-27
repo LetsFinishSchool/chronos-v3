@@ -315,3 +315,15 @@ Auf Anweisung des Nutzers (Product Owner): Vorschläge `proposals/2026-11-27-hel
 
 ## [2026-11-27] query | #105 Tasks angelegt
 Auf Anweisung des Nutzers (Product Owner): Tasks unter #105 angelegt und als Sub-Issues verknüpft: #119 Wireframe `S105-basiskomponenten` (nach #114), #120 `tokens.css` aus `tokens.json` (nutzt `resolve.ts` aus #106, Datei committet, Primitives und Breakpoints nicht ausgegeben), #121 Button/Badge/Alert/Karte/Liste mit Vorschau-Build `frontend/app/preview/` und Playwright-Projekt `components` (ohne Rust-Binary), #122 Eingabefelder und Dialog (natives `<dialog>`). Entscheidungen: zwei Komponenten-Tasks statt vier, eigener Vorschau-Build statt Route im Produkt. Keins `ready-for-agent` (Vorgänger offen). Kein Wiki-Seitenbedarf.
+
+## [2026-11-27] ingest | #102 Worker-Gerüst mit Outbox-Abarbeitung
+Umgesetzt: `Outbox::process_batch` und `Consumer`-Trait in `chronos-core`, `run`, `WorkerConfig`, `LogConsumer` in `chronos-worker`, `chronos worker` mit Logging und SIGTERM. Abweichung von Kapitel 5: Die SQL-Abarbeitung liegt in `core`, weil `sqlx` im Worker laut ADR-009/`deny.toml` verboten ist; Vorschlag in `proposals/2026-11-27-outbox-processing-in-core.md`. Neue Seite `code/worker-and-outbox.md`. Nicht geprüft: CI-Lauf auf GitHub; Postgres lokal nur über den Socket-Weg.
+
+## [2026-11-27] ingest | #102 Review umgesetzt (Runde 1)
+Panic im Verbraucher zählt wie ein Fehler (eigene Task, Subscriber per `with_current_subscriber` weitergereicht); `CHRONOS_WORKER_POLL_MS=0` wird abgelehnt; Test-`Worker` mit `Drop` und `join` statt `sleep`; Abbruch-Test ehrlich als Rollback beim Drop beschrieben. Bewusst nicht geändert: `LogConsumer` bleibt im Prozess unverdrahtet (keine Fachereignisse), SIGTERM-Handler erst nach der Schemaprüfung (Wartezeit nicht abbrechbar, Kubernetes beendet sonst per Default-Aktion).
+
+## [2026-11-27] ingest | #102 LogConsumer im Prozess verdrahtet
+Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) registriert den `LogConsumer` in `chronos worker`; `tests/cli.rs` belegt im echten Prozess „outbox event received“ mit derselben Korrelations-ID. Die frühere Notiz „LogConsumer bewusst unverdrahtet“ ist damit überholt.
+
+## [2026-11-27] ingest | #102 Review Runde 4 und Merge mit #113
+`main` (axum-`serve`, #113) in den Branch gemergt; `shutdown_signal()` dient `serve` und `worker`. Exit-Code 69 wird nicht mehr vergeben, Wiki-Seiten (`cargo-workspace`, `datenbank-und-migrationen`, Index) angepasst. Deutsche Altkommentare in `main.rs` bleiben, sie stammen von `main`.
