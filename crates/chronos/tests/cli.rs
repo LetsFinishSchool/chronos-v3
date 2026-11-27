@@ -12,6 +12,7 @@ use std::time::{Duration, Instant};
 use sqlx::{PgPool, postgres::PgPoolOptions};
 
 const EXIT_USAGE_ERROR: i32 = 2;
+const FRONTEND_FIXTURE: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/frontend");
 
 fn chronos(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_chronos"))
@@ -57,6 +58,7 @@ fn version_prints_package_version() {
 fn serve_with_invalid_listen_address_fails_with_config_error() {
     let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")
+        .env("CHRONOS_FRONTEND_DIR", FRONTEND_FIXTURE)
         .env("CHRONOS_LISTEN", "not-an-address")
         .env_remove("DATABASE_URL_APP")
         .output()
@@ -76,6 +78,7 @@ fn serve_answers_healthz_and_exits_cleanly_on_sigterm() {
     let mut child = Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")
         .env("DATABASE_URL_APP", &url)
+        .env("CHRONOS_FRONTEND_DIR", FRONTEND_FIXTURE)
         .env("CHRONOS_LISTEN", "127.0.0.1:0")
         .stderr(Stdio::piped())
         .spawn()
@@ -262,12 +265,43 @@ async fn worker_process_handles_an_event_with_the_app_role_and_exits_cleanly_on_
 fn serve_without_database_url_fails_with_config_error() {
     let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")
+        .env("CHRONOS_FRONTEND_DIR", FRONTEND_FIXTURE)
         .env_remove("DATABASE_URL_APP")
         .output()
         .expect("the chronos binary starts");
     assert_eq!(output.status.code(), Some(1));
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(stderr.contains("DATABASE_URL_APP"), "stderr: {stderr}");
+}
+
+#[test]
+fn serve_with_empty_frontend_dir_fails_with_config_error() {
+    let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
+        .arg("serve")
+        .env("CHRONOS_FRONTEND_DIR", "")
+        .env_remove("DATABASE_URL_APP")
+        .output()
+        .expect("the chronos binary starts");
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(stderr.contains("must not be empty"), "stderr: {stderr}");
+}
+
+#[test]
+fn serve_with_missing_frontend_dir_fails_with_config_error() {
+    let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
+        .arg("serve")
+        .env("CHRONOS_FRONTEND_DIR", "/nonexistent/chronos-frontend")
+        .env_remove("DATABASE_URL_APP")
+        .output()
+        .expect("the chronos binary starts");
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(stderr.contains("CHRONOS_FRONTEND_DIR"), "stderr: {stderr}");
+    assert!(
+        stderr.contains("npm --prefix frontend run build"),
+        "stderr: {stderr}"
+    );
 }
 
 #[test]

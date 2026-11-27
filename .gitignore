@@ -20,5 +20,14 @@ venv/
 # Rust
 target/
 
+# Frontend
+frontend/node_modules
+frontend/app/node_modules
+frontend/app/build
+frontend/app/.svelte-kit
+
+# Browser-Automation des Agenten
+.playwright-mcp/
+
 # Agenten-Arbeitsdateien (Pläne, Notizen), nie committen
 .scratch/

@@ -11,3 +11,8 @@ wiki
 designs
 spikes
 deploy
+# Build output and dependencies are produced inside the image build.
+frontend/node_modules
+frontend/app/node_modules
+frontend/app/build
+frontend/app/.svelte-kit
