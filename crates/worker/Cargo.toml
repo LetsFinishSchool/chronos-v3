@@ -1,6 +1,6 @@
 [package]
 name = "chronos-worker"
-description = "Worker-Prozess von Chronos"
+description = "Worker process of Chronos"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

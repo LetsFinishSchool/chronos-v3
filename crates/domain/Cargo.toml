@@ -1,6 +1,6 @@
 [package]
 name = "chronos-domain"
-description = "Fachbereiche von Chronos"
+description = "Business domains of Chronos"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

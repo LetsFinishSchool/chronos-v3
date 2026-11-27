@@ -1,6 +1,6 @@
 [package]
 name = "chronos-core"
-description = "Operationsschicht, Kontext, Fehler und Zeittypen von Chronos"
+description = "Operation layer, context, errors and time types of Chronos"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
