@@ -337,8 +337,8 @@ def draw_card(with_action, width):
     def draw(pen, x, y):
         pad, gap = T.px("space.4"), T.px("space.2")
         inner = width - 2 * pad
-        _, title_h = pen.text(0, 0, CARD_TITLE[1], "heading-h3", "text.primary", width=inner)
-        _, text_h = pen.text(0, 0, CARD_TEXT[1], "body-m-regular", "text.secondary", width=inner)
+        _, title_h = Pen().text(0, 0, CARD_TITLE[1], "heading-h3", "text.primary", width=inner)
+        _, text_h = Pen().text(0, 0, CARD_TEXT[1], "body-m-regular", "text.secondary", width=inner)
         action = button_size(BUTTON_VARIANTS[1]["sample"]) if with_action else None
         h = 2 * pad + title_h + gap + text_h + ((T.px("space.4") + action[1]) if action else 0)
         pen.rect(x, y, width, h, fill=T.color("bg.surface"), stroke=T.color("border.default"),
@@ -575,8 +575,8 @@ def draw_dialog(width):
         assert close_size >= MIN_TARGET
         inner = width - 2 * pad
         title_w = inner - close_size - T.px("space.2")
-        _, title_h = pen.text(0, 0, DIALOG_TITLE[1], "heading-h2", "text.primary", width=title_w)
-        _, text_h = pen.text(0, 0, DIALOG_TEXT[1], "body-m-regular", "text.secondary", width=inner)
+        _, title_h = Pen().text(0, 0, DIALOG_TITLE[1], "heading-h2", "text.primary", width=title_w)
+        _, text_h = Pen().text(0, 0, DIALOG_TEXT[1], "body-m-regular", "text.secondary", width=inner)
         button_h = button_size("X")[1]
         head_h = max(title_h, close_size)
         h = 2 * pad + head_h + T.px("space.3") + text_h + T.px("space.6") + button_h
