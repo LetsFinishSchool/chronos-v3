@@ -3,11 +3,14 @@
 //! Zuschnitt und erlaubte Abhängigkeiten: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
 
 use std::future::Future;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
 
 use axum::{
     Router,
+    extract::{Request, State},
     http::StatusCode,
+    response::{IntoResponse, Response},
     routing::{any, get},
 };
 use tokio::net::TcpListener;
@@ -22,10 +25,13 @@ const API_PREFIX: &str = "/api";
 
 /// All routes of the web process; the built frontend in `frontend_dir` answers everything else.
 ///
-/// Unknown paths get `index.html` with status 200 so the SPA can render its own "not found" page.
+/// Unknown page paths get `index.html` with status 200 so the SPA can render its own "not found"
+/// page. Missing assets get a real 404: a stale `index.html` asking for an old hashed script must
+/// not receive HTML.
 pub fn router(frontend_dir: &Path) -> Router {
-    let frontend =
-        ServeDir::new(frontend_dir).fallback(ServeFile::new(frontend_dir.join(INDEX_FILE)));
+    let index = Arc::new(frontend_dir.join(INDEX_FILE));
+    let frontend = ServeDir::new(frontend_dir)
+        .fallback(axum::routing::any(shell_or_not_found).with_state(index));
     Router::new()
         .route("/healthz", get(healthz))
         .route(API_PREFIX, any(api_not_found))
@@ -36,6 +42,25 @@ pub fn router(frontend_dir: &Path) -> Router {
 
 /// Entry file of the SPA build, also used as the fallback document.
 pub const INDEX_FILE: &str = "index.html";
+
+/// Asset paths: the build's own directory and anything with a file extension (`/favicon.ico`).
+fn is_asset_path(path: &str) -> bool {
+    path.starts_with("/_app/")
+        || path
+            .rsplit('/')
+            .next()
+            .is_some_and(|name| name.contains('.'))
+}
+
+async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request) -> Response {
+    if is_asset_path(request.uri().path()) {
+        return StatusCode::NOT_FOUND.into_response();
+    }
+    match ServeFile::new(index.as_path()).try_call(request).await {
+        Ok(response) => response.into_response(),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+    }
+}
 
 async fn api_not_found() -> StatusCode {
     StatusCode::NOT_FOUND
@@ -146,6 +171,20 @@ mod tests {
             if method == Method::GET {
                 assert_eq!(body, INDEX_HTML.as_bytes());
             }
+        }
+    }
+
+    #[tokio::test]
+    async fn missing_assets_are_404_not_the_shell() {
+        let frontend = Frontend::new("missing-asset");
+        for path in [
+            "/_app/immutable/entry/start.OLD.js",
+            "/favicon.ico",
+            "/a/b.css",
+        ] {
+            let (status, body) = get(&frontend, path).await;
+            assert_eq!(status, StatusCode::NOT_FOUND, "{path}");
+            assert!(!body.starts_with(b"<h1>"), "{path}");
         }
     }
 
