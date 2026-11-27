@@ -50,7 +50,9 @@ const IMMUTABLE_ASSET_PREFIX: &str = "/_app/immutable/";
 async fn cache_control(request: Request, next: Next) -> Response {
     let immutable = request.uri().path().starts_with(IMMUTABLE_ASSET_PREFIX);
     let mut response = next.run(request).await;
-    let value = if immutable && response.status() == StatusCode::OK {
+    let status = response.status();
+    let revalidated = status.is_success() || status == StatusCode::NOT_MODIFIED;
+    let value = if immutable && revalidated {
         CACHE_IMMUTABLE
     } else {
         CACHE_REVALIDATE
@@ -84,12 +86,15 @@ const ASSET_EXTENSIONS: &[&str] = &[
 
 /// Asset paths: the build's own directory and files with a known extension (`/favicon.ico`).
 fn is_asset_path(path: &str) -> bool {
-    path.starts_with("/_app/")
+    path == "/_app"
+        || path.starts_with("/_app/")
         || path
             .rsplit('/')
             .next()
             .and_then(|name| name.rsplit_once('.'))
-            .is_some_and(|(_, extension)| ASSET_EXTENSIONS.contains(&extension))
+            .is_some_and(|(_, extension)| {
+                ASSET_EXTENSIONS.contains(&extension.to_ascii_lowercase().as_str())
+            })
 }
 
 async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request) -> Response {
@@ -97,7 +102,12 @@ async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request)
         return StatusCode::NOT_FOUND.into_response();
     }
     match ServeFile::new(index.as_path()).try_call(request).await {
-        Ok(response) => response.into_response(),
+        Ok(response) if response.status() != StatusCode::NOT_FOUND => response.into_response(),
+        // A vanished entry file is a server fault, not a missing page.
+        Ok(_) => {
+            eprintln!("chronos web: {} is missing", index.display());
+            StatusCode::INTERNAL_SERVER_ERROR.into_response()
+        }
         Err(error) => {
             eprintln!("chronos web: cannot read {}: {error}", index.display());
             StatusCode::INTERNAL_SERVER_ERROR.into_response()
@@ -229,6 +239,14 @@ mod tests {
             assert_eq!(status, StatusCode::NOT_FOUND, "{path}");
             assert!(!body.starts_with(b"<h1>"), "{path}");
         }
+    }
+
+    #[tokio::test]
+    async fn vanished_entry_file_is_a_server_error() {
+        let frontend = Frontend::new("vanished");
+        std::fs::remove_file(frontend.path().join(INDEX_FILE)).unwrap();
+        let (status, _) = get(&frontend, "/irgendwo").await;
+        assert_eq!(status, StatusCode::INTERNAL_SERVER_ERROR);
     }
 
     #[tokio::test]
