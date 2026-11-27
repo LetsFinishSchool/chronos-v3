@@ -1,6 +1,6 @@
-//! Prüft das Verhalten des Binaries von außen: Hilfe, Version, der Worker und die noch
-//! nicht implementierten Unterbefehle. Die Tests mit Datenbank brauchen
-//! `DATABASE_URL` und `DATABASE_URL_APP` (`docker compose up --wait`).
+//! Checks the binary's behaviour from the outside: help, version, the worker and the
+//! subcommands that are not implemented yet. The tests with a database need
+//! `DATABASE_URL` and `DATABASE_URL_APP` (`docker compose up --wait`).
 
 use std::io::{BufRead, BufReader};
 use std::process::{Child, Command, Output, Stdio};
