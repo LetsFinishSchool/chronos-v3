@@ -637,12 +637,28 @@ STORY_STATES = [
     " ob sie eine Komponente zeigt.",
 ]
 
+MISSING_TOKENS = "\n".join([
+    "Fehlende Tokens und Varianten (nicht erfunden, Meldung in Ticket 105):",
+    "· Info-Alert: bg.info-subtle, border.info und status.info gibt es nicht. Ersatz: {bg.brand-subtle},"
+    " {border.brand}, Symbol und Rand mit {text.info}; der Kontrast von {text.info} auf {bg.brand-subtle}"
+    " ist nicht geprüft.",
+    "· Warnung-Alert: border.warning gibt es nicht. Ersatz: {border.default}.",
+    "· Deaktiviert: kein eigenes Token. Ersatz: {bg.muted}, {text.muted}, {border.default}.",
+    "· Dialog: kein Token für die Abdunklung der Seite dahinter (overlay.white-20 ist ein Weißschleier);"
+    " sie ist nicht gezeichnet.",
+    "· Symbole: kein Symbolsatz und kein Größentoken; 24 px und die Zeichen sind Platzhalter.",
+    "· Maße ohne Token: Höhe der Bedienelemente 40 px (= {space.10}), Feldbreite 288 px (Hälfte von"
+    " {size.text-max}), Höhe des Textbereichs 96 px.",
+    "· Laden: es gibt keinen Spinner; Platzhalterbalken in {bg.muted}, Button zeigt nur Text.",
+])
+
 CANVAS_NOTES = [
     "Farben, Abstände, Radien und Schriftstile als Token-Namen aus designs/tokens/tokens.json in geschweiften"
     " Klammern. Texte als Fluent-Schlüssel mit Beispieltext (ADR-010). Füllfarben zeigen den hellen Modus;"
     " der dunkle nutzt dieselben Namen.",
     "Alle Komponenten erscheinen in jedem Rahmen. Layoutstufen: Mobil ab 320 px, Tablet ab {breakpoint.tablet},"
     " Desktop ab {breakpoint.desktop}.",
+    MISSING_TOKENS,
 ]
 
 
