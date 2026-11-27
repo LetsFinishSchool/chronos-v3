@@ -259,3 +259,6 @@ Auf Anweisung des Nutzers: alle Fehler- und Statusmeldungen (`chronos`, `chronos
 
 ## [2026-11-27] ingest | #101 Review umgesetzt
 Auf Anweisung des Nutzers (Review): `Principal`-Konstruktoren nur `pub(crate)`, Tests holen Akteure über `Frame::test_actor`; Probelauf schreibt Verlauf und Outbox vor dem Rollback mit; Fehlercode `internal`; doppelte Operationsnamen brechen `Frame::new` ab; Architekturtest ignoriert Kommentare und erkennt mehr Wege; CI mit `--unreferenced=reject`; überflüssige Doc-Kommentare entfernt. Seite `code/operationsrahmen.md` aktualisiert (last-verified 2026-11-27). Offen: Gast-`person`-Zeile (E-008).
+
+## [2026-11-27] ingest | #101 CI: Suite läuft nur einmal
+Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket: `cargo insta test` mit `--test-runner nextest` ersetzt den Schritt `cargo nextest run`, damit die Testsuite nicht doppelt läuft. Seiten `code/ci-und-lieferkette.md` und `code/operationsrahmen.md` angepasst. Nicht geprüft: CI-Lauf auf GitHub.

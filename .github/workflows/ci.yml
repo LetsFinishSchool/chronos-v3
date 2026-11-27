@@ -67,11 +67,12 @@ jobs:
         with:
           tool: cargo-nextest@0.9.152,cargo-insta@1.49.0
       - run: psql postgres://postgres:postgres@127.0.0.1:5432/chronos -v ON_ERROR_STOP=1 -f tools/db/init-roles.sql
-      - run: cargo nextest run --workspace --locked
+      # Ersetzt `cargo nextest run`: insta nutzt nextest als Testrunner, die Suite läuft einmal.
+      # Offene und verwaiste Snapshots der Operationsschemas schlagen fehl. `cargo insta` kennt
+      # kein `--locked`; die Lockdatei prüfen die anderen Jobs.
+      - run: cargo insta test --check --workspace --test-runner nextest --unreferenced=reject
       # nextest führt keine Doctests aus
       - run: cargo test --workspace --doc --locked
-      # Snapshots der Operationsschemas; offene Änderungen schlagen fehl.
-      - run: cargo insta test --check --workspace --unreferenced=reject
 
   sqlx-offline:
     if: github.event_name != 'schedule'

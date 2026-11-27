@@ -51,7 +51,7 @@ Code-Namen und Fehlermeldungen sind englisch (`docs/README.md` Regel 4, Glossar)
 - **Probelauf** schreibt `history` und `outbox` mit und rollt erst dann zurück, damit er dieselben Fehler zeigt wie `Apply` (etwa einen Akteur ohne `person`-Zeile, SQLSTATE `23503`).
 - **Doppelte Operationsnamen** lässt `Frame::new` per Panic am Start auffallen (`Registration::find` nähme sonst den ersten Treffer).
 - **Architekturtest:** Kommentare werden vor der Textsuche entfernt; `Pool` deckt `PgPool`, `PoolConnection` und `Pool<Postgres>` ab. Bleibt Textsuche und kein Beweis; den Rest sichert der nicht öffentliche `Context`-Konstruktor.
-- **CI:** `cargo insta test --check --workspace --unreferenced=reject` meldet auch verwaiste Snapshots. Die Suite läuft dabei ein zweites Mal (bewusst, Form aus dem Ticket).
+- **CI:** `cargo insta test --check --workspace --test-runner nextest --unreferenced=reject` ersetzt `cargo nextest run`, meldet offene und verwaiste Snapshots, die Suite läuft einmal. Lokal geprüft, Gegenprobe mit veraltetem Snapshot schlug fehl.
 
 ## Offen
 Wie Gäste ihre `person`-Zeile bekommen (Gast-Feature, E-008): Der Rahmen legt sie nicht an, ohne Zeile scheitert jeder schreibende Aufruf am Fremdschlüssel. Freigabe-Beleg und Stapel (F-015), Verlaufsanzeige und Wiederherstellung (F-017), voller Verlaufsmechanismus mit Architekturtest (#34), Bündel-ID-Vergabe, Schemaquelle `schemars`/`utoipa` (E-005a).
