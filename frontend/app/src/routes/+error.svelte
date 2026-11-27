@@ -14,5 +14,5 @@
 <main>
   <h1>{t(titleKey)}</h1>
   <p>{t(textKey)}</p>
-  <p><a href="/">{t("error.home")}</a></p>
+  <p><a href="/">{t("error.not-found.home")}</a></p>
 </main>
