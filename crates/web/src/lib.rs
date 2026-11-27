@@ -74,17 +74,29 @@ const ASSET_EXTENSIONS: &[&str] = &[
     "map",
     "json",
     "txt",
+    "xml",
+    "html",
+    "pdf",
+    "wasm",
     "ico",
     "png",
     "svg",
     "webp",
     "jpg",
+    "jpeg",
+    "gif",
+    "avif",
     "woff",
     "woff2",
+    "ttf",
+    "otf",
+    "eot",
     "webmanifest",
     "mp4",
     "webm",
     "mp3",
+    "ogg",
+    "wav",
     "zip",
 ];
 
@@ -98,6 +110,7 @@ fn decode_path(path: &str) -> String {
         let escaped = (bytes[i] == b'%')
             .then(|| path.get(i + 1..i + 3))
             .flatten()
+            .filter(|hex| hex.bytes().all(|digit| digit.is_ascii_hexdigit()))
             .and_then(|hex| u8::from_str_radix(hex, 16).ok());
         match escaped {
             Some(byte) => {
@@ -111,6 +124,11 @@ fn decode_path(path: &str) -> String {
         }
     }
     String::from_utf8_lossy(&decoded).into_owned()
+}
+
+/// The routes cover the literal spelling; an encoded one (`/%61pi/x`) must not get the shell either.
+fn is_api_path(path: &str) -> bool {
+    path == API_PREFIX || path.starts_with("/api/")
 }
 
 /// Asset paths: the build's own directory and files with a known extension (`/favicon.ico`).
@@ -127,7 +145,8 @@ fn is_asset_path(path: &str) -> bool {
 }
 
 async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request) -> Response {
-    if is_asset_path(&decode_path(request.uri().path())) {
+    let path = decode_path(request.uri().path());
+    if is_asset_path(&path) || is_api_path(&path) {
         return StatusCode::NOT_FOUND.into_response();
     }
     match ServeFile::new(index.as_path()).try_call(request).await {
@@ -179,7 +198,7 @@ mod tests {
     };
     use tower::ServiceExt;
 
-    use super::{INDEX_FILE, router, serve};
+    use super::{INDEX_FILE, decode_path, router, serve};
 
     const INDEX_HTML: &str = "<h1>shell</h1>";
     const ASSET: &[u8] = b"console.log('asset');\n";
@@ -268,6 +287,22 @@ mod tests {
             assert_eq!(status, StatusCode::NOT_FOUND, "{path}");
             assert!(!body.starts_with(b"<h1>"), "{path}");
         }
+    }
+
+    #[tokio::test]
+    async fn encoded_api_paths_never_get_the_shell() {
+        let frontend = Frontend::new("api-encoded");
+        for path in ["/%61pi/events", "/api%2Fevents"] {
+            let (status, _) = get(&frontend, path).await;
+            assert_eq!(status, StatusCode::NOT_FOUND, "{path}");
+        }
+    }
+
+    #[test]
+    fn decode_path_decodes_only_valid_hex_escapes() {
+        assert_eq!(decode_path("/%5Fapp/%5fx"), "/_app/_x");
+        assert_eq!(decode_path("/a%2Fb"), "/a/b");
+        assert_eq!(decode_path("/%+5/%zz/%4"), "/%+5/%zz/%4");
     }
 
     #[tokio::test]

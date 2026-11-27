@@ -1,5 +1,7 @@
 // Einstiegspunkt für Texte (V-3): #47 ersetzt nur diese Datei durch den Fluent-Katalog.
 const catalog = {
+  "app.name": "Chronos",
+  "app.loading": "Wird geladen …",
   "start.title": "Chronos",
   "start.intro": "Termine im Leitungsteam planen und Rückmeldungen einholen.",
   "error.not-found.title": "Seite nicht gefunden",
