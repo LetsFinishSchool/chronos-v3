@@ -347,3 +347,6 @@ Auf Anweisung des Nutzers (Product Owner): Vorschlag `proposals/2026-11-27-break
 
 ## [2026-11-27] ingest | #119 Wireframe Basiskomponenten (S105)
 Auf Anweisung des Nutzers umgesetzt (Branch issue/119): `S105-basiskomponenten.{excalidraw,svg}` mit Generator, `wirelib.py` um Ellipse, Linienstärke und `measure_text` erweitert. Fehlende Tokens im Wireframe vermerkt (Seite `code/wireframes.md`). Nicht geprüft: Öffnen im Excalidraw-Editor; PO-Review im PR steht aus.
+
+## [2026-11-27] query | „blocked by“ für #105 gesetzt
+Auf Anweisung des Nutzers: GitHub-Beziehungen „blocked by“ nur für direkte Kanten gesetzt: #103 ← #114, #119 ← #114, #116 ← #103, #106 ← #116, #120 ← #106, #121 ← #119 und #120, #122 ← #121. Indirekte Abhängigkeiten aus den Tickets (z. B. #120 ← #103/#114/#116) ergeben sich aus der Kette. API: `POST /repos/{owner}/{repo}/issues/{n}/dependencies/blocked_by` mit der numerischen `issue_id` (nicht der Nummer) des Blockers; die Antwort enthält das blockierte Issue, nicht den Blocker. Kein Wiki-Seitenbedarf.
