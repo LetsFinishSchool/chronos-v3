@@ -29,7 +29,6 @@ securityContext:
     drop: [ALL]
 {{- end }}
 
-{{/* The migration Job as hook (upgrade) or as plain resource (install), see migrate-job.yaml. */}}
 {{- define "chronos.migrateJobSpec" -}}
 backoffLimit: {{ .Values.migrate.backoffLimit }}
 activeDeadlineSeconds: {{ .Values.migrate.activeDeadlineSeconds }}

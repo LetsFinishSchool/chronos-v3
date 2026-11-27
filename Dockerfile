@@ -1,5 +1,5 @@
 # One image for web, worker and migration job; the subcommand picks the role
-# (ADR-002, ADR-011, ADR-013). Build: docker build -t chronos .
+# (ADR-002, ADR-011, ADR-013).
 
 FROM lukemathwalker/cargo-chef:0.1.78-rust-1.100.0-slim-trixie AS chef
 WORKDIR /app

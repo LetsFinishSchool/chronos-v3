@@ -13,7 +13,9 @@ permissions:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # A push to main may run a deploy; cancelling it mid-`helm upgrade` would leave the
+  # release in pending-upgrade and block the next deploy.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   CARGO_TERM_COLOR: always
@@ -166,7 +168,7 @@ jobs:
     needs: [format, clippy, test, sqlx-offline, supply-chain, chart, image]
     runs-on: ubuntu-latest
     environment: staging
-    # Never two Helm runs at once; a running rollout is not cancelled.
+    # Never two Helm runs at once; a queued run waits instead of cancelling the rollout.
     concurrency:
       group: deploy-staging
       cancel-in-progress: false
@@ -184,5 +186,5 @@ jobs:
           helm upgrade --install chronos deploy/helm/chronos
           --namespace chronos-staging
           -f deploy/helm/chronos/values-staging.yaml
-          --set image.tag=${{ github.sha }}
-          --atomic --wait --timeout 5m
+          --set-string image.tag=${{ github.sha }}
+          --atomic --wait --wait-for-jobs --timeout 5m

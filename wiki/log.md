@@ -333,3 +333,6 @@ Auf Anweisung des Nutzers (Product Owner): Kriterium „Startseite“ ersetzt du
 
 ## [2026-11-27] ingest | #104 Image, Helm-Chart und Deployment
 Dockerfile, Chart unter `deploy/helm/chronos/` und CI-Jobs `chart`, `image`, `deploy` umgesetzt; Seite `code/image-und-deployment.md`. Migrationsjob bei Erstinstallation als normale Ressource statt `pre-install`-Hook (Hooks laufen vor der Datenbank). Lokal geprüft: Image-Build, `migrate --help`, Init-Skript und Migration gegen `postgres:19`. Nicht geprüft: `kubeconform`, Rollout auf staging.
+
+## [2026-11-27] ingest | #104 Review Runde 1
+Befunde behoben: Workflow-`concurrency` bricht nur Pull Requests ab (sonst `pending-upgrade`), Startup-Probe im Web (Schema-Warten), `--wait-for-jobs`, `--set-string`, Kommentare gekürzt.
