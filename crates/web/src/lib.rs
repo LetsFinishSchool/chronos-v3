@@ -9,7 +9,8 @@ use std::sync::Arc;
 use axum::{
     Router,
     extract::{Request, State},
-    http::StatusCode,
+    http::{HeaderValue, StatusCode, header::CACHE_CONTROL},
+    middleware::{self, Next},
     response::{IntoResponse, Response},
     routing::{any, get},
 };
@@ -38,18 +39,57 @@ pub fn router(frontend_dir: &Path) -> Router {
         .route("/api/", any(api_not_found))
         .route("/api/{*path}", any(api_not_found))
         .fallback_service(frontend)
+        .layer(middleware::from_fn(cache_control))
+}
+
+const CACHE_IMMUTABLE: &str = "public, max-age=31536000, immutable";
+/// The shell must be revalidated: after a deploy it points at new hashed files.
+const CACHE_REVALIDATE: &str = "no-cache";
+const IMMUTABLE_ASSET_PREFIX: &str = "/_app/immutable/";
+
+async fn cache_control(request: Request, next: Next) -> Response {
+    let immutable = request.uri().path().starts_with(IMMUTABLE_ASSET_PREFIX);
+    let mut response = next.run(request).await;
+    let value = if immutable && response.status() == StatusCode::OK {
+        CACHE_IMMUTABLE
+    } else {
+        CACHE_REVALIDATE
+    };
+    response
+        .headers_mut()
+        .insert(CACHE_CONTROL, HeaderValue::from_static(value));
+    response
 }
 
 /// Entry file of the SPA build, also used as the fallback document.
 pub const INDEX_FILE: &str = "index.html";
 
-/// Asset paths: the build's own directory and anything with a file extension (`/favicon.ico`).
+/// Extensions of files a page can request; other dotted segments stay valid SPA routes.
+const ASSET_EXTENSIONS: &[&str] = &[
+    "js",
+    "mjs",
+    "css",
+    "map",
+    "json",
+    "txt",
+    "ico",
+    "png",
+    "svg",
+    "webp",
+    "jpg",
+    "woff",
+    "woff2",
+    "webmanifest",
+];
+
+/// Asset paths: the build's own directory and files with a known extension (`/favicon.ico`).
 fn is_asset_path(path: &str) -> bool {
     path.starts_with("/_app/")
         || path
             .rsplit('/')
             .next()
-            .is_some_and(|name| name.contains('.'))
+            .and_then(|name| name.rsplit_once('.'))
+            .is_some_and(|(_, extension)| ASSET_EXTENSIONS.contains(&extension))
 }
 
 async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request) -> Response {
@@ -58,7 +98,10 @@ async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request)
     }
     match ServeFile::new(index.as_path()).try_call(request).await {
         Ok(response) => response.into_response(),
-        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+        Err(error) => {
+            eprintln!("chronos web: cannot read {}: {error}", index.display());
+            StatusCode::INTERNAL_SERVER_ERROR.into_response()
+        }
     }
 }
 
@@ -186,6 +229,41 @@ mod tests {
             assert_eq!(status, StatusCode::NOT_FOUND, "{path}");
             assert!(!body.starts_with(b"<h1>"), "{path}");
         }
+    }
+
+    #[tokio::test]
+    async fn dotted_page_paths_still_get_the_shell() {
+        let frontend = Frontend::new("dotted");
+        let (status, body) = get(&frontend, "/einladung/ab.cd").await;
+        assert_eq!(status, StatusCode::OK);
+        assert_eq!(body, INDEX_HTML.as_bytes());
+    }
+
+    #[tokio::test]
+    async fn shell_is_revalidated_and_hashed_assets_are_immutable() {
+        let frontend = Frontend::new("cache");
+        std::fs::create_dir_all(frontend.path().join("_app/immutable")).unwrap();
+        std::fs::write(frontend.path().join("_app/immutable/a.js"), ASSET).unwrap();
+        let cache = |path: &'static str| {
+            let app = router(frontend.path());
+            async move {
+                let response = app
+                    .oneshot(Request::get(path).body(Body::empty()).unwrap())
+                    .await
+                    .unwrap();
+                response.headers()[axum::http::header::CACHE_CONTROL]
+                    .to_str()
+                    .unwrap()
+                    .to_owned()
+            }
+        };
+        assert_eq!(cache("/").await, "no-cache");
+        assert_eq!(cache("/irgendwo").await, "no-cache");
+        assert_eq!(
+            cache("/_app/immutable/a.js").await,
+            "public, max-age=31536000, immutable"
+        );
+        assert_eq!(cache("/_app/immutable/fehlt.js").await, "no-cache");
     }
 
     #[tokio::test]
