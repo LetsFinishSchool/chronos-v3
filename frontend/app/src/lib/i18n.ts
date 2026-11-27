@@ -4,6 +4,8 @@ const catalog = {
   "start.intro": "Termine im Leitungsteam planen und Rückmeldungen einholen.",
   "error.not-found.title": "Seite nicht gefunden",
   "error.not-found.text": "Diese Adresse gibt es in Chronos nicht.",
+  "error.generic.title": "Etwas ist schiefgegangen",
+  "error.generic.text": "Die Seite konnte nicht angezeigt werden. Bitte versuche es erneut.",
   "error.not-found.home": "Zur Startseite",
 } as const;
 
