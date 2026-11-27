@@ -308,3 +308,6 @@ Panic im Verbraucher zählt wie ein Fehler (eigene Task, Subscriber per `with_cu
 
 ## [2026-11-27] ingest | #102 LogConsumer im Prozess verdrahtet
 Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) registriert den `LogConsumer` in `chronos worker`; `tests/cli.rs` belegt im echten Prozess „outbox event received“ mit derselben Korrelations-ID. Die frühere Notiz „LogConsumer bewusst unverdrahtet“ ist damit überholt.
+
+## [2026-11-27] ingest | #102 Review Runde 4 und Merge mit #113
+`main` (axum-`serve`, #113) in den Branch gemergt; `shutdown_signal()` dient `serve` und `worker`. Exit-Code 69 wird nicht mehr vergeben, Wiki-Seiten (`cargo-workspace`, `datenbank-und-migrationen`, Index) angepasst. Deutsche Altkommentare in `main.rs` bleiben, sie stammen von `main`.

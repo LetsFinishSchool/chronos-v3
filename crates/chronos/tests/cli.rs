@@ -20,8 +20,7 @@ fn chronos(args: &[&str]) -> Output {
         .expect("the chronos binary starts")
 }
 
-/// `serve` und `worker` prüfen zuerst die Schemaversion; ohne migrierte Datenbank
-/// (`DATABASE_URL_APP`) enden sie mit 75, nicht mit 69.
+/// Runs the binary with extra environment variables, e.g. `DATABASE_URL` for `migrate`.
 fn chronos_with_env(args: &[&str], env: &[(&str, &str)]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_chronos"))
         .args(args)
