@@ -1,0 +1,7 @@
+apiVersion: v2
+name: chronos
+description: Chronos (Web, Worker, Migrationsjob und PostgreSQL je Umgebung)
+type: application
+version: 0.1.0
+# Informational only; the image tag comes from `image.tag` (commit SHA, set by CI).
+appVersion: "0.1.0"
