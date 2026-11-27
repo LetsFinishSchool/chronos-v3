@@ -5,6 +5,7 @@
 use std::future::Future;
 use std::net::SocketAddr;
 use std::num::NonZeroU32;
+use std::path::PathBuf;
 use std::process::ExitCode;
 use std::time::Duration;
 
@@ -44,6 +45,9 @@ const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
 const ENV_LISTEN: &str = "CHRONOS_LISTEN";
 const DEFAULT_LISTEN: &str = "127.0.0.1:8080";
+const ENV_FRONTEND_DIR: &str = "CHRONOS_FRONTEND_DIR";
+/// Build output of `npm --prefix frontend run build`, relative to the working directory.
+const DEFAULT_FRONTEND_DIR: &str = "frontend/app/build";
 const ENV_WORKER_POLL_MS: &str = "CHRONOS_WORKER_POLL_MS";
 const ENV_WORKER_BATCH_SIZE: &str = "CHRONOS_WORKER_BATCH_SIZE";
 /// Comma-separated event types the `LogConsumer` is registered for.
@@ -134,6 +138,22 @@ fn listen_address() -> Result<SocketAddr, Failure> {
     })
 }
 
+/// The built frontend; without an entry file `serve` would answer every page with an error.
+fn frontend_dir() -> Result<PathBuf, Failure> {
+    let dir = PathBuf::from(
+        std::env::var(ENV_FRONTEND_DIR).unwrap_or_else(|_| DEFAULT_FRONTEND_DIR.to_owned()),
+    );
+    if dir.join(chronos_web::INDEX_FILE).is_file() {
+        Ok(dir)
+    } else {
+        Err(Failure::Config(format!(
+            "{ENV_FRONTEND_DIR} (`{}`) has no {}; build the frontend with `npm --prefix frontend run build`",
+            dir.display(),
+            chronos_web::INDEX_FILE
+        )))
+    }
+}
+
 /// Completes on SIGTERM (container stop) or Ctrl+C.
 fn shutdown_signal() -> Result<impl Future<Output = ()> + Send + 'static, Failure> {
     let mut sigterm = signal(SignalKind::terminate()).map_err(Failure::Io)?;
@@ -148,12 +168,13 @@ fn shutdown_signal() -> Result<impl Future<Output = ()> + Send + 'static, Failur
 
 async fn serve() -> Result<(), Failure> {
     let address = listen_address()?;
+    let frontend = frontend_dir()?;
     ensure_schema().await?;
     let listener = TcpListener::bind(address).await.map_err(Failure::Io)?;
     let bound = listener.local_addr().map_err(Failure::Io)?;
     let shutdown = shutdown_signal()?;
     eprintln!("chronos serve: listening on {bound}");
-    chronos_web::serve(listener, shutdown)
+    chronos_web::serve(listener, &frontend, shutdown)
         .await
         .map_err(Failure::Io)
 }

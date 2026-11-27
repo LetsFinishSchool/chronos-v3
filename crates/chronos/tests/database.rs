@@ -129,6 +129,10 @@ async fn serve_exits_with_75_when_schema_is_outdated(pool: PgPool) {
     let output = std::process::Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")
         .env("DATABASE_URL_APP", url)
+        .env(
+            "CHRONOS_FRONTEND_DIR",
+            concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/frontend"),
+        )
         .env("CHRONOS_SCHEMA_WAIT_SECS", "1")
         .output()
         .unwrap();
