@@ -1,0 +1,13 @@
+target
+.git
+.github
+.worktrees
+.claude
+# Local secrets must never end up in an image layer (RB-008).
+.env
+.envrc
+docs
+wiki
+designs
+spikes
+deploy

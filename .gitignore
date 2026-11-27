@@ -28,3 +28,6 @@ frontend/app/.svelte-kit
 
 # Browser-Automation des Agenten
 .playwright-mcp/
+
+# Agenten-Arbeitsdateien (Pläne, Notizen), nie committen
+.scratch/

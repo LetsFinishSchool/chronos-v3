@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chronos-postgres-init
+  labels:
+    {{- include "chronos.labels" . | nindent 4 }}
+data:
+  # Runs only when the data directory is empty. Same grants as tools/db/init-roles.sql
+  # (ADR-011, point 8), but with the passwords from the Secret.
+  10-init-roles.sh: |
+    #!/bin/sh
+    set -eu
+    psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB" \
+      -v migrate_password="$MIGRATE_PASSWORD" -v app_password="$APP_PASSWORD" <<'SQL'
+    CREATE ROLE chronos_migrate LOGIN PASSWORD :'migrate_password';
+    CREATE ROLE chronos_app LOGIN PASSWORD :'app_password';
+    ALTER DATABASE chronos OWNER TO chronos_migrate;
+    ALTER SCHEMA public OWNER TO chronos_migrate;
+    REVOKE ALL ON DATABASE chronos FROM PUBLIC;
+    GRANT CONNECT ON DATABASE chronos TO chronos_app;
+    GRANT USAGE ON SCHEMA public TO chronos_app;
+    SQL
+---
+# The Service name is part of the host in the Secret's URLs.
+apiVersion: v1
+kind: Service
+metadata:
+  name: chronos-postgres
+  labels:
+    {{- include "chronos.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  selector:
+    {{- include "chronos.selector" (dict "root" $ "component" "postgres") | nindent 4 }}
+  ports:
+    - name: postgres
+      port: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: chronos-postgres
+  labels:
+    {{- include "chronos.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+spec:
+  serviceName: chronos-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "chronos.selector" (dict "root" $ "component" "postgres") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "chronos.selector" (dict "root" $ "component" "postgres") | nindent 8 }}
+    spec:
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: {{ .Values.postgres.image }}
+          env:
+            - name: POSTGRES_DB
+              value: chronos
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.databaseSecret }}, key: postgres-password}
+            - name: MIGRATE_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.databaseSecret }}, key: migrate-password}
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.databaseSecret }}, key: app-password}
+          ports:
+            - name: postgres
+              containerPort: 5432
+          readinessProbe:
+            exec:
+              # -h forces TCP: the init server listens on the Unix socket only.
+              command: [pg_isready, -h, 127.0.0.1, -U, postgres, -d, chronos]
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+      volumes:
+        - name: init
+          configMap:
+            name: chronos-postgres-init
+            defaultMode: 0555
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        {{- with .Values.postgres.storageClassName }}
+        storageClassName: {{ . }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.postgres.storage }}

@@ -1,0 +1,43 @@
+image:
+  repository: ghcr.io/letsfinishschool/chronos-v3
+  # Commit SHA; CI sets it with `--set image.tag=<sha>` (ADR-013). No default on purpose:
+  # a floating tag would roll out unknown code.
+  tag: ""
+  pullPolicy: IfNotPresent
+  pullSecret: ghcr-pull
+
+# Secret with the database passwords and URLs. The chart never creates it (RB-008).
+# Keys: postgres-password, migrate-password, app-password, DATABASE_URL, DATABASE_URL_APP.
+databaseSecret: chronos-db
+
+# Limits per environment: 1 vCPU and 1 GiB in total (chapter 7). The split between
+# the three components is provisional until the load test (QA-001).
+web:
+  listen: "0.0.0.0:8080"
+  resources:
+    requests: {cpu: 10m, memory: 32Mi}
+    limits: {cpu: 400m, memory: 384Mi}
+
+worker:
+  resources:
+    requests: {cpu: 10m, memory: 16Mi}
+    limits: {cpu: 200m, memory: 128Mi}
+
+postgres:
+  image: postgres:19
+  storage: 5Gi
+  # Empty: the k3s default StorageClass.
+  storageClassName: ""
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 400m, memory: 512Mi}
+
+migrate:
+  # `chronos migrate` itself does not retry a database that is still starting; the Job
+  # does, with Kubernetes' exponential back-off.
+  backoffLimit: 4
+  activeDeadlineSeconds: 240
+
+ingress:
+  className: nginx
+  host: ""

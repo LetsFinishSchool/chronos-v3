@@ -1,0 +1,23 @@
+{{- /*
+ADR-011: `chronos migrate` runs as a Job before the rollout; a failed Job blocks it and
+the old version keeps running. As a pre-upgrade hook that is what happens. On the very
+first install a pre-install hook would run before the database StatefulSet exists
+(hooks run before the release's resources), so there the Job is a plain resource of
+the release (`--wait-for-jobs` makes Helm wait for it); web and worker wait for the schema meanwhile.
+*/ -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  {{- if .Release.IsInstall }}
+  name: chronos-migrate-install
+  {{- else }}
+  name: chronos-migrate
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+  {{- end }}
+  labels:
+    {{- include "chronos.labels" . | nindent 4 }}
+    app.kubernetes.io/component: migrate
+spec:
+  {{- include "chronos.migrateJobSpec" . | nindent 2 }}
