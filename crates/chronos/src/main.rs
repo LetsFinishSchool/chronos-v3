@@ -140,9 +140,20 @@ fn listen_address() -> Result<SocketAddr, Failure> {
 
 /// The built frontend; without an entry file `serve` would answer every page with an error.
 fn frontend_dir() -> Result<PathBuf, Failure> {
-    let dir = PathBuf::from(
-        std::env::var(ENV_FRONTEND_DIR).unwrap_or_else(|_| DEFAULT_FRONTEND_DIR.to_owned()),
-    );
+    let dir = match std::env::var(ENV_FRONTEND_DIR) {
+        Ok(value) if value.is_empty() => {
+            return Err(Failure::Config(format!(
+                "{ENV_FRONTEND_DIR} must not be empty"
+            )));
+        }
+        Ok(value) => PathBuf::from(value),
+        Err(std::env::VarError::NotPresent) => PathBuf::from(DEFAULT_FRONTEND_DIR),
+        Err(std::env::VarError::NotUnicode(_)) => {
+            return Err(Failure::Config(format!(
+                "{ENV_FRONTEND_DIR} must be valid UTF-8"
+            )));
+        }
+    };
     if dir.join(chronos_web::INDEX_FILE).is_file() {
         Ok(dir)
     } else {

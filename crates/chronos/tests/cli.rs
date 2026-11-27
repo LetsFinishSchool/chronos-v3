@@ -276,6 +276,19 @@ fn serve_without_database_url_fails_with_config_error() {
 }
 
 #[test]
+fn serve_with_empty_frontend_dir_fails_with_config_error() {
+    let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
+        .arg("serve")
+        .env("CHRONOS_FRONTEND_DIR", "")
+        .env_remove("DATABASE_URL_APP")
+        .output()
+        .expect("the chronos binary starts");
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(stderr.contains("must not be empty"), "stderr: {stderr}");
+}
+
+#[test]
 fn serve_with_missing_frontend_dir_fails_with_config_error() {
     let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")

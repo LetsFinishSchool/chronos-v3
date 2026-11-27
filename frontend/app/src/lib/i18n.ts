@@ -1,4 +1,5 @@
 // Einstiegspunkt für Texte (V-3): #47 ersetzt nur diese Datei durch den Fluent-Katalog.
+// `app.name` und `app.loading` stehen zusätzlich von Hand in src/app.html (dort läuft vor dem Skript kein t()); beide Stellen gemeinsam ändern.
 const catalog = {
   "app.name": "Chronos",
   "app.loading": "Wird geladen …",
