@@ -16,7 +16,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
 - [Worker und Outbox-Abarbeitung](code/worker-and-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
-- [Wireframe-Generator und Prüfung](code/wireframes.md): `wirelib.py`, Story-Skripte, `check.py`; Token in `{…}`, Rahmen als Excalidraw-`frame`, Stolpersteine (`-I`, Raute als Hex), S103-Entscheidung
+- [Wireframe-Generator und Prüfung](code/wireframes.md): `wirelib.py`, Story-Skripte, `check.py`; Token in `{…}`, Rahmen als Excalidraw-`frame`, Stolpersteine (`-I`, Raute als Hex), S103-Entscheidung, S105 Basiskomponenten (fehlende Tokens, Pen-Stolperstein)
 - [Operationsrahmen (Minimalstand)](code/operationsrahmen.md): `Frame`, `Operation`, `Context`, Geltungsbereich, Probelauf, Test-Principal, Tabellen `person`/`verlauf`/`outbox`, Tests, Stolpersteine, Messwerte
 
 ## Lektionen
