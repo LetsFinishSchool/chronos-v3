@@ -47,6 +47,7 @@ sqlx = { version = "0.9", default-features = false, features = [
     "json",
 ] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "time"] }
+tokio-util = { version = "0.7", default-features = false }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 uuid = { version = "1", features = ["v4", "serde"] }

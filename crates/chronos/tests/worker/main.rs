@@ -1,6 +1,9 @@
 //! Tests des Workers (#102, K-003) gegen echtes PostgreSQL.
 //! Voraussetzung: `docker compose up --wait` und `DATABASE_URL`.
 
+#[path = "../operationsrahmen/beispiel.rs"]
+mod beispiel;
+mod laufzeit;
 mod support;
 
 use std::sync::Arc;
