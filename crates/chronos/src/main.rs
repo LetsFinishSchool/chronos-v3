@@ -2,12 +2,16 @@
 //!
 //! Zuschnitt und erlaubte Abhängigkeiten: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
 
+use std::future::Future;
+use std::net::SocketAddr;
 use std::process::ExitCode;
 use std::time::Duration;
 
 use chronos_core::db::{self, SchemaError};
 use clap::{Parser, Subcommand};
 use sqlx::migrate::Migrator;
+use tokio::net::TcpListener;
+use tokio::signal::unix::{SignalKind, signal};
 
 // Bindet die Fachbereiche ein, damit ihre Operationen (Registrierung über
 // `inventory` in `chronos-core`) gelinkt werden, obwohl `chronos-web` sie
@@ -18,7 +22,6 @@ use chronos_domain as _;
 use chronos_adapters as _;
 use chronos_channels as _;
 use chronos_core as _;
-use chronos_web as _;
 use chronos_worker as _;
 
 /// Alle Migrationen, eingebettet aus `crates/chronos/migrations/` (ADR-011).
@@ -37,6 +40,8 @@ const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
 /// Nur für lokale Entwicklung: `serve` und `worker` migrieren vor dem Start selbst.
 const ENV_MIGRATE_ON_START: &str = "CHRONOS_MIGRATE_ON_START";
+const ENV_LISTEN: &str = "CHRONOS_LISTEN";
+const DEFAULT_LISTEN: &str = "127.0.0.1:8080";
 
 /// Chronos: Termine und Veranstaltungen für ehrenamtliche Leitungsteams.
 #[derive(Debug, Parser)]
@@ -72,6 +77,7 @@ enum Failure {
     Database(sqlx::Error),
     Migration(sqlx::migrate::MigrateError),
     Schema(SchemaError),
+    Io(std::io::Error),
 }
 
 impl Failure {
@@ -90,6 +96,7 @@ impl std::fmt::Display for Failure {
             Failure::Database(error) => write!(f, "database error: {error}"),
             Failure::Migration(error) => write!(f, "migration failed: {error}"),
             Failure::Schema(error) => error.fmt(f),
+            Failure::Io(error) => write!(f, "I/O error: {error}"),
         }
     }
 }
@@ -108,6 +115,39 @@ fn schema_wait() -> Result<Duration, Failure> {
             ))
         }),
     }
+}
+
+fn listen_address() -> Result<SocketAddr, Failure> {
+    let value = std::env::var(ENV_LISTEN).unwrap_or_else(|_| DEFAULT_LISTEN.to_owned());
+    value.parse().map_err(|_| {
+        Failure::Config(format!(
+            "{ENV_LISTEN} must be an address like {DEFAULT_LISTEN}, got `{value}`"
+        ))
+    })
+}
+
+/// Completes on SIGTERM (container stop) or Ctrl+C.
+fn shutdown_signal() -> Result<impl Future<Output = ()> + Send + 'static, Failure> {
+    let mut sigterm = signal(SignalKind::terminate()).map_err(Failure::Io)?;
+    let mut sigint = signal(SignalKind::interrupt()).map_err(Failure::Io)?;
+    Ok(async move {
+        tokio::select! {
+            _ = sigterm.recv() => {}
+            _ = sigint.recv() => {}
+        }
+    })
+}
+
+async fn serve() -> Result<(), Failure> {
+    let address = listen_address()?;
+    ensure_schema().await?;
+    let listener = TcpListener::bind(address).await.map_err(Failure::Io)?;
+    let bound = listener.local_addr().map_err(Failure::Io)?;
+    let shutdown = shutdown_signal()?;
+    eprintln!("chronos serve: listening on {bound}");
+    chronos_web::serve(listener, shutdown)
+        .await
+        .map_err(Failure::Io)
 }
 
 async fn migrate() -> Result<(), Failure> {
@@ -138,7 +178,8 @@ async fn ensure_schema() -> Result<(), Failure> {
 async fn run(command: &Command) -> Result<u8, Failure> {
     match command {
         Command::Migrate => migrate().await.map(|()| 0),
-        Command::Serve | Command::Worker => {
+        Command::Serve => serve().await.map(|()| 0),
+        Command::Worker => {
             ensure_schema().await?;
             eprintln!("chronos {}: not implemented yet", command.name());
             Ok(EXIT_NOT_IMPLEMENTED)
