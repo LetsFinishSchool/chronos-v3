@@ -48,7 +48,7 @@ const CACHE_REVALIDATE: &str = "no-cache";
 const IMMUTABLE_ASSET_PREFIX: &str = "/_app/immutable/";
 
 async fn cache_control(request: Request, next: Next) -> Response {
-    let immutable = request.uri().path().starts_with(IMMUTABLE_ASSET_PREFIX);
+    let immutable = decode_path(request.uri().path()).starts_with(IMMUTABLE_ASSET_PREFIX);
     let mut response = next.run(request).await;
     let status = response.status();
     let revalidated = status.is_success() || status == StatusCode::NOT_MODIFIED;
@@ -82,7 +82,36 @@ const ASSET_EXTENSIONS: &[&str] = &[
     "woff",
     "woff2",
     "webmanifest",
+    "mp4",
+    "webm",
+    "mp3",
+    "zip",
 ];
+
+/// `ServeDir` looks files up by the decoded path, so the checks below must see it too:
+/// `/%5Fapp/…` addresses `/_app/…`.
+fn decode_path(path: &str) -> String {
+    let bytes = path.as_bytes();
+    let mut decoded = Vec::with_capacity(bytes.len());
+    let mut i = 0;
+    while i < bytes.len() {
+        let escaped = (bytes[i] == b'%')
+            .then(|| path.get(i + 1..i + 3))
+            .flatten()
+            .and_then(|hex| u8::from_str_radix(hex, 16).ok());
+        match escaped {
+            Some(byte) => {
+                decoded.push(byte);
+                i += 3;
+            }
+            None => {
+                decoded.push(bytes[i]);
+                i += 1;
+            }
+        }
+    }
+    String::from_utf8_lossy(&decoded).into_owned()
+}
 
 /// Asset paths: the build's own directory and files with a known extension (`/favicon.ico`).
 fn is_asset_path(path: &str) -> bool {
@@ -98,18 +127,18 @@ fn is_asset_path(path: &str) -> bool {
 }
 
 async fn shell_or_not_found(State(index): State<Arc<PathBuf>>, request: Request) -> Response {
-    if is_asset_path(request.uri().path()) {
+    if is_asset_path(&decode_path(request.uri().path())) {
         return StatusCode::NOT_FOUND.into_response();
     }
     match ServeFile::new(index.as_path()).try_call(request).await {
         Ok(response) if response.status() != StatusCode::NOT_FOUND => response.into_response(),
         // A vanished entry file is a server fault, not a missing page.
         Ok(_) => {
-            eprintln!("chronos web: {} is missing", index.display());
+            tracing::error!(path = %index.display(), "entry file is missing");
             StatusCode::INTERNAL_SERVER_ERROR.into_response()
         }
         Err(error) => {
-            eprintln!("chronos web: cannot read {}: {error}", index.display());
+            tracing::error!(path = %index.display(), %error, "cannot read entry file");
             StatusCode::INTERNAL_SERVER_ERROR.into_response()
         }
     }
