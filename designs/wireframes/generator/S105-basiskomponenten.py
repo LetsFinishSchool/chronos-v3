@@ -425,10 +425,207 @@ def list_section(bp):
     return Section("Liste", specimens, notes)
 
 
+# --- Eingabefelder ----------------------------------------------------
+
+FIELD_STATES = ["normal", "mit Hinweistext", "Fokus", "deaktiviert", "Fehler"]
+FIELD_KINDS = [
+    dict(kind="text", name="Textfeld", label="Name", value="Vor- und Nachname",
+         hint="Wird in der Teamliste angezeigt.", error="Bitte einen Namen eingeben."),
+    dict(kind="textarea", name="Textbereich", label="Notiz", value="Notiz hinzufügen",
+         hint="Höchstens 500 Zeichen.", error="Die Notiz ist zu lang."),
+    dict(kind="checkbox", name="Checkbox", label="Erinnerung per E-Mail", value=None,
+         hint="Einen Tag vor dem Termin.", error="Bitte bestätigen."),
+    dict(kind="radio", name="Radiogruppe", label="Rückmeldung", value=("Zusagen", "Absagen"),
+         hint="Gilt für diesen Termin.", error="Bitte eine Antwort wählen."),
+    dict(kind="select", name="Auswahl", label="Gruppe", value="Bitte wählen",
+         hint="Bestimmt, wer den Termin sieht.", error="Bitte eine Gruppe wählen."),
+]
+CONTROL_HEIGHT = T.px("space.10")
+TEXTAREA_HEIGHT = T.px("space.20") + T.px("space.2") * 2
+CHOICE_SIZE = 24
+FIELD_WIDTH = T.px("size.text-max") // 2
+
+
+def field_width(bp):
+    return min(bp["width"] - 2 * T.px(bp["side"]), FIELD_WIDTH)
+
+
+def draw_control_box(pen, x, y, w, h, state):
+    """Rahmen eines Eingabefelds nach Zustand; Fokus und Fehler nach K-012 Regeln 3 und 4."""
+    disabled = state == "deaktiviert"
+    error = state == "Fehler"
+    pen.rect(x, y, w, h, fill=T.color("bg.muted"),
+             stroke=T.color("border.default" if disabled else "border.danger" if error else "border.control"),
+             radius=T.px("radius.md"), stroke_width=2 if error else 1)
+    if state == "Fokus":
+        ring = FOCUS_GAP + FOCUS_RING_WIDTH / 2
+        pen.rect(x - ring, y - ring, w + 2 * ring, h + 2 * ring, stroke=T.color("focus.ring"),
+                 radius=T.px("radius.md") + ring, stroke_width=FOCUS_RING_WIDTH)
+
+
+def draw_choice(pen, x, y, round_, selected, state):
+    color = "border.default" if state == "deaktiviert" else "border.danger" if state == "Fehler" else "border.control"
+    width = 2 if state == "Fehler" else 1
+    if round_:
+        pen.ellipse(x, y, CHOICE_SIZE, CHOICE_SIZE, fill=T.color("bg.surface"), stroke=T.color(color),
+                    stroke_width=width)
+        if selected:
+            dot = T.px("space.3")
+            pen.ellipse(x + (CHOICE_SIZE - dot) / 2, y + (CHOICE_SIZE - dot) / 2, dot, dot,
+                        fill=T.color("brand.primary"), stroke=T.color("brand.primary"))
+    else:
+        pen.rect(x, y, CHOICE_SIZE, CHOICE_SIZE, fill=T.color("bg.surface"), stroke=T.color(color),
+                 radius=T.px("radius.md") / 2, stroke_width=width)
+    if state == "Fokus":
+        ring = FOCUS_GAP + FOCUS_RING_WIDTH / 2
+        if round_:
+            pen.ellipse(x - ring, y - ring, CHOICE_SIZE + 2 * ring, CHOICE_SIZE + 2 * ring,
+                        stroke=T.color("focus.ring"), stroke_width=FOCUS_RING_WIDTH)
+        else:
+            pen.rect(x - ring, y - ring, CHOICE_SIZE + 2 * ring, CHOICE_SIZE + 2 * ring,
+                     stroke=T.color("focus.ring"), radius=T.px("radius.md") / 2 + ring,
+                     stroke_width=FOCUS_RING_WIDTH)
+
+
+def draw_message(pen, x, y, width, spec, state):
+    """Hinweis- oder Fehlertext unter dem Feld; gibt die Höhe zurück (0 ohne Text)."""
+    if state == "mit Hinweistext":
+        return pen.text(x, y, spec["hint"], "body-s-regular", "text.secondary", width=width)[1]
+    if state == "Fehler":
+        pen.ellipse(x, y + 2, 16, 16, stroke=T.color("text.danger"), stroke_width=2)
+        pen.cross(x + 8, y + 10, 3, T.color("text.danger"), width=2)
+        return pen.text(x + 16 + T.px("space.2"), y, spec["error"], "body-s-regular", "text.danger",
+                        width=width - 16 - T.px("space.2"))[1]
+    return 0
+
+
+def draw_field(spec, state, width):
+    gap = T.px("space.1")
+    value_color = "text.muted"
+
+    def draw(pen, x, y):
+        disabled = state == "deaktiviert"
+        label_color = "text.muted" if disabled else "text.primary"
+        cy = y
+        if spec["kind"] in ("text", "textarea", "select"):
+            cy += pen.text(x, cy, spec["label"], "body-s-semibold", label_color)[1] + gap
+            h = TEXTAREA_HEIGHT if spec["kind"] == "textarea" else CONTROL_HEIGHT
+            draw_control_box(pen, x, cy, width, h, state)
+            pen.text(x + T.px("space.3"), cy + (T.px("space.2") if spec["kind"] == "textarea" else
+                                                (h - 24) / 2), spec["value"], "body-m-regular", value_color)
+            if spec["kind"] == "select":
+                pen.chevron(x + width - T.px("space.5"), cy + h / 2, 5, T.color("text.secondary" if not disabled
+                                                                                 else "text.muted"))
+            cy += h
+        elif spec["kind"] == "checkbox":
+            draw_choice(pen, x, cy, False, False, state)
+            pen.text(x + CHOICE_SIZE + T.px("space.2"), cy, spec["label"], "body-m-regular", label_color)
+            cy += CHOICE_SIZE
+        else:
+            cy += pen.text(x, cy, spec["label"], "body-s-semibold", label_color)[1] + gap
+            for i, option in enumerate(spec["value"]):
+                draw_choice(pen, x, cy, True, i == 0, state)
+                pen.text(x + CHOICE_SIZE + T.px("space.2"), cy, option, "body-m-regular", label_color)
+                cy += CHOICE_SIZE + T.px("space.2")
+            cy -= T.px("space.2")
+        message_h = draw_message(pen, x, cy + gap, width, spec, state)
+        if message_h:
+            cy += gap + message_h
+        return width, cy - y
+    return draw
+
+
+def field_section(bp):
+    width = field_width(bp)
+    specimens = [Specimen("%s · %s" % (k["name"], s), draw_field(k, s, width))
+                 for k in FIELD_KINDS for s in FIELD_STATES]
+    notes = [
+        "Feldbreite die Hälfte von {size.text-max} (288 px), auf Mobil die volle Spaltenbreite."
+        " Kein Breitentoken vorhanden.",
+        "Feld: Fläche {bg.muted}, Rahmen {border.control}, Ecken {radius.md}, Höhe 40 px ({space.10})."
+        " Beschriftung oben ({typography.style.body-s-semibold}, {text.primary}), Abstand {space.1};"
+        " Platzhalter {typography.style.body-m-regular} in {text.muted}.",
+        "Textfeld field.text.label „Name“, Textbereich field.textarea.label „Notiz“ (Höhe 96 px), Auswahl"
+        " field.select.label „Gruppe“ mit Pfeil {text.secondary}.",
+        "Checkbox und Radio: 24 × 24 px, Fläche {bg.surface}, Rahmen {border.control}; gewählt: Punkt"
+        " {brand.primary}. Die Zeile ist inklusive Beschriftung klickbar.",
+        "Hinweistext field.*.hint: {typography.style.body-s-regular}, {text.secondary}, Abstand {space.1}.",
+        "Fokus: 2 px Rahmen {focus.ring} im Abstand 2 px (K-012 Regel 4), Rahmen {border.control} bleibt.",
+        "deaktiviert: Rahmen {border.default}, Beschriftung {text.muted}; nicht fokussierbar.",
+        "Fehler: Rahmen {border.danger} 2 px, darunter Symbol und Fehlermeldung field.*.error in"
+        " {text.danger}; Farbe nie allein (K-012 Regel 2).",
+        "Hinweistext und Fehlermeldung hängen per aria-describedby am Feld. Schalter und Auswahlkacheln"
+        " sind nicht Teil dieses Wireframes.",
+    ]
+    return Section("Eingabefelder", specimens, notes)
+
+
+# --- Dialog -----------------------------------------------------------
+
+DIALOG_TITLE = ("dialog.title", "Termin absagen?")
+DIALOG_BUTTONS = [dict(BUTTON_VARIANTS[1], key="dialog.cancel", sample="Abbrechen"),
+                  dict(BUTTON_VARIANTS[2], key="dialog.confirm", sample="Absagen")]
+DIALOG_TEXT = ("dialog.text", "Alle Eingeladenen erhalten eine Nachricht. Das lässt sich nicht rückgängig machen.")
+
+
+def draw_dialog(width):
+    def draw(pen, x, y):
+        pad = T.px("space.6")
+        close_size = T.px("space.10")
+        assert close_size >= MIN_TARGET
+        inner = width - 2 * pad
+        title_w = inner - close_size - T.px("space.2")
+        _, title_h = pen.text(0, 0, DIALOG_TITLE[1], "heading-h2", "text.primary", width=title_w)
+        _, text_h = pen.text(0, 0, DIALOG_TEXT[1], "body-m-regular", "text.secondary", width=inner)
+        button_h = button_size("X")[1]
+        head_h = max(title_h, close_size)
+        h = 2 * pad + head_h + T.px("space.3") + text_h + T.px("space.6") + button_h
+        pen.rect(x, y, width, h, fill=T.color("bg.surface"), stroke=T.color("border.default"),
+                 radius=T.px("radius.lg"))
+        pen.text(x + pad, y + pad, DIALOG_TITLE[1], "heading-h2", "text.primary", width=title_w)
+        bx, by = x + width - pad - close_size, y + pad
+        pen.rect(bx, by, close_size, close_size, stroke=T.color("border.control"), radius=T.px("radius.md"))
+        pen.cross(bx + close_size / 2, by + close_size / 2, 5, T.color("text.secondary"))
+        ty = y + pad + head_h + T.px("space.3")
+        pen.text(x + pad, ty, DIALOG_TEXT[1], "body-m-regular", "text.secondary", width=inner)
+        right = x + width - pad
+        for variant in reversed(DIALOG_BUTTONS):
+            bw, _ = button_size(variant["sample"])
+            right -= bw
+            draw_button(variant, "normal")(pen, right, ty + text_h + T.px("space.6"))
+            right -= T.px("space.2")
+        return width, h
+    return draw
+
+
+def dialog_section(bp):
+    full = bp["name"] == "Mobil"
+    width = bp["width"] if full else content_width(bp)
+    specimens = [Specimen("offen" + (" · volle Breite" if full else ""), draw_dialog(width))]
+    notes = [
+        ("Mobil: volle Breite des Rahmens, ohne seitlichen Rand." if full else
+         "Breite höchstens {size.text-max}, in der Mitte der Seite (hier links gezeichnet)."),
+        "Fläche {bg.surface}, Rahmen {border.default}, Ecken {radius.lg}, Innenabstand {space.6},"
+        " Schatten {shadow.lg} (im Wireframe nicht gezeichnet).",
+        "Titel dialog.title „Termin absagen?“: {typography.style.heading-h2}, {text.primary}; Inhalt dialog.text:"
+        " {typography.style.body-m-regular}, {text.secondary}, Abstand {space.3}.",
+        "Schließen-Button dialog.close „Schließen“: 40 × 40 px ({space.10}), Rahmen {border.control}, Kreuz"
+        " {text.secondary}; Escape schließt ebenfalls.",
+        "Aktionen rechtsbündig, Abstand {space.2}: Button sekundär dialog.cancel „Abbrechen“ und Button Gefahr"
+        " dialog.confirm „Absagen“.",
+        "Fokus beim Öffnen auf das erste Bedienelement, innerhalb des Dialogs gefangen, danach zurück zum"
+        " Auslöser; Fokusrahmen {focus.ring}. Die Seite dahinter ist inaktiv (inert).",
+        "Es gibt kein Token für die Abdunklung der Seite hinter dem Dialog; sie ist nicht gezeichnet"
+        " (siehe Anmerkungen oben).",
+    ]
+    return Section("Dialog", specimens, notes, full_width=full)
+
+
 # --- Gesamtbild -------------------------------------------------------
 
 def sections(bp):
-    return [button_section(), badge_section(), alert_section(bp), card_section(bp), list_section(bp)]
+    return [button_section(), badge_section(), alert_section(bp), card_section(bp), list_section(bp),
+            field_section(bp), dialog_section(bp)]
 
 
 STORY_STATES = [

@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="3934.9" height="3870" viewBox="-40 -64 3934.9 3870">
-<rect x="-40" y="-64" width="3934.9" height="3870" fill="#ffffff"/>
-<rect x="0" y="156" width="320" height="3610" fill="none" stroke="#bbbbbb"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="3934.9" height="7558" viewBox="-40 -64 3934.9 7558">
+<rect x="-40" y="-64" width="3934.9" height="7558" fill="#ffffff"/>
+<rect x="0" y="156" width="320" height="7298" fill="none" stroke="#bbbbbb"/>
 <text x="0" y="148" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563">Mobil 320 px</text>
-<rect x="832" y="156" width="768" height="2890" fill="none" stroke="#bbbbbb"/>
+<rect x="832" y="156" width="768" height="5230" fill="none" stroke="#bbbbbb"/>
 <text x="832" y="148" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563">Tablet 768 px</text>
-<rect x="2112" y="156" width="1280" height="2240" fill="none" stroke="#bbbbbb"/>
+<rect x="2112" y="156" width="1280" height="4172" fill="none" stroke="#bbbbbb"/>
 <text x="2112" y="148" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563">Desktop 1280 px</text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#4b5563"><tspan x="0" y="27.8">S105 Basiskomponenten: Wireframe zu Ticket 105 (Task 119)</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#374151"><tspan x="0" y="60.25">Farben, Abstände, Radien und Schriftstile als Token-Namen aus designs/tokens/tokens.json in geschweiften Klammern. Texte als Fluent-Schlüssel mit Beispieltext (ADR-010). Füllfarben zeigen den hellen Modus; der dunkle nutzt dieselben Namen.</tspan></text>
@@ -166,8 +166,178 @@
 <rect x="32" y="3314" width="128.0" height="16" rx="8" fill="#F3F4F6" stroke="#F3F4F6"/>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="3374.2">laden</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="344" y="2908.9">· Mobil: Seite {bg.page}; seitlicher Rand {space.4}</tspan><tspan x="344" y="2928.9">· Breite höchstens {size.text-max}; Fläche {bg.surface},</tspan><tspan x="344" y="2948.9">Rahmen {border.default}, Ecken {radius.lg}, Trenner</tspan><tspan x="344" y="2968.9">{border.default}, Zeilenabstand oben und unten {space.2},</tspan><tspan x="344" y="2988.9">seitlich {space.4}.</tspan><tspan x="344" y="3008.9">· normal: Zeile mit Titel</tspan><tspan x="344" y="3028.9">({typography.style.body-m-regular}, {text.primary}) und</tspan><tspan x="344" y="3048.9">Angabe ({typography.style.body-s-regular},</tspan><tspan x="344" y="3068.9">{text.secondary}).</tspan><tspan x="344" y="3088.9">· leer list.empty „Keine Einträge.“:</tspan><tspan x="344" y="3108.9">{typography.style.body-m-regular}, {text.muted}.</tspan><tspan x="344" y="3128.9">· laden list.loading „Lädt …“ (role=status):</tspan><tspan x="344" y="3148.9">{typography.style.body-s-regular}, {text.muted}; darunter</tspan><tspan x="344" y="3168.9">Platzhalterbalken in {bg.muted}. Kein Spinner.</tspan><tspan x="344" y="3188.9">· Fehler, ohne Berechtigung: nicht zutreffend; die Seite</tspan><tspan x="344" y="3208.9">zeigt dafür einen Alert statt der Liste.</tspan></text>
-<rect x="8.0" y="3434" width="304" height="316" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
-<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="16" y="3456.9">Normal: bei jeder Komponente</tspan><tspan x="16" y="3476.9">gezeichnet.</tspan><tspan x="16" y="3496.9">Laden: Button (laden) und Liste</tspan><tspan x="16" y="3516.9">(laden).</tspan><tspan x="16" y="3536.9">Fehler: Alert (Fehler) und</tspan><tspan x="16" y="3556.9">Eingabefelder (Fehler mit</tspan><tspan x="16" y="3576.9">Fehlermeldung).</tspan><tspan x="16" y="3596.9">Leer: Liste (leer mit Leertext);</tspan><tspan x="16" y="3616.9">sonst nicht zutreffend, die</tspan><tspan x="16" y="3636.9">Komponenten zeigen selbst keine</tspan><tspan x="16" y="3656.9">Daten.</tspan><tspan x="16" y="3676.9">Ohne Berechtigung: nicht zutreffend.</tspan><tspan x="16" y="3696.9">Basiskomponenten kennen keine</tspan><tspan x="16" y="3716.9">Berechtigung; die Seite entscheidet,</tspan><tspan x="16" y="3736.9">ob sie eine Komponente zeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="16" y="3455.6">Eingabefelder</tspan></text>
+<rect x="0" y="3466" width="320" height="3124" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="3504.9">Name</tspan></text>
+<rect x="16" y="3514" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="3539.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="3570.2">Textfeld · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="3612.9">Name</tspan></text>
+<rect x="16" y="3622" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="3647.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="16" y="3680.9">Wird in der Teamliste angezeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="3702.2">Textfeld · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="3744.9">Name</tspan></text>
+<rect x="16" y="3754" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="13.0" y="3751.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="3779.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="3810.2">Textfeld · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="16" y="3852.9">Name</tspan></text>
+<rect x="16" y="3862" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="3887.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="3918.2">Textfeld · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="3960.9">Name</tspan></text>
+<rect x="16" y="3970" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="3995.6">Vor- und Nachname</tspan></text>
+<ellipse cx="24.0" cy="4024.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="4021" x2="27" y2="4027" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="4027" x2="27" y2="4021" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="40" y="4028.9">Bitte einen Namen eingeben.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4050.2">Textfeld · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="4092.9">Notiz</tspan></text>
+<rect x="16" y="4102" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="4127.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4214.2">Textbereich · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="4256.9">Notiz</tspan></text>
+<rect x="16" y="4266" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="4291.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="16" y="4380.9">Höchstens 500 Zeichen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4402.2">Textbereich · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="4444.9">Notiz</tspan></text>
+<rect x="16" y="4454" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="13.0" y="4451.0" width="294.0" height="102.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="4479.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4566.2">Textbereich · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="16" y="4608.9">Notiz</tspan></text>
+<rect x="16" y="4618" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="4643.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4730.2">Textbereich · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="4772.9">Notiz</tspan></text>
+<rect x="16" y="4782" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="4807.6">Notiz hinzufügen</tspan></text>
+<ellipse cx="24.0" cy="4892.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="4889" x2="27" y2="4895" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="4895" x2="27" y2="4889" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="40" y="4896.9">Die Notiz ist zu lang.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4918.2">Textbereich · Fehler</tspan></text>
+<rect x="16" y="4946" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="4963.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="4986.2">Checkbox · normal</tspan></text>
+<rect x="16" y="5014" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5031.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="16" y="5056.9">Einen Tag vor dem Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5078.2">Checkbox · mit Hinweistext</tspan></text>
+<rect x="16" y="5106" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<rect x="13.0" y="5103.0" width="30.0" height="30.0" rx="7.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5123.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5146.2">Checkbox · Fokus</tspan></text>
+<rect x="16" y="5174" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="48" y="5191.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5214.2">Checkbox · deaktiviert</tspan></text>
+<rect x="16" y="5242" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5259.6">Erinnerung per E-Mail</tspan></text>
+<ellipse cx="24.0" cy="5280.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="5277" x2="27" y2="5283" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="5283" x2="27" y2="5277" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="40" y="5284.9">Bitte bestätigen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5306.2">Checkbox · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="5348.9">Rückmeldung</tspan></text>
+<ellipse cx="28.0" cy="5370.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="28.0" cy="5370.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5375.6">Zusagen</tspan></text>
+<ellipse cx="28.0" cy="5402.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5407.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5430.2">Radiogruppe · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="5472.9">Rückmeldung</tspan></text>
+<ellipse cx="28.0" cy="5494.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="28.0" cy="5494.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5499.6">Zusagen</tspan></text>
+<ellipse cx="28.0" cy="5526.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5531.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="16" y="5556.9">Gilt für diesen Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5578.2">Radiogruppe · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="5620.9">Rückmeldung</tspan></text>
+<ellipse cx="28.0" cy="5642.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="28.0" cy="5642.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<ellipse cx="28.0" cy="5642.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5647.6">Zusagen</tspan></text>
+<ellipse cx="28.0" cy="5674.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="28.0" cy="5674.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5679.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5702.2">Radiogruppe · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="16" y="5744.9">Rückmeldung</tspan></text>
+<ellipse cx="28.0" cy="5766.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<ellipse cx="28.0" cy="5766.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="48" y="5771.6">Zusagen</tspan></text>
+<ellipse cx="28.0" cy="5798.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="48" y="5803.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5826.2">Radiogruppe · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="5868.9">Rückmeldung</tspan></text>
+<ellipse cx="28.0" cy="5890.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<ellipse cx="28.0" cy="5890.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5895.6">Zusagen</tspan></text>
+<ellipse cx="28.0" cy="5922.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="48" y="5927.6">Absagen</tspan></text>
+<ellipse cx="24.0" cy="5948.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="5945" x2="27" y2="5951" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="5951" x2="27" y2="5945" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="40" y="5952.9">Bitte eine Antwort wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="5974.2">Radiogruppe · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="6016.9">Gruppe</tspan></text>
+<rect x="16" y="6026" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="6051.6">Bitte wählen</tspan></text>
+<line x1="279" y1="6043.5" x2="284" y2="6048.5" stroke="#374151" stroke-width="2"/>
+<line x1="284" y1="6048.5" x2="289" y2="6043.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="6082.2">Auswahl · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="6124.9">Gruppe</tspan></text>
+<rect x="16" y="6134" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="6159.6">Bitte wählen</tspan></text>
+<line x1="279" y1="6151.5" x2="284" y2="6156.5" stroke="#374151" stroke-width="2"/>
+<line x1="284" y1="6156.5" x2="289" y2="6151.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="16" y="6192.9">Bestimmt, wer den Termin sieht.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="6214.2">Auswahl · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="6256.9">Gruppe</tspan></text>
+<rect x="16" y="6266" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="13.0" y="6263.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="6291.6">Bitte wählen</tspan></text>
+<line x1="279" y1="6283.5" x2="284" y2="6288.5" stroke="#374151" stroke-width="2"/>
+<line x1="284" y1="6288.5" x2="289" y2="6283.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="6322.2">Auswahl · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="16" y="6364.9">Gruppe</tspan></text>
+<rect x="16" y="6374" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="6399.6">Bitte wählen</tspan></text>
+<line x1="279" y1="6391.5" x2="284" y2="6396.5" stroke="#4B5563" stroke-width="2"/>
+<line x1="284" y1="6396.5" x2="289" y2="6391.5" stroke="#4B5563" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="6430.2">Auswahl · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="16" y="6472.9">Gruppe</tspan></text>
+<rect x="16" y="6482" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="28" y="6507.6">Bitte wählen</tspan></text>
+<line x1="279" y1="6499.5" x2="284" y2="6504.5" stroke="#374151" stroke-width="2"/>
+<line x1="284" y1="6504.5" x2="289" y2="6499.5" stroke="#374151" stroke-width="2"/>
+<ellipse cx="24.0" cy="6536.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="6533" x2="27" y2="6539" stroke="#B91C1C" stroke-width="2"/>
+<line x1="21" y1="6539" x2="27" y2="6533" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="40" y="6540.9">Bitte eine Gruppe wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="16" y="6562.2">Auswahl · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="344" y="3480.9">· Mobil: Seite {bg.page}; seitlicher Rand {space.4}</tspan><tspan x="344" y="3500.9">· Feldbreite die Hälfte von {size.text-max} (288 px), auf</tspan><tspan x="344" y="3520.9">Mobil die volle Spaltenbreite. Kein Breitentoken</tspan><tspan x="344" y="3540.9">vorhanden.</tspan><tspan x="344" y="3560.9">· Feld: Fläche {bg.muted}, Rahmen {border.control}, Ecken</tspan><tspan x="344" y="3580.9">{radius.md}, Höhe 40 px ({space.10}). Beschriftung oben</tspan><tspan x="344" y="3600.9">({typography.style.body-s-semibold}, {text.primary}),</tspan><tspan x="344" y="3620.9">Abstand {space.1}; Platzhalter</tspan><tspan x="344" y="3640.9">{typography.style.body-m-regular} in {text.muted}.</tspan><tspan x="344" y="3660.9">· Textfeld field.text.label „Name“, Textbereich</tspan><tspan x="344" y="3680.9">field.textarea.label „Notiz“ (Höhe 96 px), Auswahl</tspan><tspan x="344" y="3700.9">field.select.label „Gruppe“ mit Pfeil {text.secondary}.</tspan><tspan x="344" y="3720.9">· Checkbox und Radio: 24 × 24 px, Fläche {bg.surface},</tspan><tspan x="344" y="3740.9">Rahmen {border.control}; gewählt: Punkt {brand.primary}.</tspan><tspan x="344" y="3760.9">Die Zeile ist inklusive Beschriftung klickbar.</tspan><tspan x="344" y="3780.9">· Hinweistext field.*.hint:</tspan><tspan x="344" y="3800.9">{typography.style.body-s-regular}, {text.secondary},</tspan><tspan x="344" y="3820.9">Abstand {space.1}.</tspan><tspan x="344" y="3840.9">· Fokus: 2 px Rahmen {focus.ring} im Abstand 2 px (K-012</tspan><tspan x="344" y="3860.9">Regel 4), Rahmen {border.control} bleibt.</tspan><tspan x="344" y="3880.9">· deaktiviert: Rahmen {border.default}, Beschriftung</tspan><tspan x="344" y="3900.9">{text.muted}; nicht fokussierbar.</tspan><tspan x="344" y="3920.9">· Fehler: Rahmen {border.danger} 2 px, darunter Symbol</tspan><tspan x="344" y="3940.9">und Fehlermeldung field.*.error in {text.danger}; Farbe</tspan><tspan x="344" y="3960.9">nie allein (K-012 Regel 2).</tspan><tspan x="344" y="3980.9">· Hinweistext und Fehlermeldung hängen per</tspan><tspan x="344" y="4000.9">aria-describedby am Feld. Schalter und Auswahlkacheln</tspan><tspan x="344" y="4020.9">sind nicht Teil dieses Wireframes.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="16" y="6643.6">Dialog</tspan></text>
+<rect x="0" y="6654" width="320" height="436" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="0" y="24.4">Termin absagen?</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="0" y="17.6">Alle Eingeladenen erhalten</tspan><tspan x="0" y="41.6">eine Nachricht. Das lässt sich</tspan><tspan x="0" y="65.6">nicht rückgängig machen.</tspan></text>
+<rect x="0" y="6670" width="320" height="236" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="24" y="6718.4">Termin absagen?</tspan></text>
+<rect x="256" y="6694" width="40" height="40" rx="8" fill="none" stroke="#6B7280"/>
+<line x1="271.0" y1="6709.0" x2="281.0" y2="6719.0" stroke="#374151" stroke-width="2"/>
+<line x1="271.0" y1="6719.0" x2="281.0" y2="6709.0" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="24" y="6763.6">Alle Eingeladenen erhalten</tspan><tspan x="24" y="6787.6">eine Nachricht. Das lässt sich</tspan><tspan x="24" y="6811.6">nicht rückgängig machen.</tspan></text>
+<rect x="204.64" y="6842" width="91.36" height="40" rx="8" fill="#DC2626" stroke="#DC2626"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="bold"><tspan x="220.64" y="6867.6">Absagen</tspan></text>
+<rect x="88.31999999999998" y="6842" width="108.32000000000001" height="40" rx="8" fill="#FFFFFF" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#9333EA" font-weight="bold"><tspan x="104.31999999999998" y="6867.6">Abbrechen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="0" y="6922.2">offen · volle Breite</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="344" y="6668.9">· Mobil: Seite {bg.page}; seitlicher Rand {space.4}</tspan><tspan x="344" y="6688.9">· Mobil: volle Breite des Rahmens, ohne seitlichen Rand.</tspan><tspan x="344" y="6708.9">· Fläche {bg.surface}, Rahmen {border.default}, Ecken</tspan><tspan x="344" y="6728.9">{radius.lg}, Innenabstand {space.6}, Schatten {shadow.lg}</tspan><tspan x="344" y="6748.9">(im Wireframe nicht gezeichnet).</tspan><tspan x="344" y="6768.9">· Titel dialog.title „Termin absagen?“:</tspan><tspan x="344" y="6788.9">{typography.style.heading-h2}, {text.primary}; Inhalt</tspan><tspan x="344" y="6808.9">dialog.text: {typography.style.body-m-regular},</tspan><tspan x="344" y="6828.9">{text.secondary}, Abstand {space.3}.</tspan><tspan x="344" y="6848.9">· Schließen-Button dialog.close „Schließen“: 40 × 40 px</tspan><tspan x="344" y="6868.9">({space.10}), Rahmen {border.control}, Kreuz</tspan><tspan x="344" y="6888.9">{text.secondary}; Escape schließt ebenfalls.</tspan><tspan x="344" y="6908.9">· Aktionen rechtsbündig, Abstand {space.2}: Button</tspan><tspan x="344" y="6928.9">sekundär dialog.cancel „Abbrechen“ und Button Gefahr</tspan><tspan x="344" y="6948.9">dialog.confirm „Absagen“.</tspan><tspan x="344" y="6968.9">· Fokus beim Öffnen auf das erste Bedienelement,</tspan><tspan x="344" y="6988.9">innerhalb des Dialogs gefangen, danach zurück zum</tspan><tspan x="344" y="7008.9">Auslöser; Fokusrahmen {focus.ring}. Die Seite dahinter</tspan><tspan x="344" y="7028.9">ist inaktiv (inert).</tspan><tspan x="344" y="7048.9">· Es gibt kein Token für die Abdunklung der Seite hinter</tspan><tspan x="344" y="7068.9">dem Dialog; sie ist nicht gezeichnet (siehe Anmerkungen</tspan><tspan x="344" y="7088.9">oben).</tspan></text>
+<rect x="8.0" y="7122" width="304" height="316" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="16" y="7144.9">Normal: bei jeder Komponente</tspan><tspan x="16" y="7164.9">gezeichnet.</tspan><tspan x="16" y="7184.9">Laden: Button (laden) und Liste</tspan><tspan x="16" y="7204.9">(laden).</tspan><tspan x="16" y="7224.9">Fehler: Alert (Fehler) und</tspan><tspan x="16" y="7244.9">Eingabefelder (Fehler mit</tspan><tspan x="16" y="7264.9">Fehlermeldung).</tspan><tspan x="16" y="7284.9">Leer: Liste (leer mit Leertext);</tspan><tspan x="16" y="7304.9">sonst nicht zutreffend, die</tspan><tspan x="16" y="7324.9">Komponenten zeigen selbst keine</tspan><tspan x="16" y="7344.9">Daten.</tspan><tspan x="16" y="7364.9">Ohne Berechtigung: nicht zutreffend.</tspan><tspan x="16" y="7384.9">Basiskomponenten kennen keine</tspan><tspan x="16" y="7404.9">Berechtigung; die Seite entscheidet,</tspan><tspan x="16" y="7424.9">ob sie eine Komponente zeigt.</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="848" y="193.6">Button</tspan></text>
 <rect x="832" y="204" width="768" height="336" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
 <rect x="864" y="228" width="108.32000000000001" height="40" rx="8" fill="#9333EA" stroke="#9333EA"/>
@@ -325,8 +495,178 @@
 <rect x="880" y="2754" width="272.0" height="16" rx="8" fill="#F3F4F6" stroke="#F3F4F6"/>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="2814.2">laden</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1624" y="2348.9">· Tablet ab {breakpoint.tablet}: Seite {bg.page};</tspan><tspan x="1624" y="2368.9">seitlicher Rand {space.8}</tspan><tspan x="1624" y="2388.9">· Breite höchstens {size.text-max}; Fläche {bg.surface},</tspan><tspan x="1624" y="2408.9">Rahmen {border.default}, Ecken {radius.lg}, Trenner</tspan><tspan x="1624" y="2428.9">{border.default}, Zeilenabstand oben und unten {space.2},</tspan><tspan x="1624" y="2448.9">seitlich {space.4}.</tspan><tspan x="1624" y="2468.9">· normal: Zeile mit Titel</tspan><tspan x="1624" y="2488.9">({typography.style.body-m-regular}, {text.primary}) und</tspan><tspan x="1624" y="2508.9">Angabe ({typography.style.body-s-regular},</tspan><tspan x="1624" y="2528.9">{text.secondary}).</tspan><tspan x="1624" y="2548.9">· leer list.empty „Keine Einträge.“:</tspan><tspan x="1624" y="2568.9">{typography.style.body-m-regular}, {text.muted}.</tspan><tspan x="1624" y="2588.9">· laden list.loading „Lädt …“ (role=status):</tspan><tspan x="1624" y="2608.9">{typography.style.body-s-regular}, {text.muted}; darunter</tspan><tspan x="1624" y="2628.9">Platzhalterbalken in {bg.muted}. Kein Spinner.</tspan><tspan x="1624" y="2648.9">· Fehler, ohne Berechtigung: nicht zutreffend; die Seite</tspan><tspan x="1624" y="2668.9">zeigt dafür einen Alert statt der Liste.</tspan></text>
-<rect x="840.0" y="2874" width="752" height="156" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
-<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="848" y="2896.9">Normal: bei jeder Komponente gezeichnet.</tspan><tspan x="848" y="2916.9">Laden: Button (laden) und Liste (laden).</tspan><tspan x="848" y="2936.9">Fehler: Alert (Fehler) und Eingabefelder (Fehler mit Fehlermeldung).</tspan><tspan x="848" y="2956.9">Leer: Liste (leer mit Leertext); sonst nicht zutreffend, die Komponenten zeigen selbst keine</tspan><tspan x="848" y="2976.9">Daten.</tspan><tspan x="848" y="2996.9">Ohne Berechtigung: nicht zutreffend. Basiskomponenten kennen keine Berechtigung; die Seite</tspan><tspan x="848" y="3016.9">entscheidet, ob sie eine Komponente zeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="848" y="2895.6">Eingabefelder</tspan></text>
+<rect x="832" y="2906" width="768" height="1756" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="2944.9">Name</tspan></text>
+<rect x="864" y="2954" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="2979.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3010.2">Textfeld · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="2944.9">Name</tspan></text>
+<rect x="1168" y="2954" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="2979.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1168" y="3012.9">Wird in der Teamliste angezeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3034.2">Textfeld · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="3076.9">Name</tspan></text>
+<rect x="864" y="3086" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="861.0" y="3083.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="3111.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3142.2">Textfeld · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="1168" y="3076.9">Name</tspan></text>
+<rect x="1168" y="3086" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="3111.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3142.2">Textfeld · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="3184.9">Name</tspan></text>
+<rect x="864" y="3194" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="3219.6">Vor- und Nachname</tspan></text>
+<ellipse cx="872.0" cy="3248.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="3245" x2="875" y2="3251" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="3251" x2="875" y2="3245" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="888" y="3252.9">Bitte einen Namen eingeben.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3274.2">Textfeld · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="3184.9">Notiz</tspan></text>
+<rect x="1168" y="3194" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="3219.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3306.2">Textbereich · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="3348.9">Notiz</tspan></text>
+<rect x="864" y="3358" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="3383.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="864" y="3472.9">Höchstens 500 Zeichen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3494.2">Textbereich · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="3348.9">Notiz</tspan></text>
+<rect x="1168" y="3358" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="1165.0" y="3355.0" width="294.0" height="102.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="3383.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3470.2">Textbereich · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="864" y="3536.9">Notiz</tspan></text>
+<rect x="864" y="3546" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="3571.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3658.2">Textbereich · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="3536.9">Notiz</tspan></text>
+<rect x="1168" y="3546" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="3571.6">Notiz hinzufügen</tspan></text>
+<ellipse cx="1176.0" cy="3656.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="1173" y1="3653" x2="1179" y2="3659" stroke="#B91C1C" stroke-width="2"/>
+<line x1="1173" y1="3659" x2="1179" y2="3653" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="1192" y="3660.9">Die Notiz ist zu lang.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3682.2">Textbereich · Fehler</tspan></text>
+<rect x="864" y="3710" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="896" y="3727.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3750.2">Checkbox · normal</tspan></text>
+<rect x="1168" y="3710" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="3727.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1168" y="3752.9">Einen Tag vor dem Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3774.2">Checkbox · mit Hinweistext</tspan></text>
+<rect x="864" y="3802" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<rect x="861.0" y="3799.0" width="30.0" height="30.0" rx="7.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="896" y="3819.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3842.2">Checkbox · Fokus</tspan></text>
+<rect x="1168" y="3802" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1200" y="3819.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3842.2">Checkbox · deaktiviert</tspan></text>
+<rect x="864" y="3870" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="896" y="3887.6">Erinnerung per E-Mail</tspan></text>
+<ellipse cx="872.0" cy="3908.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="3905" x2="875" y2="3911" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="3911" x2="875" y2="3905" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="888" y="3912.9">Bitte bestätigen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="3934.2">Checkbox · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="3884.9">Rückmeldung</tspan></text>
+<ellipse cx="1180.0" cy="3906.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="1180.0" cy="3906.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="3911.6">Zusagen</tspan></text>
+<ellipse cx="1180.0" cy="3938.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="3943.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="3966.2">Radiogruppe · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="4008.9">Rückmeldung</tspan></text>
+<ellipse cx="876.0" cy="4030.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="876.0" cy="4030.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="896" y="4035.6">Zusagen</tspan></text>
+<ellipse cx="876.0" cy="4062.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="896" y="4067.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="864" y="4092.9">Gilt für diesen Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4114.2">Radiogruppe · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="4008.9">Rückmeldung</tspan></text>
+<ellipse cx="1180.0" cy="4030.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="1180.0" cy="4030.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<ellipse cx="1180.0" cy="4030.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="4035.6">Zusagen</tspan></text>
+<ellipse cx="1180.0" cy="4062.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="1180.0" cy="4062.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="4067.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="4090.2">Radiogruppe · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="864" y="4156.9">Rückmeldung</tspan></text>
+<ellipse cx="876.0" cy="4178.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<ellipse cx="876.0" cy="4178.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="896" y="4183.6">Zusagen</tspan></text>
+<ellipse cx="876.0" cy="4210.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="896" y="4215.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4238.2">Radiogruppe · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="4156.9">Rückmeldung</tspan></text>
+<ellipse cx="1180.0" cy="4178.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<ellipse cx="1180.0" cy="4178.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="4183.6">Zusagen</tspan></text>
+<ellipse cx="1180.0" cy="4210.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="1200" y="4215.6">Absagen</tspan></text>
+<ellipse cx="1176.0" cy="4236.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="1173" y1="4233" x2="1179" y2="4239" stroke="#B91C1C" stroke-width="2"/>
+<line x1="1173" y1="4239" x2="1179" y2="4233" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="1192" y="4240.9">Bitte eine Antwort wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="4262.2">Radiogruppe · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="4304.9">Gruppe</tspan></text>
+<rect x="864" y="4314" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="4339.6">Bitte wählen</tspan></text>
+<line x1="1127" y1="4331.5" x2="1132" y2="4336.5" stroke="#374151" stroke-width="2"/>
+<line x1="1132" y1="4336.5" x2="1137" y2="4331.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4370.2">Auswahl · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="1168" y="4304.9">Gruppe</tspan></text>
+<rect x="1168" y="4314" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="4339.6">Bitte wählen</tspan></text>
+<line x1="1431" y1="4331.5" x2="1436" y2="4336.5" stroke="#374151" stroke-width="2"/>
+<line x1="1436" y1="4336.5" x2="1441" y2="4331.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1168" y="4372.9">Bestimmt, wer den Termin sieht.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="4394.2">Auswahl · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="4436.9">Gruppe</tspan></text>
+<rect x="864" y="4446" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="861.0" y="4443.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="4471.6">Bitte wählen</tspan></text>
+<line x1="1127" y1="4463.5" x2="1132" y2="4468.5" stroke="#374151" stroke-width="2"/>
+<line x1="1132" y1="4468.5" x2="1137" y2="4463.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4502.2">Auswahl · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="1168" y="4436.9">Gruppe</tspan></text>
+<rect x="1168" y="4446" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="1180" y="4471.6">Bitte wählen</tspan></text>
+<line x1="1431" y1="4463.5" x2="1436" y2="4468.5" stroke="#4B5563" stroke-width="2"/>
+<line x1="1436" y1="4468.5" x2="1441" y2="4463.5" stroke="#4B5563" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="1168" y="4502.2">Auswahl · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="864" y="4544.9">Gruppe</tspan></text>
+<rect x="864" y="4554" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="876" y="4579.6">Bitte wählen</tspan></text>
+<line x1="1127" y1="4571.5" x2="1132" y2="4576.5" stroke="#374151" stroke-width="2"/>
+<line x1="1132" y1="4576.5" x2="1137" y2="4571.5" stroke="#374151" stroke-width="2"/>
+<ellipse cx="872.0" cy="4608.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="4605" x2="875" y2="4611" stroke="#B91C1C" stroke-width="2"/>
+<line x1="869" y1="4611" x2="875" y2="4605" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="888" y="4612.9">Bitte eine Gruppe wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4634.2">Auswahl · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1624" y="2920.9">· Tablet ab {breakpoint.tablet}: Seite {bg.page};</tspan><tspan x="1624" y="2940.9">seitlicher Rand {space.8}</tspan><tspan x="1624" y="2960.9">· Feldbreite die Hälfte von {size.text-max} (288 px), auf</tspan><tspan x="1624" y="2980.9">Mobil die volle Spaltenbreite. Kein Breitentoken</tspan><tspan x="1624" y="3000.9">vorhanden.</tspan><tspan x="1624" y="3020.9">· Feld: Fläche {bg.muted}, Rahmen {border.control}, Ecken</tspan><tspan x="1624" y="3040.9">{radius.md}, Höhe 40 px ({space.10}). Beschriftung oben</tspan><tspan x="1624" y="3060.9">({typography.style.body-s-semibold}, {text.primary}),</tspan><tspan x="1624" y="3080.9">Abstand {space.1}; Platzhalter</tspan><tspan x="1624" y="3100.9">{typography.style.body-m-regular} in {text.muted}.</tspan><tspan x="1624" y="3120.9">· Textfeld field.text.label „Name“, Textbereich</tspan><tspan x="1624" y="3140.9">field.textarea.label „Notiz“ (Höhe 96 px), Auswahl</tspan><tspan x="1624" y="3160.9">field.select.label „Gruppe“ mit Pfeil {text.secondary}.</tspan><tspan x="1624" y="3180.9">· Checkbox und Radio: 24 × 24 px, Fläche {bg.surface},</tspan><tspan x="1624" y="3200.9">Rahmen {border.control}; gewählt: Punkt {brand.primary}.</tspan><tspan x="1624" y="3220.9">Die Zeile ist inklusive Beschriftung klickbar.</tspan><tspan x="1624" y="3240.9">· Hinweistext field.*.hint:</tspan><tspan x="1624" y="3260.9">{typography.style.body-s-regular}, {text.secondary},</tspan><tspan x="1624" y="3280.9">Abstand {space.1}.</tspan><tspan x="1624" y="3300.9">· Fokus: 2 px Rahmen {focus.ring} im Abstand 2 px (K-012</tspan><tspan x="1624" y="3320.9">Regel 4), Rahmen {border.control} bleibt.</tspan><tspan x="1624" y="3340.9">· deaktiviert: Rahmen {border.default}, Beschriftung</tspan><tspan x="1624" y="3360.9">{text.muted}; nicht fokussierbar.</tspan><tspan x="1624" y="3380.9">· Fehler: Rahmen {border.danger} 2 px, darunter Symbol</tspan><tspan x="1624" y="3400.9">und Fehlermeldung field.*.error in {text.danger}; Farbe</tspan><tspan x="1624" y="3420.9">nie allein (K-012 Regel 2).</tspan><tspan x="1624" y="3440.9">· Hinweistext und Fehlermeldung hängen per</tspan><tspan x="1624" y="3460.9">aria-describedby am Feld. Schalter und Auswahlkacheln</tspan><tspan x="1624" y="3480.9">sind nicht Teil dieses Wireframes.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="848" y="4715.6">Dialog</tspan></text>
+<rect x="832" y="4726" width="768" height="456" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="0" y="24.4">Termin absagen?</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="0" y="17.6">Alle Eingeladenen erhalten eine Nachricht. Das lässt sich</tspan><tspan x="0" y="41.6">nicht rückgängig machen.</tspan></text>
+<rect x="864" y="4750" width="576" height="212" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="888" y="4798.4">Termin absagen?</tspan></text>
+<rect x="1376" y="4774" width="40" height="40" rx="8" fill="none" stroke="#6B7280"/>
+<line x1="1391.0" y1="4789.0" x2="1401.0" y2="4799.0" stroke="#374151" stroke-width="2"/>
+<line x1="1391.0" y1="4799.0" x2="1401.0" y2="4789.0" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="888" y="4843.6">Alle Eingeladenen erhalten eine Nachricht. Das lässt sich</tspan><tspan x="888" y="4867.6">nicht rückgängig machen.</tspan></text>
+<rect x="1324.64" y="4898" width="91.36" height="40" rx="8" fill="#DC2626" stroke="#DC2626"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="bold"><tspan x="1340.64" y="4923.6">Absagen</tspan></text>
+<rect x="1208.3200000000002" y="4898" width="108.32000000000001" height="40" rx="8" fill="#FFFFFF" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#9333EA" font-weight="bold"><tspan x="1224.3200000000002" y="4923.6">Abbrechen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="864" y="4978.2">offen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="1624" y="4740.9">· Tablet ab {breakpoint.tablet}: Seite {bg.page};</tspan><tspan x="1624" y="4760.9">seitlicher Rand {space.8}</tspan><tspan x="1624" y="4780.9">· Breite höchstens {size.text-max}, in der Mitte der</tspan><tspan x="1624" y="4800.9">Seite (hier links gezeichnet).</tspan><tspan x="1624" y="4820.9">· Fläche {bg.surface}, Rahmen {border.default}, Ecken</tspan><tspan x="1624" y="4840.9">{radius.lg}, Innenabstand {space.6}, Schatten {shadow.lg}</tspan><tspan x="1624" y="4860.9">(im Wireframe nicht gezeichnet).</tspan><tspan x="1624" y="4880.9">· Titel dialog.title „Termin absagen?“:</tspan><tspan x="1624" y="4900.9">{typography.style.heading-h2}, {text.primary}; Inhalt</tspan><tspan x="1624" y="4920.9">dialog.text: {typography.style.body-m-regular},</tspan><tspan x="1624" y="4940.9">{text.secondary}, Abstand {space.3}.</tspan><tspan x="1624" y="4960.9">· Schließen-Button dialog.close „Schließen“: 40 × 40 px</tspan><tspan x="1624" y="4980.9">({space.10}), Rahmen {border.control}, Kreuz</tspan><tspan x="1624" y="5000.9">{text.secondary}; Escape schließt ebenfalls.</tspan><tspan x="1624" y="5020.9">· Aktionen rechtsbündig, Abstand {space.2}: Button</tspan><tspan x="1624" y="5040.9">sekundär dialog.cancel „Abbrechen“ und Button Gefahr</tspan><tspan x="1624" y="5060.9">dialog.confirm „Absagen“.</tspan><tspan x="1624" y="5080.9">· Fokus beim Öffnen auf das erste Bedienelement,</tspan><tspan x="1624" y="5100.9">innerhalb des Dialogs gefangen, danach zurück zum</tspan><tspan x="1624" y="5120.9">Auslöser; Fokusrahmen {focus.ring}. Die Seite dahinter</tspan><tspan x="1624" y="5140.9">ist inaktiv (inert).</tspan><tspan x="1624" y="5160.9">· Es gibt kein Token für die Abdunklung der Seite hinter</tspan><tspan x="1624" y="5180.9">dem Dialog; sie ist nicht gezeichnet (siehe Anmerkungen</tspan><tspan x="1624" y="5200.9">oben).</tspan></text>
+<rect x="840.0" y="5214" width="752" height="156" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="848" y="5236.9">Normal: bei jeder Komponente gezeichnet.</tspan><tspan x="848" y="5256.9">Laden: Button (laden) und Liste (laden).</tspan><tspan x="848" y="5276.9">Fehler: Alert (Fehler) und Eingabefelder (Fehler mit Fehlermeldung).</tspan><tspan x="848" y="5296.9">Leer: Liste (leer mit Leertext); sonst nicht zutreffend, die Komponenten zeigen selbst keine</tspan><tspan x="848" y="5316.9">Daten.</tspan><tspan x="848" y="5336.9">Ohne Berechtigung: nicht zutreffend. Basiskomponenten kennen keine Berechtigung; die Seite</tspan><tspan x="848" y="5356.9">entscheidet, ob sie eine Komponente zeigt.</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="2128" y="193.6">Button</tspan></text>
 <rect x="2112" y="204" width="1280" height="336" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
 <rect x="2160" y="228" width="108.32000000000001" height="40" rx="8" fill="#9333EA" stroke="#9333EA"/>
@@ -484,6 +824,176 @@
 <rect x="2176" y="2144" width="272.0" height="16" rx="8" fill="#F3F4F6" stroke="#F3F4F6"/>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="2204.2">laden</tspan></text>
 <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="3416" y="1838.9">· Desktop ab {breakpoint.desktop}: Seite {bg.page};</tspan><tspan x="3416" y="1858.9">seitlicher Rand {space.12}</tspan><tspan x="3416" y="1878.9">· Breite höchstens {size.text-max}; Fläche {bg.surface},</tspan><tspan x="3416" y="1898.9">Rahmen {border.default}, Ecken {radius.lg}, Trenner</tspan><tspan x="3416" y="1918.9">{border.default}, Zeilenabstand oben und unten {space.2},</tspan><tspan x="3416" y="1938.9">seitlich {space.4}.</tspan><tspan x="3416" y="1958.9">· normal: Zeile mit Titel</tspan><tspan x="3416" y="1978.9">({typography.style.body-m-regular}, {text.primary}) und</tspan><tspan x="3416" y="1998.9">Angabe ({typography.style.body-s-regular},</tspan><tspan x="3416" y="2018.9">{text.secondary}).</tspan><tspan x="3416" y="2038.9">· leer list.empty „Keine Einträge.“:</tspan><tspan x="3416" y="2058.9">{typography.style.body-m-regular}, {text.muted}.</tspan><tspan x="3416" y="2078.9">· laden list.loading „Lädt …“ (role=status):</tspan><tspan x="3416" y="2098.9">{typography.style.body-s-regular}, {text.muted}; darunter</tspan><tspan x="3416" y="2118.9">Platzhalterbalken in {bg.muted}. Kein Spinner.</tspan><tspan x="3416" y="2138.9">· Fehler, ohne Berechtigung: nicht zutreffend; die Seite</tspan><tspan x="3416" y="2158.9">zeigt dafür einen Alert statt der Liste.</tspan></text>
-<rect x="2120.0" y="2264" width="1264" height="116" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
-<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="2128" y="2286.9">Normal: bei jeder Komponente gezeichnet.</tspan><tspan x="2128" y="2306.9">Laden: Button (laden) und Liste (laden).</tspan><tspan x="2128" y="2326.9">Fehler: Alert (Fehler) und Eingabefelder (Fehler mit Fehlermeldung).</tspan><tspan x="2128" y="2346.9">Leer: Liste (leer mit Leertext); sonst nicht zutreffend, die Komponenten zeigen selbst keine Daten.</tspan><tspan x="2128" y="2366.9">Ohne Berechtigung: nicht zutreffend. Basiskomponenten kennen keine Berechtigung; die Seite entscheidet, ob sie eine Komponente zeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="2128" y="2285.6">Eingabefelder</tspan></text>
+<rect x="2112" y="2296" width="1280" height="1348" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="2334.9">Name</tspan></text>
+<rect x="2160" y="2344" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="2369.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="2400.2">Textfeld · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="2334.9">Name</tspan></text>
+<rect x="2464" y="2344" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2476" y="2369.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="2464" y="2402.9">Wird in der Teamliste angezeigt.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="2424.2">Textfeld · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2768" y="2334.9">Name</tspan></text>
+<rect x="2768" y="2344" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="2765.0" y="2341.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2780" y="2369.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="2400.2">Textfeld · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="2160" y="2466.9">Name</tspan></text>
+<rect x="2160" y="2476" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="2501.6">Vor- und Nachname</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="2532.2">Textfeld · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="2466.9">Name</tspan></text>
+<rect x="2464" y="2476" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2476" y="2501.6">Vor- und Nachname</tspan></text>
+<ellipse cx="2472.0" cy="2530.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2469" y1="2527" x2="2475" y2="2533" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2469" y1="2533" x2="2475" y2="2527" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="2488" y="2534.9">Bitte einen Namen eingeben.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="2556.2">Textfeld · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2768" y="2466.9">Notiz</tspan></text>
+<rect x="2768" y="2476" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2780" y="2501.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="2588.2">Textbereich · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="2630.9">Notiz</tspan></text>
+<rect x="2160" y="2640" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="2665.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="2160" y="2754.9">Höchstens 500 Zeichen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="2776.2">Textbereich · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="2630.9">Notiz</tspan></text>
+<rect x="2464" y="2640" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="2461.0" y="2637.0" width="294.0" height="102.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2476" y="2665.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="2752.2">Textbereich · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="2768" y="2630.9">Notiz</tspan></text>
+<rect x="2768" y="2640" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2780" y="2665.6">Notiz hinzufügen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="2752.2">Textbereich · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="2818.9">Notiz</tspan></text>
+<rect x="2160" y="2828" width="288" height="96" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="2853.6">Notiz hinzufügen</tspan></text>
+<ellipse cx="2168.0" cy="2938.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2165" y1="2935" x2="2171" y2="2941" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2165" y1="2941" x2="2171" y2="2935" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="2184" y="2942.9">Die Notiz ist zu lang.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="2964.2">Textbereich · Fehler</tspan></text>
+<rect x="2464" y="2804" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2496" y="2821.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="2844.2">Checkbox · normal</tspan></text>
+<rect x="2768" y="2804" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2800" y="2821.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="2768" y="2846.9">Einen Tag vor dem Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="2868.2">Checkbox · mit Hinweistext</tspan></text>
+<rect x="2160" y="2992" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#6B7280"/>
+<rect x="2157.0" y="2989.0" width="30.0" height="30.0" rx="7.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2192" y="3009.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3032.2">Checkbox · Fokus</tspan></text>
+<rect x="2464" y="2992" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2496" y="3009.6">Erinnerung per E-Mail</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="3032.2">Checkbox · deaktiviert</tspan></text>
+<rect x="2768" y="2992" width="24" height="24" rx="4.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2800" y="3009.6">Erinnerung per E-Mail</tspan></text>
+<ellipse cx="2776.0" cy="3030.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2773" y1="3027" x2="2779" y2="3033" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2773" y1="3033" x2="2779" y2="3027" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="2792" y="3034.9">Bitte bestätigen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="3056.2">Checkbox · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="3098.9">Rückmeldung</tspan></text>
+<ellipse cx="2172.0" cy="3120.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="2172.0" cy="3120.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2192" y="3125.6">Zusagen</tspan></text>
+<ellipse cx="2172.0" cy="3152.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2192" y="3157.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3180.2">Radiogruppe · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="3098.9">Rückmeldung</tspan></text>
+<ellipse cx="2476.0" cy="3120.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="2476.0" cy="3120.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2496" y="3125.6">Zusagen</tspan></text>
+<ellipse cx="2476.0" cy="3152.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2496" y="3157.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="2464" y="3182.9">Gilt für diesen Termin.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="3204.2">Radiogruppe · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2768" y="3098.9">Rückmeldung</tspan></text>
+<ellipse cx="2780.0" cy="3120.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="2780.0" cy="3120.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<ellipse cx="2780.0" cy="3120.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2800" y="3125.6">Zusagen</tspan></text>
+<ellipse cx="2780.0" cy="3152.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#6B7280"/>
+<ellipse cx="2780.0" cy="3152.0" rx="15.0" ry="15.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2800" y="3157.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="3180.2">Radiogruppe · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="2160" y="3246.9">Rückmeldung</tspan></text>
+<ellipse cx="2172.0" cy="3268.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<ellipse cx="2172.0" cy="3268.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2192" y="3273.6">Zusagen</tspan></text>
+<ellipse cx="2172.0" cy="3300.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2192" y="3305.6">Absagen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3328.2">Radiogruppe · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="3246.9">Rückmeldung</tspan></text>
+<ellipse cx="2476.0" cy="3268.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<ellipse cx="2476.0" cy="3268.0" rx="6.0" ry="6.0" fill="#9333EA" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2496" y="3273.6">Zusagen</tspan></text>
+<ellipse cx="2476.0" cy="3300.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#111827"><tspan x="2496" y="3305.6">Absagen</tspan></text>
+<ellipse cx="2472.0" cy="3326.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2469" y1="3323" x2="2475" y2="3329" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2469" y1="3329" x2="2475" y2="3323" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="2488" y="3330.9">Bitte eine Antwort wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="3352.2">Radiogruppe · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2768" y="3246.9">Gruppe</tspan></text>
+<rect x="2768" y="3256" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2780" y="3281.6">Bitte wählen</tspan></text>
+<line x1="3031" y1="3273.5" x2="3036" y2="3278.5" stroke="#374151" stroke-width="2"/>
+<line x1="3036" y1="3278.5" x2="3041" y2="3273.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="3312.2">Auswahl · normal</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="3394.9">Gruppe</tspan></text>
+<rect x="2160" y="3404" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="3429.6">Bitte wählen</tspan></text>
+<line x1="2423" y1="3421.5" x2="2428" y2="3426.5" stroke="#374151" stroke-width="2"/>
+<line x1="2428" y1="3426.5" x2="2433" y2="3421.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="2160" y="3462.9">Bestimmt, wer den Termin sieht.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3484.2">Auswahl · mit Hinweistext</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2464" y="3394.9">Gruppe</tspan></text>
+<rect x="2464" y="3404" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#6B7280"/>
+<rect x="2461.0" y="3401.0" width="294.0" height="46.0" rx="11.0" fill="none" stroke="#9333EA" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2476" y="3429.6">Bitte wählen</tspan></text>
+<line x1="2727" y1="3421.5" x2="2732" y2="3426.5" stroke="#374151" stroke-width="2"/>
+<line x1="2732" y1="3426.5" x2="2737" y2="3421.5" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2464" y="3460.2">Auswahl · Fokus</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4B5563" font-weight="bold"><tspan x="2768" y="3394.9">Gruppe</tspan></text>
+<rect x="2768" y="3404" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2780" y="3429.6">Bitte wählen</tspan></text>
+<line x1="3031" y1="3421.5" x2="3036" y2="3426.5" stroke="#4B5563" stroke-width="2"/>
+<line x1="3036" y1="3426.5" x2="3041" y2="3421.5" stroke="#4B5563" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2768" y="3460.2">Auswahl · deaktiviert</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#111827" font-weight="bold"><tspan x="2160" y="3526.9">Gruppe</tspan></text>
+<rect x="2160" y="3536" width="288" height="40" rx="8" fill="#F3F4F6" stroke="#DC2626" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4B5563"><tspan x="2172" y="3561.6">Bitte wählen</tspan></text>
+<line x1="2423" y1="3553.5" x2="2428" y2="3558.5" stroke="#374151" stroke-width="2"/>
+<line x1="2428" y1="3558.5" x2="2433" y2="3553.5" stroke="#374151" stroke-width="2"/>
+<ellipse cx="2168.0" cy="3590.0" rx="8.0" ry="8.0" fill="none" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2165" y1="3587" x2="2171" y2="3593" stroke="#B91C1C" stroke-width="2"/>
+<line x1="2165" y1="3593" x2="2171" y2="3587" stroke="#B91C1C" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#B91C1C"><tspan x="2184" y="3594.9">Bitte eine Gruppe wählen.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3616.2">Auswahl · Fehler</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="3416" y="2310.9">· Desktop ab {breakpoint.desktop}: Seite {bg.page};</tspan><tspan x="3416" y="2330.9">seitlicher Rand {space.12}</tspan><tspan x="3416" y="2350.9">· Feldbreite die Hälfte von {size.text-max} (288 px), auf</tspan><tspan x="3416" y="2370.9">Mobil die volle Spaltenbreite. Kein Breitentoken</tspan><tspan x="3416" y="2390.9">vorhanden.</tspan><tspan x="3416" y="2410.9">· Feld: Fläche {bg.muted}, Rahmen {border.control}, Ecken</tspan><tspan x="3416" y="2430.9">{radius.md}, Höhe 40 px ({space.10}). Beschriftung oben</tspan><tspan x="3416" y="2450.9">({typography.style.body-s-semibold}, {text.primary}),</tspan><tspan x="3416" y="2470.9">Abstand {space.1}; Platzhalter</tspan><tspan x="3416" y="2490.9">{typography.style.body-m-regular} in {text.muted}.</tspan><tspan x="3416" y="2510.9">· Textfeld field.text.label „Name“, Textbereich</tspan><tspan x="3416" y="2530.9">field.textarea.label „Notiz“ (Höhe 96 px), Auswahl</tspan><tspan x="3416" y="2550.9">field.select.label „Gruppe“ mit Pfeil {text.secondary}.</tspan><tspan x="3416" y="2570.9">· Checkbox und Radio: 24 × 24 px, Fläche {bg.surface},</tspan><tspan x="3416" y="2590.9">Rahmen {border.control}; gewählt: Punkt {brand.primary}.</tspan><tspan x="3416" y="2610.9">Die Zeile ist inklusive Beschriftung klickbar.</tspan><tspan x="3416" y="2630.9">· Hinweistext field.*.hint:</tspan><tspan x="3416" y="2650.9">{typography.style.body-s-regular}, {text.secondary},</tspan><tspan x="3416" y="2670.9">Abstand {space.1}.</tspan><tspan x="3416" y="2690.9">· Fokus: 2 px Rahmen {focus.ring} im Abstand 2 px (K-012</tspan><tspan x="3416" y="2710.9">Regel 4), Rahmen {border.control} bleibt.</tspan><tspan x="3416" y="2730.9">· deaktiviert: Rahmen {border.default}, Beschriftung</tspan><tspan x="3416" y="2750.9">{text.muted}; nicht fokussierbar.</tspan><tspan x="3416" y="2770.9">· Fehler: Rahmen {border.danger} 2 px, darunter Symbol</tspan><tspan x="3416" y="2790.9">und Fehlermeldung field.*.error in {text.danger}; Farbe</tspan><tspan x="3416" y="2810.9">nie allein (K-012 Regel 2).</tspan><tspan x="3416" y="2830.9">· Hinweistext und Fehlermeldung hängen per</tspan><tspan x="3416" y="2850.9">aria-describedby am Feld. Schalter und Auswahlkacheln</tspan><tspan x="3416" y="2870.9">sind nicht Teil dieses Wireframes.</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#4b5563"><tspan x="2128" y="3697.6">Dialog</tspan></text>
+<rect x="2112" y="3708" width="1280" height="456" rx="0" fill="#F9FAFB" stroke="#9ca3af"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="0" y="24.4">Termin absagen?</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="0" y="17.6">Alle Eingeladenen erhalten eine Nachricht. Das lässt sich</tspan><tspan x="0" y="41.6">nicht rückgängig machen.</tspan></text>
+<rect x="2160" y="3732" width="576" height="212" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#111827" font-weight="bold"><tspan x="2184" y="3780.4">Termin absagen?</tspan></text>
+<rect x="2672" y="3756" width="40" height="40" rx="8" fill="none" stroke="#6B7280"/>
+<line x1="2687.0" y1="3771.0" x2="2697.0" y2="3781.0" stroke="#374151" stroke-width="2"/>
+<line x1="2687.0" y1="3781.0" x2="2697.0" y2="3771.0" stroke="#374151" stroke-width="2"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#374151"><tspan x="2184" y="3825.6">Alle Eingeladenen erhalten eine Nachricht. Das lässt sich</tspan><tspan x="2184" y="3849.6">nicht rückgängig machen.</tspan></text>
+<rect x="2620.64" y="3880" width="91.36" height="40" rx="8" fill="#DC2626" stroke="#DC2626"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="bold"><tspan x="2636.64" y="3905.6">Absagen</tspan></text>
+<rect x="2504.3199999999997" y="3880" width="108.32000000000001" height="40" rx="8" fill="#FFFFFF" stroke="#9333EA"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#9333EA" font-weight="bold"><tspan x="2520.3199999999997" y="3905.6">Abbrechen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#4b5563"><tspan x="2160" y="3960.2">offen</tspan></text>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#374151"><tspan x="3416" y="3722.9">· Desktop ab {breakpoint.desktop}: Seite {bg.page};</tspan><tspan x="3416" y="3742.9">seitlicher Rand {space.12}</tspan><tspan x="3416" y="3762.9">· Breite höchstens {size.text-max}, in der Mitte der</tspan><tspan x="3416" y="3782.9">Seite (hier links gezeichnet).</tspan><tspan x="3416" y="3802.9">· Fläche {bg.surface}, Rahmen {border.default}, Ecken</tspan><tspan x="3416" y="3822.9">{radius.lg}, Innenabstand {space.6}, Schatten {shadow.lg}</tspan><tspan x="3416" y="3842.9">(im Wireframe nicht gezeichnet).</tspan><tspan x="3416" y="3862.9">· Titel dialog.title „Termin absagen?“:</tspan><tspan x="3416" y="3882.9">{typography.style.heading-h2}, {text.primary}; Inhalt</tspan><tspan x="3416" y="3902.9">dialog.text: {typography.style.body-m-regular},</tspan><tspan x="3416" y="3922.9">{text.secondary}, Abstand {space.3}.</tspan><tspan x="3416" y="3942.9">· Schließen-Button dialog.close „Schließen“: 40 × 40 px</tspan><tspan x="3416" y="3962.9">({space.10}), Rahmen {border.control}, Kreuz</tspan><tspan x="3416" y="3982.9">{text.secondary}; Escape schließt ebenfalls.</tspan><tspan x="3416" y="4002.9">· Aktionen rechtsbündig, Abstand {space.2}: Button</tspan><tspan x="3416" y="4022.9">sekundär dialog.cancel „Abbrechen“ und Button Gefahr</tspan><tspan x="3416" y="4042.9">dialog.confirm „Absagen“.</tspan><tspan x="3416" y="4062.9">· Fokus beim Öffnen auf das erste Bedienelement,</tspan><tspan x="3416" y="4082.9">innerhalb des Dialogs gefangen, danach zurück zum</tspan><tspan x="3416" y="4102.9">Auslöser; Fokusrahmen {focus.ring}. Die Seite dahinter</tspan><tspan x="3416" y="4122.9">ist inaktiv (inert).</tspan><tspan x="3416" y="4142.9">· Es gibt kein Token für die Abdunklung der Seite hinter</tspan><tspan x="3416" y="4162.9">dem Dialog; sie ist nicht gezeichnet (siehe Anmerkungen</tspan><tspan x="3416" y="4182.9">oben).</tspan></text>
+<rect x="2120.0" y="4196" width="1264" height="116" rx="0" fill="none" stroke="#9ca3af" stroke-dasharray="8 6"/>
+<text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#4b5563"><tspan x="2128" y="4218.9">Normal: bei jeder Komponente gezeichnet.</tspan><tspan x="2128" y="4238.9">Laden: Button (laden) und Liste (laden).</tspan><tspan x="2128" y="4258.9">Fehler: Alert (Fehler) und Eingabefelder (Fehler mit Fehlermeldung).</tspan><tspan x="2128" y="4278.9">Leer: Liste (leer mit Leertext); sonst nicht zutreffend, die Komponenten zeigen selbst keine Daten.</tspan><tspan x="2128" y="4298.9">Ohne Berechtigung: nicht zutreffend. Basiskomponenten kennen keine Berechtigung; die Seite entscheidet, ob sie eine Komponente zeigt.</tspan></text>
 </svg>
