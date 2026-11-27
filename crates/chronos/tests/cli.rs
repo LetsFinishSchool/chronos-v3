@@ -81,6 +81,16 @@ const WAIT_LIMIT: Duration = Duration::from_secs(20);
 struct Worker {
     child: Child,
     stderr: Arc<Mutex<Vec<String>>>,
+    reader: Option<thread::JoinHandle<()>>,
+}
+
+/// Ein fehlgeschlagener Test darf keinen Worker zurücklassen, der weiter die gemeinsame
+/// Datenbank abarbeitet.
+impl Drop for Worker {
+    fn drop(&mut self) {
+        let _ = self.child.kill();
+        let _ = self.child.wait();
+    }
 }
 
 impl Worker {
@@ -100,12 +110,16 @@ impl Worker {
         let stderr = Arc::new(Mutex::new(Vec::new()));
         let reader = BufReader::new(child.stderr.take().unwrap());
         let sink = Arc::clone(&stderr);
-        thread::spawn(move || {
+        let reader = thread::spawn(move || {
             for line in reader.lines().map_while(Result::ok) {
                 sink.lock().unwrap().push(line);
             }
         });
-        let worker = Self { child, stderr };
+        let worker = Self {
+            child,
+            stderr,
+            reader: Some(reader),
+        };
         worker.wait_for_log("worker started");
         worker
     }
@@ -144,8 +158,7 @@ impl Worker {
             }
             thread::sleep(Duration::from_millis(20));
         };
-        // Der Lesethread endet mit dem Prozess; kurz warten, bis die letzten Zeilen da sind.
-        thread::sleep(Duration::from_millis(100));
+        self.reader.take().unwrap().join().unwrap();
         let log = self.log();
         (status, log)
     }

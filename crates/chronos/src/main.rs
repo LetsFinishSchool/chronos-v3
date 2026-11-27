@@ -148,11 +148,16 @@ async fn ensure_schema() -> Result<PgPool, Failure> {
 fn worker_config(poll_ms: Option<&str>, batch_size: Option<&str>) -> Result<WorkerConfig, Failure> {
     let mut config = WorkerConfig::default();
     if let Some(value) = poll_ms {
-        config.poll_interval = value.parse().map(Duration::from_millis).map_err(|_| {
-            Failure::Config(format!(
-                "{ENV_WORKER_POLL_MS} must be a whole number of milliseconds"
-            ))
-        })?;
+        config.poll_interval = value
+            .parse()
+            .ok()
+            .filter(|millis| *millis > 0)
+            .map(Duration::from_millis)
+            .ok_or_else(|| {
+                Failure::Config(format!(
+                    "{ENV_WORKER_POLL_MS} must be a whole number of milliseconds greater than zero"
+                ))
+            })?;
     }
     if let Some(value) = batch_size {
         config.batch_size = value.parse::<NonZeroU32>().map_err(|_| {
@@ -264,6 +269,7 @@ mod tests {
     #[test]
     fn worker_config_rejects_invalid_values() {
         assert!(worker_config(Some("soon"), None).is_err());
+        assert!(worker_config(Some("0"), None).is_err());
         assert!(worker_config(None, Some("0")).is_err());
         assert!(worker_config(None, Some("-1")).is_err());
     }

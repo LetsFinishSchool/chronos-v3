@@ -78,6 +78,14 @@ impl Consumer for Flaky {
     }
 }
 
+struct Panicking;
+
+impl Consumer for Panicking {
+    fn handle<'a>(&'a self, _: &'a OutboxEvent) -> ConsumerFuture<'a> {
+        panic!("intentional panic");
+    }
+}
+
 mod abarbeitung {
     use super::*;
 
@@ -209,6 +217,24 @@ mod abarbeitung {
     }
 
     #[sqlx::test]
+    async fn panicking_consumer_counts_as_a_failure(pool: PgPool) {
+        let panicking = insert_event(&pool, "p.happened").await;
+        let healthy = insert_event(&pool, "a.happened").await;
+        let mut registry = ConsumerRegistry::new();
+        registry.register("p.happened", Panicking);
+        registry.register("a.happened", Recording::default());
+
+        let stats = Outbox::new(pool.clone())
+            .process_batch(&registry, BATCH)
+            .await
+            .unwrap();
+
+        assert_eq!((stats.processed, stats.failed), (1, 1));
+        assert!(!is_processed(&pool, panicking).await);
+        assert!(is_processed(&pool, healthy).await);
+    }
+
+    #[sqlx::test]
     async fn aborted_worker_loses_nothing_and_marks_the_event_once(pool: PgPool) {
         let id = insert_event(&pool, "a.happened").await;
         let started = Arc::new(Notify::new());
@@ -237,7 +263,7 @@ mod abarbeitung {
         let recording = Recording::default();
         let mut restarted = ConsumerRegistry::new();
         restarted.register("a.happened", recording.clone());
-        // Die Sperre fällt, sobald der Server den Abbruch der Verbindung bemerkt.
+        // Der Abbruch droppt die Transaktion; die Sperre fällt, sobald sqlx sie zurückgerollt hat.
         let mut processed = 0;
         for _ in 0..100 {
             processed = Outbox::new(pool.clone())

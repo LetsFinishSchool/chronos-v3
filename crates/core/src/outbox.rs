@@ -1,7 +1,10 @@
 //! Abarbeitung der Outbox (ADR-002, K-003): Das Ereignis wird gelesen, gesperrt, von den
 //! Verbrauchern bearbeitet und als verarbeitet markiert, alles in einer Transaktion.
 
+use std::sync::Arc;
+
 use sqlx::PgPool;
+use tracing::instrument::WithSubscriber;
 use tracing::{error, warn};
 
 use crate::consumer::{ConsumerError, ConsumerRegistry, OutboxEvent};
@@ -126,6 +129,8 @@ async fn process_next(
     Ok(Step::Processed(event.id))
 }
 
+/// Jeder Verbraucher läuft in einer eigenen Task: Ein Panic zählt wie ein `Err`, damit ein
+/// einzelnes Ereignis den Worker nicht bei jedem Neustart erneut abstürzen lässt.
 async fn run_consumers(
     registry: &ConsumerRegistry,
     event: &OutboxEvent,
@@ -140,7 +145,11 @@ async fn run_consumers(
         );
     }
     for consumer in consumers {
-        consumer.handle(event).await?;
+        let consumer = Arc::clone(consumer);
+        let event = event.clone();
+        tokio::spawn(async move { consumer.handle(&event).await }.with_current_subscriber())
+            .await
+            .map_err(|panic| ConsumerError::from(format!("consumer panicked: {panic}")))??;
     }
     Ok(())
 }
