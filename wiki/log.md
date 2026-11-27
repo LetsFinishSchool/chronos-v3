@@ -256,3 +256,6 @@ Auf Anweisung des Nutzers: Tabellen, Spalten und Testdaten englisch (`history`, 
 
 ## [2026-11-27] ingest | #101 Fehlermeldungen auf Englisch, Spalten an Ticket angeglichen
 Auf Anweisung des Nutzers: alle Fehler- und Statusmeldungen (`chronos`, `chronos-core::db`, Tests, Architekturtest) auf Englisch; `clap`-Hilfetexte blieben deutsch. Ticket #101 war am selben Tag schon auf englische Namen umgestellt (kein weiterer Ticket-Eingriff nötig; Suche in allen Tickets fand keine deutschen Code-Namen). Spalten an das Ticket angeglichen: `actor`, `previous_state`; `Change` hat `previous_state`/`new_state`. Seiten `code/operationsrahmen.md`, `cargo-workspace.md`, `datenbank-und-migrationen.md`, Vorschlag zum Glossar angepasst.
+
+## [2026-11-27] ingest | #101 Review umgesetzt
+Auf Anweisung des Nutzers (Review): `Principal`-Konstruktoren nur `pub(crate)`, Tests holen Akteure über `Frame::test_actor`; Probelauf schreibt Verlauf und Outbox vor dem Rollback mit; Fehlercode `internal`; doppelte Operationsnamen brechen `Frame::new` ab; Architekturtest ignoriert Kommentare und erkennt mehr Wege; CI mit `--unreferenced=reject`; überflüssige Doc-Kommentare entfernt. Seite `code/operationsrahmen.md` aktualisiert (last-verified 2026-11-27). Offen: Gast-`person`-Zeile (E-008).

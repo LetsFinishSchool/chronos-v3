@@ -17,6 +17,8 @@ pub enum ErrorCode {
     ReadOnly,
     TestPrincipalForbidden,
     Database,
+    /// Fehler im Rahmen selbst, etwa ein nicht darstellbares Ergebnis.
+    Internal,
 }
 
 impl ErrorCode {
@@ -28,6 +30,7 @@ impl ErrorCode {
             Self::ReadOnly => "read_only",
             Self::TestPrincipalForbidden => "test_principal_forbidden",
             Self::Database => "database",
+            Self::Internal => "internal",
         }
     }
 }

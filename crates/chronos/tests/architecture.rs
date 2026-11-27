@@ -279,24 +279,74 @@ const UNREACHABLE_FROM_DOMAIN: &[&str] = &[
 ];
 
 /// Bausteine, mit denen Fachcode selbst eine Verbindung oder Transaktion beschaffen könnte.
-/// Eine Verbindung bekommt er nur über den `Context` des Rahmens.
+/// Eine Verbindung bekommt er nur über den `Context` des Rahmens. Reine Textsuche: Sie fängt
+/// die üblichen Wege (`Pool` deckt `PgPool`, `PoolConnection` und `Pool<Postgres>` ab), kein
+/// Beweis. Den Rest sichert der nicht öffentliche Konstruktor von `Context`.
 const DATABASE_ACCESS_BYPASSES: &[&str] = &[
-    "PgPool",
-    "PgPoolOptions",
-    "PgConnectOptions",
-    "sqlx::Pool",
+    "Pool",
+    "ConnectOptions",
     "Connection::connect",
     "connect_lazy",
+    ".acquire(",
     ".begin(",
+    "Transaction",
     "chronos_core::db",
     "Context::new",
 ];
 
+/// Entfernt Zeilen- und Blockkommentare, damit Erwähnungen in Kommentaren nicht anschlagen.
+fn without_comments(source: &str) -> String {
+    let mut result = String::new();
+    let mut in_block = false;
+    for line in source.lines() {
+        let mut rest = line;
+        let mut kept = String::new();
+        loop {
+            if in_block {
+                match rest.find("*/") {
+                    Some(end) => {
+                        rest = &rest[end + 2..];
+                        in_block = false;
+                    }
+                    None => break,
+                }
+            } else {
+                let line_comment = rest.find("//");
+                let block_comment = rest.find("/*");
+                match (line_comment, block_comment) {
+                    (Some(l), Some(b)) if b < l => {
+                        kept.push_str(&rest[..b]);
+                        rest = &rest[b + 2..];
+                        in_block = true;
+                    }
+                    (Some(l), _) => {
+                        kept.push_str(&rest[..l]);
+                        break;
+                    }
+                    (None, Some(b)) => {
+                        kept.push_str(&rest[..b]);
+                        rest = &rest[b + 2..];
+                        in_block = true;
+                    }
+                    (None, None) => {
+                        kept.push_str(rest);
+                        break;
+                    }
+                }
+            }
+        }
+        result.push_str(&kept);
+        result.push('\n');
+    }
+    result
+}
+
 fn bypasses_in(source: &str) -> Vec<&'static str> {
+    let code = without_comments(source);
     DATABASE_ACCESS_BYPASSES
         .iter()
         .copied()
-        .filter(|bypass| source.contains(bypass))
+        .filter(|bypass| code.contains(bypass))
         .collect()
 }
 
@@ -360,9 +410,11 @@ fn detects_database_access_bypasses() {
         bypasses_in("fn run(ctx: &mut Context) {}"),
         Vec::<&str>::new()
     );
+    assert_eq!(bypasses_in("let pool: PgPool = x;"), vec!["Pool"]);
+    assert_eq!(bypasses_in("use sqlx::{Pool, Postgres};"), vec!["Pool"]);
     assert_eq!(
-        bypasses_in("let pool: PgPool = db::connect(url);"),
-        vec!["PgPool"]
+        bypasses_in("let c = pool.acquire().await?;"),
+        vec![".acquire("]
     );
     assert_eq!(
         bypasses_in("let tx = pool.begin().await?;"),
@@ -371,5 +423,15 @@ fn detects_database_access_bypasses() {
     assert_eq!(
         bypasses_in("use chronos_core::db::connect;"),
         vec!["chronos_core::db"]
+    );
+}
+
+#[test]
+fn ignores_bypass_words_in_comments() {
+    let source = "// pool.begin() ist verboten\n/* PgPool\n   Transaction */\nfn run() {}\n";
+    assert_eq!(bypasses_in(source), Vec::<&str>::new());
+    assert_eq!(
+        bypasses_in("/* kommentar */ let tx = pool.begin();"),
+        vec![".begin("]
     );
 }

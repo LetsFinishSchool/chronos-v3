@@ -4,7 +4,7 @@
 mod beispiel;
 
 use chronos_core::{
-    Environment, ErrorCode, Frame, PersonId, Principal, Run, registered_operations,
+    ActorKind, Environment, ErrorCode, Frame, Principal, Run, registered_operations,
 };
 use serde_json::{Value, json};
 use sqlx::PgPool;
@@ -125,8 +125,13 @@ mod operationsrahmen {
     #[sqlx::test]
     async fn failure_while_writing_history_rolls_back_the_change(pool: PgPool) {
         let (frame, _) = setup(&pool).await;
-        // Kein Eintrag in `person`: Der Verlauf verletzt den Fremdschlüssel.
-        let stranger = Principal::person(PersonId::new(Uuid::new_v4()));
+        // Ohne Zeile in `person` verletzt der Verlauf den Fremdschlüssel.
+        let stranger = frame.test_actor(ActorKind::Person).await.unwrap();
+        sqlx::query("DELETE FROM person WHERE id = $1")
+            .bind(stranger.id().uuid())
+            .execute(&pool)
+            .await
+            .unwrap();
 
         let error = frame
             .execute(
@@ -173,9 +178,34 @@ mod operationsrahmen {
     }
 
     #[sqlx::test]
+    async fn dry_run_fails_like_apply_when_the_actor_has_no_person_row(pool: PgPool) {
+        let (frame, _) = setup(&pool).await;
+        let stranger = frame.test_actor(ActorKind::Person).await.unwrap();
+        sqlx::query("DELETE FROM person WHERE id = $1")
+            .bind(stranger.id().uuid())
+            .execute(&pool)
+            .await
+            .unwrap();
+
+        let error = frame
+            .execute(
+                &stranger,
+                "notes.create",
+                create_params(stranger),
+                Uuid::new_v4(),
+                Run::DryRun,
+            )
+            .await
+            .unwrap_err();
+
+        assert_eq!(error.code, ErrorCode::Database);
+        assert_eq!(error.params["sqlstate"], "23503");
+    }
+
+    #[sqlx::test]
     async fn out_of_scope_looks_like_a_missing_object(pool: PgPool) {
         let (frame, principal) = setup(&pool).await;
-        let other = Principal::person(PersonId::new(Uuid::new_v4()));
+        let other = frame.test_actor(ActorKind::Person).await.unwrap();
         let foreign_note = Uuid::new_v4();
         sqlx::query("INSERT INTO example_note (id, owner, text) VALUES ($1, $2, 'secret')")
             .bind(foreign_note)
@@ -322,6 +352,8 @@ mod operationsrahmen {
         let error = production.test_principal().await.unwrap_err();
 
         assert_eq!(error.code, ErrorCode::TestPrincipalForbidden);
+        let actor = production.test_actor(ActorKind::Guest).await.unwrap_err();
+        assert_eq!(actor.code, ErrorCode::TestPrincipalForbidden);
         assert_eq!(count(&pool, "person").await, 0);
     }
 

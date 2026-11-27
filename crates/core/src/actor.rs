@@ -38,8 +38,14 @@ impl ActorKind {
     }
 }
 
-/// Der angemeldete Akteur. Die Anmeldung (Keycloak, Gast-Cookie) erzeugt ihn später;
-/// für Entwicklung und Tests gibt es [`crate::Frame::test_principal`].
+/// Der angemeldete Akteur. Die Konstruktoren sind nicht öffentlich: Sonst könnte jeder Code
+/// beliebige Akteure erzeugen und die Sperre des Test-Principals umgehen. Erzeugen dürfen ihn
+/// nur der Rahmen (`Frame::test_principal`, `Frame::test_actor`) und später der Login-Pfad.
+///
+/// ```compile_fail,E0624
+/// let id = chronos_core::PersonId::new(uuid::Uuid::nil());
+/// let _ = chronos_core::Principal::person(id);
+/// ```
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Principal {
     id: PersonId,
@@ -47,14 +53,14 @@ pub struct Principal {
 }
 
 impl Principal {
-    pub const fn person(id: PersonId) -> Self {
+    pub(crate) const fn person(id: PersonId) -> Self {
         Self {
             id,
             kind: ActorKind::Person,
         }
     }
 
-    pub const fn guest(id: PersonId) -> Self {
+    pub(crate) const fn guest(id: PersonId) -> Self {
         Self {
             id,
             kind: ActorKind::Guest,

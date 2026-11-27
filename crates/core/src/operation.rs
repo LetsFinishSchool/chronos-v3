@@ -76,6 +76,12 @@ impl Registration {
     }
 }
 
+/// Name, der mehr als einmal registriert ist. `find` nähme sonst stillschweigend den ersten.
+pub(crate) fn duplicate_name<'a>(names: impl Iterator<Item = &'a str>) -> Option<&'a str> {
+    let mut seen = std::collections::HashSet::new();
+    names.into_iter().find(|name| !seen.insert(*name))
+}
+
 /// Alle registrierten Operationen in unbestimmter Reihenfolge.
 pub fn all() -> impl Iterator<Item = &'static Registration> {
     inventory::iter::<Registration>.into_iter()
@@ -99,7 +105,8 @@ fn run_erased<'a, 't, O: Operation>(
         let params: O::Params =
             serde_json::from_value(params).map_err(|_| invalid_params(O::NAME))?;
         let output = O::run(ctx, params).await?;
-        serde_json::to_value(output).map_err(|_| Error::new(ErrorCode::Database))
+        serde_json::to_value(output)
+            .map_err(|_| Error::new(ErrorCode::Internal).with("operation", O::NAME))
     })
 }
 
@@ -109,4 +116,18 @@ macro_rules! register_operation {
     ($operation:ty) => {
         $crate::inventory::submit!($crate::Registration::of::<$operation>());
     };
+}
+
+#[cfg(test)]
+mod tests {
+    use super::duplicate_name;
+
+    #[test]
+    fn finds_a_name_registered_twice() {
+        assert_eq!(
+            duplicate_name(["a.one", "b.two", "a.one"].into_iter()),
+            Some("a.one")
+        );
+        assert_eq!(duplicate_name(["a.one", "b.two"].into_iter()), None);
+    }
 }

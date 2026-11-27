@@ -7,11 +7,11 @@ use serde_json::{Value, json};
 use sqlx::PgPool;
 use uuid::Uuid;
 
-use crate::actor::{PersonId, Principal};
+use crate::actor::{ActorKind, PersonId, Principal};
 use crate::context::{Change, Context, Event};
 use crate::environment::Environment;
 use crate::error::{Error, ErrorCode};
-use crate::operation::{Mode, Registration, all};
+use crate::operation::{Mode, Registration, all, duplicate_name};
 
 /// Feste Kennung des Test-Principals.
 const TEST_PRINCIPAL_ID: Uuid = Uuid::from_u128(1);
@@ -40,7 +40,12 @@ pub struct Frame {
 }
 
 impl Frame {
-    pub const fn new(pool: PgPool, environment: Environment) -> Self {
+    /// Bricht ab, wenn zwei Operationen denselben Namen tragen: ein Programmierfehler, der
+    /// beim Start auffallen soll statt erst, wenn ein Aufruf die falsche Operation trifft.
+    pub fn new(pool: PgPool, environment: Environment) -> Self {
+        if let Some(name) = duplicate_name(all().map(|registration| registration.name)) {
+            panic!("operation `{name}` is registered twice");
+        }
         Self { pool, environment }
     }
 
@@ -50,12 +55,32 @@ impl Frame {
             return Err(Error::new(ErrorCode::TestPrincipalForbidden));
         }
         let principal = Principal::person(PersonId::new(TEST_PRINCIPAL_ID));
+        self.insert_person(&principal).await?;
+        Ok(principal)
+    }
+
+    /// Weiterer Akteur für Tests, etwa ein Fremder oder ein Gast. Wie
+    /// [`Self::test_principal`] in Produktion nicht verfügbar.
+    pub async fn test_actor(&self, kind: ActorKind) -> Result<Principal, Error> {
+        if !self.environment.allows_test_principal() {
+            return Err(Error::new(ErrorCode::TestPrincipalForbidden));
+        }
+        let id = PersonId::new(Uuid::new_v4());
+        let principal = match kind {
+            ActorKind::Person => Principal::person(id),
+            ActorKind::Guest => Principal::guest(id),
+        };
+        self.insert_person(&principal).await?;
+        Ok(principal)
+    }
+
+    async fn insert_person(&self, principal: &Principal) -> Result<(), Error> {
         sqlx::query("INSERT INTO person (id, kind) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING")
-            .bind(TEST_PRINCIPAL_ID)
+            .bind(principal.id().uuid())
             .bind(principal.kind().as_db())
             .execute(&self.pool)
             .await?;
-        Ok(principal)
+        Ok(())
     }
 
     pub async fn execute(
@@ -86,16 +111,8 @@ impl Frame {
         let result = (registration.run)(&mut context, params).await?;
         let (changes, events) = context.into_parts();
 
-        if run == Run::DryRun {
-            transaction.rollback().await?;
-            return Ok(Outcome {
-                result,
-                changes,
-                events,
-                applied: false,
-            });
-        }
-
+        // Verlauf und Outbox laufen auch im Probelauf, damit er dieselben Fehler zeigt wie
+        // der echte Aufruf (etwa einen fehlenden Akteur).
         for change in &changes {
             sqlx::query(
                 "INSERT INTO history (actor, action, object_kind, object_id, previous_state, correlation_id) \
@@ -122,13 +139,19 @@ impl Frame {
             .execute(&mut *transaction)
             .await?;
         }
-        transaction.commit().await?;
+
+        let applied = run == Run::Apply;
+        if applied {
+            transaction.commit().await?;
+        } else {
+            transaction.rollback().await?;
+        }
 
         Ok(Outcome {
             result,
             changes,
             events,
-            applied: true,
+            applied,
         })
     }
 

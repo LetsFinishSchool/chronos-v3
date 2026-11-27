@@ -5,11 +5,8 @@ use crate::actor::{ActorKind, PersonId, Principal};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Scope {
-    /// Jeder Akteur, auch Gäste.
     Public,
-    /// Jede angemeldete Person, keine Gäste.
     Authenticated,
-    /// Nur dieser Akteur selbst.
     Person(PersonId),
 }
 

@@ -15,11 +15,11 @@ Glossar um diese Zeilen in der Spalte „Code-Name“ ergänzen:
 | Begriff | Code-Name |
 |---|---|
 | Verlauf | `history` |
-| Verlaufseintrag | `history` (Tabelle), Spalten `action`, `object_kind`, `object_id`, `before` |
+| Verlaufseintrag | `history` (Tabelle), Spalten `action`, `object_kind`, `object_id`, `previous_state` |
 | Korrelations-ID | `correlation_id` |
 | Vorher-Zustand | `previous_state` |
 | Bündel-ID | `bundle_id` |
-| Akteur | `actor` (`actor_id`, `ActorKind`) |
+| Akteur | `actor` (Spalte `actor`, Typ `ActorKind`) |
 | Outbox | `outbox` |
 | Ereignis | `event` |
 | Operation | `operation` |

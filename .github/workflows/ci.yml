@@ -71,7 +71,7 @@ jobs:
       # nextest führt keine Doctests aus
       - run: cargo test --workspace --doc --locked
       # Snapshots der Operationsschemas; offene Änderungen schlagen fehl.
-      - run: cargo insta test --check --workspace
+      - run: cargo insta test --check --workspace --unreferenced=reject
 
   sqlx-offline:
     if: github.event_name != 'schedule'
