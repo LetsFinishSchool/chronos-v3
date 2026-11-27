@@ -262,3 +262,6 @@ Auf Anweisung des Nutzers (Review): `Principal`-Konstruktoren nur `pub(crate)`, 
 
 ## [2026-11-27] ingest | #101 CI: Suite läuft nur einmal
 Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket: `cargo insta test` mit `--test-runner nextest` ersetzt den Schritt `cargo nextest run`, damit die Testsuite nicht doppelt läuft. Seiten `code/ci-und-lieferkette.md` und `code/operationsrahmen.md` angepasst. Nicht geprüft: CI-Lauf auf GitHub.
+
+## [2026-11-27] ingest | #102 Worker-Gerüst mit Outbox-Abarbeitung
+Umgesetzt: `Outbox::process_batch` und `Consumer`-Trait in `chronos-core`, `run`, `WorkerConfig`, `LogConsumer` in `chronos-worker`, `chronos worker` mit Logging und SIGTERM. Abweichung von Kapitel 5: Die SQL-Abarbeitung liegt in `core`, weil `sqlx` im Worker laut ADR-009/`deny.toml` verboten ist; Vorschlag in `proposals/2026-11-27-outbox-abarbeitung-in-core.md`. Neue Seite `code/worker-und-outbox.md`. Nicht geprüft: CI-Lauf auf GitHub; Postgres lokal nur über den Socket-Weg.

@@ -14,6 +14,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 ## Code
 - [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos`, Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, eigener Code 69; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
+- [Worker und Outbox-Abarbeitung](code/worker-und-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
 - [Operationsrahmen (Minimalstand)](code/operationsrahmen.md): `Frame`, `Operation`, `Context`, Geltungsbereich, Probelauf, Test-Principal, Tabellen `person`/`verlauf`/`outbox`, Tests, Stolpersteine, Messwerte
 
@@ -23,3 +24,4 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 ## Vorschläge an `docs/`
 - [Image und Deployment-Form](proposals/2026-11-24-image-und-deployment-widerspruch.md): Kapitel 7 (kustomize) gegen ADR-011 (Helm-Hook); „ein Image“ ist entschieden, blockiert #104 (offen)
 - [Code-Namen im Glossar](proposals/2026-11-27-code-namen-im-glossar.md): englische Code-Namen für Verlauf, Akteur, Ereignis u. a.; Ticket #101 nannte deutsche Namen (offen)
+- [Outbox-Abarbeitung liegt in core](proposals/2026-11-27-outbox-abarbeitung-in-core.md): Kapitel 5 nennt sie beim Worker, ADR-009 erlaubt `sqlx` dort nicht (offen)
