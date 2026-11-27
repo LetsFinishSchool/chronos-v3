@@ -77,15 +77,15 @@ fn serve_is_not_implemented_yet() {
 
 const WAIT_LIMIT: Duration = Duration::from_secs(20);
 
-/// Ein laufender `chronos worker` gegen die gemeinsame, migrierte Datenbank.
+/// A running `chronos worker` against the shared, migrated database.
 struct Worker {
     child: Child,
     stderr: Arc<Mutex<Vec<String>>>,
     reader: Option<thread::JoinHandle<()>>,
 }
 
-/// Ein fehlgeschlagener Test darf keinen Worker zurücklassen, der weiter die gemeinsame
-/// Datenbank abarbeitet.
+/// A failed test must not leave a worker behind that keeps processing the shared
+/// database.
 impl Drop for Worker {
     fn drop(&mut self) {
         let _ = self.child.kill();
@@ -141,7 +141,7 @@ impl Worker {
         }
     }
 
-    /// Sendet SIGTERM wie Kubernetes und wartet auf das Ende des Prozesses.
+    /// Sends SIGTERM like Kubernetes and waits for the process to end.
     fn terminate(mut self) -> (std::process::ExitStatus, String) {
         let sent = Command::new("kill")
             .args(["-TERM", &self.child.id().to_string()])
@@ -170,8 +170,8 @@ async fn shared_pool() -> PgPool {
     PgPoolOptions::new().connect(&url).await.unwrap()
 }
 
-/// Ein einziger Test, weil alle Worker dieselbe Datenbank abarbeiten: Ein zweiter Worker
-/// könnte das Ereignis sonst vor dem ersten verarbeiten.
+/// A single test, because all workers process the same database: a second worker could
+/// otherwise handle the event before the first.
 #[tokio::test]
 async fn worker_process_handles_an_event_with_the_app_role_and_exits_cleanly_on_sigterm() {
     let pool = shared_pool().await;

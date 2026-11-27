@@ -1,4 +1,4 @@
-//! Verbraucher von Outbox-Ereignissen und ihre Registrierung je Ereignisart (K-003).
+//! Consumers of outbox events and their registration per event type (K-003).
 
 use std::collections::HashMap;
 use std::pin::Pin;
@@ -8,7 +8,7 @@ use serde_json::Value;
 use sqlx::FromRow;
 use uuid::Uuid;
 
-/// Ein Ereignis aus der Outbox, wie der Rahmen es festgehalten hat.
+/// An event from the outbox as the frame recorded it.
 #[derive(Clone, Debug, FromRow)]
 pub struct OutboxEvent {
     pub id: i64,
@@ -21,23 +21,23 @@ pub struct OutboxEvent {
 
 pub type ConsumerError = Box<dyn std::error::Error + Send + Sync>;
 
-/// Ergebnis eines Verbraucheraufrufs. Ein Trait-Objekt braucht den Box-Typ, `async fn` im
-/// Trait ist nicht objektsicher.
+/// Result of a consumer call. A trait object needs the boxed type; `async fn` in traits is
+/// not object safe.
 pub type ConsumerFuture<'a> = Pin<Box<dyn Future<Output = Result<(), ConsumerError>> + Send + 'a>>;
 
-/// Reagiert auf ein Ereignis. Der Aufruf läuft, während das Ereignis gesperrt ist; erst nach
-/// einem `Ok` markiert der Rahmen es in derselben Transaktion als verarbeitet.
+/// Reacts to an event. The call runs while the event is locked; only after an `Ok` does the
+/// frame mark it as processed in the same transaction.
 ///
-/// Der Aufruf kann nach einem Absturz wiederholt werden; Seiteneffekte (Log, Zustellung)
-/// müssen das aushalten. Datenänderungen laufen über Operationen, nie am Rahmen vorbei,
-/// deshalb bekommt der Verbraucher keine Datenbankverbindung.
+/// The call may be repeated after a crash, so side effects (log, delivery) must tolerate
+/// that. Data changes go through operations, never around the frame, which is why the
+/// consumer gets no database connection.
 pub trait Consumer: Send + Sync {
-    /// Ein `Err` rollt die Transaktion zurück, das Ereignis bleibt unverarbeitet.
+    /// An `Err` rolls the transaction back; the event stays unprocessed.
     fn handle<'a>(&'a self, event: &'a OutboxEvent) -> ConsumerFuture<'a>;
 }
 
-/// Verbraucher je Ereignisart. Mehrere für dieselbe Art laufen nacheinander in einer
-/// Transaktion.
+/// Consumers per event type. Several for the same type run one after another in one
+/// transaction.
 #[derive(Clone, Default)]
 pub struct ConsumerRegistry {
     consumers: HashMap<String, Vec<Arc<dyn Consumer>>>,

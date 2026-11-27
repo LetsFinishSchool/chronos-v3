@@ -1,4 +1,4 @@
-//! Schleife, Taktung, Stopp und Log-Verbraucher.
+//! Loop, pacing, shutdown and log consumer.
 
 use std::time::Duration;
 
@@ -15,7 +15,7 @@ use super::beispiel::SETUP_SQL;
 use super::support::{LogBuffer, insert_event, is_processed, processed_count};
 
 const WAIT_LIMIT: Duration = Duration::from_secs(10);
-/// So lang, dass nur ein Stopp-Signal oder eine volle Charge die Schleife weiterbringt.
+/// So long that only a stop signal or a full batch moves the loop on.
 const NEVER: Duration = Duration::from_secs(3600);
 
 fn config(poll_interval: Duration, batch_size: u32) -> WorkerConfig {
@@ -43,7 +43,7 @@ async fn stop(worker: tokio::task::JoinHandle<()>, token: &CancellationToken) {
         .unwrap();
 }
 
-/// Löst den Stopp aus, während das erste Ereignis der Charge läuft.
+/// Triggers the stop while the first event of the batch is running.
 struct StopDuringBatch(CancellationToken);
 
 impl Consumer for StopDuringBatch {
@@ -88,8 +88,8 @@ async fn a_full_batch_is_followed_by_the_next_without_a_pause(pool: PgPool) {
     let token = CancellationToken::new();
     let worker = tokio::spawn({
         let (pool, token) = (pool.clone(), token.clone());
-        // Bei Chargengröße 2 braucht es drei Chargen; nach der dritten (nicht voll) wartet
-        // die Schleife eine Stunde.
+        // With batch size 2 this takes three batches; after the third (not full) the loop
+        // waits an hour.
         async move {
             run(
                 &Outbox::new(pool.clone()),

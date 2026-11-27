@@ -1,5 +1,5 @@
-//! Abarbeitung der Outbox (ADR-002, K-003): Das Ereignis wird gelesen, gesperrt, von den
-//! Verbrauchern bearbeitet und als verarbeitet markiert, alles in einer Transaktion.
+//! Outbox processing (ADR-002, K-003): the event is read, locked, handled by the consumers
+//! and marked as processed, all in one transaction.
 
 use std::sync::Arc;
 
@@ -9,21 +9,21 @@ use tracing::{error, warn};
 
 use crate::consumer::{ConsumerError, ConsumerRegistry, OutboxEvent};
 
-/// Nutzt den Teilindex `outbox_pending`. `SKIP LOCKED` lässt Ereignisse aus, die eine andere
-/// Worker-Instanz gerade bearbeitet. Der Cursor `id > $1` verhindert, dass ein fehlgeschlagenes
-/// Ereignis in derselben Charge sofort wieder an die Reihe kommt.
+/// Uses the partial index `outbox_pending`. `SKIP LOCKED` skips events another worker
+/// instance is handling. The cursor `id > $1` keeps a failed event from coming up again
+/// right away in the same batch.
 const NEXT_PENDING_SQL: &str = "SELECT id, event, payload, actor, correlation_id FROM outbox \
      WHERE processed_at IS NULL AND id > $1 \
      ORDER BY id LIMIT 1 FOR UPDATE SKIP LOCKED";
 
 const MARK_PROCESSED_SQL: &str = "UPDATE outbox SET processed_at = now() WHERE id = $1";
 
-/// Ausgang einer Charge.
+/// Outcome of a batch.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct BatchStats {
-    /// Als verarbeitet markierte Ereignisse.
+    /// Events marked as processed.
     pub processed: u32,
-    /// Ereignisse, deren Verbraucher fehlschlug; sie bleiben unverarbeitet.
+    /// Events whose consumer failed; they stay unprocessed.
     pub failed: u32,
 }
 
@@ -33,7 +33,7 @@ enum Step {
     Failed(i64),
 }
 
-/// Datenbankfehler beim Abarbeiten (nicht: Fehler eines Verbrauchers).
+/// Database error while processing (not a consumer error).
 #[derive(Debug)]
 pub struct OutboxError(sqlx::Error);
 
@@ -55,8 +55,8 @@ impl From<sqlx::Error> for OutboxError {
     }
 }
 
-/// Zugriff des Workers auf die Outbox. Die Datenbank bleibt in `core` (ADR-009): Der Worker
-/// kennt nur diesen Rahmen und die Verbraucher.
+/// The worker's access to the outbox. The database stays in `core` (ADR-009): the worker
+/// only knows this frame and the consumers.
 #[derive(Clone)]
 pub struct Outbox {
     pool: PgPool,
@@ -67,10 +67,9 @@ impl Outbox {
         Self { pool }
     }
 
-    /// Bearbeitet bis zu `batch_size` Ereignisse in Reihenfolge ihrer `id`. Fehlgeschlagene
-    /// Ereignisse zählen nicht mit, bleiben für den nächsten Durchlauf liegen und halten die
-    /// Charge nicht auf. Ein Datenbankfehler bricht die Charge ab; bereits festgeschriebene
-    /// Ereignisse bleiben verarbeitet.
+    /// Handles up to `batch_size` events in `id` order. Failed events do not count, stay for
+    /// the next run and do not hold up the batch. A database error aborts the batch; events
+    /// already committed stay processed.
     pub async fn process_batch(
         &self,
         registry: &ConsumerRegistry,
@@ -129,8 +128,8 @@ async fn process_next(
     Ok(Step::Processed(event.id))
 }
 
-/// Jeder Verbraucher läuft in einer eigenen Task: Ein Panic zählt wie ein `Err`, damit ein
-/// einzelnes Ereignis den Worker nicht bei jedem Neustart erneut abstürzen lässt.
+/// Each consumer runs in its own task: a panic counts like an `Err`, so a single event
+/// cannot crash the worker again on every restart.
 async fn run_consumers(
     registry: &ConsumerRegistry,
     event: &OutboxEvent,

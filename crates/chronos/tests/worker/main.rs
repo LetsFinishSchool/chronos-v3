@@ -1,5 +1,5 @@
-//! Tests des Workers (#102, K-003) gegen echtes PostgreSQL.
-//! Voraussetzung: `docker compose up --wait` und `DATABASE_URL`.
+//! Worker tests (#102, K-003) against real PostgreSQL.
+//! Requires `docker compose up --wait` and `DATABASE_URL`.
 
 #[path = "../operationsrahmen/beispiel.rs"]
 mod beispiel;
@@ -20,7 +20,7 @@ use support::{LogBuffer, insert_event, is_processed, processed_count};
 
 const BATCH: u32 = 50;
 
-/// Hält ein Ereignis in der Transaktion fest, bis der Test es freigibt.
+/// Holds an event in its transaction until the test releases it.
 struct Blocking {
     started: Arc<Notify>,
     release: Arc<Notify>,
@@ -36,7 +36,7 @@ impl Consumer for Blocking {
     }
 }
 
-/// Merkt sich jede bearbeitete Ereignis-`id`.
+/// Remembers every handled event `id`.
 #[derive(Clone, Default)]
 struct Recording(Arc<std::sync::Mutex<Vec<i64>>>);
 
@@ -58,7 +58,7 @@ impl Consumer for Recording {
     }
 }
 
-/// Scheitert bei den ersten `failures` Aufrufen und zählt alle Aufrufe.
+/// Fails the first `failures` calls and counts all calls.
 struct Flaky {
     failures: AtomicU32,
     calls: Arc<AtomicU32>,
@@ -189,7 +189,7 @@ mod abarbeitung {
         .await
         .unwrap();
 
-        // Das Ereignis dahinter wird trotzdem bearbeitet.
+        // The event behind it is handled anyway.
         assert_eq!((first.processed, first.failed), (1, 1));
         assert!(!is_processed(&pool, failing).await);
         assert!(is_processed(&pool, healthy).await);
@@ -247,7 +247,7 @@ mod abarbeitung {
             },
         );
 
-        // Der Worker hat das Ereignis gelesen und gesperrt, markiert es aber nie.
+        // The worker read and locked the event but never marks it.
         let worker = tokio::spawn({
             let pool = pool.clone();
             async move {
@@ -263,7 +263,7 @@ mod abarbeitung {
         let recording = Recording::default();
         let mut restarted = ConsumerRegistry::new();
         restarted.register("a.happened", recording.clone());
-        // Der Abbruch droppt die Transaktion; die Sperre fällt, sobald sqlx sie zurückgerollt hat.
+        // The abort drops the transaction; the lock is released once sqlx has rolled it back.
         let mut processed = 0;
         for _ in 0..100 {
             processed = Outbox::new(pool.clone())
@@ -324,8 +324,8 @@ mod abarbeitung {
         assert_eq!(recording.ids(), others);
         assert!(!is_processed(&pool, held).await);
 
-        // Das Ereignis des ersten Workers wartet nur auf dessen Freigabe; die anderen
-        // beiden hat inzwischen der zweite Worker erledigt.
+        // The first worker's event only waits for its release; the second worker has
+        // meanwhile handled the other two.
         for _ in 0..3 {
             release.notify_one();
         }

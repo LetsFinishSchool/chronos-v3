@@ -1,10 +1,10 @@
-//! Erster Verbraucher: schreibt nur ein strukturiertes Log (#102).
+//! First consumer: only writes a structured log entry (#102).
 
 use chronos_core::{Consumer, ConsumerFuture, OutboxEvent};
 use tracing::info;
 
-/// Belegt, dass Ereignisse aus dem Web-Prozess im Worker ankommen. Die Nutzdaten bleiben
-/// bewusst aus dem Log (K-009: keine unnötigen personenbezogenen Daten).
+/// Proves that events from the web process arrive in the worker. The payload is kept out of
+/// the log on purpose (K-009: no unnecessary personal data).
 pub struct LogConsumer;
 
 impl Consumer for LogConsumer {

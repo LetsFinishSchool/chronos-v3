@@ -1,4 +1,4 @@
-//! Hilfen der Worker-Tests: Ereignisse anlegen, Zustand lesen, Log mitschneiden.
+//! Helpers for the worker tests: create events, read state, capture the log.
 
 use std::io;
 use std::sync::{Arc, Mutex};
@@ -45,7 +45,7 @@ pub async fn processed_count(pool: &PgPool) -> i64 {
         .unwrap()
 }
 
-/// Schneidet strukturierte Log-Zeilen (JSON) in den Speicher mit.
+/// Captures structured log lines (JSON) in memory.
 #[derive(Clone, Default)]
 pub struct LogBuffer(Arc<Mutex<Vec<u8>>>);
 

@@ -44,7 +44,7 @@ const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
 const ENV_WORKER_POLL_MS: &str = "CHRONOS_WORKER_POLL_MS";
 const ENV_WORKER_BATCH_SIZE: &str = "CHRONOS_WORKER_BATCH_SIZE";
-/// Kommagetrennte Ereignisarten, für die der `LogConsumer` registriert wird.
+/// Comma-separated event types the `LogConsumer` is registered for.
 const ENV_WORKER_LOG_EVENTS: &str = "CHRONOS_WORKER_LOG_EVENTS";
 /// Nur für lokale Entwicklung: `serve` und `worker` migrieren vor dem Start selbst.
 const ENV_MIGRATE_ON_START: &str = "CHRONOS_MIGRATE_ON_START";
@@ -171,7 +171,7 @@ fn worker_config(poll_ms: Option<&str>, batch_size: Option<&str>) -> Result<Work
     Ok(config)
 }
 
-/// Strukturiertes Log (JSON, eine Zeile je Eintrag) auf stderr; Stufe über `RUST_LOG`.
+/// Structured log (JSON, one line per entry) on stderr; level via `RUST_LOG`.
 fn init_logging() {
     tracing_subscriber::fmt()
         .json()
@@ -180,7 +180,7 @@ fn init_logging() {
         .init();
 }
 
-/// Löst bei SIGTERM (Kubernetes) oder SIGINT (Strg+C) aus.
+/// Fires on SIGTERM (Kubernetes) or SIGINT (Ctrl+C).
 fn shutdown_on_signal() -> Result<CancellationToken, Failure> {
     let mut terminate = signal(SignalKind::terminate())
         .map_err(|error| Failure::Config(format!("cannot listen for SIGTERM: {error}")))?;
@@ -205,7 +205,7 @@ async fn worker() -> Result<(), Failure> {
     )?;
     let pool = ensure_schema().await?;
     let shutdown = shutdown_on_signal()?;
-    // Noch keine Fachbereiche mit Ereignissen: Ohne Eintrag gilt alles als „ohne Verbraucher“.
+    // No domain areas emit events yet: without an entry every event counts as "no consumer".
     let mut registry = ConsumerRegistry::new();
     let logged = std::env::var(ENV_WORKER_LOG_EVENTS).unwrap_or_default();
     for event in logged.split(',').map(str::trim).filter(|e| !e.is_empty()) {
