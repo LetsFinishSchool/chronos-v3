@@ -331,6 +331,11 @@ Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) reg
 ## [2026-11-27] ingest | #104 ready-for-agent
 Auf Anweisung des Nutzers (Product Owner): Kriterium „Startseite“ ersetzt durch `GET /healthz` über den Ingress; Chart-Hinweise (`CHRONOS_LISTEN`, Probes, `ghcr-pull`) und Abhängigkeiten im Ticket aktualisiert, Label `ready-for-agent` gesetzt. Vorgänger #102 und #113 gemergt, Pull-Secret `ghcr-pull` und Environment `staging` (nur `main`) vorhanden.
 
+## [2026-11-27] ingest | #104 Image, Helm-Chart und Deployment
+Dockerfile, Chart unter `deploy/helm/chronos/` und CI-Jobs `chart`, `image`, `deploy` umgesetzt; Seite `code/image-und-deployment.md`. Migrationsjob bei Erstinstallation als normale Ressource statt `pre-install`-Hook (Hooks laufen vor der Datenbank). Lokal geprüft: Image-Build, `migrate --help`, Init-Skript und Migration gegen `postgres:19`. Nicht geprüft: `kubeconform`, Rollout auf staging.
+
+## [2026-11-27] ingest | #104 Review Runde 1
+Befunde behoben: Workflow-`concurrency` bricht nur Pull Requests ab (sonst `pending-upgrade`), Startup-Probe im Web (Schema-Warten), `--wait-for-jobs`, `--set-string`, Kommentare gekürzt.
 ## [2026-11-27] ingest | #114 Wireframe Startseite (S103)
 Auf Anweisung des Nutzers (Product Owner): drei Layout-Varianten vorgelegt, Variante A (schlicht) gewählt; Detailfragen nach Empfehlung (nur Statustext, Schlüssel der Ladehülle mit Hinweis auf `index.html`, Token-Farben hell, eigene `wirelib.py`). Generator, `check.py` und `designs/wireframes/S103-startseite.{excalidraw,svg}` angelegt, `.gitkeep` entfernt. Neue Seite `code/wireframes.md`. Nicht geprüft: Öffnen im Excalidraw-Editor.
 

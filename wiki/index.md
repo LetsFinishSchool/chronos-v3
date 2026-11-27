@@ -18,6 +18,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
 - [Wireframe-Generator und Prüfung](code/wireframes.md): `wirelib.py`, Story-Skripte, `check.py`; Token in `{…}`, Rahmen als Excalidraw-`frame`, Stolpersteine (`-I`, Raute als Hex), S103-Entscheidung
 - [Operationsrahmen (Minimalstand)](code/operationsrahmen.md): `Frame`, `Operation`, `Context`, Geltungsbereich, Probelauf, Test-Principal, Tabellen `person`/`verlauf`/`outbox`, Tests, Stolpersteine, Messwerte
+- [Image, Helm-Chart und Deployment](code/image-und-deployment.md): Dockerfile, Chart `deploy/helm/chronos`, Migrationsjob (Hook nur bei Upgrade), Limits, CI-Jobs `chart`/`image`/`deploy`, offene Prüfungen
 
 ## Lektionen
 - [Wissen nur im Wiki](lessons/wissen-nur-im-wiki.md): Kein Agenten-Gedächtnis, alles projektgebunden im Wiki
