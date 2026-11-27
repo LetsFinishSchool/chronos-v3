@@ -359,3 +359,6 @@ Auf Anweisung des Nutzers: GitHub-Beziehungen „blocked by“ nur für direkte 
 
 ## [2026-11-27] ingest | DoR: „blocked by“ statt „Vorgänger gemergt“
 Auf Anweisung des Nutzers (Product Owner): In `docs/req42/04-product-backlog/ticket-typen.md` entfällt aus der DoR von Story (Punkt 5) und Task (Punkt 2) die Bedingung „Abhängigkeiten erledigt/gemergt“. Stattdessen muss jedes Ticket, von dem ein Ticket abhängt, in GitHub als „blocked by“ eingetragen sein. Checklisten in `.github/ISSUE_TEMPLATE/story.md` und `task.md` angepasst. Epic und Feature haben keine eigene DoR. Kein Wiki-Seitenbedarf.
+
+## [2026-11-27] ingest | #116 Frontend-Tests
+`code/frontend.md` um Router-Wrapper, Playwright, axe-Baustein, Bundle-Skript und CI-Job ergänzt. Lokaler Lauf nutzt den Socket-Workaround für Postgres.

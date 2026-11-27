@@ -5,6 +5,12 @@
   "workspaces": ["app", "packages/*"],
   "scripts": {
     "build": "npm run build --workspace app",
-    "check": "npm run check --workspace app"
+    "check": "npm run check --workspace app",
+    "test:e2e": "playwright test",
+    "bundle-size": "node scripts/bundle-size.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.65.1"
   }
 }
