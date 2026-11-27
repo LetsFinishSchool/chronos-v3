@@ -1,10 +1,20 @@
 {
   "name": "chronos-frontend",
   "private": true,
-  "engines": { "node": ">=22" },
-  "workspaces": ["app", "packages/*"],
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "app",
+    "packages/*"
+  ],
   "scripts": {
     "build": "npm run build --workspace app",
-    "check": "npm run check --workspace app"
+    "check": "npm run check --workspace app",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.65.1"
   }
 }

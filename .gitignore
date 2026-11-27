@@ -25,6 +25,8 @@ frontend/node_modules
 frontend/app/node_modules
 frontend/app/build
 frontend/app/.svelte-kit
+frontend/playwright-report
+frontend/test-results
 
 # Browser-Automation des Agenten
 .playwright-mcp/
