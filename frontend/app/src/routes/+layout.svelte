@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Router from "#lib/router/Router.svelte";
 
   let { children } = $props();
 
@@ -7,4 +8,5 @@
   onMount(() => document.getElementById("shell")?.remove());
 </script>
 
+<Router />
 {@render children()}
