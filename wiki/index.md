@@ -14,6 +14,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 ## Code
 - [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos` (`serve` mit axum, `/healthz`, Graceful Shutdown seit #113), Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, 69 seit #102 nicht mehr vergeben; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
+- [Frontend-Gerüst](code/frontend.md): Svelte 5 + SvelteKit 3 (statt 2 wegen Advisories), `t()`-Katalog, Auslieferung durch `crates/web`, `CHRONOS_FRONTEND_DIR`, Stolpersteine (#103)
 - [Worker und Outbox-Abarbeitung](code/worker-and-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
 - [Wireframe-Generator und Prüfung](code/wireframes.md): `wirelib.py`, Story-Skripte, `check.py`; Token in `{…}`, Rahmen als Excalidraw-`frame`, Stolpersteine (`-I`, Raute als Hex), S103-Entscheidung

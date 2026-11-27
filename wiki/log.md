@@ -339,3 +339,6 @@ Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket („Nicht Teil:
 
 ## [2026-11-27] ingest | K-012: Breakpoints und Textbreite
 Auf Anweisung des Nutzers (Product Owner): Vorschlag `proposals/2026-11-27-breakpoints-und-textbreite.md` angenommen; K-012 Abschnitt 1 nennt `size.text-max` und die Layoutstufen `breakpoint.tablet`/`breakpoint.desktop`. Kommentar mit Wireframe-Pfad und Hinweis zur Ladehülle in #103.
+
+## [2026-11-27] ingest | #103 Frontend-Gerüst
+Seite `code/frontend.md` angelegt; `cargo-workspace.md` verweist darauf. Abweichung vom Ticket: SvelteKit 3 statt 2 (Advisories), im PR begründet.
