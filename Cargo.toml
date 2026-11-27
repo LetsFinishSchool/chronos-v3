@@ -1,7 +1,7 @@
-# Cargo-Workspace von Chronos.
+# Cargo workspace of Chronos.
 #
-# Crate-Zuschnitt und erlaubte Kanten: docs/arc42/05-bausteine/02-crate-zuschnitt.md
-# und ADR-009. Die Kanten prüft crates/chronos/tests/architecture.rs.
+# Crate layout and allowed edges: docs/arc42/05-bausteine/02-crate-zuschnitt.md
+# and ADR-009. The edges are checked by crates/chronos/tests/architecture.rs.
 
 [workspace]
 resolver = "3"

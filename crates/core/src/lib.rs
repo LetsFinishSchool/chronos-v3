@@ -1,6 +1,6 @@
-//! Operationsschicht und gemeinsamer Rahmen (Transaktion, Berechtigung, Verlauf, Outbox).
+//! Operation layer and shared framework (transaction, authorization, history, outbox).
 //!
-//! Zuschnitt und erlaubte Abhängigkeiten: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
+//! Layout and allowed dependencies: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
 
 mod actor;
 mod consumer;
