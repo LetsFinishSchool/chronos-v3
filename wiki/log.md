@@ -288,3 +288,12 @@ Auf Anweisung des Nutzers (Review): `Principal`-Konstruktoren nur `pub(crate)`, 
 
 ## [2026-11-27] ingest | #101 CI: Suite läuft nur einmal
 Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket: `cargo insta test` mit `--test-runner nextest` ersetzt den Schritt `cargo nextest run`, damit die Testsuite nicht doppelt läuft. Seiten `code/ci-und-lieferkette.md` und `code/operationsrahmen.md` angepasst. Nicht geprüft: CI-Lauf auf GitHub.
+
+## [2026-11-27] query | #103 Einplanungsvorschlag (DoR-Prüfung)
+Auf Anweisung des Nutzers: DoR von #103 geprüft, Vorschlag zur Aufteilung und Konkretisierung erstellt (nur im Gespräch, Ticket unverändert). Befund: `chronos serve` ist ein Platzhalter und `crates/web` enthält keinen HTTP-Server (kein axum); #99 hat nur den Workspace geliefert. Kein Ticket legt das HTTP-Grundgerüst an, und kein Ticket schreibt die Schemabeschreibung als Datei (ADR-007). Kein Wiki-Seitenbedarf.
+
+## [2026-11-27] query | #104 Konkretisierung (DoR-Prüfung)
+Auf Anweisung des Nutzers (Product Owner): Deployment-Form **Helm** entschieden, Zuschnitt bleibt ein Task. Ticket #104 umgeschrieben (Image, Chart, CI-Deploy, Zugänge, Prüfbefehle), umbenannt in „Image, Helm-Chart und Deployment auf staging“, nicht `ready-for-agent`. Befund: `serve` und `worker` in `crates/chronos/src/main.rs` sind Platzhalter, kein HTTP-Server; kein Ticket legt das Grundgerüst an (#96, #102, #103 decken es nicht ab). Vorschlag `proposals/2026-11-24-image-und-deployment-widerspruch.md` mit Entscheidung ergänzt; `docs/` unverändert.
+
+## [2026-11-27] ingest | Kapitel 7 auf Helm angepasst
+Auf Anweisung des Nutzers (Product Owner): `docs/arc42/07-verteilung/01-verteilungssicht.md` nennt Helm-Chart statt kubectl/kustomize. Vorschlag `proposals/2026-11-24-image-und-deployment-widerspruch.md` auf „umgesetzt“ gesetzt.

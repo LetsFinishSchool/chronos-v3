@@ -22,5 +22,5 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 
 ## Vorschläge an `docs/`
 - [Operationsnamen englisch](proposals/2026-11-27-operationsnamen-englisch.md): angenommen und in `docs/` umgesetzt: `area.verb` statt `bereich.verb`
-- [Image und Deployment-Form](proposals/2026-11-24-image-und-deployment-widerspruch.md): Kapitel 7 (kustomize) gegen ADR-011 (Helm-Hook); „ein Image“ ist entschieden, blockiert #104 (offen)
+- [Image und Deployment-Form](proposals/2026-11-24-image-und-deployment-widerspruch.md): Kapitel 7 (kustomize) gegen ADR-011 (Helm-Hook); angenommen und in `docs/` umgesetzt: ein Image, Helm statt kustomize
 - [Code-Namen im Glossar](proposals/2026-11-27-code-namen-im-glossar.md): englische Code-Namen für Verlauf, Akteur, Ereignis u. a.; Ticket #101 nannte deutsche Namen (offen)
