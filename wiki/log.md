@@ -330,3 +330,6 @@ Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) reg
 
 ## [2026-11-27] ingest | #104 ready-for-agent
 Auf Anweisung des Nutzers (Product Owner): Kriterium „Startseite“ ersetzt durch `GET /healthz` über den Ingress; Chart-Hinweise (`CHRONOS_LISTEN`, Probes, `ghcr-pull`) und Abhängigkeiten im Ticket aktualisiert, Label `ready-for-agent` gesetzt. Vorgänger #102 und #113 gemergt, Pull-Secret `ghcr-pull` und Environment `staging` (nur `main`) vorhanden.
+
+## [2026-11-27] ingest | #104 Image, Helm-Chart und Deployment
+Dockerfile, Chart unter `deploy/helm/chronos/` und CI-Jobs `chart`, `image`, `deploy` umgesetzt; Seite `code/image-und-deployment.md`. Migrationsjob bei Erstinstallation als normale Ressource statt `pre-install`-Hook (Hooks laufen vor der Datenbank). Lokal geprüft: Image-Build, `migrate --help`, Init-Skript und Migration gegen `postgres:19`. Nicht geprüft: `kubeconform`, Rollout auf staging.
