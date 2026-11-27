@@ -353,3 +353,6 @@ Auf Anweisung des Nutzers umgesetzt (Branch issue/119): `S105-basiskomponenten.{
 
 ## [2026-11-27] ingest | #103 Frontend im Image
 Auf Anweisung des Nutzers im PR zu #103: Node-Stage im `Dockerfile`, `CHRONOS_FRONTEND_DIR` per `ENV`, `.dockerignore`; sonst startete `serve` im Image aus #104 nicht. `code/frontend.md` ergänzt.
+
+## [2026-11-27] query | „blocked by“ für #105 gesetzt
+Auf Anweisung des Nutzers: GitHub-Beziehungen „blocked by“ nur für direkte Kanten gesetzt: #103 ← #114, #119 ← #114, #116 ← #103, #106 ← #116, #120 ← #106, #121 ← #119 und #120, #122 ← #121. Indirekte Abhängigkeiten aus den Tickets (z. B. #120 ← #103/#114/#116) ergeben sich aus der Kette. API: `POST /repos/{owner}/{repo}/issues/{n}/dependencies/blocked_by` mit der numerischen `issue_id` (nicht der Nummer) des Blockers; die Antwort enthält das blockierte Issue, nicht den Blocker. Kein Wiki-Seitenbedarf.
