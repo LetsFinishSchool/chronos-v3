@@ -330,3 +330,12 @@ Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) reg
 
 ## [2026-11-27] ingest | #104 ready-for-agent
 Auf Anweisung des Nutzers (Product Owner): Kriterium „Startseite“ ersetzt durch `GET /healthz` über den Ingress; Chart-Hinweise (`CHRONOS_LISTEN`, Probes, `ghcr-pull`) und Abhängigkeiten im Ticket aktualisiert, Label `ready-for-agent` gesetzt. Vorgänger #102 und #113 gemergt, Pull-Secret `ghcr-pull` und Environment `staging` (nur `main`) vorhanden.
+
+## [2026-11-27] ingest | #114 Wireframe Startseite (S103)
+Auf Anweisung des Nutzers (Product Owner): drei Layout-Varianten vorgelegt, Variante A (schlicht) gewählt; Detailfragen nach Empfehlung (nur Statustext, Schlüssel der Ladehülle mit Hinweis auf `index.html`, Token-Farben hell, eigene `wirelib.py`). Generator, `check.py` und `designs/wireframes/S103-startseite.{excalidraw,svg}` angelegt, `.gitkeep` entfernt. Neue Seite `code/wireframes.md`. Nicht geprüft: Öffnen im Excalidraw-Editor.
+
+## [2026-11-27] ingest | #114 fehlende Tokens festgelegt
+Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket („Nicht Teil: neue Tokens“) im selben PR: `breakpoint.tablet` 768 und `breakpoint.desktop` 1280 px (min-width, Mobil Basis ab 320), `breakpoint.mobile-design`/`desktop-design` entfernt (Herkunft in `$description`), `size.text-max` 576 px. Wireframe S103 nutzt die Tokens. Seiten `concepts/farb-und-token-system.md` und `code/wireframes.md` aktualisiert; Vorschlag `proposals/2026-11-27-breakpoints-und-textbreite.md` für K-012 angelegt; `docs/` unverändert.
+
+## [2026-11-27] ingest | K-012: Breakpoints und Textbreite
+Auf Anweisung des Nutzers (Product Owner): Vorschlag `proposals/2026-11-27-breakpoints-und-textbreite.md` angenommen; K-012 Abschnitt 1 nennt `size.text-max` und die Layoutstufen `breakpoint.tablet`/`breakpoint.desktop`. Kommentar mit Wireframe-Pfad und Hinweis zur Ladehülle in #103.
