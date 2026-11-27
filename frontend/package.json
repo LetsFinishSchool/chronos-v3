@@ -11,7 +11,8 @@
   "scripts": {
     "build": "npm run build --workspace app",
     "check": "npm run check --workspace app",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "bundle-size": "node scripts/bundle-size.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.1",
