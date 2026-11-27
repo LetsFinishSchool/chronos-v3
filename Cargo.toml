@@ -30,6 +30,7 @@ chronos-domain = { path = "crates/domain" }
 chronos-web = { path = "crates/web" }
 chronos-worker = { path = "crates/worker" }
 
+axum = "0.8"
 cargo_metadata = "0.23"
 clap = { version = "4.5", features = ["derive"] }
 insta = { version = "1", features = ["json"] }
@@ -46,8 +47,9 @@ sqlx = { version = "0.9", default-features = false, features = [
     "uuid",
     "json",
 ] }
-tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "time"] }
+tokio = { version = "1", features = ["macros", "net", "rt-multi-thread", "signal", "time"] }
 tokio-util = { version = "0.7", default-features = false }
+tower = { version = "0.5", default-features = false, features = ["util"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 uuid = { version = "1", features = ["v4", "serde"] }

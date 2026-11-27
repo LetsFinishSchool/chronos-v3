@@ -1,16 +1,15 @@
-//! Checks the binary's behaviour from the outside: help, version, the worker and the
-//! subcommands that are not implemented yet. The tests with a database need
-//! `DATABASE_URL` and `DATABASE_URL_APP` (`docker compose up --wait`).
+//! Checks the binary's behaviour from the outside: help, version, `serve` and the worker.
+//! The tests with a database need `DATABASE_URL` and `DATABASE_URL_APP`
+//! (`docker compose up --wait`).
 
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Read, Write};
+use std::net::TcpStream;
 use std::process::{Child, Command, Output, Stdio};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::{Duration, Instant};
 
 use sqlx::{PgPool, postgres::PgPoolOptions};
-
-const EXIT_NOT_IMPLEMENTED: i32 = 69;
 
 const EXIT_USAGE_ERROR: i32 = 2;
 
@@ -56,23 +55,58 @@ fn version_prints_package_version() {
 }
 
 #[test]
-fn serve_is_not_implemented_yet() {
+fn serve_with_invalid_listen_address_fails_with_config_error() {
+    let output = Command::new(env!("CARGO_BIN_EXE_chronos"))
+        .arg("serve")
+        .env("CHRONOS_LISTEN", "not-an-address")
+        .env_remove("DATABASE_URL_APP")
+        .output()
+        .expect("the chronos binary starts");
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(stderr.contains("CHRONOS_LISTEN"), "stderr: {stderr}");
+}
+
+#[test]
+fn serve_answers_healthz_and_exits_cleanly_on_sigterm() {
     let url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP is set for the test");
     let migrate_url = std::env::var("DATABASE_URL").expect("DATABASE_URL is set for the test");
-    // Migriert die gemeinsame Datenbank; `migrate` ist idempotent.
     let migrated = chronos_with_env(&["migrate"], &[("DATABASE_URL", &migrate_url)]);
     assert!(migrated.status.success());
-    let output = chronos_with_env(&["serve"], &[("DATABASE_URL_APP", &url)]);
-    assert_eq!(
-        output.status.code(),
-        Some(EXIT_NOT_IMPLEMENTED),
-        "`chronos serve` should exit with code {EXIT_NOT_IMPLEMENTED} (EX_UNAVAILABLE)"
-    );
-    let stderr = String::from_utf8_lossy(&output.stderr);
-    assert!(
-        stderr.contains("not implemented yet"),
-        "`chronos serve` printed something unexpected on stderr: {stderr}"
-    );
+
+    let mut child = Command::new(env!("CARGO_BIN_EXE_chronos"))
+        .arg("serve")
+        .env("DATABASE_URL_APP", &url)
+        .env("CHRONOS_LISTEN", "127.0.0.1:0")
+        .stderr(Stdio::piped())
+        .spawn()
+        .expect("the chronos binary starts");
+    let mut stderr = BufReader::new(child.stderr.take().expect("stderr is piped"));
+    let mut line = String::new();
+    stderr
+        .read_line(&mut line)
+        .expect("serve reports its address");
+    let address = line
+        .trim()
+        .rsplit(' ')
+        .next()
+        .expect("the line ends with the address")
+        .to_owned();
+
+    let mut stream = TcpStream::connect(&address).expect("serve accepts connections");
+    stream
+        .write_all(b"GET /healthz HTTP/1.1\r\nHost: test\r\nConnection: close\r\n\r\n")
+        .unwrap();
+    let mut response = String::new();
+    stream.read_to_string(&mut response).unwrap();
+    assert!(response.starts_with("HTTP/1.1 200"), "{response}");
+
+    let killed = Command::new("kill")
+        .args(["-TERM", &child.id().to_string()])
+        .status()
+        .expect("kill runs");
+    assert!(killed.success());
+    assert_eq!(child.wait().unwrap().code(), Some(0));
 }
 
 const WAIT_LIMIT: Duration = Duration::from_secs(20);

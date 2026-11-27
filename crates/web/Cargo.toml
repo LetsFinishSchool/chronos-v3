@@ -10,6 +10,11 @@ repository.workspace = true
 [dependencies]
 chronos-adapters.workspace = true
 chronos-core.workspace = true
+axum.workspace = true
+tokio.workspace = true
+
+[dev-dependencies]
+tower.workspace = true
 
 [lints]
 workspace = true

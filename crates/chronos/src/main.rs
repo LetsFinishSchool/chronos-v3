@@ -2,6 +2,8 @@
 //!
 //! Zuschnitt und erlaubte Abhängigkeiten: `docs/arc42/05-bausteine/02-crate-zuschnitt.md`.
 
+use std::future::Future;
+use std::net::SocketAddr;
 use std::num::NonZeroU32;
 use std::process::ExitCode;
 use std::time::Duration;
@@ -12,6 +14,7 @@ use chronos_worker::{LogConsumer, WorkerConfig};
 use clap::{Parser, Subcommand};
 use sqlx::PgPool;
 use sqlx::migrate::Migrator;
+use tokio::net::TcpListener;
 use tokio::signal::unix::{SignalKind, signal};
 use tokio_util::sync::CancellationToken;
 use tracing::info;
@@ -26,13 +29,10 @@ use chronos_domain as _;
 use chronos_adapters as _;
 use chronos_channels as _;
 use chronos_core as _;
-use chronos_web as _;
 
 /// Alle Migrationen, eingebettet aus `crates/chronos/migrations/` (ADR-011).
 static MIGRATOR: Migrator = sqlx::migrate!();
 
-/// `EX_UNAVAILABLE` aus `sysexits.h`; nicht 2, das clap für Bedienfehler nutzt.
-const EXIT_NOT_IMPLEMENTED: u8 = 69;
 /// `EX_TEMPFAIL`: die Schemaversion passte nicht innerhalb der Wartezeit.
 const EXIT_SCHEMA_NOT_READY: u8 = 75;
 const EXIT_FAILURE: u8 = 1;
@@ -42,6 +42,8 @@ const ENV_MIGRATE_URL: &str = "DATABASE_URL";
 /// Anwendungsbenutzer ohne DDL-Rechte, für `serve` und `worker`.
 const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
+const ENV_LISTEN: &str = "CHRONOS_LISTEN";
+const DEFAULT_LISTEN: &str = "127.0.0.1:8080";
 const ENV_WORKER_POLL_MS: &str = "CHRONOS_WORKER_POLL_MS";
 const ENV_WORKER_BATCH_SIZE: &str = "CHRONOS_WORKER_BATCH_SIZE";
 /// Comma-separated event types the `LogConsumer` is registered for.
@@ -83,6 +85,7 @@ enum Failure {
     Database(sqlx::Error),
     Migration(sqlx::migrate::MigrateError),
     Schema(SchemaError),
+    Io(std::io::Error),
 }
 
 impl Failure {
@@ -101,6 +104,7 @@ impl std::fmt::Display for Failure {
             Failure::Database(error) => write!(f, "database error: {error}"),
             Failure::Migration(error) => write!(f, "migration failed: {error}"),
             Failure::Schema(error) => error.fmt(f),
+            Failure::Io(error) => write!(f, "I/O error: {error}"),
         }
     }
 }
@@ -119,6 +123,39 @@ fn schema_wait() -> Result<Duration, Failure> {
             ))
         }),
     }
+}
+
+fn listen_address() -> Result<SocketAddr, Failure> {
+    let value = std::env::var(ENV_LISTEN).unwrap_or_else(|_| DEFAULT_LISTEN.to_owned());
+    value.parse().map_err(|_| {
+        Failure::Config(format!(
+            "{ENV_LISTEN} must be an address like {DEFAULT_LISTEN}, got `{value}`"
+        ))
+    })
+}
+
+/// Completes on SIGTERM (container stop) or Ctrl+C.
+fn shutdown_signal() -> Result<impl Future<Output = ()> + Send + 'static, Failure> {
+    let mut sigterm = signal(SignalKind::terminate()).map_err(Failure::Io)?;
+    let mut sigint = signal(SignalKind::interrupt()).map_err(Failure::Io)?;
+    Ok(async move {
+        tokio::select! {
+            _ = sigterm.recv() => {}
+            _ = sigint.recv() => {}
+        }
+    })
+}
+
+async fn serve() -> Result<(), Failure> {
+    let address = listen_address()?;
+    ensure_schema().await?;
+    let listener = TcpListener::bind(address).await.map_err(Failure::Io)?;
+    let bound = listener.local_addr().map_err(Failure::Io)?;
+    let shutdown = shutdown_signal()?;
+    eprintln!("chronos serve: listening on {bound}");
+    chronos_web::serve(listener, shutdown)
+        .await
+        .map_err(Failure::Io)
 }
 
 async fn migrate() -> Result<(), Failure> {
@@ -180,17 +217,13 @@ fn init_logging() {
         .init();
 }
 
-/// Fires on SIGTERM (Kubernetes) or SIGINT (Ctrl+C).
+/// Cancels the returned token on SIGTERM or SIGINT.
 fn shutdown_on_signal() -> Result<CancellationToken, Failure> {
-    let mut terminate = signal(SignalKind::terminate())
-        .map_err(|error| Failure::Config(format!("cannot listen for SIGTERM: {error}")))?;
+    let signalled = shutdown_signal()?;
     let token = CancellationToken::new();
     let on_signal = token.clone();
     tokio::spawn(async move {
-        tokio::select! {
-            _ = terminate.recv() => {}
-            _ = tokio::signal::ctrl_c() => {}
-        }
+        signalled.await;
         info!("shutdown signal received");
         on_signal.cancel();
     });
@@ -218,12 +251,8 @@ async fn worker() -> Result<(), Failure> {
 async fn run(command: &Command) -> Result<u8, Failure> {
     match command {
         Command::Migrate => migrate().await.map(|()| 0),
+        Command::Serve => serve().await.map(|()| 0),
         Command::Worker => worker().await.map(|()| 0),
-        Command::Serve => {
-            ensure_schema().await?;
-            eprintln!("chronos {}: not implemented yet", command.name());
-            Ok(EXIT_NOT_IMPLEMENTED)
-        }
     }
 }
 

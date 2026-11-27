@@ -12,7 +12,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Crate-Zuschnitt (Diagramm)](diagramme/crate-zuschnitt.excalidraw): sieben Crates mit erlaubten und verbotenen Kanten zu `docs/arc42/05-bausteine/02-crate-zuschnitt.md` (Excalidraw, SVG-Vorschau, Skript `crate-zuschnitt.py`)
 
 ## Code
-- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos`, Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, eigener Code 69; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
+- [Cargo-Workspace und Architekturtest](code/cargo-workspace.md): Aufbau des Workspace, Binary `chronos` (`serve` mit axum, `/healthz`, Graceful Shutdown seit #113), Architekturtest mit Positivliste, Stolperstellen (Exit-Code 2 gehört clap, eigener Code 69; Zyklen über Dev-Abhängigkeiten; ungenutzte Abhängigkeiten ab Cargo 1.100), Prüfbefehle
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
 - [Worker und Outbox-Abarbeitung](code/worker-und-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
