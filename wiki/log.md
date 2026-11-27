@@ -300,3 +300,15 @@ Auf Anweisung des Nutzers (Product Owner): `docs/arc42/07-verteilung/01-verteilu
 
 ## [2026-11-27] ingest | #113 HTTP-Grundgerüst
 `wiki/code/cargo-workspace.md` um `serve`, `crates/web` und `CHRONOS_LISTEN` ergänzt. Stolperstein: Rootless Docker erreichte Port 54329 per TCP nicht, Socket-Notlösung aus `datenbank-und-migrationen.md` funktionierte. Kein Vorschlag an `docs/`.
+
+## [2026-11-27] query | #105 DoR-Prüfung
+Auf Frage des Nutzers: Was fehlt #105 (Feature Design-System) laut DoR? Befund: `ticket-typen.md` definiert eine DoR nur für Story und Task, nicht für Feature. Offene Punkte: Abhängigkeit auf #103 veraltet (Playwright/axe-core seit Aufteilung in #116, auch in #106), Hell/Dunkel-Umschaltung offen (K-012), nur ein Task (#106) angelegt, #106 ohne Prüfbefehl, Wireframe-Regel für Basiskomponenten ohne Story ungeklärt. Ticket unverändert, kein Wiki-Seitenbedarf.
+
+## [2026-11-27] ingest | #104 Cluster-Vorbereitung und Ticket
+Auf Anweisung des Nutzers: im Namespace `chronos-staging` (vom Nutzer geleert, Vorgängersystem abgebaut) Secret `chronos-db`, ServiceAccount/Role/RoleBinding `chronos-deployer` und Token-Secret angelegt; Kubeconfig als Secret `KUBECONFIG` im GitHub-Environment `staging`. Ticket #104 angepasst (Secret-Schlüssel, Rollen legt das Chart an, Helm braucht Schreibrechte auf Secrets, Host `staging.chronos-live.de`). Offen: Pull-Zugriff auf ghcr.io, HTTP-Grundgerüst. Keine Geheimnisse im Wiki.
+
+## [2026-11-27] query | #105 Abhängigkeiten und Entscheidungen
+Auf Anweisung des Nutzers (Product Owner): Verweise in #105 und #106 von #103 auf #103 und #116 korrigiert (#103 wurde geteilt, Playwright/axe-core/CI-Job in #116). Entscheidungen: Hell/Dunkel folgt nur dem System, ohne Schalter; Punkt „Wireframe-Konvention“ aus #105 gestrichen (steht in DoR-Punkt 4, `designs/README.md` und #114); ein gemeinsames Wireframe `S105-basiskomponenten` als eigener Task vor den Komponenten-Tasks; Tokentest #106 mit Vitest (Modul `frontend/app/src/lib/tokens/resolve.ts` zur Wiederverwendung für die CSS-Variablen); Nutzen in #105 aus Sicht Mitglied/Gast statt Entwickler. Vorschläge `proposals/2026-11-27-hell-dunkel-nur-system.md` und `proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md` angelegt; `docs/` unverändert.
+
+## [2026-11-27] ingest | K-012 und ADR-009 nach Entscheidungen zu #105
+Auf Anweisung des Nutzers (Product Owner): Vorschläge `proposals/2026-11-27-hell-dunkel-nur-system.md` und `proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md` angenommen. K-012 Abschnitt 1: Modus folgt nur dem System. ADR-009 Testebene 1: Vitest im Frontend.
