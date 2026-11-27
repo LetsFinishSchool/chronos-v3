@@ -24,5 +24,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 ## Vorschläge an `docs/`
 - [Operationsnamen englisch](proposals/2026-11-27-operationsnamen-englisch.md): angenommen und in `docs/` umgesetzt: `area.verb` statt `bereich.verb`
 - [Image und Deployment-Form](proposals/2026-11-24-image-und-deployment-widerspruch.md): Kapitel 7 (kustomize) gegen ADR-011 (Helm-Hook); angenommen und in `docs/` umgesetzt: ein Image, Helm statt kustomize
+- [Hell/Dunkel nur System](proposals/2026-11-27-hell-dunkel-nur-system.md): K-012 „manuelle Umschaltung offen“ → nur `prefers-color-scheme`, kein Schalter; angenommen und in `docs/` umgesetzt
+- [Vitest für Frontend-Unit-Tests](proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md): ADR-009 Ebene 1 um Vitest im Frontend ergänzen; erster Fall Tokentest #106; angenommen und in `docs/` umgesetzt
 - [Code-Namen im Glossar](proposals/2026-11-27-code-namen-im-glossar.md): englische Code-Namen für Verlauf, Akteur, Ereignis u. a.; Ticket #101 nannte deutsche Namen (offen)
 - [Outbox-Abarbeitung liegt in core](proposals/2026-11-27-outbox-processing-in-core.md): Kapitel 5 nennt sie beim Worker, ADR-009 erlaubt `sqlx` dort nicht (offen)

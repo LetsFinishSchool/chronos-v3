@@ -25,7 +25,7 @@ Die Zerlegung ([ADR-002](ADR-002-zerlegung-monolith-plus-worker.md)) und die Ope
 **Option A.** Ein Cargo-Workspace mit einem Crate je Baustein; die Abhängigkeitsregeln stehen in den `Cargo.toml` und werden vom Compiler erzwungen. Der genaue Zuschnitt der Crates folgt aus der Bausteinsicht ([Kapitel 5](../05-bausteine/01-bausteinsicht.md)); die fünf Spike-Bausteine (core, domain, channels, web, worker) sind der Ausgangspunkt. Der Zuschnitt (sieben Crates, mit `adapters` und dem Binary `chronos`) steht im [Crate-Zuschnitt](../05-bausteine/02-crate-zuschnitt.md).
 
 **Testebenen (Vorschlag des Entwurfs, vom Product Owner übernommen):**
-1. Unit-Tests im Modul.
+1. Unit-Tests im Modul. Im Frontend mit Vitest (Entwicklungsabhängigkeit, exakte Version, npm-Skript `test:unit`), im CI-Job `frontend` (**entschieden, PO 2026-11-27**).
 2. Datenbanktests mit `#[sqlx::test]` gegen echtes PostgreSQL (je Test eine frische Datenbank, statt Testcontainers).
 3. Szenariotests aus [Kapitel 6](../06-laufzeit/) über HTTP (`tower::ServiceExt::oneshot`, ohne Netz).
 4. Differenztest der RRULE-Auswertung gegen python-dateutil und Property-Tests (`proptest`) für Serien.

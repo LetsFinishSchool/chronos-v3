@@ -14,7 +14,7 @@ quellen: [req42 QA-005, RB-011, DoD in ticket-typen.md, ADR-007, ADR-009, ADR-01
 - Quelle der Werte: `designs/tokens/tokens.json` (W3C-Design-Token-Format). Die Datei wird von Hand gepflegt; Änderungen gehen durch den Kontrasttest (Abschnitt 3).
 - Zwei Ebenen: **Primitives** (Farbskalen) und **semantische Tokens** je Modus `light` und `dark` (`bg.*`, `text.*`, `border.*`, `brand.*`, `status.*`, `focus.ring`). Komponenten und Wireframes verwenden nur semantische Tokens, nie Primitives oder Hex-Werte.
 - Weitere Tokens: Abstände (`space.*`, 4-px-Raster), Radien, Typografie (Inter), Schatten, Verläufe.
-- Im Frontend ([ADR-007](../09-entscheidungen/ADR-007-frontend-spa-svelte.md)) werden die Tokens als CSS-Variablen bereitgestellt; der Modus folgt dem System, eine manuelle Umschaltung ist offen.
+- Im Frontend ([ADR-007](../09-entscheidungen/ADR-007-frontend-spa-svelte.md)) werden die Tokens als CSS-Variablen bereitgestellt; der Modus folgt nur dem System (`prefers-color-scheme`), ohne Schalter und ohne gespeicherte Wahl (**entschieden, PO 2026-11-27**). Ein Schalter wäre eine eigene Story.
 
 ## 2. Regeln für Farbe und Bedienelemente
 1. **Kontrast:** Text mindestens 4,5 : 1 (SC 1.4.3), Bedienelemente und aussagekräftige Grafiken mindestens 3 : 1 (SC 1.4.11), in beiden Modi.
