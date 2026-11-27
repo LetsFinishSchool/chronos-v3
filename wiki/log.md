@@ -350,3 +350,6 @@ Auf Anweisung des Nutzers umgesetzt (Branch issue/119): `S105-basiskomponenten.{
 
 ## [2026-11-27] query | „blocked by“ für #105 gesetzt
 Auf Anweisung des Nutzers: GitHub-Beziehungen „blocked by“ nur für direkte Kanten gesetzt: #103 ← #114, #119 ← #114, #116 ← #103, #106 ← #116, #120 ← #106, #121 ← #119 und #120, #122 ← #121. Indirekte Abhängigkeiten aus den Tickets (z. B. #120 ← #103/#114/#116) ergeben sich aus der Kette. API: `POST /repos/{owner}/{repo}/issues/{n}/dependencies/blocked_by` mit der numerischen `issue_id` (nicht der Nummer) des Blockers; die Antwort enthält das blockierte Issue, nicht den Blocker. Kein Wiki-Seitenbedarf.
+
+## [2026-11-27] ingest | DoR: „blocked by“ statt „Vorgänger gemergt“
+Auf Anweisung des Nutzers (Product Owner): In `docs/req42/04-product-backlog/ticket-typen.md` entfällt aus der DoR von Story (Punkt 5) und Task (Punkt 2) die Bedingung „Abhängigkeiten erledigt/gemergt“. Stattdessen muss jedes Ticket, von dem ein Ticket abhängt, in GitHub als „blocked by“ eingetragen sein. Checklisten in `.github/ISSUE_TEMPLATE/story.md` und `task.md` angepasst. Epic und Feature haben keine eigene DoR. Kein Wiki-Seitenbedarf.

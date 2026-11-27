@@ -25,7 +25,7 @@ Betroffene Modelle, Randbedingungen und Qualitätsszenarien (M-, RB-, QA-nnn), W
 
 <!-- Bereit, wenn alle Punkte der Definition of Ready in docs/req42/04-product-backlog/ticket-typen.md gelten. -->
 ## Bereit?
-- [ ] Akzeptanzkriterien prüfbar, Nicht-Ziele und Abhängigkeiten geklärt
+- [ ] Akzeptanzkriterien prüfbar, Nicht-Ziele geklärt, Abhängigkeiten als „blocked by“ in GitHub eingetragen
 - [ ] Bei UI: Wireframe für 320, 768 und 1280 px mit allen Zuständen und Tokens
 - [ ] Keine offene Frage an den Product Owner, passt in einen Sprint
 - [ ] Product Owner hat bestätigt

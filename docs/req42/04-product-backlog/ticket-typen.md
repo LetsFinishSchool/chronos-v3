@@ -164,14 +164,14 @@ Eine Story ist bereit, wenn:
 2. Die Akzeptanzkriterien prüfbar sind und Fehler-, Berechtigungs- sowie leere, Lade- und Fehlerzustände enthalten.
 3. „Nicht Teil dieser Story“ ausgefüllt und Folge-Stories verlinkt sind.
 4. **Oberfläche:** Hat die Story sichtbare UI, liegt **immer** ein Wireframe für **Mobil (320 px), Tablet (768 px) und Desktop (1280 px)** vor: eine Excalidraw-Datei `designs/wireframes/S<Nr>-<kurzname>.excalidraw` mit drei beschrifteten Rahmen und SVG-Export gleichen Namens, im Ticket unter „Hinweise“ verlinkt. Jeder Rahmen zeigt alle Zustände aus Punkt 2 (normal, leer, laden, Fehler, ohne Berechtigung) und nennt Farben und Abstände nur über Token-Namen aus `designs/tokens/tokens.json` (z. B. `bg.surface`, `space.4`), nie Hex-Werte. Das gilt auch für Screens aus dem bisherigen Design; eine bloße Skizze im Ticket genügt nicht. Fehlt ein Token oder eine Komponente, ist das ein eigener Task (Design-System), der zuerst erledigt wird.
-5. Abhängigkeiten (Stories, Tasks, Dienste, Entscheidungen) benannt und erledigt oder terminiert sind; kein Blocker ist offen.
+5. Abhängigkeiten (Stories, Tasks, Dienste, Entscheidungen) benannt sind und jedes Ticket, von dem die Story abhängt, in GitHub als „blocked by“ eingetragen ist.
 6. Berührte Modelle und Qualitätsszenarien (M-, RB-, QA-nnn) genannt sind; es gibt keine offene Frage an den Product Owner.
 7. Die Story in einem Sprint fertigzustellen ist, sonst wird sie geteilt.
 8. Der Product Owner sie bestätigt hat (Kommentar oder Label `ready`).
 
 Ein Task ist bereit, wenn:
 1. „Ziel“, „Umsetzung“ und „Fertig, wenn“ ausgefüllt sind und der Agent ohne Rückfrage starten kann.
-2. Die Eltern-Story bereit ist und alle genannten Vorgänger-Tasks gemergt sind.
+2. Die Eltern-Story bereit ist und jedes Ticket, von dem der Task abhängt, in GitHub als „blocked by“ eingetragen ist.
 3. Prüfbefehle benannt und lauffähig sind; benötigte Zugänge und Testdaten sind vorhanden.
 4. Bei UI auf den Wireframe der Story (alle drei Breiten, Pfad in `designs/wireframes/`) und die verwendeten Tokens und Komponenten verwiesen wird.
 5. Der Umfang höchstens ein PR ist, möglichst unter einem Tag.

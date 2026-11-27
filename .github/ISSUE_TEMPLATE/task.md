@@ -22,7 +22,7 @@ Betroffene Module/Dateien, Ansatz, Randbedingungen. Genug, dass ein Agent ohne R
 Prüfbefehle des betroffenen Bausteins (legt die Entwicklung fest, siehe ADR-009 und ADR-013).
 
 ## Bereit?
-- [ ] Eltern-Story bereit, Vorgänger-Tasks gemergt
+- [ ] Eltern-Story bereit, alle Tickets, von denen dieser Task abhängt, als „blocked by“ in GitHub eingetragen
 - [ ] Prüfbefehle benannt und lauffähig
 - [ ] Bei UI: Verweis auf Wireframe und Tokens
 - [ ] Umfang höchstens ein PR
