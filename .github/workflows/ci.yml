@@ -221,7 +221,7 @@ jobs:
   deploy:
     if: github.event_name == 'push'
     name: Deploy staging
-    needs: [format, clippy, test, sqlx-offline, supply-chain, chart, image]
+    needs: [format, clippy, test, sqlx-offline, frontend, supply-chain, chart, image]
     runs-on: ubuntu-latest
     environment: staging
     # Never two Helm runs at once; a queued run waits instead of cancelling the rollout.
