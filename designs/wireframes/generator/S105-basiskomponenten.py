@@ -149,7 +149,10 @@ def draw_section(wf, frame, bp, section, x, y):
         sx, sy = left + px, top + pad + py
         sp.draw(pen, sx, sy)
         pen.label(sx, sy + sp.h + T.px("space.1"), sp.label, sp.w)
-    notes = ["%s: Seite {bg.page}; seitlicher Rand {%s}" % (bp["range"], bp["side"])] + section.notes
+    first = "%s: Seite {bg.page}" % bp["range"]
+    if not section.full_width:
+        first += "; seitlicher Rand {%s}" % bp["side"]
+    notes = [first] + section.notes
     wf.text(x + bp["width"] + ANNOTATION_GAP, top, "\n".join("· " + n for n in notes), NOTE_SIZE, NOTE_LINE,
             ANNOTATION_TEXT, width=ANNOTATION_WIDTH)
     return CAPTION_HEIGHT + height + SECTION_GAP
@@ -375,16 +378,21 @@ LIST_EMPTY = ("list.empty", "Keine Einträge.")
 LIST_LOADING = ("list.loading", "Lädt …")
 
 
+BODY_M_LINE = T.type_style("body-m-regular")["line"]
+BODY_S_LINE = T.type_style("body-s-regular")["line"]
+MESSAGE_SYMBOL_SIZE = 16
+
+
 def draw_list(kind, width):
     def draw(pen, x, y):
         pad = T.px("space.4")
-        row_h = T.px("space.2") * 2 + 24 + 20
+        row_h = T.px("space.2") * 2 + BODY_M_LINE + BODY_S_LINE
         if kind == "normal":
             h = row_h * len(LIST_ITEMS)
         elif kind == "leer":
-            h = 2 * pad + 24
+            h = 2 * pad + BODY_M_LINE
         else:
-            h = 2 * pad + 20 + 2 * (T.px("space.4") + T.px("space.3")) + T.px("space.2")
+            h = 2 * pad + BODY_S_LINE + T.px("space.2") + 2 * T.px("space.4") + T.px("space.3")
         pen.rect(x, y, width, h, fill=T.color("bg.surface"), stroke=T.color("border.default"),
                  radius=T.px("radius.lg"))
         if kind == "normal":
@@ -393,12 +401,12 @@ def draw_list(kind, width):
                 if i:
                     pen.line(x, top, x + width, top, T.color("border.default"))
                 pen.text(x + pad, top + T.px("space.2"), title, "body-m-regular", "text.primary")
-                pen.text(x + pad, top + T.px("space.2") + 24, meta, "body-s-regular", "text.secondary")
+                pen.text(x + pad, top + T.px("space.2") + BODY_M_LINE, meta, "body-s-regular", "text.secondary")
         elif kind == "leer":
             pen.text(x + pad, y + pad, LIST_EMPTY[1], "body-m-regular", "text.muted")
         else:
             pen.text(x + pad, y + pad, LIST_LOADING[1], "body-s-regular", "text.muted")
-            bar_y = y + pad + 20 + T.px("space.2")
+            bar_y = y + pad + BODY_S_LINE + T.px("space.2")
             for w_factor in (0.7, 0.5):
                 bar_h = T.px("space.4")
                 pen.rect(x + pad, bar_y, (width - 2 * pad) * w_factor, bar_h, fill=T.color("bg.muted"),
@@ -492,10 +500,10 @@ def draw_message(pen, x, y, width, spec, state):
     if state == "mit Hinweistext":
         return pen.text(x, y, spec["hint"], "body-s-regular", "text.secondary", width=width)[1]
     if state == "Fehler":
-        pen.ellipse(x, y + 2, 16, 16, stroke=T.color("text.danger"), stroke_width=2)
-        pen.cross(x + 8, y + 10, 3, T.color("text.danger"), width=2)
-        return pen.text(x + 16 + T.px("space.2"), y, spec["error"], "body-s-regular", "text.danger",
-                        width=width - 16 - T.px("space.2"))[1]
+        pen.ellipse(x, y + (BODY_S_LINE - MESSAGE_SYMBOL_SIZE) / 2, MESSAGE_SYMBOL_SIZE, MESSAGE_SYMBOL_SIZE, stroke=T.color("text.danger"), stroke_width=2)
+        pen.cross(x + MESSAGE_SYMBOL_SIZE / 2, y + BODY_S_LINE / 2, 3, T.color("text.danger"), width=2)
+        return pen.text(x + MESSAGE_SYMBOL_SIZE + T.px("space.2"), y, spec["error"], "body-s-regular", "text.danger",
+                        width=width - MESSAGE_SYMBOL_SIZE - T.px("space.2"))[1]
     return 0
 
 
@@ -640,7 +648,7 @@ STORY_STATES = [
 MISSING_TOKENS = "\n".join([
     "Fehlende Tokens und Varianten (nicht erfunden, Meldung in Ticket 105):",
     "· Info-Alert: bg.info-subtle, border.info und status.info gibt es nicht. Ersatz: {bg.brand-subtle},"
-    " {border.brand}, Symbol und Rand mit {text.info}; der Kontrast von {text.info} auf {bg.brand-subtle}"
+    " {border.brand}, Symbol {text.info}; der Kontrast von {text.info} auf {bg.brand-subtle}"
     " ist nicht geprüft.",
     "· Warnung-Alert: border.warning gibt es nicht. Ersatz: {border.default}.",
     "· Deaktiviert: kein eigenes Token. Ersatz: {bg.muted}, {text.muted}, {border.default}.",
