@@ -3,13 +3,10 @@
 use std::num::NonZeroU32;
 use std::time::Duration;
 
-use sqlx::PgPool;
+use chronos_core::{ConsumerRegistry, Outbox};
 use tokio::time::sleep;
 use tokio_util::sync::CancellationToken;
 use tracing::{error, info};
-
-use crate::consumer::Registry;
-use crate::outbox::process_batch;
 
 const DEFAULT_POLL_INTERVAL: Duration = Duration::from_secs(2);
 const DEFAULT_BATCH_SIZE: NonZeroU32 = NonZeroU32::new(50).unwrap();
@@ -37,8 +34,8 @@ impl Default for WorkerConfig {
 /// `poll_interval`. Fehlgeschlagene Ereignisse werden so bei jedem Durchlauf neu versucht;
 /// Limit und Wartezeit dafür sind bewusst offen (#23).
 pub async fn run(
-    pool: &PgPool,
-    registry: &Registry,
+    outbox: &Outbox,
+    registry: &ConsumerRegistry,
     config: &WorkerConfig,
     shutdown: CancellationToken,
 ) {
@@ -48,7 +45,10 @@ pub async fn run(
         "worker started",
     );
     while !shutdown.is_cancelled() {
-        match process_batch(pool, registry, config.batch_size.get()).await {
+        match outbox
+            .process_batch(registry, config.batch_size.get())
+            .await
+        {
             Ok(stats) if stats.processed >= config.batch_size.get() => continue,
             Ok(_) => {}
             Err(source) => error!(error = %source, "outbox batch failed"),

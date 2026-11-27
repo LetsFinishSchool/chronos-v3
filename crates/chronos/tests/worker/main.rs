@@ -10,10 +10,10 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::time::Duration;
 
-use chronos_worker::{
-    Consumer, ConsumerError, ConsumerFuture, OutboxEvent, Registry, process_batch,
+use chronos_core::{
+    Consumer, ConsumerError, ConsumerFuture, ConsumerRegistry, Outbox, OutboxEvent,
 };
-use sqlx::{PgConnection, PgPool};
+use sqlx::PgPool;
 use tokio::sync::Notify;
 
 use support::{LogBuffer, insert_event, is_processed, processed_count};
@@ -27,7 +27,7 @@ struct Blocking {
 }
 
 impl Consumer for Blocking {
-    fn handle<'a>(&'a self, _: &'a OutboxEvent, _: &'a mut PgConnection) -> ConsumerFuture<'a> {
+    fn handle<'a>(&'a self, _: &'a OutboxEvent) -> ConsumerFuture<'a> {
         Box::pin(async move {
             self.started.notify_one();
             self.release.notified().await;
@@ -49,7 +49,7 @@ impl Recording {
 }
 
 impl Consumer for Recording {
-    fn handle<'a>(&'a self, event: &'a OutboxEvent, _: &'a mut PgConnection) -> ConsumerFuture<'a> {
+    fn handle<'a>(&'a self, event: &'a OutboxEvent) -> ConsumerFuture<'a> {
         Box::pin(async move {
             self.0.lock().unwrap().push(event.id);
             tokio::task::yield_now().await;
@@ -58,22 +58,16 @@ impl Consumer for Recording {
     }
 }
 
-/// Schreibt in die Datenbank und scheitert bei den ersten `failures` Aufrufen.
-struct FlakyWriter {
+/// Scheitert bei den ersten `failures` Aufrufen und zählt alle Aufrufe.
+struct Flaky {
     failures: AtomicU32,
+    calls: Arc<AtomicU32>,
 }
 
-impl Consumer for FlakyWriter {
-    fn handle<'a>(
-        &'a self,
-        event: &'a OutboxEvent,
-        connection: &'a mut PgConnection,
-    ) -> ConsumerFuture<'a> {
+impl Consumer for Flaky {
+    fn handle<'a>(&'a self, _: &'a OutboxEvent) -> ConsumerFuture<'a> {
         Box::pin(async move {
-            sqlx::query("INSERT INTO consumer_effect (event_id) VALUES ($1)")
-                .bind(event.id)
-                .execute(&mut *connection)
-                .await?;
+            self.calls.fetch_add(1, Ordering::SeqCst);
             let remaining = self.failures.load(Ordering::SeqCst);
             if remaining > 0 {
                 self.failures.store(remaining - 1, Ordering::SeqCst);
@@ -82,13 +76,6 @@ impl Consumer for FlakyWriter {
             Ok(())
         })
     }
-}
-
-async fn effect_count(pool: &PgPool) -> i64 {
-    sqlx::query_scalar("SELECT count(*) FROM consumer_effect")
-        .fetch_one(pool)
-        .await
-        .unwrap()
 }
 
 mod abarbeitung {
@@ -102,10 +89,13 @@ mod abarbeitung {
             insert_event(&pool, "a.happened").await,
         ];
         let recording = Recording::default();
-        let mut registry = Registry::new();
+        let mut registry = ConsumerRegistry::new();
         registry.register("a.happened", recording.clone());
 
-        let stats = process_batch(&pool, &registry, BATCH).await.unwrap();
+        let stats = Outbox::new(pool.clone())
+            .process_batch(&registry, BATCH)
+            .await
+            .unwrap();
 
         assert_eq!((stats.processed, stats.failed), (3, 0));
         assert_eq!(recording.ids(), ids);
@@ -117,14 +107,20 @@ mod abarbeitung {
         for _ in 0..5 {
             insert_event(&pool, "a.happened").await;
         }
-        let mut registry = Registry::new();
+        let mut registry = ConsumerRegistry::new();
         registry.register("a.happened", Recording::default());
 
-        let first = process_batch(&pool, &registry, 2).await.unwrap();
+        let first = Outbox::new(pool.clone())
+            .process_batch(&registry, 2)
+            .await
+            .unwrap();
         assert_eq!(first.processed, 2);
         assert_eq!(processed_count(&pool).await, 2);
 
-        let rest = process_batch(&pool, &registry, 10).await.unwrap();
+        let rest = Outbox::new(pool.clone())
+            .process_batch(&registry, 10)
+            .await
+            .unwrap();
         assert_eq!(rest.processed, 3);
         assert_eq!(processed_count(&pool).await, 5);
     }
@@ -134,12 +130,12 @@ mod abarbeitung {
         let unknown = insert_event(&pool, "nobody.listens").await;
         let known = insert_event(&pool, "a.happened").await;
         let recording = Recording::default();
-        let mut registry = Registry::new();
+        let mut registry = ConsumerRegistry::new();
         registry.register("a.happened", recording.clone());
 
         let (logs, subscriber) = LogBuffer::subscriber();
         let stats = tracing::instrument::WithSubscriber::with_subscriber(
-            process_batch(&pool, &registry, BATCH),
+            Outbox::new(pool.clone()).process_batch(&registry, BATCH),
             subscriber,
         )
         .await
@@ -160,37 +156,35 @@ mod abarbeitung {
     }
 
     #[sqlx::test]
-    async fn failing_consumer_rolls_back_and_the_next_batch_retries(pool: PgPool) {
-        sqlx::query("CREATE TABLE consumer_effect (event_id bigint NOT NULL)")
-            .execute(&pool)
-            .await
-            .unwrap();
+    async fn failing_consumer_leaves_the_event_unprocessed_and_the_next_batch_retries(
+        pool: PgPool,
+    ) {
         let failing = insert_event(&pool, "b.happened").await;
         let healthy = insert_event(&pool, "a.happened").await;
         let recording = Recording::default();
-        let mut registry = Registry::new();
+        let mut registry = ConsumerRegistry::new();
+        let calls = Arc::new(AtomicU32::new(0));
         registry.register(
             "b.happened",
-            FlakyWriter {
+            Flaky {
                 failures: AtomicU32::new(1),
+                calls: calls.clone(),
             },
         );
         registry.register("a.happened", recording.clone());
 
         let (logs, subscriber) = LogBuffer::subscriber();
         let first = tracing::instrument::WithSubscriber::with_subscriber(
-            process_batch(&pool, &registry, BATCH),
+            Outbox::new(pool.clone()).process_batch(&registry, BATCH),
             subscriber,
         )
         .await
         .unwrap();
 
-        // Das Ereignis dahinter wird trotzdem bearbeitet; der Schreibzugriff des
-        // Verbrauchers ist mit zurückgerollt.
+        // Das Ereignis dahinter wird trotzdem bearbeitet.
         assert_eq!((first.processed, first.failed), (1, 1));
         assert!(!is_processed(&pool, failing).await);
         assert!(is_processed(&pool, healthy).await);
-        assert_eq!(effect_count(&pool).await, 0);
         let errors: Vec<_> = logs
             .lines()
             .into_iter()
@@ -200,19 +194,25 @@ mod abarbeitung {
         assert_eq!(errors[0]["fields"]["event_id"], failing);
         assert!(errors[0]["fields"]["correlation_id"].is_string());
 
-        let second = process_batch(&pool, &registry, BATCH).await.unwrap();
+        let second = Outbox::new(pool.clone())
+            .process_batch(&registry, BATCH)
+            .await
+            .unwrap();
 
         assert_eq!((second.processed, second.failed), (1, 0));
         assert!(is_processed(&pool, failing).await);
-        // Aufruf und Markierung wurden gemeinsam festgeschrieben.
-        assert_eq!(effect_count(&pool).await, 1);
+        assert_eq!(
+            calls.load(Ordering::SeqCst),
+            2,
+            "tried again in the next batch"
+        );
     }
 
     #[sqlx::test]
     async fn aborted_worker_loses_nothing_and_marks_the_event_once(pool: PgPool) {
         let id = insert_event(&pool, "a.happened").await;
         let started = Arc::new(Notify::new());
-        let mut crashing = Registry::new();
+        let mut crashing = ConsumerRegistry::new();
         crashing.register(
             "a.happened",
             Blocking {
@@ -224,19 +224,24 @@ mod abarbeitung {
         // Der Worker hat das Ereignis gelesen und gesperrt, markiert es aber nie.
         let worker = tokio::spawn({
             let pool = pool.clone();
-            async move { process_batch(&pool, &crashing, BATCH).await }
+            async move {
+                Outbox::new(pool.clone())
+                    .process_batch(&crashing, BATCH)
+                    .await
+            }
         });
         started.notified().await;
         worker.abort();
         let _ = worker.await;
 
         let recording = Recording::default();
-        let mut restarted = Registry::new();
+        let mut restarted = ConsumerRegistry::new();
         restarted.register("a.happened", recording.clone());
         // Die Sperre fällt, sobald der Server den Abbruch der Verbindung bemerkt.
         let mut processed = 0;
         for _ in 0..100 {
-            processed = process_batch(&pool, &restarted, BATCH)
+            processed = Outbox::new(pool.clone())
+                .process_batch(&restarted, BATCH)
                 .await
                 .unwrap()
                 .processed;
@@ -250,7 +255,10 @@ mod abarbeitung {
         assert_eq!(recording.ids(), [id]);
         assert!(is_processed(&pool, id).await);
         assert_eq!(processed_count(&pool).await, 1);
-        let again = process_batch(&pool, &restarted, BATCH).await.unwrap();
+        let again = Outbox::new(pool.clone())
+            .process_batch(&restarted, BATCH)
+            .await
+            .unwrap();
         assert_eq!(again.processed, 0);
         assert_eq!(recording.ids(), [id], "the event is not handled twice");
     }
@@ -264,7 +272,7 @@ mod abarbeitung {
         ];
         let started = Arc::new(Notify::new());
         let release = Arc::new(Notify::new());
-        let mut first = Registry::new();
+        let mut first = ConsumerRegistry::new();
         first.register(
             "a.happened",
             Blocking {
@@ -274,14 +282,17 @@ mod abarbeitung {
         );
         let first_worker = tokio::spawn({
             let pool = pool.clone();
-            async move { process_batch(&pool, &first, BATCH).await }
+            async move { Outbox::new(pool.clone()).process_batch(&first, BATCH).await }
         });
         started.notified().await;
 
         let recording = Recording::default();
-        let mut second = Registry::new();
+        let mut second = ConsumerRegistry::new();
         second.register("a.happened", recording.clone());
-        let stats = process_batch(&pool, &second, BATCH).await.unwrap();
+        let stats = Outbox::new(pool.clone())
+            .process_batch(&second, BATCH)
+            .await
+            .unwrap();
 
         assert_eq!(stats.processed, 2);
         assert_eq!(recording.ids(), others);
@@ -303,7 +314,7 @@ mod abarbeitung {
             insert_event(&pool, "a.happened").await;
         }
         let recording = Recording::default();
-        let mut registry = Registry::new();
+        let mut registry = ConsumerRegistry::new();
         registry.register("a.happened", recording.clone());
 
         let workers: Vec<_> = (0..3)
@@ -313,7 +324,10 @@ mod abarbeitung {
                 tokio::spawn(async move {
                     let mut total = 0;
                     loop {
-                        let stats = process_batch(&pool, &registry, 7).await.unwrap();
+                        let stats = Outbox::new(pool.clone())
+                            .process_batch(&registry, 7)
+                            .await
+                            .unwrap();
                         if stats.processed == 0 {
                             return total;
                         }

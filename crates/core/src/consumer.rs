@@ -5,7 +5,7 @@ use std::pin::Pin;
 use std::sync::Arc;
 
 use serde_json::Value;
-use sqlx::{FromRow, PgConnection};
+use sqlx::FromRow;
 use uuid::Uuid;
 
 /// Ein Ereignis aus der Outbox, wie der Rahmen es festgehalten hat.
@@ -25,29 +25,25 @@ pub type ConsumerError = Box<dyn std::error::Error + Send + Sync>;
 /// Trait ist nicht objektsicher.
 pub type ConsumerFuture<'a> = Pin<Box<dyn Future<Output = Result<(), ConsumerError>> + Send + 'a>>;
 
-/// Reagiert auf ein Ereignis. Der Aufruf läuft in derselben Transaktion, die das Ereignis
-/// als verarbeitet markiert: Datenbankänderungen über `connection` werden mit der Markierung
-/// festgeschrieben oder zusammen mit ihr zurückgerollt.
+/// Reagiert auf ein Ereignis. Der Aufruf läuft, während das Ereignis gesperrt ist; erst nach
+/// einem `Ok` markiert der Rahmen es in derselben Transaktion als verarbeitet.
 ///
-/// Der Aufruf kann nach einem Absturz wiederholt werden; Seiteneffekte außerhalb der
-/// Datenbank (Log, Zustellung) müssen das aushalten.
+/// Der Aufruf kann nach einem Absturz wiederholt werden; Seiteneffekte (Log, Zustellung)
+/// müssen das aushalten. Datenänderungen laufen über Operationen, nie am Rahmen vorbei,
+/// deshalb bekommt der Verbraucher keine Datenbankverbindung.
 pub trait Consumer: Send + Sync {
     /// Ein `Err` rollt die Transaktion zurück, das Ereignis bleibt unverarbeitet.
-    fn handle<'a>(
-        &'a self,
-        event: &'a OutboxEvent,
-        connection: &'a mut PgConnection,
-    ) -> ConsumerFuture<'a>;
+    fn handle<'a>(&'a self, event: &'a OutboxEvent) -> ConsumerFuture<'a>;
 }
 
 /// Verbraucher je Ereignisart. Mehrere für dieselbe Art laufen nacheinander in einer
 /// Transaktion.
 #[derive(Clone, Default)]
-pub struct Registry {
+pub struct ConsumerRegistry {
     consumers: HashMap<String, Vec<Arc<dyn Consumer>>>,
 }
 
-impl Registry {
+impl ConsumerRegistry {
     pub fn new() -> Self {
         Self::default()
     }

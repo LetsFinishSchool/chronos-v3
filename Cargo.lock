@@ -231,6 +231,7 @@ dependencies = [
  "serde_json",
  "sqlx",
  "tokio",
+ "tracing",
  "uuid",
 ]
 
@@ -257,12 +258,9 @@ dependencies = [
  "chronos-adapters",
  "chronos-channels",
  "chronos-core",
- "serde_json",
- "sqlx",
  "tokio",
  "tokio-util",
  "tracing",
- "uuid",
 ]
 
 [[package]]

@@ -2,11 +2,11 @@
 
 use std::time::Duration;
 
-use chronos_core::{Environment, Frame, Run};
-use chronos_worker::{
-    Consumer, ConsumerFuture, LogConsumer, OutboxEvent, Registry, WorkerConfig, run,
+use chronos_core::{
+    Consumer, ConsumerFuture, ConsumerRegistry, Environment, Frame, Outbox, OutboxEvent, Run,
 };
-use sqlx::{PgConnection, PgPool};
+use chronos_worker::{LogConsumer, WorkerConfig, run};
+use sqlx::PgPool;
 use tokio_util::sync::CancellationToken;
 use tracing::instrument::WithSubscriber;
 use uuid::Uuid;
@@ -47,7 +47,7 @@ async fn stop(worker: tokio::task::JoinHandle<()>, token: &CancellationToken) {
 struct StopDuringBatch(CancellationToken);
 
 impl Consumer for StopDuringBatch {
-    fn handle<'a>(&'a self, _: &'a OutboxEvent, _: &'a mut PgConnection) -> ConsumerFuture<'a> {
+    fn handle<'a>(&'a self, _: &'a OutboxEvent) -> ConsumerFuture<'a> {
         self.0.cancel();
         Box::pin(async { Ok(()) })
     }
@@ -55,14 +55,14 @@ impl Consumer for StopDuringBatch {
 
 #[sqlx::test]
 async fn polling_picks_up_events_that_arrive_later(pool: PgPool) {
-    let mut registry = Registry::new();
+    let mut registry = ConsumerRegistry::new();
     registry.register("a.happened", LogConsumer);
     let token = CancellationToken::new();
     let worker = tokio::spawn({
         let (pool, token) = (pool.clone(), token.clone());
         async move {
             run(
-                &pool,
+                &Outbox::new(pool.clone()),
                 &registry,
                 &config(Duration::from_millis(20), 50),
                 token,
@@ -83,14 +83,22 @@ async fn a_full_batch_is_followed_by_the_next_without_a_pause(pool: PgPool) {
     for _ in 0..5 {
         insert_event(&pool, "a.happened").await;
     }
-    let mut registry = Registry::new();
+    let mut registry = ConsumerRegistry::new();
     registry.register("a.happened", LogConsumer);
     let token = CancellationToken::new();
     let worker = tokio::spawn({
         let (pool, token) = (pool.clone(), token.clone());
         // Bei Chargengröße 2 braucht es drei Chargen; nach der dritten (nicht voll) wartet
         // die Schleife eine Stunde.
-        async move { run(&pool, &registry, &config(NEVER, 2), token).await }
+        async move {
+            run(
+                &Outbox::new(pool.clone()),
+                &registry,
+                &config(NEVER, 2),
+                token,
+            )
+            .await
+        }
     });
 
     wait_for_processed(&pool, 5).await;
@@ -106,12 +114,17 @@ async fn shutdown_finishes_the_running_batch(pool: PgPool) {
         insert_event(&pool, "a.happened").await,
     ];
     let token = CancellationToken::new();
-    let mut registry = Registry::new();
+    let mut registry = ConsumerRegistry::new();
     registry.register("a.happened", StopDuringBatch(token.clone()));
 
     tokio::time::timeout(
         WAIT_LIMIT,
-        run(&pool, &registry, &config(NEVER, 50), token.clone()),
+        run(
+            &Outbox::new(pool.clone()),
+            &registry,
+            &config(NEVER, 50),
+            token.clone(),
+        ),
     )
     .await
     .expect("run returns after the batch");
@@ -126,7 +139,15 @@ async fn shutdown_interrupts_the_pause_between_batches(pool: PgPool) {
     let token = CancellationToken::new();
     let worker = tokio::spawn({
         let (pool, token) = (pool.clone(), token.clone());
-        async move { run(&pool, &Registry::new(), &config(NEVER, 50), token).await }
+        async move {
+            run(
+                &Outbox::new(pool.clone()),
+                &ConsumerRegistry::new(),
+                &config(NEVER, 50),
+                token,
+            )
+            .await
+        }
     });
     tokio::time::sleep(Duration::from_millis(100)).await;
 
@@ -151,11 +172,12 @@ async fn an_example_operation_event_shows_up_in_the_worker_log_with_its_correlat
         )
         .await
         .unwrap();
-    let mut registry = Registry::new();
+    let mut registry = ConsumerRegistry::new();
     registry.register("note.created", LogConsumer);
     let (logs, subscriber) = LogBuffer::subscriber();
 
-    chronos_worker::process_batch(&pool, &registry, 50)
+    Outbox::new(pool.clone())
+        .process_batch(&registry, 50)
         .with_subscriber(subscriber)
         .await
         .unwrap();
