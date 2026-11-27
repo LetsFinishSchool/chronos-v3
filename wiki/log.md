@@ -350,3 +350,6 @@ Seite `code/frontend.md` angelegt; `cargo-workspace.md` verweist darauf. Abweich
 
 ## [2026-11-27] ingest | #119 Wireframe Basiskomponenten (S105)
 Auf Anweisung des Nutzers umgesetzt (Branch issue/119): `S105-basiskomponenten.{excalidraw,svg}` mit Generator, `wirelib.py` um Ellipse, Linienstärke und `measure_text` erweitert. Fehlende Tokens im Wireframe vermerkt (Seite `code/wireframes.md`). Nicht geprüft: Öffnen im Excalidraw-Editor; PO-Review im PR steht aus.
+
+## [2026-11-27] ingest | #103 Frontend im Image
+Auf Anweisung des Nutzers im PR zu #103: Node-Stage im `Dockerfile`, `CHRONOS_FRONTEND_DIR` per `ENV`, `.dockerignore`; sonst startete `serve` im Image aus #104 nicht. `code/frontend.md` ergänzt.
