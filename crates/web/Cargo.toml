@@ -1,6 +1,6 @@
 [package]
 name = "chronos-web"
-description = "Web-Prozess von Chronos"
+description = "Web process of Chronos"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

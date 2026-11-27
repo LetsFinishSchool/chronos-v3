@@ -131,7 +131,7 @@ Eine öffentliche API für Dritte ist nicht gefordert. Der Kalender-Feed hat ohn
 
 - **Akteur-Arten im Kontext:** Person, Assistent im Auftrag von Person, Regel (ID), Gast (Link), Import. Der Verlauf übernimmt sie unverändert (A7, A11).
 - **Fehler als Codes** (`validation_error`, `forbidden`, `not_found`, `conflict`, `approval_required`, `approval_stale`) mit Parametern; Texte entstehen erst in der Oberfläche oder in der Antwort des Assistenten (A10).
-- **Namen** `bereich.verb`, stabil. Umbenennen heißt neue Operation plus Übergangszeit, weil Werkzeugnamen und Frontend-Typen daran hängen.
+- **Namen** `area.verb`, stabil. Umbenennen heißt neue Operation plus Übergangszeit, weil Werkzeugnamen und Frontend-Typen daran hängen.
 - **Fachliche statt technischer Operationen:** `appointment.reschedule`, nicht `appointment.update` mit beliebigen Feldern. Das gibt bessere Werkzeugbeschreibungen und genauere Verlaufseinträge.
 - **Prüfungen im Test:** Schnappschuss der Operationsliste und Schemas (Änderungen werden im Review sichtbar); „jede schreibende Operation hat eine Vorschau“ ist bei T3-B kein Test mehr, sondern eine Eigenschaft des Rahmens.
 

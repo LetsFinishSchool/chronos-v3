@@ -1,9 +1,9 @@
-# Vorlage für .envrc (direnv). Kopieren: cp .envrc.example .envrc && direnv allow
-# Fine-grained PAT, nur für dieses Repo (Metadata: Read, Issues/Pull requests: Read+Write, Contents: Read).
-# Wird von Claude Code (.mcp.json) und opencode (opencode.json) für den GitHub-MCP-Server gelesen.
-export GITHUB_PERSONAL_ACCESS_TOKEN=github_pat_HIER_EINTRAGEN
+# Template for .envrc (direnv). Copy: cp .envrc.example .envrc && direnv allow
+# Fine-grained PAT, only for this repo (Metadata: Read, Issues/Pull requests: Read+Write, Contents: Read).
+# Read by Claude Code (.mcp.json) and opencode (opencode.json) for the GitHub MCP server.
+export GITHUB_PERSONAL_ACCESS_TOKEN=github_pat_ENTER_HERE
 
-# Lokale Datenbank (compose.yaml), nur Wegwerfwerte. Migrationsbenutzer mit DDL-Rechten
-# für `chronos migrate`, sqlx-cli und #[sqlx::test]; Anwendungsbenutzer für serve und worker.
+# Local database (compose.yaml), throwaway values only. Migration user with DDL privileges
+# for `chronos migrate`, sqlx-cli and #[sqlx::test]; application user for serve and worker.
 export DATABASE_URL=postgres://chronos_migrate:chronos_migrate@127.0.0.1:54329/chronos
 export DATABASE_URL_APP=postgres://chronos_app:chronos_app@127.0.0.1:54329/chronos

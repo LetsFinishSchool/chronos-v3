@@ -32,7 +32,7 @@ Drei Gesamtvarianten aus sechs Teilfragen (T1 bis T6), ausführlich mit Vor- und
 4. **Freigabe-Beleg im Server (T4-B):** Die Vorschau speichert Person, Aufruf(e), Parameter und eine Prüfsumme der Änderungen mit Ablaufzeit und gibt eine Beleg-ID zurück. Aufrufe des Assistenten werden nur mit gültigem Beleg ausgeführt; weichen die Änderungen beim Ausführen ab, ist eine neue Freigabe nötig. Direkte Aufrufe aus der Oberfläche bleiben einstufig.
 5. **Stapel (T5-B):** Der Assistent kann eine Folge von Aufrufen vorschlagen; Vorschau, Freigabe und Ausführung gelten für den ganzen Stapel, in einer Transaktion mit einer Bündel-ID (alles oder nichts), mit Obergrenze.
 6. **Transport (T6-A):** RPC, `POST /api/v1/operations/{name}`, Stapel über einen eigenen Endpunkt.
-7. **Festlegungen:** Akteur-Arten Person, Assistent im Auftrag von Person, Regel, Gast, Import; Fehler als Codes mit Parametern, Texte erst im Client bzw. in der Antwort des Assistenten; Namen `bereich.verb`, fachliche statt technischer Operationen.
+7. **Festlegungen:** Akteur-Arten Person, Assistent im Auftrag von Person, Regel, Gast, Import; Fehler als Codes mit Parametern, Texte erst im Client bzw. in der Antwort des Assistenten; Namen `area.verb` (Fachbereich, Verb), fachliche statt technischer Operationen.
 
 Gründe: V2 erfüllt Vorschaupflicht, Freigabe, Berechtigung an einer Stelle, Verlauf und Ereignisbildung **durch Konstruktion** statt durch Sorgfalt je Operation. Für eine Person mit Agenten ([RA-003](../../req42/12-risiken-annahmen/RA-003-betrieb-und-entwicklung-haengen-an-einer-person.md)) ist das der größte Hebel; der Mehraufwand fällt einmal im Rahmen an. V3 lohnt nur bei einem realistischen Sprachwechsel; der Rahmen kapselt die Schemaquelle, ein späterer Übergang bleibt möglich.
 

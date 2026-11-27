@@ -248,6 +248,32 @@ Auf Anweisung des Nutzers (Product Owner): Version „PostgreSQL 19“ direkt in
 ## [2026-11-25] ingest | #100 Datenbankanbindung und Migrationswerkzeug
 Umgesetzt: sqlx 0.9, `core::db`, `chronos migrate`, Schemaprüfung in `serve`/`worker` (Exit-Code 75), `compose.yaml`, Rollen-Skript, Datenbanktests, `.sqlx`, CI-Job `sqlx-offline`. Seite `code/datenbank-und-migrationen.md`. Lehren: Healthcheck-Falle am Init-Socket, Lizenz `CDLA-Permissive-2.0`, `install-action` ohne `sqlx-cli`. Nicht geprüft: Gegenprobe der CI auf Wegwerf-Branch und CI-Lauf selbst. Kein Widerspruch zu `docs/`.
 
+## [2026-11-25] ingest | #102 konkretisiert
+Auf Anweisung des Nutzers (Product Owner): Ticket #102 mit Prüfbefehlen, Fehlerverhalten der Verbraucher (Rollback, erneuter Versuch, bewusst kein Wiederholungslimit bis #23), Polling (2 s, Charge 50), Umfang des Worker-Gerüsts und zusätzlichen Tests ergänzt. Datenbankdienst, Compose und Schemaprüfung stammen aus #100. `ready-for-agent` noch nicht vergeben (Eltern ist Epic #1, #101 offen). `docs/` unverändert; kein weiterer Wiki-Bedarf.
+
+## [2026-11-27] ingest | Ticketprüfung: englische Code-Namen
+Alle 107 Tickets auf deutsche Code-Namen geprüft (Vorgabe in `docs/arc42/02-randbedingungen/01-randbedingungen.md`: Code-Namen englisch). Gefunden und korrigiert: #92 (`mitgliedschaft` → `membership`, Spalten englisch), #101 (`bereich.verb` → `area.verb`, Spalten von `person` und Verlauf englisch, Testfilter `operation_framework`). Beide mit Benennungshinweis. Offen: ADR-005 und E-005 in `docs/` schreiben weiterhin „bereich.verb“ (nur Musterbezeichnung, `docs/` unverändert). Alle übrigen Tickets verlangen keine deutschen Code-Namen.
+
+Nachprüfung (alle Umsetzungsabschnitte gelesen): zusätzlich #101 (Akteur-Arten `Person`/`Guest`), #99 (stderr-Meldung englisch „not implemented yet“) und #107 (Ablaufformat `until YYYY-MM-DD`) angepasst. Der bereits gemergte Code folgt noch den alten Formulierungen (`crates/chronos/src/main.rs`, `crates/chronos/tests/cli.rs`, `deny.toml`, `tools/check-deny-expiry.sh`) und ist als Folgearbeit offen.
+
+## [2026-11-27] ingest | Code auf englische Meldungen umgestellt
+Auf Anweisung des Nutzers: `crates/chronos/src/main.rs`, `crates/chronos/tests/cli.rs`, `deny.toml`, `tools/check-deny-expiry.sh` (Format `until YYYY-MM-DD`, Meldungen `ERROR`/`WARNING` englisch) und Wiki-Seiten zu Code angepasst; `cargo check --workspace --tests` grün, Skript mit Beispielen geprüft. Alle 107 Tickets (1 bis 107) per Skript auf die alten deutschen Muster durchsucht: keine Treffer. Vorschlag für ADR-005/E-005 unter `wiki/proposals/` (`docs/` unverändert).
+
+## [2026-11-27] promote | Operationsnamen `area.verb`
+Product Owner hat die Änderung freigegeben: ADR-005 (Festlegung 7) und E-005 nennen das Muster jetzt `area.verb`. Vorschlag auf „angenommen“. Verweisrichtung beachtet (kein Wiki-Link in `docs/`).
+
+## [2026-11-27] ingest | Vollständige Ticketlesung, Migrationsname
+Alle Abschnitte aller 107 Tickets (Ziel, Umfang, Akzeptanzkriterien, Umsetzung, Fertig-wenn, Hinweise) vollständig gelesen, nicht nur per Muster. Weitere Anpassungen: #99 (Modulkommentar „Responsible for / Not responsible for“, englische Kommentar- und Ausgabetexte), #106 („tight“ statt „knapp“). Migrationsdatei `schema_grundlage` → `schema_foundation` (nur der Beschreibungsteil des Dateinamens, Version unverändert). Bewusst unverändert: deutsche Kommentare und Hilfetexte im bestehenden Code (kein Ticket verlangt sie); Oberflächentexte und Produktbegriffe der Tickets bleiben deutsch, Zuordnung zu englischen Code-Namen im Glossar.
+
+## [2026-11-27] ingest | #102 Teilindex aus PR #112
+Auf Anweisung des Nutzers geprüft: PR #112 (#101) legt den Teilindex `outbox_pending` (`ON outbox (id) WHERE processed_at IS NULL`) an. Ticket #102 verweist darauf statt eine Migration vorzusehen und nennt die Outbox-Spalten. Kein weiterer Wiki-Bedarf.
+
+## [2026-11-27] ingest | Code vollständig englisch
+Auf Anweisung des Nutzers (Product Owner): Kommentare, CLI-Hilfetexte, Fehlermeldungen, Testmeldungen, Testdaten und Paketbeschreibungen im Code ins Englische übersetzt (`crates/`, `tools/`, `deny.toml`, `compose.yaml`, `rust-toolchain.toml`, `.github/workflows/ci.yml`, `.envrc.example`). Ticket-Vorlagen und `docs/` bleiben deutsch. Geprüft: `cargo fmt --check`, `clippy -D warnings`, 23 Tests gegen echtes PostgreSQL grün (Unix-Socket-Notlösung wegen rootless Docker), `tools/check-deny-expiry.sh` Exit 0.
+
+## [2026-11-27] ingest | Festgelegte Ausnahmen von „alles englisch“
+Product Owner hat entschieden: Deutsch bleiben (1) Produkttexte der Tickets (Beschreibungen, Stories, Akzeptanzkriterien), (2) `docs/` und die Ticket-Vorlagen unter `.github/ISSUE_TEMPLATE/`, (3) das wörtliche Zitat „Erlaubte Kanten“ in `crates/chronos/tests/architecture.rs`. Alles andere im Code (Namen, Kommentare, Meldungen, Testdaten, Konfiguration) und alle Code-Anforderungen in Tickets sind englisch. Prüfung: alle 107 Tickets geladen, 487 Code-Elemente einzeln geprüft, keine deutschen Treffer; Tests, fmt und clippy grün.
+
 ## [2026-11-25] ingest | #101 Operationsrahmen im Minimalstand
 Umgesetzt in `crates/core`: `Operation`-Trait mit `inventory`, `Frame` (Transaktion, Geltungsprüfung, Verlauf, Outbox, Probelauf), `Context` nur vom Rahmen erzeugbar, Akteur-Arten Person und Gast, Fehlercodes, Test-Principal mit Umgebungssperre; Migration `person`/`verlauf`/`outbox`; Tests mit Beispieloperationen, `insta`-Snapshot, zwei Architekturregeln, CI-Schritt `cargo insta`. Seite `code/operationsrahmen.md`, Ergänzungen in `ci-und-lieferkette.md` und `datenbank-und-migrationen.md`. Offen für den Product Owner: `schemars` ist als gekapselte Schemaquelle gesetzt, die Entscheidung gegen `utoipa` (E-005a) steht aus. Kein Widerspruch zu `docs/`.
 
