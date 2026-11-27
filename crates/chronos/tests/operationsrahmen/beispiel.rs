@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 use uuid::Uuid;
 
-pub const SETUP_SQL: &str = "CREATE TABLE beispiel_notiz (
+pub const SETUP_SQL: &str = "CREATE TABLE example_note (
     id uuid PRIMARY KEY,
-    besitzer uuid NOT NULL,
+    owner uuid NOT NULL,
     text text NOT NULL
 )";
 
@@ -30,7 +30,7 @@ pub struct NoteCreated {
 
 async fn insert_note(ctx: &mut Context<'_>, owner: PersonId, text: &str) -> Result<Uuid, Error> {
     let id = Uuid::new_v4();
-    sqlx::query("INSERT INTO beispiel_notiz (id, besitzer, text) VALUES ($1, $2, $3)")
+    sqlx::query("INSERT INTO example_note (id, owner, text) VALUES ($1, $2, $3)")
         .bind(id)
         .bind(owner.uuid())
         .bind(text)
@@ -128,7 +128,7 @@ impl Operation for NotesRead {
 
     async fn run(ctx: &mut Context<'_>, params: ReadNote) -> Result<Note, Error> {
         let text: Option<String> =
-            sqlx::query_scalar("SELECT text FROM beispiel_notiz WHERE id = $1 AND besitzer = $2")
+            sqlx::query_scalar("SELECT text FROM example_note WHERE id = $1 AND owner = $2")
                 .bind(params.id)
                 .bind(params.owner.uuid())
                 .fetch_optional(ctx.db())

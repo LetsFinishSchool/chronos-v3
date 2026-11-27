@@ -29,11 +29,11 @@ pub enum ActorKind {
 }
 
 impl ActorKind {
-    /// Wert der Spalte `person.art`.
+    /// Wert der Spalte `person.kind`.
     pub const fn as_db(self) -> &'static str {
         match self {
             Self::Person => "person",
-            Self::Guest => "gast",
+            Self::Guest => "guest",
         }
     }
 }

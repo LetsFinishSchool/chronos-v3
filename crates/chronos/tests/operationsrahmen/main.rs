@@ -21,8 +21,8 @@ async fn setup(pool: &PgPool) -> (Frame, Principal) {
 
 async fn count(pool: &PgPool, table: &str) -> i64 {
     let sql = match table {
-        "beispiel_notiz" => "SELECT count(*) FROM beispiel_notiz",
-        "verlauf" => "SELECT count(*) FROM verlauf",
+        "example_note" => "SELECT count(*) FROM example_note",
+        "history" => "SELECT count(*) FROM history",
         "outbox" => "SELECT count(*) FROM outbox",
         "person" => "SELECT count(*) FROM person",
         other => panic!("unbekannte Tabelle {other}"),
@@ -31,7 +31,7 @@ async fn count(pool: &PgPool, table: &str) -> i64 {
 }
 
 fn create_params(owner: Principal) -> Value {
-    json!({ "owner": owner.id(), "text": "Hallo" })
+    json!({ "owner": owner.id(), "text": "Hello" })
 }
 
 mod operationsrahmen {
@@ -55,7 +55,7 @@ mod operationsrahmen {
 
         assert!(outcome.applied);
         let note_id: Uuid = serde_json::from_value(outcome.result["id"].clone()).unwrap();
-        assert_eq!(count(&pool, "beispiel_notiz").await, 1);
+        assert_eq!(count(&pool, "example_note").await, 1);
 
         let history: (
             Uuid,
@@ -66,8 +66,8 @@ mod operationsrahmen {
             Uuid,
             Option<Uuid>,
         ) = sqlx::query_as(
-            "SELECT akteur, aktion, objekt_art, objekt_id, vorher, korrelations_id, buendel_id \
-                 FROM verlauf",
+            "SELECT actor_id, action, object_kind, object_id, before, correlation_id, bundle_id \
+                 FROM history",
         )
         .fetch_one(&pool)
         .await
@@ -86,7 +86,7 @@ mod operationsrahmen {
         );
 
         let event: (String, Value, Uuid, Uuid) =
-            sqlx::query_as("SELECT ereignis, nutzdaten, ausloeser, korrelations_id FROM outbox")
+            sqlx::query_as("SELECT event, payload, actor_id, correlation_id FROM outbox")
                 .fetch_one(&pool)
                 .await
                 .unwrap();
@@ -117,8 +117,8 @@ mod operationsrahmen {
             .unwrap_err();
 
         assert_eq!(error.code, ErrorCode::Database);
-        assert_eq!(count(&pool, "beispiel_notiz").await, 0);
-        assert_eq!(count(&pool, "verlauf").await, 0);
+        assert_eq!(count(&pool, "example_note").await, 0);
+        assert_eq!(count(&pool, "history").await, 0);
         assert_eq!(count(&pool, "outbox").await, 0);
     }
 
@@ -140,7 +140,7 @@ mod operationsrahmen {
             .unwrap_err();
 
         assert_eq!(error.code, ErrorCode::Database);
-        assert_eq!(count(&pool, "beispiel_notiz").await, 0);
+        assert_eq!(count(&pool, "example_note").await, 0);
         assert_eq!(count(&pool, "outbox").await, 0);
     }
 
@@ -162,10 +162,10 @@ mod operationsrahmen {
         assert!(!outcome.applied);
         assert_eq!(outcome.changes.len(), 1);
         assert_eq!(outcome.changes[0].action, "notes.create");
-        assert_eq!(outcome.changes[0].after, Some(json!({ "text": "Hallo" })));
+        assert_eq!(outcome.changes[0].after, Some(json!({ "text": "Hello" })));
         assert_eq!(outcome.events.len(), 1);
-        assert_eq!(count(&pool, "beispiel_notiz").await, 0);
-        assert_eq!(count(&pool, "verlauf").await, 0);
+        assert_eq!(count(&pool, "example_note").await, 0);
+        assert_eq!(count(&pool, "history").await, 0);
         assert_eq!(count(&pool, "outbox").await, 0);
     }
 
@@ -174,7 +174,7 @@ mod operationsrahmen {
         let (frame, principal) = setup(&pool).await;
         let other = Principal::person(PersonId::new(Uuid::new_v4()));
         let foreign_note = Uuid::new_v4();
-        sqlx::query("INSERT INTO beispiel_notiz (id, besitzer, text) VALUES ($1, $2, 'geheim')")
+        sqlx::query("INSERT INTO example_note (id, owner, text) VALUES ($1, $2, 'secret')")
             .bind(foreign_note)
             .bind(other.id().uuid())
             .execute(&pool)
@@ -231,7 +231,7 @@ mod operationsrahmen {
             .await
             .unwrap();
 
-        assert_eq!(read.result, json!({ "text": "Hallo" }));
+        assert_eq!(read.result, json!({ "text": "Hello" }));
         assert!(read.changes.is_empty());
     }
 
@@ -262,7 +262,7 @@ mod operationsrahmen {
 
         assert_eq!(database_write.code, ErrorCode::ReadOnly);
         assert_eq!(recorded_change.code, ErrorCode::ReadOnly);
-        assert_eq!(count(&pool, "beispiel_notiz").await, 0);
+        assert_eq!(count(&pool, "example_note").await, 0);
     }
 
     #[sqlx::test]

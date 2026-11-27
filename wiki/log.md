@@ -250,3 +250,6 @@ Umgesetzt: sqlx 0.9, `core::db`, `chronos migrate`, Schemaprüfung in `serve`/`w
 
 ## [2026-11-25] ingest | #101 Operationsrahmen im Minimalstand
 Umgesetzt in `crates/core`: `Operation`-Trait mit `inventory`, `Frame` (Transaktion, Geltungsprüfung, Verlauf, Outbox, Probelauf), `Context` nur vom Rahmen erzeugbar, Akteur-Arten Person und Gast, Fehlercodes, Test-Principal mit Umgebungssperre; Migration `person`/`verlauf`/`outbox`; Tests mit Beispieloperationen, `insta`-Snapshot, zwei Architekturregeln, CI-Schritt `cargo insta`. Seite `code/operationsrahmen.md`, Ergänzungen in `ci-und-lieferkette.md` und `datenbank-und-migrationen.md`. Offen für den Product Owner: `schemars` ist als gekapselte Schemaquelle gesetzt, die Entscheidung gegen `utoipa` (E-005a) steht aus. Kein Widerspruch zu `docs/`.
+
+## [2026-11-27] ingest | #101 auf englische Code-Namen umgestellt
+Auf Anweisung des Nutzers: Tabellen, Spalten und Testdaten englisch (`history`, `actor_id`, `bundle_id`, `kind = 'guest'` usw.), Migration in `operation_frame.sql` umbenannt. Grundlage: `docs/README.md` Regel 4 („Code-Namen bleiben englisch“). Lehre: Ticket-Texte vor der Umsetzung gegen diese Regel prüfen. Vorschlag für Glossar-Einträge in `proposals/2026-11-27-code-namen-im-glossar.md`. Seite `code/operationsrahmen.md` angepasst.

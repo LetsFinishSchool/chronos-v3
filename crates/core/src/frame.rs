@@ -50,7 +50,7 @@ impl Frame {
             return Err(Error::new(ErrorCode::TestPrincipalForbidden));
         }
         let principal = Principal::person(PersonId::new(TEST_PRINCIPAL_ID));
-        sqlx::query("INSERT INTO person (id, art) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING")
+        sqlx::query("INSERT INTO person (id, kind) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING")
             .bind(TEST_PRINCIPAL_ID)
             .bind(principal.kind().as_db())
             .execute(&self.pool)
@@ -98,7 +98,7 @@ impl Frame {
 
         for change in &changes {
             sqlx::query(
-                "INSERT INTO verlauf (akteur, aktion, objekt_art, objekt_id, vorher, korrelations_id) \
+                "INSERT INTO history (actor_id, action, object_kind, object_id, before, correlation_id) \
                  VALUES ($1, $2, $3, $4, $5, $6)",
             )
             .bind(principal.id().uuid())
@@ -112,7 +112,7 @@ impl Frame {
         }
         for event in &events {
             sqlx::query(
-                "INSERT INTO outbox (ereignis, nutzdaten, ausloeser, korrelations_id) \
+                "INSERT INTO outbox (event, payload, actor_id, correlation_id) \
                  VALUES ($1, $2, $3, $4)",
             )
             .bind(&event.name)
