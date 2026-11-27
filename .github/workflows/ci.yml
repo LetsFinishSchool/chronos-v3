@@ -121,3 +121,68 @@ jobs:
           tool: cargo-deny@0.22.1
       - run: cargo deny check
       - run: tools/check-deny-expiry.sh
+
+  chart:
+    if: github.event_name != 'schedule'
+    name: Helm-Chart
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Both modes: the migration Job differs between install and upgrade.
+      - run: helm lint deploy/helm/chronos -f deploy/helm/chronos/values-staging.yaml --set image.tag=lint
+      - run: helm template chronos deploy/helm/chronos -f deploy/helm/chronos/values-staging.yaml --set image.tag=lint > /dev/null
+      - run: helm template chronos deploy/helm/chronos -f deploy/helm/chronos/values-staging.yaml --set image.tag=lint --is-upgrade > /dev/null
+
+  image:
+    if: github.event_name != 'schedule'
+    name: Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/letsfinishschool/chronos-v3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      # Pull requests only build the image (checks the Dockerfile); push and deploy happen on main.
+      - if: github.event_name == 'push'
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ env.IMAGE }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    if: github.event_name == 'push'
+    name: Deploy staging
+    needs: [format, clippy, test, sqlx-offline, supply-chain, chart, image]
+    runs-on: ubuntu-latest
+    environment: staging
+    # Never two Helm runs at once; a running rollout is not cancelled.
+    concurrency:
+      group: deploy-staging
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Write kubeconfig
+        env:
+          KUBECONFIG_DATA: ${{ secrets.KUBECONFIG }}
+        run: |
+          umask 077
+          printf '%s' "$KUBECONFIG_DATA" > "$RUNNER_TEMP/kubeconfig"
+          echo "KUBECONFIG=$RUNNER_TEMP/kubeconfig" >> "$GITHUB_ENV"
+      # --atomic: a failed migration Job or failed probes roll back to the previous release.
+      - run: >-
+          helm upgrade --install chronos deploy/helm/chronos
+          --namespace chronos-staging
+          -f deploy/helm/chronos/values-staging.yaml
+          --set image.tag=${{ github.sha }}
+          --atomic --wait --timeout 5m
