@@ -104,6 +104,7 @@ impl Worker {
             .arg("worker")
             .env("DATABASE_URL_APP", url)
             .env("CHRONOS_WORKER_POLL_MS", "50")
+            .env("CHRONOS_WORKER_LOG_EVENTS", "cli.test")
             .stderr(Stdio::piped())
             .spawn()
             .expect("the chronos binary starts");
@@ -216,10 +217,9 @@ async fn worker_process_handles_an_event_with_the_app_role_and_exits_cleanly_on_
     assert_eq!(status.code(), Some(0), "log:\n{log}");
     assert!(log.contains("shutdown signal received"), "log:\n{log}");
     assert!(log.contains("worker stopped"), "log:\n{log}");
-    // Ohne registrierten Verbraucher meldet der Worker das Ereignis als Warnung.
     assert!(
         log.lines()
-            .any(|line| line.contains("no consumer registered")
+            .any(|line| line.contains("outbox event received")
                 && line.contains(&correlation_id.to_string())),
         "log:\n{log}"
     );

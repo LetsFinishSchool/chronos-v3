@@ -21,7 +21,7 @@ last-verified: 2026-11-27
 ## Aufteilung auf Crates
 - **`chronos-core`** (`outbox.rs`, `consumer.rs`): `Outbox::process_batch`, Trait `Consumer`, `ConsumerRegistry`, `OutboxEvent`. Hier liegt das SQL, weil `sqlx` laut ADR-009 und `deny.toml` nur in `core`, `domain` und `chronos` vorkommen darf. Kapitel 5 nennt die Abarbeitung beim Worker; das ist als Vorschlag gemeldet (`proposals/2026-11-27-outbox-abarbeitung-in-core.md`).
 - **`chronos-worker`**: `run` (Schleife, Taktung, Stopp), `WorkerConfig`, `LogConsumer`. Kein `sqlx`.
-- **`chronos`** (`main.rs`): `chronos worker` = Schemaprüfung (`ensure_schema`, Exit 75), Logging, Signale, Konfiguration, `run`. `LogConsumer` ist im Prozess noch nicht verdrahtet; der Test registriert ihn selbst für `note.created` (Verdrahtungsnachweis). Die Registry ist noch leer: Es gibt keine Fachereignisse, also gilt jedes Ereignis als „ohne Verbraucher“.
+- **`chronos`** (`main.rs`): `chronos worker` = Schemaprüfung (`ensure_schema`, Exit 75), Logging, Signale, Konfiguration, `run`. `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) registriert den `LogConsumer` für diese Ereignisarten; `cli.rs` belegt den Weg im echten Prozess mit `cli.test`. Sonst ist die Registry leer: Es gibt keine Fachereignisse, also gilt jedes Ereignis als „ohne Verbraucher“.
 
 ## Verhalten
 - **Je Ereignis eine Transaktion:** `SELECT … WHERE processed_at IS NULL AND id > $cursor ORDER BY id LIMIT 1 FOR UPDATE SKIP LOCKED`, Verbraucher, `UPDATE processed_at`, Commit. Ein Verbraucherfehler rollt zurück; das Ereignis bleibt unverarbeitet.

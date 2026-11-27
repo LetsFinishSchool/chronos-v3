@@ -8,7 +8,7 @@ use std::time::Duration;
 
 use chronos_core::db::{self, SchemaError};
 use chronos_core::{ConsumerRegistry, Outbox};
-use chronos_worker::WorkerConfig;
+use chronos_worker::{LogConsumer, WorkerConfig};
 use clap::{Parser, Subcommand};
 use sqlx::PgPool;
 use sqlx::migrate::Migrator;
@@ -44,6 +44,8 @@ const ENV_APP_URL: &str = "DATABASE_URL_APP";
 const ENV_SCHEMA_WAIT_SECS: &str = "CHRONOS_SCHEMA_WAIT_SECS";
 const ENV_WORKER_POLL_MS: &str = "CHRONOS_WORKER_POLL_MS";
 const ENV_WORKER_BATCH_SIZE: &str = "CHRONOS_WORKER_BATCH_SIZE";
+/// Kommagetrennte Ereignisarten, für die der `LogConsumer` registriert wird.
+const ENV_WORKER_LOG_EVENTS: &str = "CHRONOS_WORKER_LOG_EVENTS";
 /// Nur für lokale Entwicklung: `serve` und `worker` migrieren vor dem Start selbst.
 const ENV_MIGRATE_ON_START: &str = "CHRONOS_MIGRATE_ON_START";
 
@@ -203,14 +205,13 @@ async fn worker() -> Result<(), Failure> {
     )?;
     let pool = ensure_schema().await?;
     let shutdown = shutdown_on_signal()?;
-    // Noch keine Fachbereiche mit Ereignissen: Alles gilt als „ohne Verbraucher“.
-    chronos_worker::run(
-        &Outbox::new(pool),
-        &ConsumerRegistry::new(),
-        &config,
-        shutdown,
-    )
-    .await;
+    // Noch keine Fachbereiche mit Ereignissen: Ohne Eintrag gilt alles als „ohne Verbraucher“.
+    let mut registry = ConsumerRegistry::new();
+    let logged = std::env::var(ENV_WORKER_LOG_EVENTS).unwrap_or_default();
+    for event in logged.split(',').map(str::trim).filter(|e| !e.is_empty()) {
+        registry.register(event, LogConsumer);
+    }
+    chronos_worker::run(&Outbox::new(pool), &registry, &config, shutdown).await;
     Ok(())
 }
 

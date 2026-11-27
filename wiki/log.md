@@ -268,3 +268,6 @@ Umgesetzt: `Outbox::process_batch` und `Consumer`-Trait in `chronos-core`, `run`
 
 ## [2026-11-27] ingest | #102 Review umgesetzt (Runde 1)
 Panic im Verbraucher zählt wie ein Fehler (eigene Task, Subscriber per `with_current_subscriber` weitergereicht); `CHRONOS_WORKER_POLL_MS=0` wird abgelehnt; Test-`Worker` mit `Drop` und `join` statt `sleep`; Abbruch-Test ehrlich als Rollback beim Drop beschrieben. Bewusst nicht geändert: `LogConsumer` bleibt im Prozess unverdrahtet (keine Fachereignisse), SIGTERM-Handler erst nach der Schemaprüfung (Wartezeit nicht abbrechbar, Kubernetes beendet sonst per Default-Aktion).
+
+## [2026-11-27] ingest | #102 LogConsumer im Prozess verdrahtet
+Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) registriert den `LogConsumer` in `chronos worker`; `tests/cli.rs` belegt im echten Prozess „outbox event received“ mit derselben Korrelations-ID. Die frühere Notiz „LogConsumer bewusst unverdrahtet“ ist damit überholt.
