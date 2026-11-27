@@ -12,7 +12,7 @@ fn chronos(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_chronos"))
         .args(args)
         .output()
-        .expect("Binary chronos lässt sich starten")
+        .expect("the chronos binary starts")
 }
 
 /// `serve` und `worker` prüfen zuerst die Schemaversion; ohne migrierte Datenbank
@@ -22,7 +22,7 @@ fn chronos_with_env(args: &[&str], env: &[(&str, &str)]) -> Output {
         .args(args)
         .envs(env.iter().copied())
         .output()
-        .expect("Binary chronos lässt sich starten")
+        .expect("the chronos binary starts")
 }
 
 #[test]
@@ -33,7 +33,7 @@ fn help_lists_all_subcommands() {
     for subcommand in ["serve", "worker", "migrate"] {
         assert!(
             stdout.contains(subcommand),
-            "--help nennt `{subcommand}` nicht:\n{stdout}"
+            "--help does not list `{subcommand}`:\n{stdout}"
         );
     }
 }
@@ -51,8 +51,8 @@ fn version_prints_package_version() {
 
 #[test]
 fn serve_and_worker_are_not_implemented_yet() {
-    let url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP für den Test gesetzt");
-    let migrate_url = std::env::var("DATABASE_URL").expect("DATABASE_URL für den Test gesetzt");
+    let url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP is set for the test");
+    let migrate_url = std::env::var("DATABASE_URL").expect("DATABASE_URL is set for the test");
     // Migriert die gemeinsame Datenbank; `migrate` ist idempotent.
     let migrated = chronos_with_env(&["migrate"], &[("DATABASE_URL", &migrate_url)]);
     assert!(migrated.status.success());
@@ -61,12 +61,12 @@ fn serve_and_worker_are_not_implemented_yet() {
         assert_eq!(
             output.status.code(),
             Some(EXIT_NOT_IMPLEMENTED),
-            "`chronos {subcommand}` soll mit Exit-Code {EXIT_NOT_IMPLEMENTED} (EX_UNAVAILABLE) enden"
+            "`chronos {subcommand}` should exit with code {EXIT_NOT_IMPLEMENTED} (EX_UNAVAILABLE)"
         );
         let stderr = String::from_utf8_lossy(&output.stderr);
         assert!(
-            stderr.contains("noch nicht implementiert"),
-            "`chronos {subcommand}` meldet auf stderr nichts Erwartetes: {stderr}"
+            stderr.contains("not implemented yet"),
+            "`chronos {subcommand}` printed something unexpected on stderr: {stderr}"
         );
     }
 }
@@ -77,7 +77,7 @@ fn serve_without_database_url_fails_with_config_error() {
         .arg("serve")
         .env_remove("DATABASE_URL_APP")
         .output()
-        .expect("Binary chronos lässt sich starten");
+        .expect("the chronos binary starts");
     assert_eq!(output.status.code(), Some(1));
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(stderr.contains("DATABASE_URL_APP"), "stderr: {stderr}");
@@ -90,7 +90,7 @@ fn usage_errors_are_distinguishable_from_not_implemented() {
         assert_eq!(
             output.status.code(),
             Some(EXIT_USAGE_ERROR),
-            "`chronos {}` ist ein Bedienfehler und soll mit Exit-Code {EXIT_USAGE_ERROR} enden",
+            "`chronos {}` is a usage error and should exit with code {EXIT_USAGE_ERROR}",
             args.join(" ")
         );
     }

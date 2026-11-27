@@ -87,15 +87,16 @@ impl std::fmt::Display for Failure {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Failure::Config(message) => f.write_str(message),
-            Failure::Database(error) => write!(f, "Datenbankfehler: {error}"),
-            Failure::Migration(error) => write!(f, "Migration fehlgeschlagen: {error}"),
+            Failure::Database(error) => write!(f, "database error: {error}"),
+            Failure::Migration(error) => write!(f, "migration failed: {error}"),
             Failure::Schema(error) => error.fmt(f),
         }
     }
 }
 
 fn required_env(name: &str) -> Result<String, Failure> {
-    std::env::var(name).map_err(|_| Failure::Config(format!("Umgebungsvariable {name} fehlt")))
+    std::env::var(name)
+        .map_err(|_| Failure::Config(format!("environment variable {name} is missing")))
 }
 
 fn schema_wait() -> Result<Duration, Failure> {
@@ -103,7 +104,7 @@ fn schema_wait() -> Result<Duration, Failure> {
         Err(_) => Ok(db::DEFAULT_SCHEMA_WAIT),
         Ok(value) => value.parse().map(Duration::from_secs).map_err(|_| {
             Failure::Config(format!(
-                "{ENV_SCHEMA_WAIT_SECS} muss eine ganze Zahl (Sekunden) sein"
+                "{ENV_SCHEMA_WAIT_SECS} must be a whole number of seconds"
             ))
         }),
     }
@@ -115,7 +116,7 @@ async fn migrate() -> Result<(), Failure> {
         .map_err(Failure::Database)?;
     MIGRATOR.run(&pool).await.map_err(Failure::Migration)?;
     eprintln!(
-        "chronos migrate: Schema auf Version {}",
+        "chronos migrate: schema at version {}",
         db::required_version(&MIGRATOR)
     );
     Ok(())
@@ -139,7 +140,7 @@ async fn run(command: &Command) -> Result<u8, Failure> {
         Command::Migrate => migrate().await.map(|()| 0),
         Command::Serve | Command::Worker => {
             ensure_schema().await?;
-            eprintln!("chronos {}: noch nicht implementiert", command.name());
+            eprintln!("chronos {}: not implemented yet", command.name());
             Ok(EXIT_NOT_IMPLEMENTED)
         }
     }

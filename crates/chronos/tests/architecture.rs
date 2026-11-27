@@ -33,9 +33,9 @@ const ALLOWED: &[(&str, &[&str])] = &[
     ),
 ];
 
-const REFERENCE: &str = "Siehe ADR-009 (docs/arc42/09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md) \
-     und Kapitel 5, Crate-Zuschnitt (docs/arc42/05-bausteine/02-crate-zuschnitt.md). \
-     Eine Änderung des Zuschnitts ist eine Rückfrage an den Product Owner.";
+const REFERENCE: &str = "See ADR-009 (docs/arc42/09-entscheidungen/ADR-009-teststrategie-und-architekturregeln.md) \
+     and chapter 5, crate layout (docs/arc42/05-bausteine/02-crate-zuschnitt.md). \
+     Changing the layout needs the Product Owner.";
 
 type Graph = BTreeMap<String, BTreeSet<String>>;
 
@@ -57,7 +57,7 @@ fn workspace_graph() -> Graph {
         .manifest_path(manifest)
         .no_deps()
         .exec()
-        .expect("`cargo metadata` lässt sich ausführen");
+        .expect("`cargo metadata` can run");
 
     let members: BTreeSet<String> = metadata
         .workspace_packages()
@@ -84,12 +84,12 @@ fn unknown_crates(actual: &Graph, allowed: &Graph) -> Vec<String> {
     let mut problems = Vec::new();
     for krate in actual.keys().filter(|krate| !allowed.contains_key(*krate)) {
         problems.push(format!(
-            "Crate `{krate}` steht nicht in der Positivliste des Crate-Zuschnitts."
+            "Crate `{krate}` is not in the allowlist of the crate layout."
         ));
     }
     for krate in allowed.keys().filter(|krate| !actual.contains_key(*krate)) {
         problems.push(format!(
-            "Crate `{krate}` steht in der Positivliste, fehlt aber im Workspace."
+            "Crate `{krate}` is in the allowlist but missing from the workspace."
         ));
     }
     problems
@@ -103,7 +103,7 @@ fn forbidden_edges(actual: &Graph, allowed: &Graph) -> Vec<String> {
             let permitted = allowed.get(krate).unwrap_or(&empty);
             deps.iter()
                 .filter(|dep| !permitted.contains(*dep))
-                .map(move |dep| format!("Verbotene Kante: `{krate}` → `{dep}`."))
+                .map(move |dep| format!("Forbidden edge: `{krate}` → `{dep}`."))
         })
         .collect()
 }
@@ -160,10 +160,7 @@ fn workspace_crates_match_allowlist() {
     assert!(
         problems.is_empty(),
         "{}",
-        report(
-            "Workspace und Positivliste passen nicht zusammen:",
-            &problems
-        )
+        report("Workspace and allowlist do not match:", &problems)
     );
 }
 
@@ -174,7 +171,7 @@ fn workspace_has_only_allowed_edges() {
         problems.is_empty(),
         "{}",
         report(
-            "Abhängigkeiten zwischen Workspace-Crates verletzen den Crate-Zuschnitt:",
+            "Dependencies between workspace crates violate the crate layout:",
             &problems
         )
     );
@@ -185,7 +182,7 @@ fn workspace_has_no_cycles() {
     if let Some(cycle) = find_cycle(&workspace_graph()) {
         panic!(
             "{}",
-            report("Zyklus zwischen Workspace-Crates:", &[cycle.join(" → ")])
+            report("Cycle between workspace crates:", &[cycle.join(" → ")])
         );
     }
 }
@@ -215,12 +212,12 @@ fn detects_domain_depending_on_channels() {
     let mut actual = allowed_graph();
     actual
         .get_mut("chronos-domain")
-        .expect("chronos-domain steht in der Positivliste")
+        .expect("chronos-domain is in the allowlist")
         .insert("chronos-channels".to_owned());
 
     assert_eq!(
         forbidden_edges(&actual, &allowed_graph()),
-        ["Verbotene Kante: `chronos-domain` → `chronos-channels`."]
+        ["Forbidden edge: `chronos-domain` → `chronos-channels`."]
     );
 }
 
@@ -229,18 +226,18 @@ fn detects_edges_against_the_allowed_direction() {
     let mut actual = allowed_graph();
     actual
         .get_mut("chronos-core")
-        .expect("chronos-core steht in der Positivliste")
+        .expect("chronos-core is in the allowlist")
         .insert("chronos-domain".to_owned());
     actual
         .get_mut("chronos-adapters")
-        .expect("chronos-adapters steht in der Positivliste")
+        .expect("chronos-adapters is in the allowlist")
         .insert("chronos".to_owned());
 
     assert_eq!(
         forbidden_edges(&actual, &allowed_graph()),
         [
-            "Verbotene Kante: `chronos-adapters` → `chronos`.",
-            "Verbotene Kante: `chronos-core` → `chronos-domain`.",
+            "Forbidden edge: `chronos-adapters` → `chronos`.",
+            "Forbidden edge: `chronos-core` → `chronos-domain`.",
         ]
     );
 }
@@ -254,8 +251,8 @@ fn detects_crates_missing_from_allowlist() {
     assert_eq!(
         unknown_crates(&actual, &allowed_graph()),
         [
-            "Crate `chronos-extra` steht nicht in der Positivliste des Crate-Zuschnitts.",
-            "Crate `chronos-web` steht in der Positivliste, fehlt aber im Workspace.",
+            "Crate `chronos-extra` is not in the allowlist of the crate layout.",
+            "Crate `chronos-web` is in the allowlist but missing from the workspace.",
         ]
     );
 }
@@ -270,4 +267,171 @@ fn detects_cycles() {
 
     let acyclic = graph(&[("a", &["b", "c"]), ("b", &["c"]), ("c", &[])]);
     assert_eq!(find_cycle(&acyclic), None);
+}
+
+/// Crates, die Fachbereiche nicht erreichen dürfen (Regel 2, ADR-005): Fachbereiche erzeugen
+/// nur Ereignisse und kennen keine Nachbarsysteme, Kanäle oder Prozesse.
+const UNREACHABLE_FROM_DOMAIN: &[&str] = &[
+    "chronos-adapters",
+    "chronos-channels",
+    "chronos-web",
+    "chronos-worker",
+];
+
+/// Bausteine, mit denen Fachcode selbst eine Verbindung oder Transaktion beschaffen könnte.
+/// Eine Verbindung bekommt er nur über den `Context` des Rahmens. Reine Textsuche: Sie fängt
+/// die üblichen Wege (`Pool` deckt `PgPool`, `PoolConnection` und `Pool<Postgres>` ab), kein
+/// Beweis. Den Rest sichert der nicht öffentliche Konstruktor von `Context`.
+const DATABASE_ACCESS_BYPASSES: &[&str] = &[
+    "Pool",
+    "ConnectOptions",
+    "Connection::connect",
+    "connect_lazy",
+    ".acquire(",
+    ".begin(",
+    "Transaction",
+    "chronos_core::db",
+    "Context::new",
+];
+
+/// Entfernt Zeilen- und Blockkommentare, damit Erwähnungen in Kommentaren nicht anschlagen.
+fn without_comments(source: &str) -> String {
+    let mut result = String::new();
+    let mut in_block = false;
+    for line in source.lines() {
+        let mut rest = line;
+        let mut kept = String::new();
+        loop {
+            if in_block {
+                match rest.find("*/") {
+                    Some(end) => {
+                        rest = &rest[end + 2..];
+                        in_block = false;
+                    }
+                    None => break,
+                }
+            } else {
+                let line_comment = rest.find("//");
+                let block_comment = rest.find("/*");
+                match (line_comment, block_comment) {
+                    (Some(l), Some(b)) if b < l => {
+                        kept.push_str(&rest[..b]);
+                        rest = &rest[b + 2..];
+                        in_block = true;
+                    }
+                    (Some(l), _) => {
+                        kept.push_str(&rest[..l]);
+                        break;
+                    }
+                    (None, Some(b)) => {
+                        kept.push_str(&rest[..b]);
+                        rest = &rest[b + 2..];
+                        in_block = true;
+                    }
+                    (None, None) => {
+                        kept.push_str(rest);
+                        break;
+                    }
+                }
+            }
+        }
+        result.push_str(&kept);
+        result.push('\n');
+    }
+    result
+}
+
+fn bypasses_in(source: &str) -> Vec<&'static str> {
+    let code = without_comments(source);
+    DATABASE_ACCESS_BYPASSES
+        .iter()
+        .copied()
+        .filter(|bypass| code.contains(bypass))
+        .collect()
+}
+
+fn rust_files(directory: &Path) -> Vec<std::path::PathBuf> {
+    let mut files = Vec::new();
+    for entry in std::fs::read_dir(directory).expect("directory is readable") {
+        let path = entry.expect("entry is readable").path();
+        if path.is_dir() {
+            files.extend(rust_files(&path));
+        } else if path.extension().is_some_and(|extension| extension == "rs") {
+            files.push(path);
+        }
+    }
+    files
+}
+
+#[test]
+fn domain_does_not_reach_adapters() {
+    let graph = workspace_graph();
+    let reached: Vec<String> = graph["chronos-domain"]
+        .iter()
+        .filter(|dep| UNREACHABLE_FROM_DOMAIN.contains(&dep.as_str()))
+        .cloned()
+        .collect();
+    assert!(
+        reached.is_empty(),
+        "{}",
+        report(
+            "Domain modules reach adapters, channels or processes:",
+            &reached
+        )
+    );
+}
+
+#[test]
+fn domain_gets_no_database_connection_without_the_frame() {
+    let sources = Path::new(env!("CARGO_MANIFEST_DIR")).join("../domain/src");
+    let problems: Vec<String> = rust_files(&sources)
+        .into_iter()
+        .flat_map(|file| {
+            let source = std::fs::read_to_string(&file).expect("source file is readable");
+            bypasses_in(&source)
+                .into_iter()
+                .map(|bypass| format!("{} uses `{bypass}`", file.display()))
+                .collect::<Vec<_>>()
+        })
+        .collect();
+    assert!(
+        problems.is_empty(),
+        "{}",
+        report(
+            "Domain modules bypass the frame (connections only via the Context):",
+            &problems
+        )
+    );
+}
+
+#[test]
+fn detects_database_access_bypasses() {
+    assert_eq!(
+        bypasses_in("fn run(ctx: &mut Context) {}"),
+        Vec::<&str>::new()
+    );
+    assert_eq!(bypasses_in("let pool: PgPool = x;"), vec!["Pool"]);
+    assert_eq!(bypasses_in("use sqlx::{Pool, Postgres};"), vec!["Pool"]);
+    assert_eq!(
+        bypasses_in("let c = pool.acquire().await?;"),
+        vec![".acquire("]
+    );
+    assert_eq!(
+        bypasses_in("let tx = pool.begin().await?;"),
+        vec![".begin("]
+    );
+    assert_eq!(
+        bypasses_in("use chronos_core::db::connect;"),
+        vec!["chronos_core::db"]
+    );
+}
+
+#[test]
+fn ignores_bypass_words_in_comments() {
+    let source = "// pool.begin() ist verboten\n/* PgPool\n   Transaction */\nfn run() {}\n";
+    assert_eq!(bypasses_in(source), Vec::<&str>::new());
+    assert_eq!(
+        bypasses_in("/* kommentar */ let tx = pool.begin();"),
+        vec![".begin("]
+    );
 }

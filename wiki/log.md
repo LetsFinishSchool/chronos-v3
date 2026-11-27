@@ -247,3 +247,18 @@ Auf Anweisung des Nutzers (Product Owner): Version „PostgreSQL 19“ direkt in
 
 ## [2026-11-25] ingest | #100 Datenbankanbindung und Migrationswerkzeug
 Umgesetzt: sqlx 0.9, `core::db`, `chronos migrate`, Schemaprüfung in `serve`/`worker` (Exit-Code 75), `compose.yaml`, Rollen-Skript, Datenbanktests, `.sqlx`, CI-Job `sqlx-offline`. Seite `code/datenbank-und-migrationen.md`. Lehren: Healthcheck-Falle am Init-Socket, Lizenz `CDLA-Permissive-2.0`, `install-action` ohne `sqlx-cli`. Nicht geprüft: Gegenprobe der CI auf Wegwerf-Branch und CI-Lauf selbst. Kein Widerspruch zu `docs/`.
+
+## [2026-11-25] ingest | #101 Operationsrahmen im Minimalstand
+Umgesetzt in `crates/core`: `Operation`-Trait mit `inventory`, `Frame` (Transaktion, Geltungsprüfung, Verlauf, Outbox, Probelauf), `Context` nur vom Rahmen erzeugbar, Akteur-Arten Person und Gast, Fehlercodes, Test-Principal mit Umgebungssperre; Migration `person`/`verlauf`/`outbox`; Tests mit Beispieloperationen, `insta`-Snapshot, zwei Architekturregeln, CI-Schritt `cargo insta`. Seite `code/operationsrahmen.md`, Ergänzungen in `ci-und-lieferkette.md` und `datenbank-und-migrationen.md`. Offen für den Product Owner: `schemars` ist als gekapselte Schemaquelle gesetzt, die Entscheidung gegen `utoipa` (E-005a) steht aus. Kein Widerspruch zu `docs/`.
+
+## [2026-11-27] ingest | #101 auf englische Code-Namen umgestellt
+Auf Anweisung des Nutzers: Tabellen, Spalten und Testdaten englisch (`history`, `actor_id`, `bundle_id`, `kind = 'guest'` usw.), Migration in `operation_frame.sql` umbenannt. Grundlage: `docs/README.md` Regel 4 („Code-Namen bleiben englisch“). Lehre: Ticket-Texte vor der Umsetzung gegen diese Regel prüfen. Vorschlag für Glossar-Einträge in `proposals/2026-11-27-code-namen-im-glossar.md`. Seite `code/operationsrahmen.md` angepasst.
+
+## [2026-11-27] ingest | #101 Fehlermeldungen auf Englisch, Spalten an Ticket angeglichen
+Auf Anweisung des Nutzers: alle Fehler- und Statusmeldungen (`chronos`, `chronos-core::db`, Tests, Architekturtest) auf Englisch; `clap`-Hilfetexte blieben deutsch. Ticket #101 war am selben Tag schon auf englische Namen umgestellt (kein weiterer Ticket-Eingriff nötig; Suche in allen Tickets fand keine deutschen Code-Namen). Spalten an das Ticket angeglichen: `actor`, `previous_state`; `Change` hat `previous_state`/`new_state`. Seiten `code/operationsrahmen.md`, `cargo-workspace.md`, `datenbank-und-migrationen.md`, Vorschlag zum Glossar angepasst.
+
+## [2026-11-27] ingest | #101 Review umgesetzt
+Auf Anweisung des Nutzers (Review): `Principal`-Konstruktoren nur `pub(crate)`, Tests holen Akteure über `Frame::test_actor`; Probelauf schreibt Verlauf und Outbox vor dem Rollback mit; Fehlercode `internal`; doppelte Operationsnamen brechen `Frame::new` ab; Architekturtest ignoriert Kommentare und erkennt mehr Wege; CI mit `--unreferenced=reject`; überflüssige Doc-Kommentare entfernt. Seite `code/operationsrahmen.md` aktualisiert (last-verified 2026-11-27). Offen: Gast-`person`-Zeile (E-008).
+
+## [2026-11-27] ingest | #101 CI: Suite läuft nur einmal
+Auf Anweisung des Nutzers (Product Owner), abweichend vom Ticket: `cargo insta test` mit `--test-runner nextest` ersetzt den Schritt `cargo nextest run`, damit die Testsuite nicht doppelt läuft. Seiten `code/ci-und-lieferkette.md` und `code/operationsrahmen.md` angepasst. Nicht geprüft: CI-Lauf auf GitHub.

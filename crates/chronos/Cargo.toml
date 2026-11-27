@@ -19,8 +19,13 @@ sqlx.workspace = true
 tokio.workspace = true
 
 [dev-dependencies]
-# Nur für den Architekturtest (tests/architecture.rs).
+# Für den Architekturtest (tests/architecture.rs).
 cargo_metadata.workspace = true
+# Für die Tests des Operationsrahmens (tests/operationsrahmen).
+insta.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
 
 [lints]
 workspace = true

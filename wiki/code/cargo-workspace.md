@@ -26,7 +26,7 @@ Verbindlich ist der [Crate-Zuschnitt](../../docs/arc42/05-bausteine/02-crate-zus
 - Modulkommentar jeder `lib.rs`/`main.rs`: ein Satz zum Zweck plus Verweis auf Kapitel 5. Die Listen „Zuständig / Nicht zuständig“ stehen bewusst nur in `docs/`, damit keine zweite, ungeprüfte Fassung driftet.
 
 ## Binary
-- `chronos serve|worker|migrate` geben „noch nicht implementiert“ auf stderr aus, Exit-Code **69** (`EX_UNAVAILABLE` aus `sysexits.h`), Konstante `EXIT_NOT_IMPLEMENTED` in `main.rs` (`crates/chronos/tests/cli.rs`).
+- `chronos serve|worker|migrate` geben „not implemented yet“ auf stderr aus, Exit-Code **69** (`EX_UNAVAILABLE` aus `sysexits.h`), Konstante `EXIT_NOT_IMPLEMENTED` in `main.rs` (`crates/chronos/tests/cli.rs`).
 - Ursprünglich verlangte #99 Exit-Code 2. Der Product Owner hat auf 69 umgestellt, weil clap bei Bedienfehlern (unbekannter Unterbefehl, falsches Argument, kein Unterbefehl) **ebenfalls** mit 2 endet und der Aufrufer beides nicht unterscheiden konnte. Ein Test sichert, dass Bedienfehler weiter mit 2 enden. Für eigene Exit-Codes nie 2 verwenden.
 - `use chronos_domain as _;` in `main.rs` bleibt stehen, auch wenn es ungenutzt aussieht: Es linkt die Operationen (später über `inventory`).
 
