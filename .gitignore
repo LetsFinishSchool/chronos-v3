@@ -19,3 +19,6 @@ venv/
 
 # Rust
 target/
+
+# Agenten-Arbeitsdateien (Pläne, Notizen), nie committen
+.scratch/
