@@ -87,8 +87,19 @@ def wrap(text, width, size, family="sans"):
     return lines
 
 
+def measure_text(text, size, line, width=None, bold=False, family="sans"):
+    """Gibt Zeilen, Breite und Höhe eines Textes zurück (bei width umbrochen)."""
+    lines = wrap(text, width, size, family) if width else text.split("\n")
+    factor = CHAR_WIDTH["sans-bold" if bold and family == "sans" else family]
+    return lines, max(len(l) for l in lines) * size * factor, len(lines) * line
+
+
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+def _width_attr(stroke_width):
+    return "" if stroke_width == 1 else ' stroke-width="%s"' % stroke_width
 
 
 class Wireframe:
@@ -108,9 +119,15 @@ class Wireframe:
         self.frames.append(dict(id=fid, label=label, x=x, y=y, w=w, h=h))
         return fid
 
-    def rect(self, x, y, w, h, fill="transparent", stroke=CHROME_STROKE, dashed=False, radius=0, frame=None):
+    def rect(self, x, y, w, h, fill="transparent", stroke=CHROME_STROKE, dashed=False, radius=0, frame=None,
+             stroke_width=1):
         self.items.append(dict(kind="rect", id=self._id("rect"), x=x, y=y, w=w, h=h, fill=fill,
-                               stroke=stroke, dashed=dashed, radius=radius, frame=frame))
+                               stroke=stroke, dashed=dashed, radius=radius, frame=frame,
+                               stroke_width=stroke_width))
+
+    def ellipse(self, x, y, w, h, fill="transparent", stroke=CHROME_STROKE, frame=None, stroke_width=1):
+        self.items.append(dict(kind="ellipse", id=self._id("ellipse"), x=x, y=y, w=w, h=h, fill=fill,
+                               stroke=stroke, frame=frame, stroke_width=stroke_width))
 
     def line(self, x1, y1, x2, y2, stroke, dashed=False, width=1, frame=None):
         self.items.append(dict(kind="line", id=self._id("line"), x=x1, y=y1, dx=x2 - x1, dy=y2 - y1,
@@ -118,10 +135,7 @@ class Wireframe:
 
     def text(self, x, y, text, size, line, color, width=None, bold=False, family="sans", frame=None):
         """Legt Text an (bei width umbrochen) und gibt Breite und Höhe zurück."""
-        lines = wrap(text, width, size, family) if width else text.split("\n")
-        factor = CHAR_WIDTH["sans-bold" if bold and family == "sans" else family]
-        w = max(len(l) for l in lines) * size * factor
-        h = len(lines) * line
+        lines, w, h = measure_text(text, size, line, width, bold, family)
         self.items.append(dict(kind="text", id=self._id("text"), x=x, y=y, w=w, h=h, lines=lines,
                                size=size, line=line, color=color, bold=bold, family=family, frame=frame))
         return w, h
@@ -141,9 +155,14 @@ class Wireframe:
         if it["kind"] == "rect":
             return self._base(it["id"], "rectangle", it["x"], it["y"], it["w"], it["h"],
                               strokeColor=it["stroke"], backgroundColor=it["fill"],
+                              strokeWidth=it["stroke_width"],
                               strokeStyle="dashed" if it["dashed"] else "solid",
                               roundness={"type": 3, "value": it["radius"]} if it["radius"] else None,
                               frameId=it["frame"])
+        if it["kind"] == "ellipse":
+            return self._base(it["id"], "ellipse", it["x"], it["y"], it["w"], it["h"],
+                              strokeColor=it["stroke"], backgroundColor=it["fill"],
+                              strokeWidth=it["stroke_width"], roundness={"type": 2}, frameId=it["frame"])
         if it["kind"] == "line":
             return self._base(it["id"], "line", it["x"], it["y"], abs(it["dx"]), abs(it["dy"]),
                               strokeColor=it["stroke"], strokeWidth=it["width"],
@@ -178,10 +197,15 @@ class Wireframe:
 
     def _svg_item(self, it):
         if it["kind"] == "rect":
-            return '<rect x="%s" y="%s" width="%s" height="%s" rx="%s" fill="%s" stroke="%s"%s/>' % (
+            return '<rect x="%s" y="%s" width="%s" height="%s" rx="%s" fill="%s" stroke="%s"%s%s/>' % (
                 it["x"], it["y"], it["w"], it["h"], it["radius"],
                 "none" if it["fill"] == "transparent" else it["fill"], it["stroke"],
-                ' stroke-dasharray="8 6"' if it["dashed"] else "")
+                _width_attr(it["stroke_width"]), ' stroke-dasharray="8 6"' if it["dashed"] else "")
+        if it["kind"] == "ellipse":
+            return '<ellipse cx="%s" cy="%s" rx="%s" ry="%s" fill="%s" stroke="%s"%s/>' % (
+                it["x"] + it["w"] / 2, it["y"] + it["h"] / 2, it["w"] / 2, it["h"] / 2,
+                "none" if it["fill"] == "transparent" else it["fill"], it["stroke"],
+                _width_attr(it["stroke_width"]))
         if it["kind"] == "line":
             return '<line x1="%s" y1="%s" x2="%s" y2="%s" stroke="%s" stroke-width="%s"%s/>' % (
                 it["x"], it["y"], it["x"] + it["dx"], it["y"] + it["dy"], it["stroke"], it["width"],
