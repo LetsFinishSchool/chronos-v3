@@ -203,7 +203,6 @@ mod tests {
     const INDEX_HTML: &str = "<h1>shell</h1>";
     const ASSET: &[u8] = b"console.log('asset');\n";
 
-    /// Build directory with an entry file and one asset, removed on drop.
     struct Frontend(PathBuf);
 
     impl Frontend {
@@ -303,6 +302,13 @@ mod tests {
         assert_eq!(decode_path("/%5Fapp/%5fx"), "/_app/_x");
         assert_eq!(decode_path("/a%2Fb"), "/a/b");
         assert_eq!(decode_path("/%+5/%zz/%4"), "/%+5/%zz/%4");
+    }
+
+    #[tokio::test]
+    async fn non_get_methods_on_page_paths_are_405() {
+        let frontend = Frontend::new("methods");
+        let (status, _) = request(&frontend, Method::POST, "/irgendwas").await;
+        assert_eq!(status, StatusCode::METHOD_NOT_ALLOWED);
     }
 
     #[tokio::test]

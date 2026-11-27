@@ -12,7 +12,6 @@ use std::time::{Duration, Instant};
 use sqlx::{PgPool, postgres::PgPoolOptions};
 
 const EXIT_USAGE_ERROR: i32 = 2;
-/// Minimal build directory for `serve`, which refuses to start without a frontend.
 const FRONTEND_FIXTURE: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/frontend");
 
 fn chronos(args: &[&str]) -> Output {
