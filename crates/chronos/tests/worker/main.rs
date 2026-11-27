@@ -3,7 +3,7 @@
 
 #[path = "../operationsrahmen/beispiel.rs"]
 mod beispiel;
-mod laufzeit;
+mod runtime;
 mod support;
 
 use std::sync::Arc;
@@ -86,7 +86,7 @@ impl Consumer for Panicking {
     }
 }
 
-mod abarbeitung {
+mod processing {
     use super::*;
 
     #[sqlx::test]

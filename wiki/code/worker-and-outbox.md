@@ -19,7 +19,7 @@ last-verified: 2026-11-27
 # Worker und Outbox-Abarbeitung
 
 ## Aufteilung auf Crates
-- **`chronos-core`** (`outbox.rs`, `consumer.rs`): `Outbox::process_batch`, Trait `Consumer`, `ConsumerRegistry`, `OutboxEvent`. Hier liegt das SQL, weil `sqlx` laut ADR-009 und `deny.toml` nur in `core`, `domain` und `chronos` vorkommen darf. Kapitel 5 nennt die Abarbeitung beim Worker; das ist als Vorschlag gemeldet (`proposals/2026-11-27-outbox-abarbeitung-in-core.md`).
+- **`chronos-core`** (`outbox.rs`, `consumer.rs`): `Outbox::process_batch`, Trait `Consumer`, `ConsumerRegistry`, `OutboxEvent`. Hier liegt das SQL, weil `sqlx` laut ADR-009 und `deny.toml` nur in `core`, `domain` und `chronos` vorkommen darf. Kapitel 5 nennt die Abarbeitung beim Worker; das ist als Vorschlag gemeldet (`proposals/2026-11-27-outbox-processing-in-core.md`).
 - **`chronos-worker`**: `run` (Schleife, Taktung, Stopp), `WorkerConfig`, `LogConsumer`. Kein `sqlx`.
 - **`chronos`** (`main.rs`): `chronos worker` = Schemaprüfung (`ensure_schema`, Exit 75), Logging, Signale, Konfiguration, `run`. `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) registriert den `LogConsumer` für diese Ereignisarten; `cli.rs` belegt den Weg im echten Prozess mit `cli.test`. Sonst ist die Registry leer: Es gibt keine Fachereignisse, also gilt jedes Ereignis als „ohne Verbraucher“.
 
