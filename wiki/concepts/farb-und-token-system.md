@@ -2,7 +2,7 @@
 title: Farb- und Token-System (aus Figma-Export)
 sources: [designs/tokens/tokens.json, designs/README.md, docs/req42/04-product-backlog/ticket-typen.md (WCAG 2.2 AA), wiki/proposals/2026-11-24-farbschema-wcag-aa.md]
 confidence: medium
-last-verified: 2026-11-24
+last-verified: 2026-11-27
 ---
 
 # Farb- und Token-System
@@ -15,6 +15,7 @@ Die Werte stammen aus dem Figma-Variablen-Export des bisherigen Designs (vom Pro
 - **Primitives** (Figma-Collection, nicht veröffentlicht): `white`, `gray` (Tailwind-gray: 50–700, 900), `neutral` (700/800/900, nur Dunkel), `purple` (50, 300, 400, 500, 600, 900), `green` (50, 500, 600, 700), `red` (50, 400, 500, 600, 700, 900), `yellow` (50, 500), `amber` (700). Nur die tatsächlich genutzten Stufen.
 - **Color**, Modi Light und Dark, gleiche 23 Namen, jeweils mit Verwendungsbeschreibung und Figma-Scope: `bg.{page, surface, muted, brand-subtle, success-subtle, danger-subtle, warning-subtle}`, `border.{default, brand, success, danger, control}`, `text.{primary, secondary, muted, brand, on-brand, success, danger}`, `brand.primary`, `status.{success, danger, warning}`.
 - **Spacing & Radius**: `space.0,1,2,3,4,5,6,8,10,12,16,20` = 0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80 px (4-px-Raster); `radius.md` 8, `radius.lg` 12, `radius.full` 9999 px.
+- **Layout** (nicht aus Figma, PO-Entscheidung 2026-11-27 in #114): `breakpoint.tablet` 768 und `breakpoint.desktop` 1280 px als `min-width`-Untergrenzen, Mobil ist die Basis ab 320 px; ersetzen `breakpoint.mobile-design` (390) und `desktop-design` (1440), die nur Entwurfsbreiten der alten Screens waren. `size.text-max` 576 px (36 rem, etwa 72 Zeichen in Body M). Freigegeben in `docs/arc42/08-konzepte/K-012-design-system-und-barrierefreiheit.md` Abschnitt 1 (Vorschlag [Breakpoints und Textbreite](../proposals/2026-11-27-breakpoints-und-textbreite.md) angenommen).
 
 Die Beschreibungen belegen die Fachsprache des Designs: success = Zusagen/Zugesagt, danger = Absagen/Fehler, warning = Ausstehend, brand-subtle = ausgewählt/Info; `border.control` verlangt ausdrücklich ≥ 3 : 1 (WCAG 1.4.11).
 
@@ -42,7 +43,7 @@ Die Beschreibungen belegen die Fachsprache des Designs: success = Zusagen/Zugesa
 - Info-/Neutral-Badges und Alert-Tonen `Info` und `Amber` haben keine eigenen Farb-Tokens (`reduced Color Set`).
 
 ## Was weiterhin fehlt
-Zustände und Maße der einzelnen Komponenten als Werte (nur als Figma-Komponente; über Figma-MCP je Komponente abrufbar), Fokus-Darstellung als Token (Input hat eine Focus-Variante), Bewegung, `info`-/`warning`-Text- und Rahmen-Tokens, Rollenfarben als Tokens (Role Tile existiert), Breakpoints für Desktop. Nicht freigegeben; Aufnahme in `docs/` nur über Vorschlag.
+Zustände und Maße der einzelnen Komponenten als Werte (nur als Figma-Komponente; über Figma-MCP je Komponente abrufbar), Fokus-Darstellung als Token (Input hat eine Focus-Variante), Bewegung, `info`-/`warning`-Text- und Rahmen-Tokens, Rollenfarben als Tokens (Role Tile existiert). Nicht freigegeben; Aufnahme in `docs/` nur über Vorschlag.
 
 ## Anpassungen für WCAG 2.2 AA (vom Product Owner angenommen, in `tokens.json` umgesetzt)
 Ausgangsfunde (Messung der Figma-Werte): dunkel `text.danger` auf `bg.muted` 3,75 und `bg.brand-subtle` 3,93; dunkel `brand.primary` auf `bg.surface` 2,81; Brand-Verlauf mit weißer Schrift 3,53; Landing-Verlauf 2,26.
