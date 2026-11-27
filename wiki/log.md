@@ -297,3 +297,6 @@ Auf Anweisung des Nutzers (Product Owner): Deployment-Form **Helm** entschieden,
 
 ## [2026-11-27] ingest | Kapitel 7 auf Helm angepasst
 Auf Anweisung des Nutzers (Product Owner): `docs/arc42/07-verteilung/01-verteilungssicht.md` nennt Helm-Chart statt kubectl/kustomize. Vorschlag `proposals/2026-11-24-image-und-deployment-widerspruch.md` auf „umgesetzt“ gesetzt.
+
+## [2026-11-27] ingest | #113 HTTP-Grundgerüst
+`wiki/code/cargo-workspace.md` um `serve`, `crates/web` und `CHRONOS_LISTEN` ergänzt. Stolperstein: Rootless Docker erreichte Port 54329 per TCP nicht, Socket-Notlösung aus `datenbank-und-migrationen.md` funktionierte. Kein Vorschlag an `docs/`.
