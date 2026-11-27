@@ -16,6 +16,7 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [CI und Lieferkettenprüfung](code/ci-und-lieferkette.md): Workflow mit vier Jobs, `deny.toml`, Ablaufskript, Dependabot, Stolpersteine
 - [Worker und Outbox-Abarbeitung](code/worker-and-outbox.md): Aufteilung core/worker/chronos, Cursor und Chargenbegriff, Stopp, Konfiguration, Logging, Tests und Stolpersteine (#102)
 - [Datenbankanbindung und Migrationen](code/datenbank-und-migrationen.md): Pool und Schemaprüfung in `core::db`, `chronos migrate`, Rollen, Exit-Code 75, Tests, Stolpersteine (Healthcheck, Lizenz, rootless Docker)
+- [Wireframe-Generator und Prüfung](code/wireframes.md): `wirelib.py`, Story-Skripte, `check.py`; Token in `{…}`, Rahmen als Excalidraw-`frame`, Stolpersteine (`-I`, Raute als Hex), S103-Entscheidung
 - [Operationsrahmen (Minimalstand)](code/operationsrahmen.md): `Frame`, `Operation`, `Context`, Geltungsbereich, Probelauf, Test-Principal, Tabellen `person`/`verlauf`/`outbox`, Tests, Stolpersteine, Messwerte
 - [Image, Helm-Chart und Deployment](code/image-und-deployment.md): Dockerfile, Chart `deploy/helm/chronos`, Migrationsjob (Hook nur bei Upgrade), Limits, CI-Jobs `chart`/`image`/`deploy`, offene Prüfungen
 
@@ -27,5 +28,6 @@ Agenten: zuerst hier lesen. Eine Zeile pro Seite, nach Typ gruppiert. Pflichtpfl
 - [Image und Deployment-Form](proposals/2026-11-24-image-und-deployment-widerspruch.md): Kapitel 7 (kustomize) gegen ADR-011 (Helm-Hook); angenommen und in `docs/` umgesetzt: ein Image, Helm statt kustomize
 - [Hell/Dunkel nur System](proposals/2026-11-27-hell-dunkel-nur-system.md): K-012 „manuelle Umschaltung offen“ → nur `prefers-color-scheme`, kein Schalter; angenommen und in `docs/` umgesetzt
 - [Vitest für Frontend-Unit-Tests](proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md): ADR-009 Ebene 1 um Vitest im Frontend ergänzen; erster Fall Tokentest #106; angenommen und in `docs/` umgesetzt
+- [Breakpoints und Textbreite](proposals/2026-11-27-breakpoints-und-textbreite.md): angenommen und in K-012 umgesetzt: `breakpoint.tablet`/`desktop` und `size.text-max`
 - [Code-Namen im Glossar](proposals/2026-11-27-code-namen-im-glossar.md): englische Code-Namen für Verlauf, Akteur, Ereignis u. a.; Ticket #101 nannte deutsche Namen (offen)
 - [Outbox-Abarbeitung liegt in core](proposals/2026-11-27-outbox-processing-in-core.md): Kapitel 5 nennt sie beim Worker, ADR-009 erlaubt `sqlx` dort nicht (offen)
