@@ -313,6 +313,9 @@ Auf Anweisung des Nutzers (Product Owner): Verweise in #105 und #106 von #103 au
 ## [2026-11-27] ingest | K-012 und ADR-009 nach Entscheidungen zu #105
 Auf Anweisung des Nutzers (Product Owner): Vorschläge `proposals/2026-11-27-hell-dunkel-nur-system.md` und `proposals/2026-11-27-vitest-fuer-frontend-unit-tests.md` angenommen. K-012 Abschnitt 1: Modus folgt nur dem System. ADR-009 Testebene 1: Vitest im Frontend.
 
+## [2026-11-27] query | #105 Tasks angelegt
+Auf Anweisung des Nutzers (Product Owner): Tasks unter #105 angelegt und als Sub-Issues verknüpft: #119 Wireframe `S105-basiskomponenten` (nach #114), #120 `tokens.css` aus `tokens.json` (nutzt `resolve.ts` aus #106, Datei committet, Primitives und Breakpoints nicht ausgegeben), #121 Button/Badge/Alert/Karte/Liste mit Vorschau-Build `frontend/app/preview/` und Playwright-Projekt `components` (ohne Rust-Binary), #122 Eingabefelder und Dialog (natives `<dialog>`). Entscheidungen: zwei Komponenten-Tasks statt vier, eigener Vorschau-Build statt Route im Produkt. Keins `ready-for-agent` (Vorgänger offen). Kein Wiki-Seitenbedarf.
+
 ## [2026-11-27] ingest | #102 Worker-Gerüst mit Outbox-Abarbeitung
 Umgesetzt: `Outbox::process_batch` und `Consumer`-Trait in `chronos-core`, `run`, `WorkerConfig`, `LogConsumer` in `chronos-worker`, `chronos worker` mit Logging und SIGTERM. Abweichung von Kapitel 5: Die SQL-Abarbeitung liegt in `core`, weil `sqlx` im Worker laut ADR-009/`deny.toml` verboten ist; Vorschlag in `proposals/2026-11-27-outbox-processing-in-core.md`. Neue Seite `code/worker-and-outbox.md`. Nicht geprüft: CI-Lauf auf GitHub; Postgres lokal nur über den Socket-Weg.
 
