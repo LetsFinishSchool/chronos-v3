@@ -253,3 +253,6 @@ Umgesetzt in `crates/core`: `Operation`-Trait mit `inventory`, `Frame` (Transakt
 
 ## [2026-11-27] ingest | #101 auf englische Code-Namen umgestellt
 Auf Anweisung des Nutzers: Tabellen, Spalten und Testdaten englisch (`history`, `actor_id`, `bundle_id`, `kind = 'guest'` usw.), Migration in `operation_frame.sql` umbenannt. Grundlage: `docs/README.md` Regel 4 („Code-Namen bleiben englisch“). Lehre: Ticket-Texte vor der Umsetzung gegen diese Regel prüfen. Vorschlag für Glossar-Einträge in `proposals/2026-11-27-code-namen-im-glossar.md`. Seite `code/operationsrahmen.md` angepasst.
+
+## [2026-11-27] ingest | #101 Fehlermeldungen auf Englisch, Spalten an Ticket angeglichen
+Auf Anweisung des Nutzers: alle Fehler- und Statusmeldungen (`chronos`, `chronos-core::db`, Tests, Architekturtest) auf Englisch; `clap`-Hilfetexte blieben deutsch. Ticket #101 war am selben Tag schon auf englische Namen umgestellt (kein weiterer Ticket-Eingriff nötig; Suche in allen Tickets fand keine deutschen Code-Namen). Spalten an das Ticket angeglichen: `actor`, `previous_state`; `Change` hat `previous_state`/`new_state`. Seiten `code/operationsrahmen.md`, `cargo-workspace.md`, `datenbank-und-migrationen.md`, Vorschlag zum Glossar angepasst.

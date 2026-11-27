@@ -44,8 +44,8 @@ fn note_created(id: Uuid, text: &str) -> Change {
         action: "notes.create".to_owned(),
         object_kind: "note".to_owned(),
         object_id: id,
-        before: None,
-        after: Some(json!({ "text": text })),
+        previous_state: None,
+        new_state: Some(json!({ "text": text })),
     }
 }
 

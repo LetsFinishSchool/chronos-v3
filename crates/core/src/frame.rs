@@ -98,21 +98,21 @@ impl Frame {
 
         for change in &changes {
             sqlx::query(
-                "INSERT INTO history (actor_id, action, object_kind, object_id, before, correlation_id) \
+                "INSERT INTO history (actor, action, object_kind, object_id, previous_state, correlation_id) \
                  VALUES ($1, $2, $3, $4, $5, $6)",
             )
             .bind(principal.id().uuid())
             .bind(&change.action)
             .bind(&change.object_kind)
             .bind(change.object_id)
-            .bind(&change.before)
+            .bind(&change.previous_state)
             .bind(correlation_id)
             .execute(&mut *transaction)
             .await?;
         }
         for event in &events {
             sqlx::query(
-                "INSERT INTO outbox (event, payload, actor_id, correlation_id) \
+                "INSERT INTO outbox (event, payload, actor, correlation_id) \
                  VALUES ($1, $2, $3, $4)",
             )
             .bind(&event.name)

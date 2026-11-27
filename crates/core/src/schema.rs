@@ -4,6 +4,5 @@
 pub use schemars::{self, JsonSchema};
 
 pub fn of<T: JsonSchema>() -> serde_json::Value {
-    serde_json::to_value(schemars::schema_for!(T))
-        .expect("ein Schema lässt sich als JSON darstellen")
+    serde_json::to_value(schemars::schema_for!(T)).expect("a schema can be represented as JSON")
 }

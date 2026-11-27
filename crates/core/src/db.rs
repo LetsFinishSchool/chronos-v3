@@ -79,19 +79,19 @@ impl std::fmt::Display for SchemaError {
                 waited,
             } => {
                 let state = applied.map_or_else(
-                    || "Es ist noch keine Migration eingespielt".to_owned(),
-                    |version| format!("Die Schemaversion ist {version}"),
+                    || "No migration has been applied yet".to_owned(),
+                    |version| format!("The schema version is {version}"),
                 );
                 write!(
                     f,
-                    "{state}, das Binary benötigt mindestens {required} (nach {}s Wartezeit). \
-                     `chronos migrate` ausführen oder auf den Migrationsjob warten.",
+                    "{state}; the binary needs at least {required} (after waiting {}s). \
+                     Run `chronos migrate` or wait for the migration job.",
                     waited.as_secs()
                 )
             }
             Self::Unavailable { source, waited } => write!(
                 f,
-                "Schemaversion nicht lesbar (nach {}s Wartezeit): {source}",
+                "Schema version not readable (after waiting {}s): {source}",
                 waited.as_secs()
             ),
         }

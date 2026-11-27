@@ -15,13 +15,13 @@ const INSUFFICIENT_PRIVILEGE: &str = "42501";
 
 /// Verbindung des Anwendungsbenutzers zur Testdatenbank des Migrationsbenutzers.
 async fn app_pool_for(migrate_pool: &PgPool) -> PgPool {
-    let app_url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP gesetzt");
+    let app_url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP is set");
     let database = migrate_pool
         .connect_options()
         .get_database()
         .unwrap()
         .to_owned();
-    let options: PgConnectOptions = app_url.parse().expect("DATABASE_URL_APP ist gültig");
+    let options: PgConnectOptions = app_url.parse().expect("DATABASE_URL_APP is valid");
     PgPoolOptions::new()
         .max_connections(2)
         .connect_with(options.database(&database))
@@ -34,7 +34,7 @@ fn with_database(url: &str, database: &str) -> String {
     let (location, query) = url.split_once('?').map_or((url, ""), |(l, q)| (l, q));
     let (prefix, _) = location
         .rsplit_once('/')
-        .expect("URL enthält einen Datenbanknamen");
+        .expect("the URL contains a database name");
     if query.is_empty() {
         format!("{prefix}/{database}")
     } else {
@@ -63,7 +63,7 @@ async fn migrate_is_idempotent(pool: PgPool) {
 async fn schema_check_times_out_on_empty_database(pool: PgPool) {
     let error = db::wait_for_schema(&pool, &MIGRATOR, Duration::ZERO)
         .await
-        .expect_err("leere Datenbank ist veraltet");
+        .expect_err("an empty database is outdated");
     assert!(
         matches!(error, SchemaError::Outdated { applied: None, .. }),
         "{error}"
@@ -97,7 +97,7 @@ async fn app_user_can_read_schema_version(pool: PgPool) {
 async fn app_user_cannot_run_ddl(pool: PgPool) {
     let app = app_pool_for(&pool).await;
     let error = app
-        .execute("CREATE TABLE app_darf_das_nicht (id int)")
+        .execute("CREATE TABLE app_must_not_create (id int)")
         .await
         .expect_err("DDL als Anwendungsbenutzer scheitert");
     let code = error.as_database_error().and_then(|e| e.code());
@@ -124,7 +124,7 @@ async fn app_user_gets_dml_on_tables_of_later_migrations(pool: PgPool) {
 #[sqlx::test(migrations = false)]
 async fn serve_exits_with_75_when_schema_is_outdated(pool: PgPool) {
     let database = pool.connect_options().get_database().unwrap().to_owned();
-    let app_url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP gesetzt");
+    let app_url = std::env::var("DATABASE_URL_APP").expect("DATABASE_URL_APP is set");
     let url = with_database(&app_url, &database);
     let output = std::process::Command::new(env!("CARGO_BIN_EXE_chronos"))
         .arg("serve")

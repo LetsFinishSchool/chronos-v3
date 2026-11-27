@@ -17,10 +17,10 @@ pub struct Change {
     pub object_kind: String,
     pub object_id: Uuid,
     /// Zustand vor der Änderung; `None` bei neuen Objekten.
-    pub before: Option<Value>,
+    pub previous_state: Option<Value>,
     /// Zustand danach; `None` bei gelöschten Objekten. Nur für die Vorschau, der
     /// Verlauf speichert ihn nicht.
-    pub after: Option<Value>,
+    pub new_state: Option<Value>,
 }
 
 /// Ein fachliches Ereignis für die Outbox (K-003).

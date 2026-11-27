@@ -7,16 +7,16 @@ CREATE TABLE person (
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
--- Ein Eintrag je geänderter Objektzustand. `before` hält den Zustand vor der Änderung,
+-- Ein Eintrag je geänderter Objektzustand. `previous_state` hält den Zustand vor der Änderung,
 -- damit der volle Verlaufsmechanismus (#34) darauf aufbauen kann.
 CREATE TABLE history (
     id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    actor_id uuid NOT NULL REFERENCES person (id),
+    actor uuid NOT NULL REFERENCES person (id),
     occurred_at timestamptz NOT NULL DEFAULT now(),
     action text NOT NULL,
     object_kind text NOT NULL,
     object_id uuid NOT NULL,
-    before jsonb,
+    previous_state jsonb,
     correlation_id uuid NOT NULL,
     bundle_id uuid
 );
@@ -27,7 +27,7 @@ CREATE TABLE outbox (
     id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     event text NOT NULL,
     payload jsonb NOT NULL,
-    actor_id uuid NOT NULL REFERENCES person (id),
+    actor uuid NOT NULL REFERENCES person (id),
     correlation_id uuid NOT NULL,
     created_at timestamptz NOT NULL DEFAULT now(),
     processed_at timestamptz

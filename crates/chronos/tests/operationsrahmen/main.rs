@@ -25,7 +25,7 @@ async fn count(pool: &PgPool, table: &str) -> i64 {
         "history" => "SELECT count(*) FROM history",
         "outbox" => "SELECT count(*) FROM outbox",
         "person" => "SELECT count(*) FROM person",
-        other => panic!("unbekannte Tabelle {other}"),
+        other => panic!("unknown table {other}"),
     };
     sqlx::query_scalar(sql).fetch_one(pool).await.unwrap()
 }
@@ -66,7 +66,7 @@ mod operationsrahmen {
             Uuid,
             Option<Uuid>,
         ) = sqlx::query_as(
-            "SELECT actor_id, action, object_kind, object_id, before, correlation_id, bundle_id \
+            "SELECT actor, action, object_kind, object_id, previous_state, correlation_id, bundle_id \
                  FROM history",
         )
         .fetch_one(&pool)
@@ -86,7 +86,7 @@ mod operationsrahmen {
         );
 
         let event: (String, Value, Uuid, Uuid) =
-            sqlx::query_as("SELECT event, payload, actor_id, correlation_id FROM outbox")
+            sqlx::query_as("SELECT event, payload, actor, correlation_id FROM outbox")
                 .fetch_one(&pool)
                 .await
                 .unwrap();
@@ -162,7 +162,10 @@ mod operationsrahmen {
         assert!(!outcome.applied);
         assert_eq!(outcome.changes.len(), 1);
         assert_eq!(outcome.changes[0].action, "notes.create");
-        assert_eq!(outcome.changes[0].after, Some(json!({ "text": "Hello" })));
+        assert_eq!(
+            outcome.changes[0].new_state,
+            Some(json!({ "text": "Hello" }))
+        );
         assert_eq!(outcome.events.len(), 1);
         assert_eq!(count(&pool, "example_note").await, 0);
         assert_eq!(count(&pool, "history").await, 0);
@@ -283,7 +286,7 @@ mod operationsrahmen {
             .execute(
                 &principal,
                 "notes.create",
-                json!({ "owner": "kein-uuid" }),
+                json!({ "owner": "not-a-uuid" }),
                 Uuid::new_v4(),
                 Run::Apply,
             )
