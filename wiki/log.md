@@ -327,3 +327,6 @@ Auf Rückmeldung des Stop-Hooks: `CHRONOS_WORKER_LOG_EVENTS` (kommagetrennt) reg
 
 ## [2026-11-27] ingest | #102 Review Runde 4 und Merge mit #113
 `main` (axum-`serve`, #113) in den Branch gemergt; `shutdown_signal()` dient `serve` und `worker`. Exit-Code 69 wird nicht mehr vergeben, Wiki-Seiten (`cargo-workspace`, `datenbank-und-migrationen`, Index) angepasst. Deutsche Altkommentare in `main.rs` bleiben, sie stammen von `main`.
+
+## [2026-11-27] ingest | #104 ready-for-agent
+Auf Anweisung des Nutzers (Product Owner): Kriterium „Startseite“ ersetzt durch `GET /healthz` über den Ingress; Chart-Hinweise (`CHRONOS_LISTEN`, Probes, `ghcr-pull`) und Abhängigkeiten im Ticket aktualisiert, Label `ready-for-agent` gesetzt. Vorgänger #102 und #113 gemergt, Pull-Secret `ghcr-pull` und Environment `staging` (nur `main`) vorhanden.
